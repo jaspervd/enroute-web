@@ -1,0 +1,14 @@
+{
+  "name": "En Route Webapp",
+  "version": "1.0.0",
+  "authors": [
+    "Jasper Van Damme <jasper.van.damme@student.howest.be>"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "backbone": "~1.1.2",
+    "handlebars": "~1.3.0",
+    "jquery": "1",
+    "underscore": "~1.6.0"
+  }
+}
