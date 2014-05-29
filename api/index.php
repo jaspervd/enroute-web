@@ -41,17 +41,17 @@ $app->post('/content/?', function () use ($app, $contentDAO, $daysDAO) {
         $post = (array)json_decode($app->request()->getBody());
     }
 
-    $uploaddir = '../uploads/';
-    $file = basename($_FILES['enroute_file']['name']);
-    $uploadfile = $uploaddir . $file;
+    $currentDay = $daysDAO->getDayByDate(date('Y-m-d'));
 
+    $file = $_FILES['enroute_file']['tmp_name'];
+    $uploaddir = '../uploads/';
+    $filename = time() .'_'. $currentDay['id'] . pathinfo($file, PATHINFO_EXTENSION);
+    $uploadfile = $uploaddir . $filename;
     $url = '';
 
-    if (move_uploaded_file($_FILES['enroute_file']['tmp_name'], $uploadfile)) {
-        $url = 'uploads/'. $file;
+    if (move_uploaded_file($file, $uploadfile)) {
+        $url = 'uploads/'. $filename;
     }
-
-    $currentDay = $daysDAO->getDayByDate(date('Y-m-d'));
     echo json_encode($contentDAO->insertContent($currentDay['id'], $url, $post['type']));
 });
 
