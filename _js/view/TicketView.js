@@ -11,17 +11,18 @@ var TicketView = Backbone.View.extend({
         'click #btnSubmit': 'orderTicket'
     },
 
-    orderTicket: function() {
+    orderTicket: function(e) {
+        e.preventDefault();
         console.log('[TicketView] orderTicket()');
         var ticket = new Ticket({
             day_id: this.model.get('id'),
-            name: $('txtName').val(),
-            email: $('txtEmail').val()
+            name: $('#txtName').val(),
+            email: $('#txtEmail').val()
         });
         if($('#rngTickets').val()) {
             ticket.set('tickets', parseInt($('#rngTickets').val()));
         }
-        console.log(ticket);
+        ticket.save();
     },
 
     render: function () {

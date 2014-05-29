@@ -3,18 +3,21 @@
     <form method="post" action="">
         <p>
             <label for="txtName">Naam:</label>
-            <input type="text" name="txtName" id="txtName" placeholder="Voornaam Naam" />
+            <input type="text" name="txtName" id="txtName" placeholder="Voornaam Naam"/>
         </p>
+
         <p>
             <label for="txtEmail">E-mailadres:</label>
-            <input type="email" name="txtEmail" id="txtEmail" />
+            <input type="email" name="txtEmail" id="txtEmail"/>
         </p>
+
         <p>
             <label for="rngTickets">Aantal tickets:</label>
-            <input type="range" name="rngTickets" id="rngTickets" min="1" max="25" />
+            <input type="range" name="rngTickets" id="rngTickets" min="1" max="{{tickets_available}}"/>
         </p>
+
         <p>
-            <input type="submit" name="btnSubmit" />
+            <input type="submit" name="btnSubmit" id="btnSubmit"/>
         </p>
     </form>
     {{/ifTypeIsPublic}}
@@ -22,14 +25,16 @@
     <form method="post" action="">
         <p>
             <label for="txtName">Schoolnaam:</label>
-            <input type="text" name="txtName" id="txtName" placeholder="Schoolnaam" />
+            <input type="text" name="txtName" id="txtName" placeholder="Schoolnaam"/>
         </p>
+
         <p>
             <label for="txtEmail">E-mailadres:</label>
-            <input type="email" name="txtEmail" id="txtEmail" />
+            <input type="email" name="txtEmail" id="txtEmail"/>
         </p>
+
         <p>
-            <input type="submit" name="btnSubmit />
+            <input type="submit" name="btnSubmit" id="btnSubmit"/>
         </p>
     </form>
     {{/ifTypeIsSchool}}

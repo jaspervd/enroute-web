@@ -19,6 +19,14 @@ class DaysDAO {
         return array();
     }
 
+    public function updateDayById($tickets, $id) {
+        $sql = "UPDATE `enroute_days` SET `tickets_available` = (`tickets_available` - :tickets) WHERE `id` = :id";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->bindValue('tickets', $tickets);
+        $stmt->bindValue('id', $id);
+        return $stmt->execute();
+    }
+
     public function getDays() {
         $sql = "SELECT * FROM `enroute_days`";
         $stmt = $this->pdo->prepare($sql);

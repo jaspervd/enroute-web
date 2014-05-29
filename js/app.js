@@ -31,14 +31,19 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
 function program1(depth0,data) {
   
-  
-  return "\n    <form method=\"post\" action=\"\">\n        <p>\n            <label for=\"txtName\">Naam:</label>\n            <input type=\"text\" name=\"txtName\" id=\"txtName\" placeholder=\"Voornaam Naam\" />\n        </p>\n        <p>\n            <label for=\"txtEmail\">E-mailadres:</label>\n            <input type=\"email\" name=\"txtEmail\" id=\"txtEmail\" />\n        </p>\n        <p>\n            <label for=\"rngTickets\">Aantal tickets:</label>\n            <input type=\"range\" name=\"rngTickets\" id=\"rngTickets\" min=\"1\" max=\"25\" />\n        </p>\n        <p>\n            <input type=\"submit\" name=\"btnSubmit\" />\n        </p>\n    </form>\n    ";
+  var buffer = "", stack1, helper;
+  buffer += "\n    <form method=\"post\" action=\"\">\n        <p>\n            <label for=\"txtName\">Naam:</label>\n            <input type=\"text\" name=\"txtName\" id=\"txtName\" placeholder=\"Voornaam Naam\"/>\n        </p>\n\n        <p>\n            <label for=\"txtEmail\">E-mailadres:</label>\n            <input type=\"email\" name=\"txtEmail\" id=\"txtEmail\"/>\n        </p>\n\n        <p>\n            <label for=\"rngTickets\">Aantal tickets:</label>\n            <input type=\"range\" name=\"rngTickets\" id=\"rngTickets\" min=\"1\" max=\"";
+  if (helper = helpers.tickets_available) { stack1 = helper.call(depth0, {hash:{},data:data}); }
+  else { helper = (depth0 && depth0.tickets_available); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
+  buffer += escapeExpression(stack1)
+    + "\"/>\n        </p>\n\n        <p>\n            <input type=\"submit\" name=\"btnSubmit\" id=\"btnSubmit\"/>\n        </p>\n    </form>\n    ";
+  return buffer;
   }
 
 function program3(depth0,data) {
   
   
-  return "\n    <form method=\"post\" action=\"\">\n        <p>\n            <label for=\"txtName\">Schoolnaam:</label>\n            <input type=\"text\" name=\"txtName\" id=\"txtName\" placeholder=\"Schoolnaam\" />\n        </p>\n        <p>\n            <label for=\"txtEmail\">E-mailadres:</label>\n            <input type=\"email\" name=\"txtEmail\" id=\"txtEmail\" />\n        </p>\n        <p>\n            <input type=\"submit\" name=\"btnSubmit />\n        </p>\n    </form>\n    ";
+  return "\n    <form method=\"post\" action=\"\">\n        <p>\n            <label for=\"txtName\">Schoolnaam:</label>\n            <input type=\"text\" name=\"txtName\" id=\"txtName\" placeholder=\"Schoolnaam\"/>\n        </p>\n\n        <p>\n            <label for=\"txtEmail\">E-mailadres:</label>\n            <input type=\"email\" name=\"txtEmail\" id=\"txtEmail\"/>\n        </p>\n\n        <p>\n            <input type=\"submit\" name=\"btnSubmit\" id=\"btnSubmit\"/>\n        </p>\n    </form>\n    ";
   }
 
   buffer += "<article id=\"";
@@ -331,17 +336,18 @@ var TicketView = Backbone.View.extend({
         'click #btnSubmit': 'orderTicket'
     },
 
-    orderTicket: function() {
+    orderTicket: function(e) {
+        e.preventDefault();
         console.log('[TicketView] orderTicket()');
         var ticket = new Ticket({
             day_id: this.model.get('id'),
-            name: $('txtName').val(),
-            email: $('txtEmail').val()
+            name: $('#txtName').val(),
+            email: $('#txtEmail').val()
         });
         if($('#rngTickets').val()) {
             ticket.set('tickets', parseInt($('#rngTickets').val()));
         }
-        console.log(ticket);
+        ticket.save();
     },
 
     render: function () {

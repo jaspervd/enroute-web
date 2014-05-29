@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Machine: localhost
--- Genereertijd: 29 mei 2014 om 22:34
+-- Genereertijd: 29 mei 2014 om 23:14
 -- Serverversie: 5.5.29
 -- PHP-versie: 5.4.10
 
@@ -47,12 +47,12 @@ INSERT INTO `enroute_days` (`id`, `title`, `type`, `tickets_available`) VALUES
 (3, '2014-06-04', 'scholen', 25),
 (4, '2014-06-05', 'scholen', 25),
 (5, '2014-06-06', 'scholen', 25),
-(6, '2014-06-09', 'publiek', 25),
+(6, '2014-06-09', 'publiek', 16),
 (7, '2014-06-10', 'publiek', 25),
 (8, '2014-06-11', 'publiek', 25),
 (9, '2014-06-12', 'scholen', 25),
 (10, '2014-06-13', 'scholen', 25),
-(11, '2014-06-16', 'scholen', 25),
+(11, '2014-06-16', 'scholen', 0),
 (12, '2014-06-17', 'scholen', 25),
 (13, '2014-06-18', 'scholen', 25),
 (14, '2014-06-19', 'scholen', 25),
@@ -76,18 +76,27 @@ INSERT INTO `enroute_days` (`id`, `title`, `type`, `tickets_available`) VALUES
 -- --------------------------------------------------------
 
 --
--- Tabelstructuur voor tabel `enroute_orders`
+-- Tabelstructuur voor tabel `enroute_tickets`
 --
 
-DROP TABLE IF EXISTS `enroute_orders`;
-CREATE TABLE `enroute_orders` (
+DROP TABLE IF EXISTS `enroute_tickets`;
+CREATE TABLE `enroute_tickets` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `day_id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
   `tickets` int(2) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+
+--
+-- Gegevens worden uitgevoerd voor tabel `enroute_tickets`
+--
+
+INSERT INTO `enroute_tickets` (`id`, `day_id`, `name`, `email`, `tickets`) VALUES
+(1, 12, 'Howest', 'me@jaspervd.be', 25),
+(2, 11, 'Howest', 'me@jaspervd.be', 25),
+(3, 6, 'Howest', 'me@jaspervd.be', 9);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
