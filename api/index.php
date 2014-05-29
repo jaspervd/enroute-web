@@ -42,12 +42,12 @@ $app->post('/content/?', function () use ($app, $contentDAO, $daysDAO) {
     }
 
     $uploaddir = '../uploads/';
-    $file = basename($_FILES['userfile']['name']);
+    $file = basename($_FILES['enroute_file']['name']);
     $uploadfile = $uploaddir . $file;
 
     $url = '';
 
-    if (move_uploaded_file($_FILES['userfile']['tmp_name'], $uploadfile)) {
+    if (move_uploaded_file($_FILES['enroute_file']['tmp_name'], $uploadfile)) {
         $url = 'uploads/'. $file;
     }
 
