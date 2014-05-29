@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Machine: localhost
--- Genereertijd: 29 mei 2014 om 23:14
+-- Genereertijd: 29 mei 2014 om 23:39
 -- Serverversie: 5.5.29
 -- PHP-versie: 5.4.10
 
@@ -21,6 +21,22 @@ SET time_zone = "+00:00";
 --
 CREATE DATABASE IF NOT EXISTS `maiv_enroute` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
 USE `maiv_enroute`;
+
+-- --------------------------------------------------------
+
+--
+-- Tabelstructuur voor tabel `enroute_content`
+--
+
+DROP TABLE IF EXISTS `enroute_content`;
+CREATE TABLE `enroute_content` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `day_id` int(11) NOT NULL,
+  `url` text NOT NULL,
+  `type` enum('photo','video','sound') NOT NULL,
+  `uploaded_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
