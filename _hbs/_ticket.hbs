@@ -1,5 +1,36 @@
 <article id="{{title}}" class="screen">
+    {{#ifTypeIsPublic type}}
     <form method="post" action="">
-        <input type="text" />
+        <p>
+            <label for="txtName">Naam:</label>
+            <input type="text" name="txtName" id="txtName" placeholder="Voornaam Naam" />
+        </p>
+        <p>
+            <label for="txtEmail">E-mailadres:</label>
+            <input type="email" name="txtEmail" id="txtEmail" />
+        </p>
+        <p>
+            <label for="rngTickets">Aantal tickets:</label>
+            <input type="range" name="rngTickets" id="rngTickets" min="1" max="25" />
+        </p>
+        <p>
+            <input type="submit" name="btnSubmit" />
+        </p>
     </form>
+    {{/ifTypeIsPublic}}
+    {{#ifTypeIsSchool type}}
+    <form method="post" action="">
+        <p>
+            <label for="txtName">Schoolnaam:</label>
+            <input type="text" name="txtName" id="txtName" placeholder="Schoolnaam" />
+        </p>
+        <p>
+            <label for="txtEmail">E-mailadres:</label>
+            <input type="email" name="txtEmail" id="txtEmail" />
+        </p>
+        <p>
+            <input type="submit" name="btnSubmit />
+        </p>
+    </form>
+    {{/ifTypeIsSchool}}
 </article>

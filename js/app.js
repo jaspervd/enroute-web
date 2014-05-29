@@ -27,14 +27,31 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 Handlebars.registerPartial("ticket", this["tpl"]["ticket"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
-  var buffer = "", stack1, helper, functionType="function", escapeExpression=this.escapeExpression;
+  var buffer = "", stack1, helper, options, functionType="function", escapeExpression=this.escapeExpression, self=this, helperMissing=helpers.helperMissing;
 
+function program1(depth0,data) {
+  
+  
+  return "\n    <form method=\"post\" action=\"\">\n        <p>\n            <label for=\"txtName\">Naam:</label>\n            <input type=\"text\" name=\"txtName\" id=\"txtName\" placeholder=\"Voornaam Naam\" />\n        </p>\n        <p>\n            <label for=\"txtEmail\">E-mailadres:</label>\n            <input type=\"email\" name=\"txtEmail\" id=\"txtEmail\" />\n        </p>\n        <p>\n            <label for=\"rngTickets\">Aantal tickets:</label>\n            <input type=\"range\" name=\"rngTickets\" id=\"rngTickets\" min=\"1\" max=\"25\" />\n        </p>\n        <p>\n            <input type=\"submit\" name=\"btnSubmit\" />\n        </p>\n    </form>\n    ";
+  }
+
+function program3(depth0,data) {
+  
+  
+  return "\n    <form method=\"post\" action=\"\">\n        <p>\n            <label for=\"txtName\">Schoolnaam:</label>\n            <input type=\"text\" name=\"txtName\" id=\"txtName\" placeholder=\"Schoolnaam\" />\n        </p>\n        <p>\n            <label for=\"txtEmail\">E-mailadres:</label>\n            <input type=\"email\" name=\"txtEmail\" id=\"txtEmail\" />\n        </p>\n        <p>\n            <input type=\"submit\" name=\"btnSubmit />\n        </p>\n    </form>\n    ";
+  }
 
   buffer += "<article id=\"";
   if (helper = helpers.title) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.title); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
-    + "\" class=\"screen\">\n    <form method=\"post\" action=\"\">\n        <input type=\"text\" />\n    </form>\n</article>";
+    + "\" class=\"screen\">\n    ";
+  stack1 = (helper = helpers.ifTypeIsPublic || (depth0 && depth0.ifTypeIsPublic),options={hash:{},inverse:self.noop,fn:self.program(1, program1, data),data:data},helper ? helper.call(depth0, (depth0 && depth0.type), options) : helperMissing.call(depth0, "ifTypeIsPublic", (depth0 && depth0.type), options));
+  if(stack1 || stack1 === 0) { buffer += stack1; }
+  buffer += "\n    ";
+  stack1 = (helper = helpers.ifTypeIsSchool || (depth0 && depth0.ifTypeIsSchool),options={hash:{},inverse:self.noop,fn:self.program(3, program3, data),data:data},helper ? helper.call(depth0, (depth0 && depth0.type), options) : helperMissing.call(depth0, "ifTypeIsSchool", (depth0 && depth0.type), options));
+  if(stack1 || stack1 === 0) { buffer += stack1; }
+  buffer += "\n</article>";
   return buffer;
   }));
 
@@ -84,18 +101,30 @@ function program1(depth0,data) {
   return buffer;
   });
 
-Handlebars.registerHelper('formatDate', function(date) {
+Handlebars.registerHelper('formatDate', function (date) {
     moment.lang('nl');
     return moment(date).format('dddd Do MMMM');
 });
 
-Handlebars.registerHelper('formatAvailability', function(date, tickets) {
-    if(new Date(date) <= new Date()) {
+Handlebars.registerHelper('formatAvailability', function (date, tickets) {
+    if (new Date(date) <= new Date()) {
         return '<span class="done">voorbij</span>';
-    } else if(parseInt(tickets) === 0) {
+    } else if (parseInt(tickets) === 0) {
         return '<span class="soldout">uitverkocht</span>';
     } else {
-        return '<a href="" class="available">nog '+ tickets +' tickets</a>';
+        return '<a href="" class="available">nog ' + tickets + ' tickets</a>';
+    }
+});
+
+Handlebars.registerHelper('ifTypeIsPublic', function (type, options) {
+    if (type === 'publiek') {
+        return options.fn(this);
+    }
+});
+
+Handlebars.registerHelper('ifTypeIsSchool', function (type, options) {
+    if (type === 'scholen') {
+        return options.fn(this);
     }
 });
 
@@ -115,6 +144,20 @@ var Day = Backbone.Model.extend({
         title: undefined,
         type: undefined
     }
+});
+
+/* globals Settings:true */
+
+var Ticket = Backbone.Model.extend({
+    defaults: {
+        id: null,
+        day_id: undefined,
+        name: undefined,
+        email: undefined,
+        tickets: 25
+    },
+
+    urlRoot: Settings.API + '/tickets'
 });
 
 /* globals EnRouteApp:true */
@@ -275,11 +318,30 @@ var ScreenView = Backbone.View.extend({
     }
 });
 
+/* globals Ticket:true */
 var TicketView = Backbone.View.extend({
+    model: Ticket,
     template: tpl.ticket,
 
     initialize: function () {
         _.bindAll.apply(_, [this].concat(_.functions(this)));
+    },
+
+    events: {
+        'click #btnSubmit': 'orderTicket'
+    },
+
+    orderTicket: function() {
+        console.log('[TicketView] orderTicket()');
+        var ticket = new Ticket({
+            day_id: this.model.get('id'),
+            name: $('txtName').val(),
+            email: $('txtEmail').val()
+        });
+        if($('#rngTickets').val()) {
+            ticket.set('tickets', parseInt($('#rngTickets').val()));
+        }
+        console.log(ticket);
     },
 
     render: function () {
