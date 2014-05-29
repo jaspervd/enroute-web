@@ -1,10 +1,10 @@
-var jspaths = ['_js/classes/*.js','_js/model/*.js','_js/router/*.js','_js/collection/*.js','_js/view/*.js','_js/app.js'];
+var jspaths = ['_js/helpers.js', '_js/classes/*.js', '_js/model/*.js', '_js/router/*.js', '_js/collection/*.js', '_js/view/*.js', '_js/app.js'];
 var csspaths = ['_scss/*.scss'];
 var templatepaths = ['_hbs/*.hbs'];
 var imagepaths = ['_images/*/*.{png,jpg,gif}'];
 var concatpaths = ['_js/templates.js'].concat(jspaths);
 
-module.exports = function(grunt) {
+module.exports = function (grunt) {
 
     grunt.initConfig({
 
@@ -21,21 +21,21 @@ module.exports = function(grunt) {
         },
 
         watch: {
-            js:{
+            js: {
                 files: jspaths,
-                tasks: ['jshint','handlebars','concat','clean']
+                tasks: ['jshint', 'handlebars', 'concat', 'clean']
             },
-            scss:{
+            scss: {
                 files: csspaths,
-                tasks:['compass:development']
+                tasks: ['compass:development']
             },
-            hbs:{
+            hbs: {
                 files: templatepaths,
-                tasks: ['handlebars','concat','clean']
+                tasks: ['handlebars', 'concat', 'clean']
             },
-            images:{
+            images: {
                 files: imagepaths,
-                tasks:['imagemin']
+                tasks: ['imagemin']
             }
         },
 
@@ -74,7 +74,7 @@ module.exports = function(grunt) {
             compile: {
                 options: {
                     namespace: "tpl",
-                    processName: function(filePath) {
+                    processName: function (filePath) {
                         var pieces = filePath.split("/");
                         return pieces[pieces.length - 1].split(".")[0];
                     },
@@ -86,27 +86,29 @@ module.exports = function(grunt) {
             }
         },
 
-        imagemin:{
-            default:{
+        imagemin: {
+            default: {
                 options: {
                     optimizationLevel: 7, //PNG
                     progressive: true, //JPEG
                     interlaced: true //GIF
                 },
-                files: [{
-                    expand: true,
-                    src: imagepaths,
-                    dest: 'result/images',
-                    rename: function(filePath, src){
-                        var pieces = src.split("/");
-                        return filePath + '/' + pieces[pieces.length - 1];
+                files: [
+                    {
+                        expand: true,
+                        src: imagepaths,
+                        dest: 'result/images',
+                        rename: function (filePath, src) {
+                            var pieces = src.split("/");
+                            return filePath + '/' + pieces[pieces.length - 1];
+                        }
                     }
-                }]
+                ]
             }
         },
 
-        jshint:{
-            default:{
+        jshint: {
+            default: {
                 options: {
                     curly: true,
                     eqeqeq: true,
@@ -120,25 +122,24 @@ module.exports = function(grunt) {
                     browser: true,
                     noempty: true,
                     trailing: true,
-                    globals:{
+                    globals: {
                         Backbone: true,
                         $: true,
-                        console:true,
+                        console: true,
                         Handlebars: true,
                         tpl: true,
                         moment: true,
-                        _:true,
-                        Modernizr:true
+                        _: true,
+                        Modernizr: true
                     }
                 },
-                files:{
+                files: {
                     src: jspaths
                 }
             }
         },
 
         clean: ["_js/templates.js"]
-
     });
 
     grunt.loadNpmTasks('grunt-contrib-watch');
@@ -150,6 +151,6 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-contrib-imagemin');
 
-    grunt.registerTask('default', ['jshint','handlebars','concat','compass:development','clean','watch']);
-    grunt.registerTask('production', ['jshint','handlebars','uglify','compass:production','clean','imagemin']);
+    grunt.registerTask('default', ['jshint', 'handlebars', 'concat', 'compass:development', 'clean', 'watch']);
+    grunt.registerTask('production', ['jshint', 'handlebars', 'uglify', 'compass:production', 'clean', 'imagemin']);
 };

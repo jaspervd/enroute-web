@@ -5,6 +5,7 @@ var NavigationView = Backbone.View.extend({
 
     initialize: function () {
         _.bindAll.apply(_, [this].concat(_.functions(this)));
+        this.collection.on('sync reset', this.render);
     },
 
     events: {
@@ -14,11 +15,16 @@ var NavigationView = Backbone.View.extend({
     itemClicked: function(e) {
         e.preventDefault();
         console.log("[NavigationView] itemClicked()");
-        this.trigger('itemClicked', e.currentTarget);
+        if($(e.currentTarget).attr('class') === 'available') {
+            this.trigger('itemClicked', $(e.currentTarget).prev());
+        } else {
+            this.trigger('itemClicked', e.currentTarget);
+        }
     },
 
     render: function () {
-        this.$el.append(this.template());
+        this.$el.find('li').remove();
+        this.$el.append(this.template({days: this.collection.toJSON()}));
         return this;
     }
 });

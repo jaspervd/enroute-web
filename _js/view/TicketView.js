@@ -1,5 +1,5 @@
-var ScreenView = Backbone.View.extend({
-    template: tpl.screen,
+var TicketView = Backbone.View.extend({
+    template: tpl.ticket,
 
     initialize: function () {
         _.bindAll.apply(_, [this].concat(_.functions(this)));

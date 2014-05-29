@@ -20,17 +20,20 @@ var EnRouteApp = Backbone.View.extend({
 
     changeScreen: function (item) {
         console.log("[EnRouteApp] changeScreen()");
-        /*var $prevScreen = $('#' + this.currentScreen);
+        var $prevScreen = $('#' + this.currentScreen);
         var $newScreen = $(item).attr('data');
-        this.contentView.updateScreen($newScreen);
+        if($newScreen !== 'info') {
+            this.contentView.updateScreen($newScreen);
+        }
         if (this.currentScreen !== $(item).attr('data')) {
-            $('.screen').css('z-index', 0).removeClass('pushRight').removeClass('pushDown').not($prevScreen).css('margin-left', '-100%');
+            $('.screen').css('z-index', 0).removeClass('pushRight').removeClass('pushDown').css('margin-left', '-100%');
+            $prevScreen.css('margin-left', 0);
             setTimeout(function () { // fix pushDown
                 $prevScreen.addClass('pushDown');
-                $newScreen.addClass('pushRight');
+                $('#' + $newScreen).css('margin-left', '').addClass('pushRight');
             }, 50);
             this.currentScreen = $newScreen;
-        }*/
+        }
     },
 
     render: function () {

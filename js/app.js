@@ -9,14 +9,32 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
 
   buffer += "<article id=\"";
-  if (helper = helpers.id) { stack1 = helper.call(depth0, {hash:{},data:data}); }
-  else { helper = (depth0 && depth0.id); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
+  if (helper = helpers.title) { stack1 = helper.call(depth0, {hash:{},data:data}); }
+  else { helper = (depth0 && depth0.title); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
     + "\" class=\"screen\">\n    ";
-  if (helper = helpers.content) { stack1 = helper.call(depth0, {hash:{},data:data}); }
-  else { helper = (depth0 && depth0.content); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
-  if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "\n</article>";
+  if (helper = helpers.type) { stack1 = helper.call(depth0, {hash:{},data:data}); }
+  else { helper = (depth0 && depth0.type); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
+  buffer += escapeExpression(stack1)
+    + " ";
+  if (helper = helpers.title) { stack1 = helper.call(depth0, {hash:{},data:data}); }
+  else { helper = (depth0 && depth0.title); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
+  buffer += escapeExpression(stack1)
+    + "\n</article>";
+  return buffer;
+  }));
+
+Handlebars.registerPartial("ticket", this["tpl"]["ticket"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+  this.compilerInfo = [4,'>= 1.0.0'];
+helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
+  var buffer = "", stack1, helper, functionType="function", escapeExpression=this.escapeExpression;
+
+
+  buffer += "<article id=\"";
+  if (helper = helpers.title) { stack1 = helper.call(depth0, {hash:{},data:data}); }
+  else { helper = (depth0 && depth0.title); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
+  buffer += escapeExpression(stack1)
+    + "\" class=\"screen\">\n    <form method=\"post\" action=\"\">\n        <input type=\"text\" />\n    </form>\n</article>";
   return buffer;
   }));
 
@@ -41,11 +59,45 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 this["tpl"]["navigation"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
+  var buffer = "", stack1, functionType="function", escapeExpression=this.escapeExpression, helperMissing=helpers.helperMissing, self=this;
+
+function program1(depth0,data) {
   
+  var buffer = "", stack1, helper, options;
+  buffer += "\n        <li><a href=\"\" class=\"title\" data=\"";
+  if (helper = helpers.title) { stack1 = helper.call(depth0, {hash:{},data:data}); }
+  else { helper = (depth0 && depth0.title); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
+  buffer += escapeExpression(stack1)
+    + "\">"
+    + escapeExpression((helper = helpers.formatDate || (depth0 && depth0.formatDate),options={hash:{},data:data},helper ? helper.call(depth0, (depth0 && depth0.title), options) : helperMissing.call(depth0, "formatDate", (depth0 && depth0.title), options)))
+    + "</a> - ";
+  stack1 = (helper = helpers.formatAvailability || (depth0 && depth0.formatAvailability),options={hash:{},data:data},helper ? helper.call(depth0, (depth0 && depth0.title), (depth0 && depth0.tickets_available), options) : helperMissing.call(depth0, "formatAvailability", (depth0 && depth0.title), (depth0 && depth0.tickets_available), options));
+  if(stack1 || stack1 === 0) { buffer += stack1; }
+  buffer += "</li>\n    ";
+  return buffer;
+  }
 
-
-  return "<ul>\n    <li><a href=\"\" data=\"info\">info</a></li>\n</ul>";
+  buffer += "<ul>\n    <li><a href=\"\" data=\"info\">info</a></li>\n    ";
+  stack1 = helpers.each.call(depth0, (depth0 && depth0.days), {hash:{},inverse:self.noop,fn:self.program(1, program1, data),data:data});
+  if(stack1 || stack1 === 0) { buffer += stack1; }
+  buffer += "\n</ul>";
+  return buffer;
   });
+
+Handlebars.registerHelper('formatDate', function(date) {
+    moment.lang('nl');
+    return moment(date).format('dddd Do MMMM');
+});
+
+Handlebars.registerHelper('formatAvailability', function(date, tickets) {
+    if(new Date(date) <= new Date()) {
+        return '<span class="done">voorbij</span>';
+    } else if(parseInt(tickets) === 0) {
+        return '<span class="soldout">uitverkocht</span>';
+    } else {
+        return '<a href="" class="available">nog '+ tickets +' tickets</a>';
+    }
+});
 
 var Settings = (function () {
     function Settings() {}
@@ -99,6 +151,7 @@ var Days = Backbone.Collection.extend({
 });
 
 /* globals ScreenView:true */
+/* globals TicketView:true */
 
 var ContentView = Backbone.View.extend({
     id: 'content',
@@ -109,8 +162,16 @@ var ContentView = Backbone.View.extend({
         _.bindAll.apply(_, [this].concat(_.functions(this)));
     },
 
-    updateScreen: function() {
+    updateScreen: function(prevScreen) {
         console.log('[ContentView] updateScreen()');
+        var modelScreen = this.collection.findWhere({title: prevScreen});
+        if(new Date(modelScreen.get('title')) <= new Date()) {
+            var screenView = new ScreenView({model: modelScreen});
+            this.$el.append(screenView.render().$el);
+        } else {
+            var ticketView = new TicketView({model: modelScreen});
+            this.$el.append(ticketView.render().$el);
+        }
     },
 
     render: function () {
@@ -141,17 +202,20 @@ var EnRouteApp = Backbone.View.extend({
 
     changeScreen: function (item) {
         console.log("[EnRouteApp] changeScreen()");
-        /*var $prevScreen = $('#' + this.currentScreen);
+        var $prevScreen = $('#' + this.currentScreen);
         var $newScreen = $(item).attr('data');
-        this.contentView.updateScreen($newScreen);
+        if($newScreen !== 'info') {
+            this.contentView.updateScreen($newScreen);
+        }
         if (this.currentScreen !== $(item).attr('data')) {
-            $('.screen').css('z-index', 0).removeClass('pushRight').removeClass('pushDown').not($prevScreen).css('margin-left', '-100%');
+            $('.screen').css('z-index', 0).removeClass('pushRight').removeClass('pushDown').css('margin-left', '-100%');
+            $prevScreen.css('margin-left', 0);
             setTimeout(function () { // fix pushDown
                 $prevScreen.addClass('pushDown');
-                $newScreen.addClass('pushRight');
+                $('#' + $newScreen).css('margin-left', '').addClass('pushRight');
             }, 50);
             this.currentScreen = $newScreen;
-        }*/
+        }
     },
 
     render: function () {
@@ -171,6 +235,7 @@ var NavigationView = Backbone.View.extend({
 
     initialize: function () {
         _.bindAll.apply(_, [this].concat(_.functions(this)));
+        this.collection.on('sync reset', this.render);
     },
 
     events: {
@@ -180,24 +245,48 @@ var NavigationView = Backbone.View.extend({
     itemClicked: function(e) {
         e.preventDefault();
         console.log("[NavigationView] itemClicked()");
-        this.trigger('itemClicked', e.currentTarget);
+        if($(e.currentTarget).attr('class') === 'available') {
+            this.trigger('itemClicked', $(e.currentTarget).prev());
+        } else {
+            this.trigger('itemClicked', e.currentTarget);
+        }
     },
 
     render: function () {
-        this.$el.append(this.template());
+        this.$el.find('li').remove();
+        this.$el.append(this.template({days: this.collection.toJSON()}));
         return this;
     }
 });
 
 var ScreenView = Backbone.View.extend({
-    template: tpl.content,
+    template: tpl.screen,
 
     initialize: function () {
         _.bindAll.apply(_, [this].concat(_.functions(this)));
     },
 
     render: function () {
-        this.$el.append(this.template(this.model));
+        var html = this.template(this.model.toJSON());
+        var newElement = $(html);
+        this.$el.replaceWith(newElement);
+        this.setElement(newElement);
+        return this;
+    }
+});
+
+var TicketView = Backbone.View.extend({
+    template: tpl.ticket,
+
+    initialize: function () {
+        _.bindAll.apply(_, [this].concat(_.functions(this)));
+    },
+
+    render: function () {
+        var html = this.template(this.model.toJSON());
+        var newElement = $(html);
+        this.$el.replaceWith(newElement);
+        this.setElement(newElement);
         return this;
     }
 });
