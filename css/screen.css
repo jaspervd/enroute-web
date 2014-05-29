@@ -63,12 +63,52 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
   display: block;
 }
 
-/* line 6, ../_scss/screen.scss */
+@keyframes pushDown {
+  /* line 8, ../_scss/screen.scss */
+  to {
+    width: 80%;
+    height: 80%;
+    margin: 10%;
+    zoom: .8;
+    -webkit-filter: blur(4px);
+    -moz-filter: blur(4px);
+    filter: blur(4px);
+  }
+}
+
+@-webkit-keyframes pushDown {
+  /* line 18, ../_scss/screen.scss */
+  to {
+    width: 80%;
+    height: 80%;
+    margin: 10%;
+    zoom: .8;
+    -webkit-filter: blur(4px);
+    -moz-filter: blur(4px);
+    filter: blur(4px);
+  }
+}
+
+@keyframes pushRight {
+  /* line 28, ../_scss/screen.scss */
+  to {
+    margin-left: 0;
+  }
+}
+
+@-webkit-keyframes pushRight {
+  /* line 34, ../_scss/screen.scss */
+  to {
+    margin-left: 0;
+  }
+}
+
+/* line 41, ../_scss/screen.scss */
 html {
   height: 100%;
 }
 
-/* line 10, ../_scss/screen.scss */
+/* line 45, ../_scss/screen.scss */
 body {
   background-color: #3E3E3E;
   font-size: 62.5%;
@@ -76,37 +116,43 @@ body {
   height: 100%;
 }
 
-/* line 17, ../_scss/screen.scss */
+/* line 52, ../_scss/screen.scss */
 #container {
   width: 100%;
   height: 100%;
 }
 
-/* line 22, ../_scss/screen.scss */
+/* line 57, ../_scss/screen.scss */
 .clear {
   clear: both;
 }
 
-/* line 28, ../_scss/screen.scss */
+/* line 63, ../_scss/screen.scss */
 #navigation, #content {
   width: 50%;
   float: left;
   height: 100%;
 }
 
-/* line 34, ../_scss/screen.scss */
+/* line 69, ../_scss/screen.scss */
 #navigation {
   background-color: #DDD;
 }
+/* line 72, ../_scss/screen.scss */
+#navigation a {
+  color: #004276 !important;
+  font-size: 2em !important;
+  text-decoration: none !important;
+}
 
-/* line 40, ../_scss/screen.scss */
+/* line 81, ../_scss/screen.scss */
 #content {
   min-width: 50%;
   width: auto;
   overflow: hidden;
   position: relative;
 }
-/* line 46, ../_scss/screen.scss */
+/* line 87, ../_scss/screen.scss */
 #content .screen {
   background-color: #0d3349;
   width: 100%;
@@ -115,9 +161,21 @@ body {
   margin-left: -100%;
   color: #FFF;
 }
-/* line 53, ../_scss/screen.scss */
+/* line 95, ../_scss/screen.scss */
 #content .screen:first-child {
   background-color: #2F6FAD;
   margin: 0;
   z-index: 5;
+}
+/* line 101, ../_scss/screen.scss */
+#content .screen.pushDown {
+  animation: pushDown .5s forwards ease-in-out;
+  -webkit-animation: pushDown .5s forwards ease-in-out;
+  z-index: 0 !important;
+}
+/* line 107, ../_scss/screen.scss */
+#content .screen.pushRight {
+  animation: pushRight .6s forwards ease-in-out .5s;
+  -webkit-animation: pushRight .6s forwards ease-in-out .5s;
+  z-index: 5 !important;
 }

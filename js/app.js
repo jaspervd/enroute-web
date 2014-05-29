@@ -2,13 +2,31 @@
 
 this["tpl"] = this["tpl"] || {};
 
+Handlebars.registerPartial("screen", this["tpl"]["screen"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+  this.compilerInfo = [4,'>= 1.0.0'];
+helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
+  var buffer = "", stack1, helper, functionType="function", escapeExpression=this.escapeExpression;
+
+
+  buffer += "<article id=\"";
+  if (helper = helpers.id) { stack1 = helper.call(depth0, {hash:{},data:data}); }
+  else { helper = (depth0 && depth0.id); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
+  buffer += escapeExpression(stack1)
+    + "\" class=\"screen\">\n    ";
+  if (helper = helpers.content) { stack1 = helper.call(depth0, {hash:{},data:data}); }
+  else { helper = (depth0 && depth0.content); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
+  if(stack1 || stack1 === 0) { buffer += stack1; }
+  buffer += "\n</article>";
+  return buffer;
+  }));
+
 this["tpl"]["content"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   
 
 
-  return "<article id=\"info\" class=\"screen\">\n    En route daagt je uit om gedurende één dag de stad anders te bekijken en te beleven. Na een actieve opwarming in De Tuin van HETPALEIS trek je op zintuiglijke en poëtische ontdekkingstocht door de straten van Antwerpen onder begeleiding van een kunstdocent.\n</article>\n<article id=\"item1\" class=\"screen\">\n    item1\n</article>\n<article id=\"item2\" class=\"screen\">\nitem2\n</article>\n<article id=\"item3\" class=\"screen\">\nitem3\n</article>\n<article id=\"item4\" class=\"screen\">\nitem4\n</article>\n<article id=\"item5\" class=\"screen\">\nitem5\n</article>";
+  return "<article id=\"info\" class=\"screen\">\n    <img src=\"http://lorempixel.com/720/800/\"/>\n</article>";
   });
 
 this["tpl"]["enroute"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
@@ -26,8 +44,26 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   
 
 
-  return "<ul>\n    <li><a href=\"\" data=\"info\">info</a></li>\n    <li><a href=\"\" data=\"item1\">item 1</a></li>\n    <li><a href=\"\" data=\"item2\">item 2</a></li>\n    <li><a href=\"\" data=\"item3\">item 3</a></li>\n    <li><a href=\"\" data=\"item4\">item 4</a></li>\n    <li><a href=\"\" data=\"item5\">item 5</a></li>\n</ul>";
+  return "<ul>\n    <li><a href=\"\" data=\"info\">info</a></li>\n</ul>";
   });
+
+var Settings = (function () {
+    function Settings() {}
+
+    Settings.base = "http://localhost";
+    Settings.path = "/MAIV/ENROUTE/enroute-web";
+    Settings.API = Settings.base + Settings.path + "/api";
+
+    return Settings;
+})();
+
+var Day = Backbone.Model.extend({
+    defaults:{
+        id: null,
+        title: undefined,
+        type: undefined
+    }
+});
 
 /* globals EnRouteApp:true */
 /* globals Settings:true */
@@ -54,6 +90,16 @@ var AppRouter = Backbone.Router.extend({
 });
 
 
+/* globals Day:true */
+/* globals Settings:true */
+
+var Days = Backbone.Collection.extend({
+    model: Day,
+    url: Settings.API + "/days"
+});
+
+/* globals ScreenView:true */
+
 var ContentView = Backbone.View.extend({
     id: 'content',
     tagName: 'section',
@@ -61,6 +107,10 @@ var ContentView = Backbone.View.extend({
 
     initialize: function () {
         _.bindAll.apply(_, [this].concat(_.functions(this)));
+    },
+
+    updateScreen: function() {
+        console.log('[ContentView] updateScreen()');
     },
 
     render: function () {
@@ -71,6 +121,7 @@ var ContentView = Backbone.View.extend({
 
 /* globals NavigationView:true */
 /* globals ContentView:true */
+/* globals Days:true */
 
 var EnRouteApp = Backbone.View.extend({
     id: 'container',
@@ -81,20 +132,26 @@ var EnRouteApp = Backbone.View.extend({
     initialize: function () {
         _.bindAll.apply(_, [this].concat(_.functions(this)));
 
-        this.navigationView = new NavigationView();
-        this.contentView = new ContentView();
+        this.days = new Days();
+        this.days.fetch();
+
+        this.navigationView = new NavigationView({collection: this.days});
+        this.contentView = new ContentView({collection: this.days});
     },
 
-    changeScreen: function(item) {
+    changeScreen: function (item) {
         console.log("[EnRouteApp] changeScreen()");
-        var $prevScreen = $('#' + this.currentScreen);
-        $prevScreen.css('z-index', 0);
-        this.currentScreen = $(item).attr('data');
-        $('#' + this.currentScreen).css('z-index', 5).stop().animate({
-            'margin-left': '0'
-        }, 1000, 'easeOutQuint', function() {
-            $prevScreen.css('margin-left', '-100%');
-        });
+        /*var $prevScreen = $('#' + this.currentScreen);
+        var $newScreen = $(item).attr('data');
+        this.contentView.updateScreen($newScreen);
+        if (this.currentScreen !== $(item).attr('data')) {
+            $('.screen').css('z-index', 0).removeClass('pushRight').removeClass('pushDown').not($prevScreen).css('margin-left', '-100%');
+            setTimeout(function () { // fix pushDown
+                $prevScreen.addClass('pushDown');
+                $newScreen.addClass('pushRight');
+            }, 50);
+            this.currentScreen = $newScreen;
+        }*/
     },
 
     render: function () {
@@ -128,6 +185,19 @@ var NavigationView = Backbone.View.extend({
 
     render: function () {
         this.$el.append(this.template());
+        return this;
+    }
+});
+
+var ScreenView = Backbone.View.extend({
+    template: tpl.content,
+
+    initialize: function () {
+        _.bindAll.apply(_, [this].concat(_.functions(this)));
+    },
+
+    render: function () {
+        this.$el.append(this.template(this.model));
         return this;
     }
 });

@@ -1,5 +1,6 @@
 /* globals NavigationView:true */
 /* globals ContentView:true */
+/* globals Days:true */
 
 var EnRouteApp = Backbone.View.extend({
     id: 'container',
@@ -10,20 +11,26 @@ var EnRouteApp = Backbone.View.extend({
     initialize: function () {
         _.bindAll.apply(_, [this].concat(_.functions(this)));
 
-        this.navigationView = new NavigationView();
-        this.contentView = new ContentView();
+        this.days = new Days();
+        this.days.fetch();
+
+        this.navigationView = new NavigationView({collection: this.days});
+        this.contentView = new ContentView({collection: this.days});
     },
 
-    changeScreen: function(item) {
+    changeScreen: function (item) {
         console.log("[EnRouteApp] changeScreen()");
-        var $prevScreen = $('#' + this.currentScreen);
-        $prevScreen.css('z-index', 0);
-        this.currentScreen = $(item).attr('data');
-        $('#' + this.currentScreen).css('z-index', 5).stop().animate({
-            'margin-left': '0'
-        }, 1000, 'easeOutQuint', function() {
-            $prevScreen.css('margin-left', '-100%');
-        });
+        /*var $prevScreen = $('#' + this.currentScreen);
+        var $newScreen = $(item).attr('data');
+        this.contentView.updateScreen($newScreen);
+        if (this.currentScreen !== $(item).attr('data')) {
+            $('.screen').css('z-index', 0).removeClass('pushRight').removeClass('pushDown').not($prevScreen).css('margin-left', '-100%');
+            setTimeout(function () { // fix pushDown
+                $prevScreen.addClass('pushDown');
+                $newScreen.addClass('pushRight');
+            }, 50);
+            this.currentScreen = $newScreen;
+        }*/
     },
 
     render: function () {

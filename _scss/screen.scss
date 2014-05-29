@@ -1,5 +1,40 @@
 @import "compass/reset";
 @import "compass";
+@import "compass/css3/filter";
+
+// Animations
+
+@keyframes pushDown {
+  to {
+    width: 80%;
+    height: 80%;
+    margin: 10%;
+    zoom: .8;
+    @include filter(blur(4px));
+  }
+}
+
+@-webkit-keyframes pushDown {
+  to {
+    width: 80%;
+    height: 80%;
+    margin: 10%;
+    zoom: .8;
+    @include filter(blur(4px));
+  }
+}
+
+@keyframes pushRight {
+  to {
+    margin-left: 0;
+  }
+}
+
+@-webkit-keyframes pushRight {
+  to {
+    margin-left: 0;
+  }
+}
 
 // Main divs and tags
 
@@ -33,6 +68,12 @@ body {
 
 #navigation {
   background-color: #DDD;
+  
+  a {
+    color: #004276 !important;
+    font-size: 2em !important;
+    text-decoration: none !important;
+  }
 }
 
 // Content
@@ -50,10 +91,23 @@ body {
     position: absolute;
     margin-left: -100%;
     color: #FFF;
+
     &:first-child {
       background-color: #2F6FAD;
       margin: 0;
       z-index: 5;
+    }
+
+    &.pushDown {
+      animation: pushDown .5s forwards ease-in-out;
+      -webkit-animation: pushDown .5s forwards ease-in-out;
+      z-index: 0 !important;
+    }
+
+    &.pushRight {
+      animation: pushRight .6s forwards ease-in-out .5s;
+      -webkit-animation: pushRight .6s forwards ease-in-out .5s;
+      z-index: 5 !important;
     }
   }
 }
