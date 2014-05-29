@@ -1,16 +1,23 @@
-/* globals Questionnaire:true */
+/* globals EnRouteApp:true */
 /* globals Settings:true */
 
 var AppRouter = Backbone.Router.extend({
+    enRouteApp: undefined,
 
-	poll_id: 0,
-	questionnaire: undefined,
+    initialize: function () {
+        _.bindAll.apply(_, [this].concat(_.functions(this)));
+    },
 
-	initialize: function(){
-		_.bindAll.apply(_, [this].concat(_.functions(this)));
-	},
+    routes: {
+        "": "overview",
+        "*path": "overview"
+    },
 
-	routes: {
-		"": ""
-	}
+    overview: function () {
+        console.log("[AppRouter] overview()");
+        this.enRouteApp = new EnRouteApp();
+        $("#container").remove();
+        $("body").prepend(this.enRouteApp.render().$el);
+        Backbone.history.navigate("home/");
+    }
 });

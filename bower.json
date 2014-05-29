@@ -2,7 +2,9 @@
   "name": "En Route Webapp",
   "version": "1.0.0",
   "authors": [
-    "Jasper Van Damme <jasper.van.damme@student.howest.be>"
+      "Jasper Van Damme <jasper.van.damme@student.howest.be>",
+      "Stijn Heylen <stijn.heylen@student.howest.be>",
+      "Salvatore Volpe <salvatore.volpe@student.howest.be>"
   ],
   "license": "MIT",
   "dependencies": {

@@ -16,7 +16,7 @@ module.exports = function(grunt) {
             },
             dist: {
                 src: concatpaths,
-                dest: 'result/js/app.js'
+                dest: 'js/app.js'
             }
         },
 
@@ -54,7 +54,7 @@ module.exports = function(grunt) {
             development: {
                 options: {
                     sassDir: '_scss',
-                    cssDir: 'result/css',
+                    cssDir: 'css',
                     environment: 'development',
                     force: true
                 }
@@ -62,7 +62,7 @@ module.exports = function(grunt) {
             production: {
                 options: {
                     sassDir: '_scss',
-                    cssDir: 'css',
+                    cssDir: 'result/css',
                     environment: 'production',
                     outputStyle: 'compressed',
                     force: true
@@ -129,7 +129,7 @@ module.exports = function(grunt) {
                         moment: true,
                         _:true,
                         Modernizr:true
-                    },
+                    }
                 },
                 files:{
                     src: jspaths
@@ -137,7 +137,7 @@ module.exports = function(grunt) {
             }
         },
 
-        clean: ["_js/templates.js"],
+        clean: ["_js/templates.js"]
 
     });
 
@@ -150,6 +150,6 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-contrib-imagemin');
 
-    grunt.registerTask('default', ['jshint','handlebars','concat','compass:development','clean','imagemin','watch']);
+    grunt.registerTask('default', ['jshint','handlebars','concat','compass:development','clean','watch']);
     grunt.registerTask('production', ['jshint','handlebars','uglify','compass:production','clean','imagemin']);
 };
