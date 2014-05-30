@@ -3,6 +3,7 @@ define('WWW_ROOT', dirname(dirname(__FILE__)) . DIRECTORY_SEPARATOR);
 require_once WWW_ROOT . 'dao' . DIRECTORY_SEPARATOR . 'DaysDAO.php';
 require_once WWW_ROOT . 'dao' . DIRECTORY_SEPARATOR . 'TicketsDAO.php';
 require_once WWW_ROOT . 'dao' . DIRECTORY_SEPARATOR . 'ContentDAO.php';
+require_once WWW_ROOT . 'includes' . DIRECTORY_SEPARATOR . 'Validate.php';
 require_once WWW_ROOT . 'api' . DIRECTORY_SEPARATOR . 'Slim' . DIRECTORY_SEPARATOR . 'Slim.php';
 
 \Slim\Slim::registerAutoloader();
@@ -19,13 +20,31 @@ $app->get('/days/?', function () use ($daysDAO) {
 });
 
 $app->post('/tickets/?', function () use ($app, $ticketsDAO, $daysDAO) {
-    header("Content-Type: application/json");
+    header('Content-Type: application/json');
     $post = $app->request->post();
     if (empty($post)) {
         $post = (array)json_decode($app->request()->getBody());
     }
-    $daysDAO->updateDayById($post['tickets'], $post['day_id']);
-    echo json_encode($ticketsDAO->insertTicket($post['day_id'], $post['name'], $post['email'], $post['tickets']));
+
+    $errors = array();
+    if(!Validate::checkIfActualDay($post['day_id'])) {
+        $errors['day'] = 'Het lijkt erop dat de dag die je gekozen hebt geen échte dag is.';
+    }
+    if(!Validate::checkLength($post['name'])) {
+        $errors['name'] = 'Er wordt verwacht dat je naam minstens 7 karakters lang is.';
+    }
+    if(!Validate::email($post['email'])) {
+        $errors['email'] = 'Dit is geen geldig e-mailadres.';
+    }
+    if(!Validate::checkIfTicketsAvailable($post['day_id'], $post['tickets'])) {
+        $errors['tickets'] = 'Helaas zijn er niet zoveel tickets meer beschikbaar.';
+    }
+    if(empty($errors)) {
+        $daysDAO->updateDayById($post['tickets'], $post['day_id']);
+        echo json_encode($ticketsDAO->insertTicket($post['day_id'], $post['name'], $post['email'], $post['tickets']));
+    } else {
+        echo json_encode($errors);
+    }
 });
 
 $app->get('/content/:id/?', function ($id) use ($contentDAO) {
@@ -35,7 +54,7 @@ $app->get('/content/:id/?', function ($id) use ($contentDAO) {
 });
 
 $app->post('/content/?', function () use ($app, $contentDAO, $daysDAO) {
-    header("Content-Type: application/json");
+    header('Content-Type: application/json');
     $post = $app->request->post();
     if (empty($post)) {
         $post = (array)json_decode($app->request()->getBody());
