@@ -1,3 +1,7 @@
+Handlebars.registerHelper('pleaselog', function (string) {
+    console.log(string);
+});
+
 Handlebars.registerHelper('formatDate', function (date) {
     moment.lang('nl');
     return moment(date).format('dddd Do MMMM');

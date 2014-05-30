@@ -1,40 +1,43 @@
 <article id="{{title}}" class="screen">
+    <header>
+        <h1>Ticket bestellen</h1>
+    </header>
     {{#ifTypeIsPublic type}}
     <form method="post" action="">
         <p>
-            <label for="txtName">Naam:</label>
-            <input type="text" name="txtName" id="txtName" placeholder="Voornaam Naam"/>
+            <label for="txtName_{{title}}">Naam:</label>
+            <input type="text" name="txtName" class="txtName" id="txtName_{{title}}" placeholder="Joske Vermeulen" required="required"/>
         </p>
 
         <p>
-            <label for="txtEmail">E-mailadres:</label>
-            <input type="email" name="txtEmail" id="txtEmail"/>
+            <label for="txtEmail_{{title}}">E-mailadres:</label>
+            <input type="email" name="txtEmail" class="txtEmail" id="txtEmail_{{title}}" placeholder="joske.vermeulen@trammezand.lei" required="required" />
         </p>
 
         <p>
-            <label for="rngTickets">Aantal tickets:</label>
-            <input type="range" name="rngTickets" id="rngTickets" min="1" max="{{tickets_available}}"/>
+            <label for="rngTickets_{{title}}">Aantal tickets:</label>
+            <input type="range" name="rngTickets" class="rngTickets" id="rngTickets_{{title}}" min="1" max="{{tickets_available}}" required="required"/>
         </p>
 
         <p>
-            <input type="submit" name="btnSubmit" id="btnSubmit"/>
+            <input type="submit" name="btnSubmit" class="btnSubmit" value="Verder naar bestellen"/>
         </p>
     </form>
     {{/ifTypeIsPublic}}
     {{#ifTypeIsSchool type}}
     <form method="post" action="">
         <p>
-            <label for="txtName">Schoolnaam:</label>
-            <input type="text" name="txtName" id="txtName" placeholder="Schoolnaam"/>
+            <label for="txtName_{{title}}">Schoolnaam:</label>
+            <input type="text" name="txtName" class="txtName" id="txtName_{{title}}" placeholder="Volledige schoolnaam" required="required"/>
         </p>
 
         <p>
-            <label for="txtEmail">E-mailadres:</label>
-            <input type="email" name="txtEmail" id="txtEmail"/>
+            <label for="txtEmail_{{title}}">E-mailadres:</label>
+            <input type="email" name="txtEmail" class="txtEmail" id="txtEmail_{{title}}" placeholder="joske.vermeulen@trammezand.lei" required="required" />
         </p>
 
         <p>
-            <input type="submit" name="btnSubmit" id="btnSubmit"/>
+            <input type="submit" name="btnSubmit" class="btnSubmit" value="Verder naar bestellen"/>
         </p>
     </form>
     {{/ifTypeIsSchool}}

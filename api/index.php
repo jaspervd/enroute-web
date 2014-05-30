@@ -28,7 +28,7 @@ $app->post('/tickets/?', function () use ($app, $ticketsDAO, $daysDAO) {
 
     $errors = array();
     if(!Validate::checkIfActualDay($post['day_id'])) {
-        $errors['day'] = 'Het lijkt erop dat de dag die je gekozen hebt geen échte dag is.';
+        $errors['day'] = 'Het lijkt erop dat de dag dat je gekozen hebt geen échte dag is.';
     }
     if(!Validate::checkLength($post['name'])) {
         $errors['name'] = 'Er wordt verwacht dat je naam minstens 7 karakters lang is.';
@@ -43,8 +43,10 @@ $app->post('/tickets/?', function () use ($app, $ticketsDAO, $daysDAO) {
         $daysDAO->updateDayById($post['tickets'], $post['day_id']);
         echo json_encode($ticketsDAO->insertTicket($post['day_id'], $post['name'], $post['email'], $post['tickets']));
     } else {
-        echo json_encode($errors);
+        header('HTTP/1.1 500 Internal Server Error');
+        echo json_encode(array('errors' => $errors));
     }
+    exit();
 });
 
 $app->get('/content/:id/?', function ($id) use ($contentDAO) {
@@ -72,6 +74,7 @@ $app->post('/content/?', function () use ($app, $contentDAO, $daysDAO) {
         $url = 'uploads/'. $filename;
     }
     echo json_encode($contentDAO->insertContent($currentDay['id'], $url, $post['type']));
+    exit();
 });
 
 $app->run();

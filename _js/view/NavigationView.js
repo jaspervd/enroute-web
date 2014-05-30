@@ -22,8 +22,13 @@ var NavigationView = Backbone.View.extend({
         }
     },
 
+    clear: function () {
+        this.$el.find('header').remove();
+        this.$el.find('ul').remove();
+    },
+
     render: function () {
-        this.$el.find('li').remove();
+        this.clear();
         this.$el.append(this.template({days: this.collection.toJSON()}));
         return this;
     }

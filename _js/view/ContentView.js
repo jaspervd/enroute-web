@@ -10,15 +10,19 @@ var ContentView = Backbone.View.extend({
         _.bindAll.apply(_, [this].concat(_.functions(this)));
     },
 
-    updateScreen: function(prevScreen) {
+    updateScreen: function(newScreen) {
         console.log('[ContentView] updateScreen()');
-        var modelScreen = this.collection.findWhere({title: prevScreen});
-        if(new Date(modelScreen.get('title')) <= new Date()) {
-            var screenView = new ScreenView({model: modelScreen});
-            this.$el.append(screenView.render().$el);
-        } else {
-            var ticketView = new TicketView({model: modelScreen});
-            this.$el.append(ticketView.render().$el);
+        if(this.collection.length > 0) {
+            var modelScreen = this.collection.findWhere({title: newScreen});
+            if(new Date(modelScreen.get('title')) <= new Date()) {
+                var screenView = new ScreenView({model: modelScreen});
+                this.$el.append(screenView.render().$el);
+                Backbone.history.navigate('dag/'+ modelScreen.get('title'));
+            } else {
+                var ticketView = new TicketView({model: modelScreen});
+                this.$el.append(ticketView.render().$el);
+                Backbone.history.navigate('tickets/'+ modelScreen.get('title'));
+            }
         }
     },
 

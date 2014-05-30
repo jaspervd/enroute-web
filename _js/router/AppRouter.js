@@ -10,7 +10,9 @@ var AppRouter = Backbone.Router.extend({
 
     routes: {
         "": "overview",
-        "*path": "overview"
+        "home/": "overview",
+        "tickets/:day": "dayView",
+        "dag/:day": "dayView"
     },
 
     overview: function () {
@@ -18,6 +20,12 @@ var AppRouter = Backbone.Router.extend({
         this.enRouteApp = new EnRouteApp();
         $("#container").remove();
         $("body").prepend(this.enRouteApp.render().$el);
-        Backbone.history.navigate("home/");
+    },
+
+    dayView: function (day) {
+        console.log("[AppRouter] dayView()");
+        this.enRouteApp = new EnRouteApp({currentScreen: day});
+        $("#container").remove();
+        $("body").prepend(this.enRouteApp.render().$el);
     }
 });

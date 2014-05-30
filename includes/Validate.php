@@ -34,7 +34,7 @@ class Validate {
         return $day['tickets_available'] >= $tickets;
     }
 
-    private function length($string) {
+    private static function length($string) {
         // data is always UTF-8, just for specific length calculation.. http://goo.gl/xXH2My
         return mb_strlen($string, 'UTF-8');
     }

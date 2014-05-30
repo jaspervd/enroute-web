@@ -2,6 +2,15 @@
 
 this["tpl"] = this["tpl"] || {};
 
+Handlebars.registerPartial("error", this["tpl"]["error"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+  this.compilerInfo = [4,'>= 1.0.0'];
+helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
+  var functionType="function", escapeExpression=this.escapeExpression;
+
+
+  return escapeExpression((typeof depth0 === functionType ? depth0.apply(depth0) : depth0));
+  }));
+
 Handlebars.registerPartial("screen", this["tpl"]["screen"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
@@ -12,7 +21,11 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   if (helper = helpers.title) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.title); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
-    + "\" class=\"screen\">\n    ";
+    + "\" class=\"screen\">\n    <header>\n        <h1>";
+  if (helper = helpers.title) { stack1 = helper.call(depth0, {hash:{},data:data}); }
+  else { helper = (depth0 && depth0.title); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
+  buffer += escapeExpression(stack1)
+    + "</h1>\n    </header>\n    ";
   if (helper = helpers.type) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.type); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
@@ -24,6 +37,15 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   return buffer;
   }));
 
+Handlebars.registerPartial("success", this["tpl"]["success"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+  this.compilerInfo = [4,'>= 1.0.0'];
+helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
+  var functionType="function", escapeExpression=this.escapeExpression;
+
+
+  return escapeExpression((typeof depth0 === functionType ? depth0.apply(depth0) : depth0));
+  }));
+
 Handlebars.registerPartial("ticket", this["tpl"]["ticket"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
@@ -32,25 +54,66 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 function program1(depth0,data) {
   
   var buffer = "", stack1, helper;
-  buffer += "\n    <form method=\"post\" action=\"\">\n        <p>\n            <label for=\"txtName\">Naam:</label>\n            <input type=\"text\" name=\"txtName\" id=\"txtName\" placeholder=\"Voornaam Naam\"/>\n        </p>\n\n        <p>\n            <label for=\"txtEmail\">E-mailadres:</label>\n            <input type=\"email\" name=\"txtEmail\" id=\"txtEmail\"/>\n        </p>\n\n        <p>\n            <label for=\"rngTickets\">Aantal tickets:</label>\n            <input type=\"range\" name=\"rngTickets\" id=\"rngTickets\" min=\"1\" max=\"";
+  buffer += "\n    <form method=\"post\" action=\"\">\n        <p>\n            <label for=\"txtName_";
+  if (helper = helpers.title) { stack1 = helper.call(depth0, {hash:{},data:data}); }
+  else { helper = (depth0 && depth0.title); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
+  buffer += escapeExpression(stack1)
+    + "\">Naam:</label>\n            <input type=\"text\" name=\"txtName\" class=\"txtName\" id=\"txtName_";
+  if (helper = helpers.title) { stack1 = helper.call(depth0, {hash:{},data:data}); }
+  else { helper = (depth0 && depth0.title); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
+  buffer += escapeExpression(stack1)
+    + "\" placeholder=\"Joske Vermeulen\" required=\"required\"/>\n        </p>\n\n        <p>\n            <label for=\"txtEmail_";
+  if (helper = helpers.title) { stack1 = helper.call(depth0, {hash:{},data:data}); }
+  else { helper = (depth0 && depth0.title); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
+  buffer += escapeExpression(stack1)
+    + "\">E-mailadres:</label>\n            <input type=\"email\" name=\"txtEmail\" class=\"txtEmail\" id=\"txtEmail_";
+  if (helper = helpers.title) { stack1 = helper.call(depth0, {hash:{},data:data}); }
+  else { helper = (depth0 && depth0.title); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
+  buffer += escapeExpression(stack1)
+    + "\" placeholder=\"joske.vermeulen@trammezand.lei\" required=\"required\" />\n        </p>\n\n        <p>\n            <label for=\"rngTickets_";
+  if (helper = helpers.title) { stack1 = helper.call(depth0, {hash:{},data:data}); }
+  else { helper = (depth0 && depth0.title); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
+  buffer += escapeExpression(stack1)
+    + "\">Aantal tickets:</label>\n            <input type=\"range\" name=\"rngTickets\" class=\"rngTickets\" id=\"rngTickets_";
+  if (helper = helpers.title) { stack1 = helper.call(depth0, {hash:{},data:data}); }
+  else { helper = (depth0 && depth0.title); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
+  buffer += escapeExpression(stack1)
+    + "\" min=\"1\" max=\"";
   if (helper = helpers.tickets_available) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.tickets_available); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
-    + "\"/>\n        </p>\n\n        <p>\n            <input type=\"submit\" name=\"btnSubmit\" id=\"btnSubmit\"/>\n        </p>\n    </form>\n    ";
+    + "\" required=\"required\"/>\n        </p>\n\n        <p>\n            <input type=\"submit\" name=\"btnSubmit\" class=\"btnSubmit\" value=\"Verder naar bestellen\"/>\n        </p>\n    </form>\n    ";
   return buffer;
   }
 
 function program3(depth0,data) {
   
-  
-  return "\n    <form method=\"post\" action=\"\">\n        <p>\n            <label for=\"txtName\">Schoolnaam:</label>\n            <input type=\"text\" name=\"txtName\" id=\"txtName\" placeholder=\"Schoolnaam\"/>\n        </p>\n\n        <p>\n            <label for=\"txtEmail\">E-mailadres:</label>\n            <input type=\"email\" name=\"txtEmail\" id=\"txtEmail\"/>\n        </p>\n\n        <p>\n            <input type=\"submit\" name=\"btnSubmit\" id=\"btnSubmit\"/>\n        </p>\n    </form>\n    ";
+  var buffer = "", stack1, helper;
+  buffer += "\n    <form method=\"post\" action=\"\">\n        <p>\n            <label for=\"txtName_";
+  if (helper = helpers.title) { stack1 = helper.call(depth0, {hash:{},data:data}); }
+  else { helper = (depth0 && depth0.title); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
+  buffer += escapeExpression(stack1)
+    + "\">Schoolnaam:</label>\n            <input type=\"text\" name=\"txtName\" class=\"txtName\" id=\"txtName_";
+  if (helper = helpers.title) { stack1 = helper.call(depth0, {hash:{},data:data}); }
+  else { helper = (depth0 && depth0.title); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
+  buffer += escapeExpression(stack1)
+    + "\" placeholder=\"Volledige schoolnaam\" required=\"required\"/>\n        </p>\n\n        <p>\n            <label for=\"txtEmail_";
+  if (helper = helpers.title) { stack1 = helper.call(depth0, {hash:{},data:data}); }
+  else { helper = (depth0 && depth0.title); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
+  buffer += escapeExpression(stack1)
+    + "\">E-mailadres:</label>\n            <input type=\"email\" name=\"txtEmail\" class=\"txtEmail\" id=\"txtEmail_";
+  if (helper = helpers.title) { stack1 = helper.call(depth0, {hash:{},data:data}); }
+  else { helper = (depth0 && depth0.title); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
+  buffer += escapeExpression(stack1)
+    + "\" placeholder=\"joske.vermeulen@trammezand.lei\" required=\"required\" />\n        </p>\n\n        <p>\n            <input type=\"submit\" name=\"btnSubmit\" class=\"btnSubmit\" value=\"Verder naar bestellen\"/>\n        </p>\n    </form>\n    ";
+  return buffer;
   }
 
   buffer += "<article id=\"";
   if (helper = helpers.title) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.title); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
-    + "\" class=\"screen\">\n    ";
+    + "\" class=\"screen\">\n    <header>\n        <h1>Ticket bestellen</h1>\n    </header>\n    ";
   stack1 = (helper = helpers.ifTypeIsPublic || (depth0 && depth0.ifTypeIsPublic),options={hash:{},inverse:self.noop,fn:self.program(1, program1, data),data:data},helper ? helper.call(depth0, (depth0 && depth0.type), options) : helperMissing.call(depth0, "ifTypeIsPublic", (depth0 && depth0.type), options));
   if(stack1 || stack1 === 0) { buffer += stack1; }
   buffer += "\n    ";
@@ -66,16 +129,16 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   
 
 
-  return "<article id=\"info\" class=\"screen\">\n    <img src=\"http://lorempixel.com/720/800/\"/>\n</article>";
+  return "<header>\n    <h1>Inhoud</h1>\n</header>\n<article id=\"info\" class=\"screen pushRight\">\n    <header>\n        <h1>Info</h1>\n    </header>\n    <img src=\"http://lorempixel.com/720/800/\"/>\n</article>";
   });
 
 this["tpl"]["enroute"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
-  var buffer = "";
+  
 
 
-  return buffer;
+  return "<header>\n    <h1>En Route</h1>\n</header>";
   });
 
 this["tpl"]["navigation"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
@@ -99,12 +162,16 @@ function program1(depth0,data) {
   return buffer;
   }
 
-  buffer += "<ul>\n    <li><a href=\"\" data=\"info\">info</a></li>\n    ";
+  buffer += "<header>\n    <h1>Navigation</h1>\n</header>\n<ul>\n    <li><a href=\"\" data=\"info\">info</a></li>\n    ";
   stack1 = helpers.each.call(depth0, (depth0 && depth0.days), {hash:{},inverse:self.noop,fn:self.program(1, program1, data),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
   buffer += "\n</ul>";
   return buffer;
   });
+
+Handlebars.registerHelper('pleaselog', function (string) {
+    console.log(string);
+});
 
 Handlebars.registerHelper('formatDate', function (date) {
     moment.lang('nl');
@@ -177,7 +244,9 @@ var AppRouter = Backbone.Router.extend({
 
     routes: {
         "": "overview",
-        "*path": "overview"
+        "home/": "overview",
+        "tickets/:day": "dayView",
+        "dag/:day": "dayView"
     },
 
     overview: function () {
@@ -185,7 +254,13 @@ var AppRouter = Backbone.Router.extend({
         this.enRouteApp = new EnRouteApp();
         $("#container").remove();
         $("body").prepend(this.enRouteApp.render().$el);
-        Backbone.history.navigate("home/");
+    },
+
+    dayView: function (day) {
+        console.log("[AppRouter] dayView()");
+        this.enRouteApp = new EnRouteApp({currentScreen: day});
+        $("#container").remove();
+        $("body").prepend(this.enRouteApp.render().$el);
     }
 });
 
@@ -210,15 +285,19 @@ var ContentView = Backbone.View.extend({
         _.bindAll.apply(_, [this].concat(_.functions(this)));
     },
 
-    updateScreen: function(prevScreen) {
+    updateScreen: function(newScreen) {
         console.log('[ContentView] updateScreen()');
-        var modelScreen = this.collection.findWhere({title: prevScreen});
-        if(new Date(modelScreen.get('title')) <= new Date()) {
-            var screenView = new ScreenView({model: modelScreen});
-            this.$el.append(screenView.render().$el);
-        } else {
-            var ticketView = new TicketView({model: modelScreen});
-            this.$el.append(ticketView.render().$el);
+        if(this.collection.length > 0) {
+            var modelScreen = this.collection.findWhere({title: newScreen});
+            if(new Date(modelScreen.get('title')) <= new Date()) {
+                var screenView = new ScreenView({model: modelScreen});
+                this.$el.append(screenView.render().$el);
+                Backbone.history.navigate('dag/'+ modelScreen.get('title'));
+            } else {
+                var ticketView = new TicketView({model: modelScreen});
+                this.$el.append(ticketView.render().$el);
+                Backbone.history.navigate('tickets/'+ modelScreen.get('title'));
+            }
         }
     },
 
@@ -246,24 +325,35 @@ var EnRouteApp = Backbone.View.extend({
 
         this.navigationView = new NavigationView({collection: this.days});
         this.contentView = new ContentView({collection: this.days});
+
+        if(this.currentScreen !== 'info') {
+            this.days.on('sync', this.syncHandler);
+        }
     },
 
     changeScreen: function (item) {
         console.log("[EnRouteApp] changeScreen()");
         var $prevScreen = $('#' + this.currentScreen);
         var $newScreen = $(item).attr('data');
-        if($newScreen !== 'info') {
-            this.contentView.updateScreen($newScreen);
-        }
+        var self = this; // fix for timeout
         if (this.currentScreen !== $(item).attr('data')) {
-            $('.screen').css('z-index', 0).removeClass('pushRight').removeClass('pushDown').css('margin-left', '-100%');
+            if ($newScreen !== 'info') {
+                this.contentView.updateScreen($newScreen);
+            }
+            $('.screen').removeClass('pushRight pushDown');
+            $('#info').css({'z-index': 5, 'margin-left': '-100%'});
             $prevScreen.css('margin-left', 0);
             setTimeout(function () { // fix pushDown
-                $prevScreen.addClass('pushDown');
-                $('#' + $newScreen).css('margin-left', '').addClass('pushRight');
+                $prevScreen.removeClass('pushRight').addClass('pushDown');
+                $('#' + $newScreen).css('margin-left', '').removeClass('pushDown').addClass('pushRight');
+                self.contentView.$el.children('[class=screen]').not('#info').remove();
             }, 50);
             this.currentScreen = $newScreen;
         }
+    },
+
+    syncHandler: function () {
+        this.changeScreen($('a[data="'+ this.currentScreen +'"]'));
     },
 
     render: function () {
@@ -272,6 +362,21 @@ var EnRouteApp = Backbone.View.extend({
         this.$el.append(this.contentView.render().$el);
         this.navigationView.on('itemClicked', this.changeScreen);
         this.$el.append('<div class="clear"></div>');
+        return this;
+    }
+});
+
+var ErrorView = Backbone.View.extend({
+    className: 'error',
+    tagName: 'p',
+    template: tpl.error,
+
+    initialize: function () {
+        _.bindAll.apply(_, [this].concat(_.functions(this)));
+    },
+
+    render: function () {
+        this.$el.append(this.template(this.model));
         return this;
     }
 });
@@ -300,8 +405,13 @@ var NavigationView = Backbone.View.extend({
         }
     },
 
+    clear: function () {
+        this.$el.find('header').remove();
+        this.$el.find('ul').remove();
+    },
+
     render: function () {
-        this.$el.find('li').remove();
+        this.clear();
         this.$el.append(this.template({days: this.collection.toJSON()}));
         return this;
     }
@@ -323,7 +433,24 @@ var ScreenView = Backbone.View.extend({
     }
 });
 
+var SuccessView = Backbone.View.extend({
+    className: 'success',
+    tagName: 'p',
+    template: tpl.success,
+
+    initialize: function () {
+        _.bindAll.apply(_, [this].concat(_.functions(this)));
+    },
+
+    render: function () {
+        this.$el.append(this.template(this.model.toJSON()));
+        return this;
+    }
+});
+
 /* globals Ticket:true */
+/* globals SuccessView:true */
+/* globals ErrorView:true */
 var TicketView = Backbone.View.extend({
     model: Ticket,
     template: tpl.ticket,
@@ -333,21 +460,57 @@ var TicketView = Backbone.View.extend({
     },
 
     events: {
-        'click #btnSubmit': 'orderTicket'
+        'click .btnSubmit': 'orderTicket'
     },
 
-    orderTicket: function(e) {
+    orderTicket: function (e) {
         e.preventDefault();
         console.log('[TicketView] orderTicket()');
+        this.clean();
+        var self = this; // fix for error handler
+        var tickets = this.$el.find('.rngTickets').val();
         var ticket = new Ticket({
             day_id: this.model.get('id'),
-            name: $('#txtName').val(),
-            email: $('#txtEmail').val()
+            name: this.$el.find('.txtName').val(),
+            email: this.$el.find('.txtEmail').val()
         });
-        if($('#rngTickets').val()) {
-            ticket.set('tickets', parseInt($('#rngTickets').val()));
+        if (tickets) {
+            ticket.set('tickets', parseInt(tickets));
         }
-        ticket.save();
+        ticket.save({}, {
+            success: function (model, response) {
+                self.$el.append(new SuccessView({model: response}));
+            },
+            error: function (model, response) {
+                console.log('[TicketView] generated 500 error code');
+                _.each(response.responseJSON.errors, function (error, key) {
+                    console.log('[' + key + ']', error);
+                    var errorView = new ErrorView({model: error});
+                    var $elToInsertAfter;
+                    if (key === 'name') {
+                        $elToInsertAfter = $('.txtName');
+                    }
+                    if (key === 'email') {
+                        $elToInsertAfter = $('.txtEmail');
+                    }
+                    if (tickets && key === 'tickets') {
+                        $elToInsertAfter = $('.rngTickets');
+                    } else if (key === tickets) {
+                        $elToInsertAfter = $('.btnSubmit');
+                    }
+                    if (key === 'day_id') {
+                        self.$el.prepend(errorView.render().$el);
+                    } else {
+                        self.$el.find($elToInsertAfter).after(errorView.render().$el);
+                    }
+                });
+            }
+        });
+    },
+
+    clean: function() {
+        $('.success').remove();
+        $('.error').remove();
     },
 
     render: function () {
