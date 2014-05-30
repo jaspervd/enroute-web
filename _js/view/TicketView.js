@@ -10,12 +10,12 @@ var TicketView = Backbone.View.extend({
     },
 
     events: {
-        'click .btnSubmit': 'orderTicket'
+        'submit form': 'orderTicket'
     },
 
     orderTicket: function (e) {
-        e.preventDefault();
         console.log('[TicketView] orderTicket()');
+        e.preventDefault();
         this.clean();
         var self = this; // fix for error handler
         var tickets = this.$el.find('.rngTickets').val();
@@ -29,7 +29,9 @@ var TicketView = Backbone.View.extend({
         }
         ticket.save({}, {
             success: function (model, response) {
-                self.$el.append(new SuccessView({model: response}));
+                var successView = new SuccessView({model: response});
+                self.$el.find('.txtName, .txtEmail').val('');
+                self.$el.append(successView.render().$el);
             },
             error: function (model, response) {
                 console.log('[TicketView] generated 500 error code');

@@ -16,18 +16,21 @@ var EnRouteApp = Backbone.View.extend({
 
         this.navigationView = new NavigationView({collection: this.days});
         this.contentView = new ContentView({collection: this.days});
-
-        if(this.currentScreen !== 'info') {
-            this.days.on('sync', this.syncHandler);
-        }
     },
 
     changeScreen: function (item) {
         console.log("[EnRouteApp] changeScreen()");
         var $prevScreen = $('#' + this.currentScreen);
-        var $newScreen = $(item).attr('data');
+        var $newScreen = '';
+        var externalLoadedScreen = false; // fix for dayView()
+        if($(item).attr('data')) {
+            $newScreen = $(item).attr('data');
+        } else {
+            $newScreen = item;
+            externalLoadedScreen = true;
+        }
         var self = this; // fix for timeout
-        if (this.currentScreen !== $(item).attr('data')) {
+        if (this.currentScreen !== $newScreen || externalLoadedScreen) {
             if ($newScreen !== 'info') {
                 this.contentView.updateScreen($newScreen);
             }
@@ -44,7 +47,8 @@ var EnRouteApp = Backbone.View.extend({
     },
 
     syncHandler: function () {
-        this.changeScreen($('a[data="'+ this.currentScreen +'"]'));
+        console.log('hacky');
+        this.changeScreen(this.currentScreen); // hacky method
     },
 
     render: function () {
@@ -52,6 +56,9 @@ var EnRouteApp = Backbone.View.extend({
         this.$el.append(this.navigationView.render().$el);
         this.$el.append(this.contentView.render().$el);
         this.navigationView.on('itemClicked', this.changeScreen);
+        if(this.currentScreen !== 'info') {
+            this.days.on('sync', this.syncHandler);
+        }
         this.$el.append('<div class="clear"></div>');
         return this;
     }

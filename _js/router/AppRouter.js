@@ -24,7 +24,8 @@ var AppRouter = Backbone.Router.extend({
 
     dayView: function (day) {
         console.log("[AppRouter] dayView()");
-        this.enRouteApp = new EnRouteApp({currentScreen: day});
+        this.enRouteApp = new EnRouteApp();
+        this.enRouteApp.currentScreen = day;
         $("#container").remove();
         $("body").prepend(this.enRouteApp.render().$el);
     }

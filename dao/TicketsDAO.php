@@ -1,11 +1,14 @@
 <?php
 require_once '../classes' . DIRECTORY_SEPARATOR . 'DatabasePDO.php';
+require_once 'DaysDAO.php';
 
 class TicketsDAO {
     public $pdo;
+    public $daysDAO;
 
     public function __construct() {
         $this->pdo = DatabasePDO::getInstance();
+        $this->daysDAO = new DaysDAO();
     }
 
     public function getTicketById($id) {
@@ -27,7 +30,9 @@ class TicketsDAO {
         $stmt->bindValue('email', $email);
         $stmt->bindValue('tickets', $tickets);
         if ($stmt->execute()) {
-            return $this->getTicketById($this->pdo->lastInsertId());
+            $ticket = $this->getTicketById($this->pdo->lastInsertId());
+            $ticket['day'] = $this->daysDAO->getDayById($day_id);
+            return $ticket;
         }
         return false;
     }

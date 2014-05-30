@@ -4,7 +4,7 @@ Handlebars.registerHelper('pleaselog', function (string) {
 
 Handlebars.registerHelper('formatDate', function (date) {
     moment.lang('nl');
-    return moment(date).format('dddd Do MMMM');
+    return moment(date).format('dddd D MMMM');
 });
 
 Handlebars.registerHelper('formatAvailability', function (date, tickets) {
