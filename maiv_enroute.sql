@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Machine: localhost
--- Genereertijd: 30 mei 2014 om 18:53
+-- Genereertijd: 31 mei 2014 om 22:47
 -- Serverversie: 5.5.29
 -- PHP-versie: 5.4.10
 
@@ -34,6 +34,7 @@ CREATE TABLE `enroute_content` (
   `day_id` int(11) NOT NULL,
   `url` text NOT NULL,
   `type` enum('photo','video','sound') NOT NULL,
+  `approved` tinyint(1) NOT NULL,
   `uploaded_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
