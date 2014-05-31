@@ -58,6 +58,8 @@ var EnRouteApp = Backbone.View.extend({
         this.navigationView.on('itemClicked', this.changeScreen);
         if(this.currentScreen !== 'info') {
             this.days.on('sync', this.syncHandler);
+        } else {
+            Backbone.history.navigate('home/');
         }
         this.$el.append('<div class="clear"></div>');
         return this;
