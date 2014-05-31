@@ -155,12 +155,21 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 this["tpl"]["navigation"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
-  var buffer = "", stack1, functionType="function", escapeExpression=this.escapeExpression, helperMissing=helpers.helperMissing, self=this;
+  
+
+
+  return "<header>\n    <h1>Navigation</h1>\n</header>\n<div id=\"navControl\"><a href=\"\" class=\"workshops\">En Route</a> - <a href=\"\" class=\"tickets\">Tickets</a></div>";
+  });
+
+this["tpl"]["tickets"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+  this.compilerInfo = [4,'>= 1.0.0'];
+helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
+  var stack1, functionType="function", escapeExpression=this.escapeExpression, helperMissing=helpers.helperMissing, self=this;
 
 function program1(depth0,data) {
   
   var buffer = "", stack1, helper, options;
-  buffer += "\n        <li><a href=\"\" class=\"title\" data=\"";
+  buffer += "\n<div><a href=\"\" class=\"title\" data=\"";
   if (helper = helpers.title) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.title); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
@@ -169,14 +178,36 @@ function program1(depth0,data) {
     + "</a> - ";
   stack1 = (helper = helpers.formatAvailability || (depth0 && depth0.formatAvailability),options={hash:{},data:data},helper ? helper.call(depth0, (depth0 && depth0.title), (depth0 && depth0.tickets_available), options) : helperMissing.call(depth0, "formatAvailability", (depth0 && depth0.title), (depth0 && depth0.tickets_available), options));
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "</li>\n    ";
+  buffer += "</div>\n";
   return buffer;
   }
 
-  buffer += "<header>\n    <h1>Navigation</h1>\n</header>\n<ul>\n    <li><a href=\"\" data=\"info\">info</a></li>\n    ";
+  stack1 = helpers.each.call(depth0, (depth0 && depth0.days), {hash:{},inverse:self.noop,fn:self.program(1, program1, data),data:data});
+  if(stack1 || stack1 === 0) { return stack1; }
+  else { return ''; }
+  });
+
+this["tpl"]["workshops"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+  this.compilerInfo = [4,'>= 1.0.0'];
+helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
+  var buffer = "", stack1, functionType="function", escapeExpression=this.escapeExpression, helperMissing=helpers.helperMissing, self=this;
+
+function program1(depth0,data) {
+  
+  var buffer = "", stack1, helper, options;
+  buffer += "\n<li><a href=\"\" class=\"title\" data=\"";
+  if (helper = helpers.title) { stack1 = helper.call(depth0, {hash:{},data:data}); }
+  else { helper = (depth0 && depth0.title); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
+  buffer += escapeExpression(stack1)
+    + "\">"
+    + escapeExpression((helper = helpers.formatDate || (depth0 && depth0.formatDate),options={hash:{},data:data},helper ? helper.call(depth0, (depth0 && depth0.title), options) : helperMissing.call(depth0, "formatDate", (depth0 && depth0.title), options)))
+    + "</a></li>\n";
+  return buffer;
+  }
+
+  buffer += "<li><a href=\"\" data=\"info\">info</a></li>\n";
   stack1 = helpers.each.call(depth0, (depth0 && depth0.days), {hash:{},inverse:self.noop,fn:self.program(1, program1, data),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "\n</ul>";
   return buffer;
   });
 
@@ -402,6 +433,43 @@ var ErrorView = Backbone.View.extend({
     }
 });
 
+var NavTicketsView = Backbone.View.extend({
+    id: 'tickets',
+    tagName: 'div',
+    template: tpl.tickets,
+
+    initialize: function () {
+        _.bindAll.apply(_, [this].concat(_.functions(this)));
+    },
+
+    render: function () {
+        this.$el.append(this.template({days: this.model.toJSON()}));
+        return this;
+    }
+});
+
+var NavWorkshopsView = Backbone.View.extend({
+    id: 'workshops',
+    tagName: 'ul',
+    template: tpl.workshops,
+
+    initialize: function () {
+        _.bindAll.apply(_, [this].concat(_.functions(this)));
+    },
+
+    render: function () {
+        var date = new Date();
+        this.model = _.reject(this.model.toJSON(), function (day) {
+            return new Date(day.title) > date;
+        });
+        this.$el.append(this.template({days: this.model}));
+        return this;
+    }
+});
+
+/* globals NavWorkshopsView:true */
+/* globals NavTicketsView:true */
+
 var NavigationView = Backbone.View.extend({
     id: 'navigation',
     tagName: 'nav',
@@ -416,10 +484,15 @@ var NavigationView = Backbone.View.extend({
         "click a": "itemClicked"
     },
 
-    itemClicked: function(e) {
+    itemClicked: function (e) {
         e.preventDefault();
         console.log("[NavigationView] itemClicked()");
-        if($(e.currentTarget).attr('class') === 'available') {
+        var itemClass = $(e.currentTarget).attr('class');
+        if (itemClass === 'workshops') {
+            this.renderWorkshops();
+        } else if (itemClass === 'tickets') {
+            this.renderTickets();
+        } else if (itemClass === 'available') {
             this.trigger('itemClicked', $(e.currentTarget).prev());
         } else {
             this.trigger('itemClicked', e.currentTarget);
@@ -428,12 +501,26 @@ var NavigationView = Backbone.View.extend({
 
     clear: function () {
         this.$el.find('header').remove();
+        this.$el.find('#navControl').remove();
         this.$el.find('ul').remove();
+    },
+
+    renderWorkshops: function () {
+        this.$el.find('#workshops, #tickets').remove();
+        var navWorkshopsView = new NavWorkshopsView({model: this.collection});
+        this.$el.append(navWorkshopsView.render().$el);
+    },
+
+    renderTickets: function () {
+        this.$el.find('#workshops, #tickets').remove();
+        var navTicketsView = new NavTicketsView({model: this.collection});
+        this.$el.append(navTicketsView.render().$el);
     },
 
     render: function () {
         this.clear();
-        this.$el.append(this.template({days: this.collection.toJSON()}));
+        this.$el.append(this.template());
+        this.renderWorkshops();
         return this;
     }
 });

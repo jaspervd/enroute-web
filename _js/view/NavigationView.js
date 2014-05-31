@@ -1,3 +1,6 @@
+/* globals NavWorkshopsView:true */
+/* globals NavTicketsView:true */
+
 var NavigationView = Backbone.View.extend({
     id: 'navigation',
     tagName: 'nav',
@@ -12,10 +15,15 @@ var NavigationView = Backbone.View.extend({
         "click a": "itemClicked"
     },
 
-    itemClicked: function(e) {
+    itemClicked: function (e) {
         e.preventDefault();
         console.log("[NavigationView] itemClicked()");
-        if($(e.currentTarget).attr('class') === 'available') {
+        var itemClass = $(e.currentTarget).attr('class');
+        if (itemClass === 'workshops') {
+            this.renderWorkshops();
+        } else if (itemClass === 'tickets') {
+            this.renderTickets();
+        } else if (itemClass === 'available') {
             this.trigger('itemClicked', $(e.currentTarget).prev());
         } else {
             this.trigger('itemClicked', e.currentTarget);
@@ -24,12 +32,26 @@ var NavigationView = Backbone.View.extend({
 
     clear: function () {
         this.$el.find('header').remove();
+        this.$el.find('#navControl').remove();
         this.$el.find('ul').remove();
+    },
+
+    renderWorkshops: function () {
+        this.$el.find('#workshops, #tickets').remove();
+        var navWorkshopsView = new NavWorkshopsView({model: this.collection});
+        this.$el.append(navWorkshopsView.render().$el);
+    },
+
+    renderTickets: function () {
+        this.$el.find('#workshops, #tickets').remove();
+        var navTicketsView = new NavTicketsView({model: this.collection});
+        this.$el.append(navTicketsView.render().$el);
     },
 
     render: function () {
         this.clear();
-        this.$el.append(this.template({days: this.collection.toJSON()}));
+        this.$el.append(this.template());
+        this.renderWorkshops();
         return this;
     }
 });
