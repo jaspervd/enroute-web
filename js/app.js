@@ -2,6 +2,24 @@
 
 this["tpl"] = this["tpl"] || {};
 
+Handlebars.registerPartial("admincontentitem", this["tpl"]["admincontentitem"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+  this.compilerInfo = [4,'>= 1.0.0'];
+helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
+  var buffer = "", stack1, helper, functionType="function", escapeExpression=this.escapeExpression;
+
+
+  buffer += "<li>\n    <span id=\"comment\">&laquo; ";
+  if (helper = helpers.url) { stack1 = helper.call(depth0, {hash:{},data:data}); }
+  else { helper = (depth0 && depth0.url); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
+  buffer += escapeExpression(stack1)
+    + " &raquo;</span><br>\n    <a class=\"approve\" href=\"\">approve</a>\n    <a class=\"delete\" href=\"\">delete</a>\n    <span class=\"meta\">added on ";
+  if (helper = helpers.uploaded_date) { stack1 = helper.call(depth0, {hash:{},data:data}); }
+  else { helper = (depth0 && depth0.uploaded_date); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
+  buffer += escapeExpression(stack1)
+    + "</span>\n</li>";
+  return buffer;
+  }));
+
 Handlebars.registerPartial("error", this["tpl"]["error"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
@@ -270,6 +288,21 @@ var Settings = (function () {
     return Settings;
 })();
 
+/* globals Settings:true */
+
+var Content = Backbone.Model.extend({
+    defaults:{
+        id: null,
+        day_id: null,
+        url: undefined,
+        type: undefined,
+        approved: 0,
+        uploaded_date: undefined
+    },
+
+    urlRoot: Settings.API + '/content'
+});
+
 var Day = Backbone.Model.extend({
     defaults:{
         id: null,
@@ -323,7 +356,7 @@ var AppRouter = Backbone.Router.extend({
         console.log('[AppRouter] admin()');
         this.adminApp = new AdminApp();
         $('#container, noscript').remove();
-        $('body').prepend(this.admin.render().$el);
+        $('body').prepend(this.adminApp.render().$el);
         Backbone.history.navigate('admin/');
     },
 
@@ -338,9 +371,10 @@ var AppRouter = Backbone.Router.extend({
 
 
 /* globals Settings:true */
+/* globals Content:true */
 
 var Content = Backbone.Collection.extend({
-    //model: Content,
+    model: Content,
     url: Settings.API + "/content"
 });
 
@@ -353,6 +387,7 @@ var Days = Backbone.Collection.extend({
 });
 
 /* globals Content:true */
+/* globals AdminContentView:true */
 
 var AdminApp = Backbone.View.extend({
     id: 'container',
@@ -365,11 +400,68 @@ var AdminApp = Backbone.View.extend({
         this.content = new Content();
         this.content.fetch();
 
-        //this.adminView = new AdminView({collection: this.days});
+        this.adminContentView = new AdminContentView({collection: this.content});
     },
 
     render: function () {
         this.$el.append(this.template());
+        this.$el.append(this.adminContentView.render().$el);
+        return this;
+    }
+});
+
+var AdminContentItemView = Backbone.View.extend({
+    template: tpl.admincontentitem,
+
+    initialize: function () {
+        _.bindAll.apply(_, [this].concat(_.functions(this)));
+    },
+
+    events: {
+        "click .approve": "approveContent",
+        "click .delete": "deleteContent"
+    },
+
+    approveContent: function(e) {
+        console.log('[AdminContentItemView] approveContent()');
+        e.preventDefault();
+        this.model.set('approved', 1);
+        this.model.url = this.model.urlRoot + "/" + this.model.id;
+        this.model.save();
+    },
+
+    deleteContent: function(e) {
+        console.log('[AdminContentItemView] deleteContent()');
+        e.preventDefault();
+        this.model.url = this.model.urlRoot + "/" + this.model.id;
+        this.model.destroy();
+    },
+
+    render: function(){
+        this.$el.html(this.template(this.model.toJSON()));
+        return this;
+    }
+});
+
+/* globals AdminContentItemView:true */
+
+var AdminContentView = Backbone.View.extend({
+    template: tpl.admincontent,
+
+    initialize: function () {
+        _.bindAll.apply(_, [this].concat(_.functions(this)));
+        this.collection.on("sync reset", this.render);
+    },
+
+    renderContent: function (content) {
+        this.$el.find('ul').append(new AdminContentItemView({model: content}).render().$el);
+    },
+
+    render: function () {
+        this.$el.html(this.template());
+        this.collection.each(function(content, index){
+            this.renderContent(content);
+        }, this);
         return this;
     }
 });

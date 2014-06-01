@@ -16,8 +16,7 @@ class TicketsDAO {
         $stmt = $this->pdo->prepare($sql);
         $stmt->bindValue('id', $id);
         if ($stmt->execute()) {
-            $ticket = $stmt->fetch(PDO::FETCH_ASSOC);
-            return $ticket;
+            return $stmt->fetch(PDO::FETCH_ASSOC);
         }
         return array();
     }

@@ -77,4 +77,26 @@ $app->post('/content/?', function () use ($app, $contentDAO, $daysDAO) {
     exit();
 });
 
+$app->get('/content/?', function () use ($contentDAO) {
+    header('Content-Type: application/json');
+    echo json_encode($contentDAO->getContent());
+    exit();
+});
+
+$app->delete('/content/:id/?', function ($id) use ($contentDAO) {
+    header('Content-Type: application/json');
+    echo json_encode($contentDAO->deleteContent($id));
+    exit();
+});
+
+$app->put('/content/:id/?', function ($id) use ($app, $contentDAO) {
+    header('Content-Type: application/json');
+    $post = $app->request->post();
+    if (empty($post)) {
+        $post = (array)json_decode($app->request()->getBody());
+    }
+    echo json_encode($contentDAO->updateContent($id, $post['approved']));
+    exit();
+});
+
 $app->run();

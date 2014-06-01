@@ -29,7 +29,7 @@ var AppRouter = Backbone.Router.extend({
         console.log('[AppRouter] admin()');
         this.adminApp = new AdminApp();
         $('#container, noscript').remove();
-        $('body').prepend(this.admin.render().$el);
+        $('body').prepend(this.adminApp.render().$el);
         Backbone.history.navigate('admin/');
     },
 

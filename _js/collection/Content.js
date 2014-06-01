@@ -1,6 +1,7 @@
 /* globals Settings:true */
+/* globals Content:true */
 
 var Content = Backbone.Collection.extend({
-    //model: Content,
+    model: Content,
     url: Settings.API + "/content"
 });

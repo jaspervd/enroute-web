@@ -1,4 +1,5 @@
 /* globals Content:true */
+/* globals AdminContentView:true */
 
 var AdminApp = Backbone.View.extend({
     id: 'container',
@@ -11,11 +12,12 @@ var AdminApp = Backbone.View.extend({
         this.content = new Content();
         this.content.fetch();
 
-        //this.adminView = new AdminView({collection: this.days});
+        this.adminContentView = new AdminContentView({collection: this.content});
     },
 
     render: function () {
         this.$el.append(this.template());
+        this.$el.append(this.adminContentView.render().$el);
         return this;
     }
 });

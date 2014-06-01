@@ -13,8 +13,7 @@ class DaysDAO {
         $stmt = $this->pdo->prepare($sql);
         $stmt->bindValue('id', $id);
         if ($stmt->execute()) {
-            $day = $stmt->fetch(PDO::FETCH_ASSOC);
-            return $day;
+            return $stmt->fetch(PDO::FETCH_ASSOC);
         }
         return array();
     }
@@ -24,8 +23,7 @@ class DaysDAO {
         $stmt = $this->pdo->prepare($sql);
         $stmt->bindValue('date', $date);
         if ($stmt->execute()) {
-            $day = $stmt->fetch(PDO::FETCH_ASSOC);
-            return $day;
+            return $stmt->fetch(PDO::FETCH_ASSOC);
         }
         return array();
     }
@@ -42,8 +40,7 @@ class DaysDAO {
         $sql = "SELECT * FROM `enroute_days`";
         $stmt = $this->pdo->prepare($sql);
         if ($stmt->execute()) {
-            $days = $stmt->fetchAll(PDO::FETCH_ASSOC);
-            return $days;
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
         }
         return array();
     }
