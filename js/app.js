@@ -134,6 +134,24 @@ function program3(depth0,data) {
   return buffer;
   }));
 
+this["tpl"]["admin"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+  this.compilerInfo = [4,'>= 1.0.0'];
+helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
+  
+
+
+  return "<header>\n    <h1>Admin</h1>\n</header>";
+  });
+
+this["tpl"]["admincontent"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+  this.compilerInfo = [4,'>= 1.0.0'];
+helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
+  
+
+
+  return "<section id=\"content\">\n    <header>\n        <h1>Beheer content</h1>\n    </header>\n    <ul></ul>\n</section>";
+  });
+
 this["tpl"]["content"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
@@ -275,10 +293,12 @@ var Ticket = Backbone.Model.extend({
 });
 
 /* globals EnRouteApp:true */
+/* globals AdminApp:true */
 /* globals Settings:true */
 
 var AppRouter = Backbone.Router.extend({
     enRouteApp: undefined,
+    adminApp: undefined,
 
     initialize: function () {
         _.bindAll.apply(_, [this].concat(_.functions(this)));
@@ -288,7 +308,8 @@ var AppRouter = Backbone.Router.extend({
         '': 'overview',
         'home/': 'overview',
         'tickets/:day': 'dayView',
-        'dag/:day': 'dayView'
+        'dag/:day': 'dayView',
+        'admin/': 'admin'
     },
 
     overview: function () {
@@ -296,6 +317,14 @@ var AppRouter = Backbone.Router.extend({
         this.enRouteApp = new EnRouteApp();
         $('#container, noscript').remove();
         $('body').prepend(this.enRouteApp.render().$el);
+    },
+
+    admin: function() {
+        console.log('[AppRouter] admin()');
+        this.adminApp = new AdminApp();
+        $('#container, noscript').remove();
+        $('body').prepend(this.admin.render().$el);
+        Backbone.history.navigate('admin/');
     },
 
     dayView: function (day) {
@@ -308,12 +337,41 @@ var AppRouter = Backbone.Router.extend({
 });
 
 
+/* globals Settings:true */
+
+var Content = Backbone.Collection.extend({
+    //model: Content,
+    url: Settings.API + "/content"
+});
+
 /* globals Day:true */
 /* globals Settings:true */
 
 var Days = Backbone.Collection.extend({
     model: Day,
     url: Settings.API + "/days"
+});
+
+/* globals Content:true */
+
+var AdminApp = Backbone.View.extend({
+    id: 'container',
+    tagName: 'div',
+    template: tpl.admin,
+
+    initialize: function () {
+        _.bindAll.apply(_, [this].concat(_.functions(this)));
+
+        this.content = new Content();
+        this.content.fetch();
+
+        //this.adminView = new AdminView({collection: this.days});
+    },
+
+    render: function () {
+        this.$el.append(this.template());
+        return this;
+    }
 });
 
 /* globals ScreenView:true */
