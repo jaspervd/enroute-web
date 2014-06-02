@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Machine: localhost
--- Genereertijd: 31 mei 2014 om 22:47
+-- Genereertijd: 02 jun 2014 om 13:45
 -- Serverversie: 5.5.29
 -- PHP-versie: 5.4.10
 
@@ -34,7 +34,7 @@ CREATE TABLE `enroute_content` (
   `day_id` int(11) NOT NULL,
   `url` text NOT NULL,
   `type` enum('photo','video','sound') NOT NULL,
-  `approved` tinyint(1) NOT NULL,
+  `approved` tinyint(1) DEFAULT '0',
   `uploaded_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
@@ -105,26 +105,7 @@ CREATE TABLE `enroute_tickets` (
   `email` varchar(255) NOT NULL,
   `tickets` int(2) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=14 ;
-
---
--- Gegevens worden uitgevoerd voor tabel `enroute_tickets`
---
-
-INSERT INTO `enroute_tickets` (`id`, `day_id`, `name`, `email`, `tickets`) VALUES
-(1, 12, 'Howest', 'me@jaspervd.be', 25),
-(2, 11, 'Howest', 'me@jaspervd.be', 25),
-(3, 6, 'Howest', 'me@jaspervd.be', 9),
-(4, 13, 'Howest', 'xjasper@live.nl', 25),
-(5, 6, 'Jasper De Baas', 'xjasper@live.nl', 6),
-(6, 9, 'Jasper Van Damme', 'me@jaspervd.be', 25),
-(7, 7, 'Jasper Van Damme', 'me@jaspervd.be', 13),
-(8, 1, 'Jasper Van Damme', 'me@jaspervd.be', 25),
-(9, 7, 'Jasper Van Damme', 'me@jaspervd.be', 2),
-(10, 2, 'Jasper Van Damme', 'me@jaspervd.be', 25),
-(11, 8, 'Jasper Van Damme', 'me@jaspervd.be', 2),
-(12, 17, 'Jasper Van Damme', 'me@jaspervd.be', 2),
-(13, 17, 'Jasper Van Damme', 'me@jaspervd.be', 4);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
