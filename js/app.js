@@ -404,9 +404,15 @@ var AppRouter = Backbone.Router.extend({
 /* globals Settings:true */
 /* globals Content:true */
 
-var Content = Backbone.Collection.extend({
+var Contents = Backbone.Collection.extend({
     model: Content,
-    url: Settings.API + "/content"
+    url: Settings.API + "/content",
+
+    byDayID: function (day) {
+        return this.filter(function (content) {
+            return parseInt(content.get('day_id')) === parseInt(day);
+        });
+    }
 });
 
 /* globals Day:true */
@@ -417,7 +423,7 @@ var Days = Backbone.Collection.extend({
     url: Settings.API + "/days"
 });
 
-/* globals Content:true */
+/* globals Contents:true */
 /* globals Days:true */
 /* globals AdminContentView:true */
 
@@ -425,6 +431,7 @@ var AdminApp = Backbone.View.extend({
     id: 'container',
     tagName: 'div',
     template: tpl.admin,
+    prevDay: 0,
     currentDay: 0,
 
     initialize: function () {
@@ -434,7 +441,7 @@ var AdminApp = Backbone.View.extend({
         this.days.fetch();
         this.days.on('sync reset', this.render);
 
-        this.content = new Content();
+        this.content = new Contents();
         this.content.fetch();
 
         this.adminContentView = new AdminContentView({collection: this.content});
@@ -447,15 +454,25 @@ var AdminApp = Backbone.View.extend({
     showDay: function(e) {
         console.log('[AdminApp] showDay()');
         e.preventDefault();
-        var currentDay = $(e.currentTarget).attr('data');
-        this.adminContentView.updateToDay(currentDay);
-        this.render();
-        Backbone.history.navigate('admin/'+ currentDay);                                                                         // taxi zo simpel zot het leven in elkaar
+        this.currentDay = $(e.currentTarget).attr('data');
+        this.renderDay();
+    },
+
+    renderDay: function() {
+        if(this.prevDay !== this.currentDay) {
+            this.prevDay = this.currentDay;
+            this.adminContentView.updateToDay(this.currentDay);
+            this.render();
+            Backbone.history.navigate('admin/'+ this.currentDay);
+        }
     },
 
     render: function () {
         this.$el.html(this.template({days: this.days.toJSON()}));
         this.$el.append(this.adminContentView.render().$el);
+        if(this.currentDay > 0) {
+            this.content.on('sync reset', this.renderDay);
+        }
         return this;
     }
 });
@@ -473,7 +490,7 @@ var AdminContentItemView = Backbone.View.extend({
         "click .delete": "deleteContent"
     },
 
-    approveContent: function(e) {
+    approveContent: function (e) {
         console.log('[AdminContentItemView] approveContent()');
         e.preventDefault();
         this.model.set('approved', 1);
@@ -481,7 +498,7 @@ var AdminContentItemView = Backbone.View.extend({
         this.model.save();
     },
 
-    denyContent: function(e) {
+    denyContent: function (e) {
         console.log('[AdminContentItemView] denyContent()');
         e.preventDefault();
         this.model.set('approved', 0);
@@ -489,59 +506,49 @@ var AdminContentItemView = Backbone.View.extend({
         this.model.save();
     },
 
-    deleteContent: function(e) {
+    deleteContent: function (e) {
         console.log('[AdminContentItemView] deleteContent()');
         e.preventDefault();
         this.model.url = this.model.urlRoot + "/" + this.model.id;
-        this.trigger('deleteContent', this.model);
         this.model.destroy();
     },
 
-    render: function(){
+    render: function () {
         this.$el.html(this.template(this.model.toJSON()));
         return this;
     }
 });
 
+/* globals Contents:true */
+/* globals Content:true */
 /* globals AdminContentItemView:true */
 
 var AdminContentView = Backbone.View.extend({
     template: tpl.admincontent,
     currentDay: 0,
+    contents: undefined,
 
     initialize: function () {
         _.bindAll.apply(_, [this].concat(_.functions(this)));
-        this.collection.on("sync reset", this.render);
+        this.collection.on("sync reset destroy", this.render);
+        this.contents = this.collection;
     },
 
     renderContent: function (content) {
         var adminContentItemView = new AdminContentItemView({model: content});
         this.$el.find('ul').append(adminContentItemView.render().$el);
-        adminContentItemView.on('deleteContent', this.deleteModelFromCollection);
-    },
-
-    deleteModelFromCollection: function (model) {
-        this.collection.remove(model);
-        this.render();
     },
 
     updateToDay: function (day) {
         console.log('[AdminContentView] updateToDay()', day);
         this.currentDay = day;
-        var self = this;
-        this.collection = _.reject(this.collection.toJSON(), function (day) {
-            return parseInt(day.id) !== parseInt(self.currentDay);
-        });
+        this.collection = this.contents;
+        this.collection = new Contents(this.collection.where({day_id: this.currentDay}));
         this.render();
     },
 
     render: function () {
         this.$el.html(this.template());
-        this.currentDay = 2;
-        if (this.currentDay > 0) {
-            console.log('ok');
-            //this.collection = this.collection.where({day_id: this.day});
-        }
         if (this.collection.length > 0) {
             this.collection.each(function (content, index) {
                 this.renderContent(content);

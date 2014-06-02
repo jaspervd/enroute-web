@@ -1,42 +1,33 @@
+/* globals Contents:true */
+/* globals Content:true */
 /* globals AdminContentItemView:true */
 
 var AdminContentView = Backbone.View.extend({
     template: tpl.admincontent,
     currentDay: 0,
+    contents: undefined,
 
     initialize: function () {
         _.bindAll.apply(_, [this].concat(_.functions(this)));
-        this.collection.on("sync reset", this.render);
+        this.collection.on("sync reset destroy", this.render);
+        this.contents = this.collection;
     },
 
     renderContent: function (content) {
         var adminContentItemView = new AdminContentItemView({model: content});
         this.$el.find('ul').append(adminContentItemView.render().$el);
-        adminContentItemView.on('deleteContent', this.deleteModelFromCollection);
-    },
-
-    deleteModelFromCollection: function (model) {
-        this.collection.remove(model);
-        this.render();
     },
 
     updateToDay: function (day) {
         console.log('[AdminContentView] updateToDay()', day);
         this.currentDay = day;
-        var self = this;
-        this.collection = _.reject(this.collection.toJSON(), function (day) {
-            return parseInt(day.id) !== parseInt(self.currentDay);
-        });
+        this.collection = this.contents;
+        this.collection = new Contents(this.collection.where({day_id: this.currentDay}));
         this.render();
     },
 
     render: function () {
         this.$el.html(this.template());
-        this.currentDay = 2;
-        if (this.currentDay > 0) {
-            console.log('ok');
-            //this.collection = this.collection.where({day_id: this.day});
-        }
         if (this.collection.length > 0) {
             this.collection.each(function (content, index) {
                 this.renderContent(content);
