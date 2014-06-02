@@ -34,12 +34,11 @@ var EnRouteApp = Backbone.View.extend({
             if ($newScreen !== 'info') {
                 this.contentView.updateScreen($newScreen);
             }
-            $('.screen').removeClass('pushRight pushDown');
-            $('#info').css({'z-index': 5, 'margin-left': '-100%'});
-            $prevScreen.css('margin-left', 0);
+            $('.screen').removeClass('pushRightIn pushRightOut');
+            $('#info').css('margin-left', '-100%');
             setTimeout(function () { // fix pushDown
-                $prevScreen.removeClass('pushRight').addClass('pushDown');
-                $('#' + $newScreen).css('margin-left', '').removeClass('pushDown').addClass('pushRight');
+                $prevScreen.addClass('pushRightOut');
+                $('#' + $newScreen).css('margin-left', '').addClass('pushRightIn');
                 self.contentView.$el.children('[class=screen]').not('#info').remove();
             }, 50);
             this.currentScreen = $newScreen;

@@ -198,7 +198,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   
 
 
-  return "<header>\n    <h1>En Route</h1>\n</header>\n<article id=\"info\" class=\"screen pushRight\">\n<header>\n    <h1>Informatie</h1>\n\n    <h2>workshop voor 10+ 12+ 14+ 16+</h2>\n</header>\n<p>\n    En Route daagt je uit om gedurende één dag de stad anders te bekijken en te beleven. Na een toffe opwarming\n    en briefing ga je op ontdekkingsreis doorheen de pitoreske straatjes van Durbuy,\n    samen met een kunstdocent die jou begeleidt terwijl je de grootste stad ter wereld ontdekt.\n    Gedurende de ontdekkingsreis krijg je verschillende opdrachten en kom je uitdagingen tegen. Het resultaat hiervan\n    wordt daarna samen met de groep verwerkt en wordt deze website jullie indruk van Durbuy rijker.\n</p>\n\n<p>\n    Kunst in Zicht ontwikkelt actieve kunsteducatieve projecten voor het onderwijs. Als expertisecentrum kunsteducatie\n    voor scholen brengt Kunst in Zicht kunstenaars, leerlingen en hun begeleiders dichter bij elkaar. Vorig schooljaar\n    lanceerde Kunst in Zicht in Turnhout het project En Route voor leerlingen van het secundair onderwijs.\n</p>\n</article>";
+  return "<header>\n    <h1>En Route</h1>\n</header>\n<article id=\"info\" class=\"screen pushRightIn\">\n<header>\n    <h1>Informatie</h1>\n\n    <h2>workshop voor 10+ 12+ 14+ 16+</h2>\n</header>\n<p>\n    En Route daagt je uit om gedurende één dag de stad anders te bekijken en te beleven. Na een toffe opwarming\n    en briefing ga je op ontdekkingsreis doorheen de pitoreske straatjes van Durbuy,\n    samen met een kunstdocent die jou begeleidt terwijl je de grootste stad ter wereld ontdekt.\n    Gedurende de ontdekkingsreis krijg je verschillende opdrachten en kom je uitdagingen tegen. Het resultaat hiervan\n    wordt daarna samen met de groep verwerkt en wordt deze website jullie indruk van Durbuy rijker.\n</p>\n\n<p>\n    Kunst in Zicht ontwikkelt actieve kunsteducatieve projecten voor het onderwijs. Als expertisecentrum kunsteducatie\n    voor scholen brengt Kunst in Zicht kunstenaars, leerlingen en hun begeleiders dichter bij elkaar. Vorig schooljaar\n    lanceerde Kunst in Zicht in Turnhout het project En Route voor leerlingen van het secundair onderwijs.\n</p>\n</article>";
   });
 
 this["tpl"]["enroute"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
@@ -631,12 +631,11 @@ var EnRouteApp = Backbone.View.extend({
             if ($newScreen !== 'info') {
                 this.contentView.updateScreen($newScreen);
             }
-            $('.screen').removeClass('pushRight pushDown');
-            $('#info').css({'z-index': 5, 'margin-left': '-100%'});
-            $prevScreen.css('margin-left', 0);
+            $('.screen').removeClass('pushRightIn pushRightOut');
+            $('#info').css('margin-left', '-100%');
             setTimeout(function () { // fix pushDown
-                $prevScreen.removeClass('pushRight').addClass('pushDown');
-                $('#' + $newScreen).css('margin-left', '').removeClass('pushDown').addClass('pushRight');
+                $prevScreen.addClass('pushRightOut');
+                $('#' + $newScreen).css('margin-left', '').addClass('pushRightIn');
                 self.contentView.$el.children('[class=screen]').not('#info').remove();
             }, 50);
             this.currentScreen = $newScreen;
