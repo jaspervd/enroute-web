@@ -1,17 +1,29 @@
 <?php
 require_once '../classes' . DIRECTORY_SEPARATOR . 'DatabasePDO.php';
+require_once 'DaysDAO.php';
 
 class ContentDAO {
     public $pdo;
+    private $daysDAO;
 
     public function __construct() {
         $this->pdo = DatabasePDO::getInstance();
+        $this->daysDAO = new DaysDAO();
     }
 
     public function getContent() {
-        $sql = "SELECT * FROM `enroute_content`";
+        $sql = "SELECT * FROM `enroute_content` ORDER BY `day_id` ASC";
         $stmt = $this->pdo->prepare($sql);
         if ($stmt->execute()) {
+            $content = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            if(!empty($content)){
+                $arr = array();
+                foreach($content as $contentItem){
+                    $contentItem['day'] = $this->daysDAO->getDayById($contentItem['day_id']);
+                    $arr[] = $contentItem;
+                }
+                return $arr;
+            }
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
         }
         return array();

@@ -7,6 +7,7 @@ var AdminContentItemView = Backbone.View.extend({
 
     events: {
         "click .approve": "approveContent",
+        "click .deny": "denyContent",
         "click .delete": "deleteContent"
     },
 
@@ -18,10 +19,19 @@ var AdminContentItemView = Backbone.View.extend({
         this.model.save();
     },
 
+    denyContent: function(e) {
+        console.log('[AdminContentItemView] denyContent()');
+        e.preventDefault();
+        this.model.set('approved', 0);
+        this.model.url = this.model.urlRoot + "/" + this.model.id;
+        this.model.save();
+    },
+
     deleteContent: function(e) {
         console.log('[AdminContentItemView] deleteContent()');
         e.preventDefault();
         this.model.url = this.model.urlRoot + "/" + this.model.id;
+        this.trigger('deleteContent', this.model);
         this.model.destroy();
     },
 

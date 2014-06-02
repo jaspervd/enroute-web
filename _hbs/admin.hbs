@@ -1,3 +1,13 @@
 <header>
     <h1>Admin</h1>
 </header>
+<nav>
+<header>
+    <h1>Dagen</h1>
+</header>
+<ul>
+    {{#each days}}
+        <li><a href="" class="title" data="{{id}}">{{formatDate title}}</a></li>
+    {{/each}}
+</ul>
+</nav>

@@ -15,12 +15,21 @@ var AppRouter = Backbone.Router.extend({
         'home/': 'overview',
         'tickets/:day': 'dayView',
         'dag/:day': 'dayView',
-        'admin/': 'admin'
+        'admin/': 'admin',
+        'admin/:day': 'adminDayView'
     },
 
     overview: function () {
         console.log('[AppRouter] overview()');
         this.enRouteApp = new EnRouteApp();
+        $('#container, noscript').remove();
+        $('body').prepend(this.enRouteApp.render().$el);
+    },
+
+    dayView: function (day) {
+        console.log('[AppRouter] dayView()');
+        this.enRouteApp = new EnRouteApp();
+        this.enRouteApp.currentScreen = day;
         $('#container, noscript').remove();
         $('body').prepend(this.enRouteApp.render().$el);
     },
@@ -33,11 +42,11 @@ var AppRouter = Backbone.Router.extend({
         Backbone.history.navigate('admin/');
     },
 
-    dayView: function (day) {
-        console.log('[AppRouter] dayView()');
-        this.enRouteApp = new EnRouteApp();
-        this.enRouteApp.currentScreen = day;
+    adminDayView: function (day) {
+        console.log('[AppRouter] adminDayView()');
+        this.adminApp = new AdminApp();
+        this.adminApp.currentDay = day;
         $('#container, noscript').remove();
-        $('body').prepend(this.enRouteApp.render().$el);
+        $('body').prepend(this.adminApp.render().$el);
     }
 });
