@@ -643,7 +643,6 @@ var EnRouteApp = Backbone.View.extend({
     },
 
     syncHandler: function () {
-        console.log('hacky');
         this.changeScreen(this.currentScreen); // hacky method
     },
 
