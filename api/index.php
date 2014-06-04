@@ -99,4 +99,8 @@ $app->put('/content/:id/?', function ($id) use ($app, $contentDAO) {
     exit();
 });
 
+$app->post('/contact/?', function() {
+
+});
+
 $app->run();
