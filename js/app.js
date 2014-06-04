@@ -89,7 +89,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 function program1(depth0,data) {
   
   var buffer = "", stack1, helper;
-  buffer += "\n    <form method=\"post\" action=\"#\">\n        <div>\n            <label for=\"txtName_";
+  buffer += "\n    <form method=\"post\" action=\"\">\n        <div>\n            <label for=\"txtName_";
   if (helper = helpers.title) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.title); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
@@ -124,7 +124,7 @@ function program1(depth0,data) {
 function program3(depth0,data) {
   
   var buffer = "", stack1, helper;
-  buffer += "\n    <form method=\"post\" action=\"#\">\n        <div>\n            <label for=\"txtName_";
+  buffer += "\n    <form method=\"post\" action=\"\">\n        <div>\n            <label for=\"txtName_";
   if (helper = helpers.title) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.title); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
@@ -198,7 +198,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   
 
 
-  return "<header>\n    <h1>En Route</h1>\n</header>\n<article id=\"info\" class=\"screen pushRightIn\">\n<header>\n    <h1>Informatie</h1>\n\n    <h2>workshop voor 10+ 12+ 14+ 16+</h2>\n</header>\n<p>\n    En Route daagt je uit om gedurende één dag de stad anders te bekijken en te beleven. Na een toffe opwarming\n    en briefing ga je op ontdekkingsreis doorheen de pitoreske straatjes van Durbuy,\n    samen met een kunstdocent die jou begeleidt terwijl je de grootste stad ter wereld ontdekt.\n    Gedurende de ontdekkingsreis krijg je verschillende opdrachten en kom je uitdagingen tegen. Het resultaat hiervan\n    wordt daarna samen met de groep verwerkt en wordt deze website jullie indruk van Durbuy rijker.\n</p>\n\n<p>\n    Kunst in Zicht ontwikkelt actieve kunsteducatieve projecten voor het onderwijs. Als expertisecentrum kunsteducatie\n    voor scholen brengt Kunst in Zicht kunstenaars, leerlingen en hun begeleiders dichter bij elkaar. Vorig schooljaar\n    lanceerde Kunst in Zicht in Turnhout het project En Route voor leerlingen van het secundair onderwijs.\n</p>\n</article>";
+  return "<header>\n    <h1>En Route</h1>\n</header>\n<article id=\"info\" class=\"screen pushRightIn\">\n<header>\n    <h1>Informatie</h1>\n\n    <h2>workshop voor 10+ 12+ 14+ 16+</h2>\n</header>\n<p>\n    En Route daagt je uit om gedurende één dag de stad anders te bekijken en te beleven. Na een toffe opwarming\n    en briefing ga je op ontdekkingsreis doorheen de pitoreske straatjes van Durbuy,\n    samen met een kunstdocent die jou begeleidt terwijl je de grootste stad ter wereld ontdekt.\n    Gedurende de ontdekkingsreis krijg je verschillende opdrachten en kom je uitdagingen tegen. Het resultaat hiervan\n    wordt daarna samen met de groep verwerkt en wordt deze website jullie indruk van Durbuy rijker.\n</p>\n\n<p>\n    Kunst in Zicht ontwikkelt actieve kunsteducatieve projecten voor het onderwijs. Als expertisecentrum kunsteducatie\n    voor scholen brengt Kunst in Zicht kunstenaars, leerlingen en hun begeleiders dichter bij elkaar. Vorig schooljaar\n    lanceerde Kunst in Zicht in Turnhout het project En Route voor leerlingen van het secundair onderwijs.\n</p>\n</article>\n<article id=\"contact\" class=\"screen pushRightOut\">\n    <header>\n        <h1>Ticket bestellen</h1>\n    </header>\n    <form method=\"post\" action=\"\">\n        <div>\n            <label for=\"txtName\">Naam:</label>\n            <input type=\"text\" required name=\"txtName\" class=\"txtName\" id=\"txtName\" placeholder=\"Joske Vermeulen\"/>\n        </div>\n\n        <div>\n            <label for=\"txtEmail\">E-mailadres:</label>\n            <input type=\"email\" required name=\"txtEmail\" class=\"txtEmail\" id=\"txtEmail\" placeholder=\"joske.vermeulen@trammezand.lei\" required=\"required\" />\n        </div>\n\n        <div>\n            <label for=\"txtMessage\">Bericht:</label>\n            <textarea name=\"txtMessage\" id=\"txtMessage\" cols=\"30\" rows=\"10\"></textarea>\n        </div>\n\n        <div>\n            <input type=\"submit\" name=\"btnSubmit\" class=\"btnSubmit\" value=\"Versturen\"/>\n        </div>\n    </form>\n</article>";
   });
 
 this["tpl"]["enroute"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
@@ -216,7 +216,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   
 
 
-  return "<header>\n    <h1>Navigation</h1>\n</header>\n<div id=\"navControl\"><a href=\"\" class=\"workshops\">En Route</a> - <a href=\"\" class=\"tickets\">Tickets</a></div>";
+  return "<header>\n	<h1>Navigation</h1>\n</header>\n<div id=\"navControl\">\n	<a href=\"\" class=\"workshops\">En Route</a> - <a href=\"\" class=\"tickets\">Tickets</a> - <a href=\"\" data=\"contact\">Contact</a>\n</div>";
   });
 
 this["tpl"]["tickets"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
@@ -362,6 +362,7 @@ var AppRouter = Backbone.Router.extend({
     routes: {
         '': 'overview',
         'home/': 'overview',
+        'contact/': 'contact',
         'tickets/:day': 'dayView',
         'dag/:day': 'dayView',
         'admin/': 'admin',
@@ -371,6 +372,14 @@ var AppRouter = Backbone.Router.extend({
     overview: function () {
         console.log('[AppRouter] overview()');
         this.enRouteApp = new EnRouteApp();
+        $('#container, noscript').remove();
+        $('body').prepend(this.enRouteApp.render().$el);
+    },
+
+    contact: function () {
+        console.log('[AppRouter] contact()');
+        this.enRouteApp = new EnRouteApp();
+        this.enRouteApp.currentScreen = 'contact';
         $('#container, noscript').remove();
         $('body').prepend(this.enRouteApp.render().$el);
     },
@@ -598,63 +607,77 @@ var ContentView = Backbone.View.extend({
 /* globals NavigationView:true */
 /* globals ContentView:true */
 /* globals Days:true */
-
 var EnRouteApp = Backbone.View.extend({
     id: 'container',
     tagName: 'div',
     template: tpl.enroute,
     currentScreen: 'info',
+    hardcodedPages: ['info', 'contact'],
 
-    initialize: function () {
+    initialize: function() {
         _.bindAll.apply(_, [this].concat(_.functions(this)));
 
         this.days = new Days();
         this.days.fetch();
 
-        this.navigationView = new NavigationView({collection: this.days});
-        this.contentView = new ContentView({collection: this.days});
+        this.navigationView = new NavigationView({
+            collection: this.days
+        });
+
+        this.contentView = new ContentView({
+            collection: this.days
+        });
     },
 
-    changeScreen: function (item) {
+    changeScreen: function(item) {
         console.log("[EnRouteApp] changeScreen()");
         var $prevScreen = $('#' + this.currentScreen);
         var $newScreen = '';
         var externalLoadedScreen = false; // fix for dayView()
-        if($(item).attr('data')) {
+
+        if ($(item).attr('data')) {
             $newScreen = $(item).attr('data');
         } else {
             $newScreen = item;
             externalLoadedScreen = true;
         }
+
         var self = this; // fix for timeout
         if (this.currentScreen !== $newScreen || externalLoadedScreen) {
-            if ($newScreen !== 'info') {
+            console.log($newScreen, this.currentScreen);
+            if (!_.contains(this.hardcodedPages, $newScreen)) {
                 this.contentView.updateScreen($newScreen);
+            } else {
+                this.navigateToCorrectPage();
             }
             $('.screen').removeClass('pushRightIn pushRightOut');
-            $('#info').css('margin-left', '-100%');
-            setTimeout(function () { // fix pushDown
+            $('#info, #contact').css('margin-left', '-100%');
+            setTimeout(function() { // fix push
                 $prevScreen.addClass('pushRightOut');
                 $('#' + $newScreen).css('margin-left', '').addClass('pushRightIn');
-                self.contentView.$el.children('[class=screen]').not('#info').remove();
+                self.contentView.$el.children('[class=screen]').not('#info, #contact').remove();
             }, 50);
             this.currentScreen = $newScreen;
         }
     },
 
-    syncHandler: function () {
-        this.changeScreen(this.currentScreen); // hacky method
+    navigateToCorrectPage: function() {
+        if (this.currentScreen === 'contact') {
+            Backbone.history.navigate('contact/');
+        } else {
+            Backbone.history.navigate('home/');
+        }
     },
 
-    render: function () {
+    render: function() {
         this.$el.append(this.template());
         this.$el.append(this.navigationView.render().$el);
         this.$el.append(this.contentView.render().$el);
         this.navigationView.on('itemClicked', this.changeScreen);
-        if(this.currentScreen !== 'info') {
-            this.days.on('sync', this.syncHandler);
+        if (!_.contains(this.hardcodedPages, this.currentScreen)) {
+            this.days.on('sync', this.changeScreen(this.currentScreen));
         } else {
-            Backbone.history.navigate('home/');
+            this.navigateToCorrectPage();
         }
         this.$el.append('<div class="clear"></div>');
         return this;

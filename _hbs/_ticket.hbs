@@ -3,7 +3,7 @@
         <h1>Ticket bestellen</h1>
     </header>
     {{#ifTypeIsPublic type}}
-    <form method="post" action="#">
+    <form method="post" action="">
         <div>
             <label for="txtName_{{title}}">Naam:</label>
             <input type="text" required name="txtName" class="txtName" id="txtName_{{title}}" placeholder="Joske Vermeulen"/>
@@ -25,7 +25,7 @@
     </form>
     {{/ifTypeIsPublic}}
     {{#ifTypeIsSchool type}}
-    <form method="post" action="#">
+    <form method="post" action="">
         <div>
             <label for="txtName_{{title}}">Schoolnaam:</label>
             <input type="text" required name="txtName" class="txtName" id="txtName_{{title}}" placeholder="Volledige schoolnaam"/>

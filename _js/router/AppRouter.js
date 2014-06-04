@@ -13,6 +13,7 @@ var AppRouter = Backbone.Router.extend({
     routes: {
         '': 'overview',
         'home/': 'overview',
+        'contact/': 'contact',
         'tickets/:day': 'dayView',
         'dag/:day': 'dayView',
         'admin/': 'admin',
@@ -22,6 +23,14 @@ var AppRouter = Backbone.Router.extend({
     overview: function () {
         console.log('[AppRouter] overview()');
         this.enRouteApp = new EnRouteApp();
+        $('#container, noscript').remove();
+        $('body').prepend(this.enRouteApp.render().$el);
+    },
+
+    contact: function () {
+        console.log('[AppRouter] contact()');
+        this.enRouteApp = new EnRouteApp();
+        this.enRouteApp.currentScreen = 'contact';
         $('#container, noscript').remove();
         $('body').prepend(this.enRouteApp.render().$el);
     },
