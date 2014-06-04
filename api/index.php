@@ -1,4 +1,7 @@
 <?php
+error_reporting(-1);
+ini_set("display_errors", 1);
+
 define('WWW_ROOT', dirname(dirname(__FILE__)) . DIRECTORY_SEPARATOR);
 require_once WWW_ROOT . 'classes' . DIRECTORY_SEPARATOR . 'Config.php';
 require_once WWW_ROOT . 'dao' . DIRECTORY_SEPARATOR . 'DaysDAO.php';
@@ -114,7 +117,7 @@ $app->post('/contact/?', function () use ($app) {
         $errors['email'] = 'Dit is geen geldig e-mailadres.';
     }
     if (!Validate::checkWords($post['message'], 2)) {
-        $errors['email'] = 'Gelieve hier minstens 2 woorden in te vullen.';
+        $errors['message'] = 'Gelieve hier minstens 2 woorden in te vullen.';
     }
     if (empty($errors)) {
         $subject = '[En Route] Contact';
@@ -129,14 +132,14 @@ $app->post('/contact/?', function () use ($app) {
                 </html>';
 
         $headers = 'MIME-Version: 1.0' . "\r\n";
-        $headers.= 'Content-type: text/html; charset=utf-8' . "\r\n";
+        $headers.= 'Content-type: text/html; charset=UTF-8' . "\r\n";
         $headers.= 'To: En Route <' . Config::EMAIL . '>' . "\r\n";
         $headers.= 'From: ' . $post['name'] . ' <' . $post['email'] . '>' . "\r\n";
-        if(mail(Config::EMAIL, $subject, $message, $headers)) {
-            echo true;
+        if (mail(Config::EMAIL, $subject, $message, $headers)) {
+            echo 'true';
         } else {
             header('HTTP/1.1 500 Internal Server Error');
-            echo 'der is iets mis gegeaan  :\'(';
+            echo json_encode(array('errors', ['mail', 'Er is iets misgegaan tijdens ']));
         }
     } else {
         header('HTTP/1.1 500 Internal Server Error');

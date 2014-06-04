@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Machine: localhost
--- Genereertijd: 02 jun 2014 om 13:45
+-- Genereertijd: 04 jun 2014 om 16:44
 -- Serverversie: 5.5.29
 -- PHP-versie: 5.4.10
 
@@ -16,11 +16,7 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8 */;
 
---
--- Databank: `maiv_enroute`
---
-CREATE DATABASE IF NOT EXISTS `maiv_enroute` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
-USE `maiv_enroute`;
+USE `jaspervandahch7i`;
 
 -- --------------------------------------------------------
 
