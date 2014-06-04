@@ -15,7 +15,7 @@ var ContentView = Backbone.View.extend({
     },
 
     events: {
-        'click #btnSubmitContact': 'sendContact',
+        'submit #contact form': 'sendContact',
         'blur #txtName': 'validateName',
         'keyup #txtName': 'validateName',
         'blur #txtEmail': 'validateEmail',
@@ -38,10 +38,10 @@ var ContentView = Backbone.View.extend({
             contact.save({}, {
                 success: function(model, response) {
                     var successView = new SuccessView({
-                        model: response
+                        model: 'Je e-mail is succesvol verzonden, vuile homo.'
                     });
                     self.$el.find('#txtName, #txtEmail, #txtMessage').val('');
-                    self.$el.append(successView.render().$el);
+                    self.$el.find('#contact').append(successView.render().$el);
                 },
                 error: function(model, response) {
                     console.log('[ContentView] generated 500 error code');

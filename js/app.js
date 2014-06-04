@@ -64,21 +64,10 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 Handlebars.registerPartial("success", this["tpl"]["success"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
-  var buffer = "", stack1, helper, options, functionType="function", escapeExpression=this.escapeExpression, helperMissing=helpers.helperMissing;
+  var functionType="function", escapeExpression=this.escapeExpression;
 
 
-  buffer += "Dag ";
-  if (helper = helpers.name) { stack1 = helper.call(depth0, {hash:{},data:data}); }
-  else { helper = (depth0 && depth0.name); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
-  buffer += escapeExpression(stack1)
-    + ", je hebt succesvol ";
-  if (helper = helpers.tickets) { stack1 = helper.call(depth0, {hash:{},data:data}); }
-  else { helper = (depth0 && depth0.tickets); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
-  buffer += escapeExpression(stack1)
-    + " tickets besteld voor de workshop op "
-    + escapeExpression((helper = helpers.formatDate || (depth0 && depth0.formatDate),options={hash:{},data:data},helper ? helper.call(depth0, ((stack1 = (depth0 && depth0.day)),stack1 == null || stack1 === false ? stack1 : stack1.title), options) : helperMissing.call(depth0, "formatDate", ((stack1 = (depth0 && depth0.day)),stack1 == null || stack1 === false ? stack1 : stack1.title), options)))
-    + "!";
-  return buffer;
+  return escapeExpression((typeof depth0 === functionType ? depth0.apply(depth0) : depth0));
   }));
 
 Handlebars.registerPartial("ticket", this["tpl"]["ticket"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
@@ -198,7 +187,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   
 
 
-  return "<header>\n    <h1>En Route</h1>\n</header>\n<article id=\"info\" class=\"screen pushRightIn\">\n<header>\n    <h1>Informatie</h1>\n\n    <h2>workshop voor 10+ 12+ 14+ 16+</h2>\n</header>\n<p>\n    En Route daagt je uit om gedurende één dag de stad anders te bekijken en te beleven. Na een toffe opwarming\n    en briefing ga je op ontdekkingsreis doorheen de pitoreske straatjes van Durbuy,\n    samen met een kunstdocent die jou begeleidt terwijl je de grootste stad ter wereld ontdekt.\n    Gedurende de ontdekkingsreis krijg je verschillende opdrachten en kom je uitdagingen tegen. Het resultaat hiervan\n    wordt daarna samen met de groep verwerkt en wordt deze website jullie indruk van Durbuy rijker.\n</p>\n\n<p>\n    Kunst in Zicht ontwikkelt actieve kunsteducatieve projecten voor het onderwijs. Als expertisecentrum kunsteducatie\n    voor scholen brengt Kunst in Zicht kunstenaars, leerlingen en hun begeleiders dichter bij elkaar. Vorig schooljaar\n    lanceerde Kunst in Zicht in Turnhout het project En Route voor leerlingen van het secundair onderwijs.\n</p>\n</article>\n<article id=\"contact\" class=\"screen pushRightOut\">\n    <header>\n        <h1>Ticket bestellen</h1>\n    </header>\n    <form method=\"post\" action=\"\">\n        <div>\n            <label for=\"txtName\">Naam:</label>\n            <input type=\"text\"  name=\"txtName\" id=\"txtName\" placeholder=\"Joske Vermeulen\"/>\n        </div>\n\n        <div>\n            <label for=\"txtEmail\">E-mailadres:</label>\n            <input type=\"email\"  name=\"txtEmail\" id=\"txtEmail\" placeholder=\"joske.vermeulen@trammezand.lei\" />\n        </div>\n\n        <div>\n            <label for=\"txtMessage\">Bericht:</label>\n            <textarea name=\"txtMessage\" id=\"txtMessage\" cols=\"30\" rows=\"10\"></textarea>\n        </div>\n\n        <div>\n            <input type=\"submit\" name=\"btnSubmit\" id=\"btnSubmitContact\" value=\"Versturen\"/>\n        </div>\n    </form>\n</article>";
+  return "<header>\n    <h1>En Route</h1>\n</header>\n<article id=\"info\" class=\"screen pushRightIn\">\n<header>\n    <h1>Informatie</h1>\n\n    <h2>workshop voor 10+ 12+ 14+ 16+</h2>\n</header>\n<p>\n    En Route daagt je uit om gedurende één dag de stad anders te bekijken en te beleven. Na een toffe opwarming\n    en briefing ga je op ontdekkingsreis doorheen de pitoreske straatjes van Durbuy,\n    samen met een kunstdocent die jou begeleidt terwijl je de grootste stad ter wereld ontdekt.\n    Gedurende de ontdekkingsreis krijg je verschillende opdrachten en kom je uitdagingen tegen. Het resultaat hiervan\n    wordt daarna samen met de groep verwerkt en wordt deze website jullie indruk van Durbuy rijker.\n</p>\n\n<p>\n    Kunst in Zicht ontwikkelt actieve kunsteducatieve projecten voor het onderwijs. Als expertisecentrum kunsteducatie\n    voor scholen brengt Kunst in Zicht kunstenaars, leerlingen en hun begeleiders dichter bij elkaar. Vorig schooljaar\n    lanceerde Kunst in Zicht in Turnhout het project En Route voor leerlingen van het secundair onderwijs.\n</p>\n</article>\n<article id=\"contact\" class=\"screen pushRightOut\">\n    <header>\n        <h1>Ticket bestellen</h1>\n    </header>\n    <form method=\"post\" action=\"\">\n        <div>\n            <label for=\"txtName\">Naam:</label>\n            <input type=\"text\" required name=\"txtName\" id=\"txtName\" placeholder=\"Joske Vermeulen\"/>\n        </div>\n\n        <div>\n            <label for=\"txtEmail\">E-mailadres:</label>\n            <input type=\"email\" required name=\"txtEmail\" id=\"txtEmail\" placeholder=\"joske.vermeulen@trammezand.lei\" />\n        </div>\n\n        <div>\n            <label for=\"txtMessage\">Bericht:</label>\n            <textarea name=\"txtMessage\" required id=\"txtMessage\" cols=\"30\" rows=\"10\"></textarea>\n        </div>\n\n        <div>\n            <input type=\"submit\" name=\"btnSubmit\" id=\"btnSubmitContact\" value=\"Versturen\"/>\n        </div>\n    </form>\n</article>";
   });
 
 this["tpl"]["enroute"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
@@ -652,7 +641,7 @@ var ContentView = Backbone.View.extend({
     },
 
     events: {
-        'click #btnSubmitContact': 'sendContact',
+        'submit #contact form': 'sendContact',
         'blur #txtName': 'validateName',
         'keyup #txtName': 'validateName',
         'blur #txtEmail': 'validateEmail',
@@ -675,10 +664,10 @@ var ContentView = Backbone.View.extend({
             contact.save({}, {
                 success: function(model, response) {
                     var successView = new SuccessView({
-                        model: response
+                        model: 'Je e-mail is succesvol verzonden, vuile homo.'
                     });
                     self.$el.find('#txtName, #txtEmail, #txtMessage').val('');
-                    self.$el.append(successView.render().$el);
+                    self.$el.find('#contact').append(successView.render().$el);
                 },
                 error: function(model, response) {
                     console.log('[ContentView] generated 500 error code');
@@ -998,7 +987,7 @@ var TicketView = Backbone.View.extend({
         if (Validate.fullName(this.$el.find('.txtName')) && Validate.email(this.$el.find('.txtEmail'))) {
             ticket.save({}, {
                 success: function (model, response) {
-                    var successView = new SuccessView({model: response});
+                    var successView = new SuccessView({model: 'Dag '+ response.name +', je hebt succesvol '+ response.tickets +' tickets besteld voor de workshop op '+ response.tickets.title +'!'});
                     self.$el.find('.txtName, .txtEmail').val('');
                     self.$el.append(successView.render().$el);
                 },

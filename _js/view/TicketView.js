@@ -35,7 +35,7 @@ var TicketView = Backbone.View.extend({
         if (Validate.fullName(this.$el.find('.txtName')) && Validate.email(this.$el.find('.txtEmail'))) {
             ticket.save({}, {
                 success: function (model, response) {
-                    var successView = new SuccessView({model: response});
+                    var successView = new SuccessView({model: 'Dag '+ response.name +', je hebt succesvol '+ response.tickets +' tickets besteld voor de workshop op '+ response.tickets.title +'!'});
                     self.$el.find('.txtName, .txtEmail').val('');
                     self.$el.append(successView.render().$el);
                 },
