@@ -1,6 +1,7 @@
 /* globals Ticket:true */
 /* globals SuccessView:true */
 /* globals ErrorView:true */
+/* globals Validate:true */
 var TicketView = Backbone.View.extend({
     model: Ticket,
     template: tpl.ticket,
@@ -31,7 +32,7 @@ var TicketView = Backbone.View.extend({
         if (tickets) {
             ticket.set('tickets', parseInt(tickets));
         }
-        if (this.validateName(self.$el.find('.txtName')) && this.validateEmail(self.$el.find('.txtEmail'))) {
+        if (Validate.fullName(this.$el.find('.txtName')) && Validate.email(this.$el.find('.txtEmail'))) {
             ticket.save({}, {
                 success: function (model, response) {
                     var successView = new SuccessView({model: response});
@@ -66,29 +67,12 @@ var TicketView = Backbone.View.extend({
         }
     },
 
-    validateName: function (e) {
-        if (!Modernizr.input.required) { // !Modernizr.input.pattern -- pattern=".{7,}" no user friendly output from browser
-            if ($(e.currentTarget).val().length < 7) {
-                var errorView = new ErrorView({model: 'Er wordt verwacht dat je naam minstens 7 karakters lang is.'});
-                $(e.currentTarget).next().remove();
-                $(e.currentTarget).after(errorView.render().$el);
-                return false;
-            }
-        }
-        return true;
+    validateName: function(e) {
+        Validate.fullName(e.currentTarget);
     },
 
-    validateEmail: function (e) {
-        if (!Modernizr.input.required || !Modernizr.inputtypes.email) {
-            var regExp = new RegExp("^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}$");
-            if (!regExp.test($(e.currentTarget).val())) {
-                var errorView = new ErrorView({model: 'Dit is geen geldig e-mailadres.'});
-                $(e.currentTarget).next().remove();
-                $(e.currentTarget).after(errorView.render().$el);
-                return false;
-            }
-        }
-        return true;
+    validateEmail: function(e) {
+        Validate.email(e.currentTarget);
     },
 
     clean: function () {

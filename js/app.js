@@ -105,7 +105,7 @@ function program1(depth0,data) {
   if (helper = helpers.title) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.title); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
-    + "\" placeholder=\"joske.vermeulen@trammezand.lei\" required=\"required\" />\n        </div>\n\n        <div>\n            <label for=\"rngTickets_";
+    + "\" placeholder=\"joske.vermeulen@trammezand.lei\" />\n        </div>\n\n        <div>\n            <label for=\"rngTickets_";
   if (helper = helpers.title) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.title); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
@@ -117,7 +117,7 @@ function program1(depth0,data) {
   if (helper = helpers.tickets_available) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.tickets_available); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
-    + "\" required=\"required\"/>\n        </div>\n\n        <div>\n            <input type=\"submit\" name=\"btnSubmit\" class=\"btnSubmit\" value=\"Verder naar bestellen\"/>\n        </div>\n    </form>\n    ";
+    + "\" />\n        </div>\n\n        <div>\n            <input type=\"submit\" name=\"btnSubmit\" class=\"btnSubmit\" value=\"Verder naar bestellen\"/>\n        </div>\n    </form>\n    ";
   return buffer;
   }
 
@@ -198,7 +198,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   
 
 
-  return "<header>\n    <h1>En Route</h1>\n</header>\n<article id=\"info\" class=\"screen pushRightIn\">\n<header>\n    <h1>Informatie</h1>\n\n    <h2>workshop voor 10+ 12+ 14+ 16+</h2>\n</header>\n<p>\n    En Route daagt je uit om gedurende één dag de stad anders te bekijken en te beleven. Na een toffe opwarming\n    en briefing ga je op ontdekkingsreis doorheen de pitoreske straatjes van Durbuy,\n    samen met een kunstdocent die jou begeleidt terwijl je de grootste stad ter wereld ontdekt.\n    Gedurende de ontdekkingsreis krijg je verschillende opdrachten en kom je uitdagingen tegen. Het resultaat hiervan\n    wordt daarna samen met de groep verwerkt en wordt deze website jullie indruk van Durbuy rijker.\n</p>\n\n<p>\n    Kunst in Zicht ontwikkelt actieve kunsteducatieve projecten voor het onderwijs. Als expertisecentrum kunsteducatie\n    voor scholen brengt Kunst in Zicht kunstenaars, leerlingen en hun begeleiders dichter bij elkaar. Vorig schooljaar\n    lanceerde Kunst in Zicht in Turnhout het project En Route voor leerlingen van het secundair onderwijs.\n</p>\n</article>\n<article id=\"contact\" class=\"screen pushRightOut\">\n    <header>\n        <h1>Ticket bestellen</h1>\n    </header>\n    <form method=\"post\" action=\"\">\n        <div>\n            <label for=\"txtName\">Naam:</label>\n            <input type=\"text\" required name=\"txtName\" class=\"txtName\" id=\"txtName\" placeholder=\"Joske Vermeulen\"/>\n        </div>\n\n        <div>\n            <label for=\"txtEmail\">E-mailadres:</label>\n            <input type=\"email\" required name=\"txtEmail\" class=\"txtEmail\" id=\"txtEmail\" placeholder=\"joske.vermeulen@trammezand.lei\" required=\"required\" />\n        </div>\n\n        <div>\n            <label for=\"txtMessage\">Bericht:</label>\n            <textarea name=\"txtMessage\" id=\"txtMessage\" cols=\"30\" rows=\"10\"></textarea>\n        </div>\n\n        <div>\n            <input type=\"submit\" name=\"btnSubmit\" class=\"btnSubmit\" value=\"Versturen\"/>\n        </div>\n    </form>\n</article>";
+  return "<header>\n    <h1>En Route</h1>\n</header>\n<article id=\"info\" class=\"screen pushRightIn\">\n<header>\n    <h1>Informatie</h1>\n\n    <h2>workshop voor 10+ 12+ 14+ 16+</h2>\n</header>\n<p>\n    En Route daagt je uit om gedurende één dag de stad anders te bekijken en te beleven. Na een toffe opwarming\n    en briefing ga je op ontdekkingsreis doorheen de pitoreske straatjes van Durbuy,\n    samen met een kunstdocent die jou begeleidt terwijl je de grootste stad ter wereld ontdekt.\n    Gedurende de ontdekkingsreis krijg je verschillende opdrachten en kom je uitdagingen tegen. Het resultaat hiervan\n    wordt daarna samen met de groep verwerkt en wordt deze website jullie indruk van Durbuy rijker.\n</p>\n\n<p>\n    Kunst in Zicht ontwikkelt actieve kunsteducatieve projecten voor het onderwijs. Als expertisecentrum kunsteducatie\n    voor scholen brengt Kunst in Zicht kunstenaars, leerlingen en hun begeleiders dichter bij elkaar. Vorig schooljaar\n    lanceerde Kunst in Zicht in Turnhout het project En Route voor leerlingen van het secundair onderwijs.\n</p>\n</article>\n<article id=\"contact\" class=\"screen pushRightOut\">\n    <header>\n        <h1>Ticket bestellen</h1>\n    </header>\n    <form method=\"post\" action=\"\">\n        <div>\n            <label for=\"txtName\">Naam:</label>\n            <input type=\"text\"  name=\"txtName\" id=\"txtName\" placeholder=\"Joske Vermeulen\"/>\n        </div>\n\n        <div>\n            <label for=\"txtEmail\">E-mailadres:</label>\n            <input type=\"email\"  name=\"txtEmail\" id=\"txtEmail\" placeholder=\"joske.vermeulen@trammezand.lei\" />\n        </div>\n\n        <div>\n            <label for=\"txtMessage\">Bericht:</label>\n            <textarea name=\"txtMessage\" id=\"txtMessage\" cols=\"30\" rows=\"10\"></textarea>\n        </div>\n\n        <div>\n            <input type=\"submit\" name=\"btnSubmit\" id=\"btnSubmitContact\" value=\"Versturen\"/>\n        </div>\n    </form>\n</article>";
   });
 
 this["tpl"]["enroute"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
@@ -308,6 +308,59 @@ var Settings = (function () {
     Settings.API = Settings.base + Settings.path + "/api";
 
     return Settings;
+})();
+
+/* globals ErrorView:true */
+
+var Validate = (function() {
+    function Validate() {}
+
+    Validate.fullName = function(input) { // .name is reserved (error: string is not a function)
+        console.log('[Validate] fullName()');
+        if (!Modernizr.input.required) { // !Modernizr.input.pattern -- pattern=".{7,}" no user friendly output from browser
+            $(input).next().remove();
+            if ($(input).val().length < 7) {
+                var errorView = new ErrorView({
+                    model: 'Er wordt verwacht dat je naam minstens 7 karakters lang is.'
+                });
+                $(input).after(errorView.render().$el);
+                return false;
+            }
+        }
+        return true;
+    };
+
+    Validate.email = function(input) {
+        console.log('[Validate] email()');
+        if (!Modernizr.input.required || !Modernizr.inputtypes.email) {
+            var regExp = new RegExp("^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}$");
+            $(input).next().remove();
+            if (!regExp.test($(input).val())) {
+                var errorView = new ErrorView({
+                    model: 'Dit is geen geldig e-mailadres.'
+                });
+                $(input).after(errorView.render().$el);
+                return false;
+            }
+        }
+        return true;
+    };
+
+    Validate.message = function(input) {
+        console.log('[Validate] message()');
+        $(input).next().remove();
+        if ($(input).val().split(' ').length < 2) {
+            var errorView = new ErrorView({
+                model: 'Gelieve hier minstens 2 woorden in te vullen.'
+            });
+            $(input).next().remove();
+            $(input).after(errorView.render().$el);
+            return false;
+        }
+        return true;
+    };
+
+    return Validate;
 })();
 
 /* globals Settings:true */
@@ -572,6 +625,7 @@ var AdminContentView = Backbone.View.extend({
 
 /* globals ScreenView:true */
 /* globals TicketView:true */
+/* globals Validate:true */
 
 var ContentView = Backbone.View.extend({
     id: 'content',
@@ -580,6 +634,36 @@ var ContentView = Backbone.View.extend({
 
     initialize: function () {
         _.bindAll.apply(_, [this].concat(_.functions(this)));
+    },
+
+    events: {
+        'click #btnSubmitContact': 'sendContact',
+        'blur #txtName': 'validateName',
+        'keyup #txtName': 'validateName',
+        'blur #txtEmail': 'validateEmail',
+        'keyup #txtEmail': 'validateEmail',
+        'blur #txtMessage': 'validateMessage',
+        'keyup #txtMessage': 'validateMessage'
+    },
+
+    sendContact: function(e) {
+        console.log('[ContentView] sendContact()');
+        e.preventDefault();
+        if (Validate.fullName(this.$el.find('#txtName')) && Validate.email(this.$el.find('#txtEmail')) && Validate.message(this.$el.find('#txtMessage'))) {
+            console.log('Hoera!');
+        }
+    },
+
+    validateName: function(e) {
+        Validate.fullName(e.currentTarget);
+    },
+
+    validateEmail: function(e) {
+        Validate.email(e.currentTarget);
+    },
+
+    validateMessage: function(e) {
+        Validate.message(e.currentTarget);
     },
 
     updateScreen: function(newScreen) {
@@ -644,7 +728,6 @@ var EnRouteApp = Backbone.View.extend({
 
         var self = this; // fix for timeout
         if (this.currentScreen !== $newScreen || externalLoadedScreen) {
-            console.log($newScreen, this.currentScreen);
             if (!_.contains(this.hardcodedPages, $newScreen)) {
                 this.contentView.updateScreen($newScreen);
             } else {
@@ -825,6 +908,7 @@ var SuccessView = Backbone.View.extend({
 /* globals Ticket:true */
 /* globals SuccessView:true */
 /* globals ErrorView:true */
+/* globals Validate:true */
 var TicketView = Backbone.View.extend({
     model: Ticket,
     template: tpl.ticket,
@@ -855,7 +939,7 @@ var TicketView = Backbone.View.extend({
         if (tickets) {
             ticket.set('tickets', parseInt(tickets));
         }
-        if (this.validateName(self.$el.find('.txtName')) && this.validateEmail(self.$el.find('.txtEmail'))) {
+        if (Validate.fullName(this.$el.find('.txtName')) && Validate.email(this.$el.find('.txtEmail'))) {
             ticket.save({}, {
                 success: function (model, response) {
                     var successView = new SuccessView({model: response});
@@ -890,29 +974,12 @@ var TicketView = Backbone.View.extend({
         }
     },
 
-    validateName: function (e) {
-        if (!Modernizr.input.required) { // !Modernizr.input.pattern -- pattern=".{7,}" no user friendly output from browser
-            if ($(e.currentTarget).val().length < 7) {
-                var errorView = new ErrorView({model: 'Er wordt verwacht dat je naam minstens 7 karakters lang is.'});
-                $(e.currentTarget).next().remove();
-                $(e.currentTarget).after(errorView.render().$el);
-                return false;
-            }
-        }
-        return true;
+    validateName: function(e) {
+        Validate.fullName(e.currentTarget);
     },
 
-    validateEmail: function (e) {
-        if (!Modernizr.input.required || !Modernizr.inputtypes.email) {
-            var regExp = new RegExp("^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}$");
-            if (!regExp.test($(e.currentTarget).val())) {
-                var errorView = new ErrorView({model: 'Dit is geen geldig e-mailadres.'});
-                $(e.currentTarget).next().remove();
-                $(e.currentTarget).after(errorView.render().$el);
-                return false;
-            }
-        }
-        return true;
+    validateEmail: function(e) {
+        Validate.email(e.currentTarget);
     },
 
     clean: function () {

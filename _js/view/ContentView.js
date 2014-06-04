@@ -1,5 +1,6 @@
 /* globals ScreenView:true */
 /* globals TicketView:true */
+/* globals Validate:true */
 
 var ContentView = Backbone.View.extend({
     id: 'content',
@@ -8,6 +9,36 @@ var ContentView = Backbone.View.extend({
 
     initialize: function () {
         _.bindAll.apply(_, [this].concat(_.functions(this)));
+    },
+
+    events: {
+        'click #btnSubmitContact': 'sendContact',
+        'blur #txtName': 'validateName',
+        'keyup #txtName': 'validateName',
+        'blur #txtEmail': 'validateEmail',
+        'keyup #txtEmail': 'validateEmail',
+        'blur #txtMessage': 'validateMessage',
+        'keyup #txtMessage': 'validateMessage'
+    },
+
+    sendContact: function(e) {
+        console.log('[ContentView] sendContact()');
+        e.preventDefault();
+        if (Validate.fullName(this.$el.find('#txtName')) && Validate.email(this.$el.find('#txtEmail')) && Validate.message(this.$el.find('#txtMessage'))) {
+            console.log('Hoera!');
+        }
+    },
+
+    validateName: function(e) {
+        Validate.fullName(e.currentTarget);
+    },
+
+    validateEmail: function(e) {
+        Validate.email(e.currentTarget);
+    },
+
+    validateMessage: function(e) {
+        Validate.message(e.currentTarget);
     },
 
     updateScreen: function(newScreen) {

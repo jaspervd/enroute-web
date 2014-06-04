@@ -38,7 +38,6 @@ var EnRouteApp = Backbone.View.extend({
 
         var self = this; // fix for timeout
         if (this.currentScreen !== $newScreen || externalLoadedScreen) {
-            console.log($newScreen, this.currentScreen);
             if (!_.contains(this.hardcodedPages, $newScreen)) {
                 this.contentView.updateScreen($newScreen);
             } else {
