@@ -1,96 +1,25 @@
 <!doctype html>
 <html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<title>En Route</title>
-	<link type="text/plain" rel="author" href="humans.txt"/>
-	<link href="css/screen.css" rel="stylesheet" type="text/css"/>
-	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
-</head>
-<body>
-	<script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
-	<script type="text/javascript">
-	if (typeof jQuery == 'undefined') {
-		document.write(unescape("%3Cscript src='js/vendor/jquery/dist/jquery.min.js' type='text/javascript'%3E%3C/script%3E"));
-	}
-	</script>
-	<script type="text/javascript" src="js/vendor/jquery-ui/ui/minified/jquery-ui.min.js"></script>
-	<script type="text/javascript">
-	var days = 30;
-	var step = 360 / days;
-	var radius = $('#durbuy').width() / 2 + 40;
-	var x, y, angle;
-	for(i = 1; i <= days; i++) {
-		angle = -((step * i) * (Math.PI / 180) + 160);
-		x = Math.cos(angle) * radius;
-		y = Math.sin(angle) * radius;
-		$('#days').find('ul').append('<li class="day" style="margin-top:'+ x +'px;margin-left:'+ y +'px">#'+ i +'</li>');
-	}
-
-	function calculatePosition(inverted) {
-		var data = drag.data( 'circle' );
-		var x = event.pageX - offsetSelector.offset().left - offsetSelector.width()/2;
-		var y = event.pageY - offsetSelector.offset().top - offsetSelector.height()/2;
-		if(inverted !== true) {
-			var angle = Math.atan2(x, y);
-		} else {
-			var angle = Math.atan2(-x, -y);
-		}
-		var posTop = Math.ceil((data.centerY + (Math.cos( angle ) * data.radius)));
-		var posLeft = Math.ceil((data.centerX + (Math.sin( angle ) * data.radius)));
-		return {top: posTop, left: posLeft};
-	}
-
-	var x, y;
-	var offsetSelector = $('#durbuy').parent();
-	$('.day').droppable({
-		accept: "#dragDayHandle",
-		tolerance: "pointer",
-		drop: function( event, ui ) {
-			var $oppositeElement = $('#days').find('li').eq(($(this).index() + days / 2) - days);
-			console.log($oppositeElement);
-	        var drop_p = $(this).offset();
-	        var drag_p = ui.draggable.offset();
-	        var left_end = drop_p.left - drag_p.left + 1;
-	        var top_end = drop_p.top - drag_p.top + 1;
-	        ui.draggable.animate({
-	            top: '+=' + top_end,
-	            left: '+=' + left_end
-	        }, 100);
-	        $('#showSelectedDay').animate({
-	            top: '-=' + top_end,
-	            left: '-=' + left_end
-	        }, 100);
-			return true;
-		}
-	});
-
-	$('#test').draggable();
-	var drag = $('#dragDayHandle');
-	$('#showSelectedDay, #dragDayHandle').css('margin-top', -($('#durbuy').width() / 2 + 40));
-	drag.draggable({
-		start: function(e){
-			if(!drag.data('circle'))
-				drag.data( 'circle', {
-					radius : $('#durbuy').width() / 2 + 40,
-					centerX : 0,
-					centerY : radius
-				});
-		},
-		drag: function(e,ui){
-			var positionHandle = calculatePosition(false);
-			ui.position.top = positionHandle.top;
-			ui.position.left = positionHandle.left;
-			var positionSelected = calculatePosition(true);
-			$('#showSelectedDay').css({'top': positionSelected.top, 'left': positionSelected.left});
-		}
-	});
-	</script>
-<script type="text/javascript" src="js/vendor/handlebars/handlebars.runtime.min.js"></script>
-<script type="text/javascript" src="js/vendor/underscore/underscore.js"></script>
-<script type="text/javascript" src="js/vendor/backbone/backbone.js"></script>
-<script type="text/javascript" src="js/vendor/momentjs/min/moment-with-langs.min.js"></script>
-<script type="text/javascript" src="js/vendor/modernizr/modernizr.js"></script>
-<script type="text/javascript" src="js/app.js"></script>
-</body>
+    <head>
+        <meta charset="UTF-8">
+        <title>En Route</title>
+        <link type="text/plain" rel="author" href="humans.txt"/>
+        <link href="css/screen.css" rel="stylesheet" type="text/css"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+    </head>
+    <body>
+        <script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+        <script type="text/javascript">
+        if (typeof jQuery == 'undefined') {
+        document.write(unescape("%3Cscript src='js/vendor/jquery/dist/jquery.min.js' type='text/javascript'%3E%3C/script%3E"));
+        }
+        </script>
+        <script type="text/javascript" src="js/vendor/jquery-ui/ui/minified/jquery-ui.min.js"></script>
+        <script type="text/javascript" src="js/vendor/handlebars/handlebars.runtime.min.js"></script>
+        <script type="text/javascript" src="js/vendor/underscore/underscore.js"></script>
+        <script type="text/javascript" src="js/vendor/backbone/backbone.js"></script>
+        <script type="text/javascript" src="js/vendor/momentjs/min/moment-with-langs.min.js"></script>
+        <script type="text/javascript" src="js/vendor/modernizr/modernizr.js"></script>
+        <script type="text/javascript" src="js/app.js"></script>
+    </body>
 </html>
