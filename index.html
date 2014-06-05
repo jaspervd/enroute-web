@@ -8,38 +8,17 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 </head>
 <body>
-	<div id="container">
-		<header>
-			<h1>Durbuy</h1>
-		</header>
-		<nav id="nav">
-			<header>
-				<h1>En Route</h1>
-			</header>
-			<p>
-				En Route daagt je uit om gedurende één dag de stad anders te bekijken en te beleven. Samen met een kunstdocent ga je op ontdekkingsreis door de pittoreske straatjes van Durbuy.
-			</p>
-		</nav>
-		<section id="city">
-
-		</section>
-		<section id="forest">
-
-		</section>
-		<section id="durbuy">
-			<nav id="days"><ul></ul><div id="showSelectedDay"></div><a href="" id="dragDayHandle">=</a></nav>
-		</section>
-	</div>
 	<script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
 	<script type="text/javascript">
 	if (typeof jQuery == 'undefined') {
 		document.write(unescape("%3Cscript src='js/vendor/jquery/dist/jquery.min.js' type='text/javascript'%3E%3C/script%3E"));
 	}
 	</script>
+	<script type="text/javascript" src="js/vendor/jquery-ui/ui/minified/jquery-ui.min.js"></script>
 	<script type="text/javascript">
 	var days = 30;
 	var step = 360 / days;
-	var radius = $('#durbuy').width() / 2;
+	var radius = $('#durbuy').width() / 2 + 40;
 	var x, y, angle;
 	for(i = 1; i <= days; i++) {
 		angle = -((step * i) * (Math.PI / 180) + 160);
@@ -48,71 +27,70 @@
 		$('#days').find('ul').append('<li class="day" style="margin-top:'+ x +'px;margin-left:'+ y +'px">#'+ i +'</li>');
 	}
 
-	function rotateAroundCircle(x, y, cropper) {
-		var theta = Math.atan2(y,x)*(180/Math.PI);
-
-		var cssDegs = convertThetaToCssDegs(theta);
-		var rotate = 'rotate(' +cssDegs + 'deg)';
-		cropper.css({'-moz-transform': rotate, 'transform' : rotate, '-webkit-transform': rotate, '-ms-transform': rotate});
-		$('body').on('mouseup', function(event){ $('body').unbind('mousemove')});
-	}
-
-	function convertThetaToCssDegs(theta){
-		var cssDegs = 90 - theta;
-		return cssDegs;
-	}
-
-	$.fn.hitTestObject = function(selector){
-		var compares = $(selector);
-		var l = this.size();
-		var m = compares.size();
-		for(var i = 0; i < l; i++){
-			var bounds = this.get(i).getBoundingClientRect();
-			for(var j = 0; j < m; j++){
-				var compare = compares.get(j).getBoundingClientRect();
-				if(!(bounds.right < compare.left ||
-					bounds.left > compare.right ||
-					bounds.bottom < compare.top ||
-					bounds.top > compare.bottom)){
-					return true;
-			}
+	function calculatePosition(inverted) {
+		var data = drag.data( 'circle' );
+		var x = event.pageX - offsetSelector.offset().left - offsetSelector.width()/2;
+		var y = event.pageY - offsetSelector.offset().top - offsetSelector.height()/2;
+		if(inverted !== true) {
+			var angle = Math.atan2(x, y);
+		} else {
+			var angle = Math.atan2(-x, -y);
 		}
+		var posTop = Math.ceil((data.centerY + (Math.cos( angle ) * data.radius)));
+		var posLeft = Math.ceil((data.centerX + (Math.sin( angle ) * data.radius)));
+		return {top: posTop, left: posLeft};
 	}
-	return false;
-};
 
-$(document).ready(function(){
-	$('#dragDayHandle').on('click', function(e) {
-		e.preventDefault();
-	});
 	var x, y;
 	var offsetSelector = $('#durbuy').parent();
-	$('#dragDayHandle').on('mousedown', function(){
-		$('body').on('mousemove', function(event){
-			var x = event.pageX - offsetSelector.offset().left - offsetSelector.width()/2;
-			var y = -1*(event.pageY - offsetSelector.offset().top - offsetSelector.height()/2);
-			rotateAroundCircle(x, y, $('#dragDayHandle'));
-			rotateAroundCircle(-x, -y, $('#showSelectedDay'));
-		});
-	}).on('mouseup', function() {
-		var hit = $('#showSelectedDay').hitTestObject($('.day'));
-		console.log(hit ? 'hit' : 'miss');
+	$('.day').droppable({
+		accept: "#dragDayHandle",
+		tolerance: "pointer",
+		drop: function( event, ui ) {
+			var $oppositeElement = $('#days').find('li').eq(($(this).index() + days / 2) - days);
+			console.log($oppositeElement);
+	        var drop_p = $(this).offset();
+	        var drag_p = ui.draggable.offset();
+	        var left_end = drop_p.left - drag_p.left + 1;
+	        var top_end = drop_p.top - drag_p.top + 1;
+	        ui.draggable.animate({
+	            top: '+=' + top_end,
+	            left: '+=' + left_end
+	        }, 100);
+	        $('#showSelectedDay').animate({
+	            top: '-=' + top_end,
+	            left: '-=' + left_end
+	        }, 100);
+			return true;
+		}
 	});
-});
-</script>
-    <!--
-<script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
-<script type="text/javascript">
-    if (typeof jQuery == 'undefined') {
-        document.write(unescape("%3Cscript src='js/vendor/jquery/dist/jquery.min.js' type='text/javascript'%3E%3C/script%3E"));
-    }
-</script>
+
+	$('#test').draggable();
+	var drag = $('#dragDayHandle');
+	$('#showSelectedDay, #dragDayHandle').css('margin-top', -($('#durbuy').width() / 2 + 40));
+	drag.draggable({
+		start: function(e){
+			if(!drag.data('circle'))
+				drag.data( 'circle', {
+					radius : $('#durbuy').width() / 2 + 40,
+					centerX : 0,
+					centerY : radius
+				});
+		},
+		drag: function(e,ui){
+			var positionHandle = calculatePosition(false);
+			ui.position.top = positionHandle.top;
+			ui.position.left = positionHandle.left;
+			var positionSelected = calculatePosition(true);
+			$('#showSelectedDay').css({'top': positionSelected.top, 'left': positionSelected.left});
+		}
+	});
+	</script>
 <script type="text/javascript" src="js/vendor/handlebars/handlebars.runtime.min.js"></script>
 <script type="text/javascript" src="js/vendor/underscore/underscore.js"></script>
 <script type="text/javascript" src="js/vendor/backbone/backbone.js"></script>
 <script type="text/javascript" src="js/vendor/momentjs/min/moment-with-langs.min.js"></script>
 <script type="text/javascript" src="js/vendor/modernizr/modernizr.js"></script>
 <script type="text/javascript" src="js/app.js"></script>
--->
 </body>
 </html>

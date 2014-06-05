@@ -81,12 +81,8 @@ header {
     width: 30px;
     height: 30px;
     border: 2px solid #FFF;
-    margin-top: -216px;
     position: absolute;
 
-    @include transform-style(preserve-3d);
-    @include transform-origin(50%, 231px);
-    @include transform(rotate(0deg));
     @include border-radius(50%);
   }
 
@@ -101,20 +97,15 @@ header {
     text-align: center;
     line-height: 30px;
     position: absolute;
-    margin-top: -216px;
+    top: 510px;
     @include transition(width .2s, height .2s);
+    @include border-radius(50%);
 
     &:hover, &:focus {
       width: 32px;
       height: 32px;
       line-height: 32px;
     }
-
-    @include transform-style(preserve-3d);
-    @include transform-origin(50%, 231px);
-    @include transform(rotate(-180deg));
-
-    @include border-radius(50%);
   }
 }
 
