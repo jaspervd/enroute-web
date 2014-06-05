@@ -63,106 +63,31 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
   display: block;
 }
 
-@keyframes pushDown {
-  /* line 9, ../_scss/screen.scss */
-  to {
-    width: 80%;
-    height: 80%;
-    margin: 10%;
-    zoom: .8;
-  }
-}
-
-@-webkit-keyframes pushDown {
-  /* line 18, ../_scss/screen.scss */
-  to {
-    width: 80%;
-    height: 80%;
-    margin: 10%;
-    zoom: .8;
-  }
-}
-
-@keyframes pushRight {
-  /* line 27, ../_scss/screen.scss */
-  to {
-    margin-left: 0;
-  }
-}
-
-@-webkit-keyframes pushRight {
-  /* line 33, ../_scss/screen.scss */
-  to {
-    margin-left: 0;
-  }
-}
-
-/* line 40, ../_scss/screen.scss */
+/* line 6, ../_scss/screen.scss */
 html {
   height: 100%;
 }
 
-/* line 44, ../_scss/screen.scss */
+/* line 10, ../_scss/screen.scss */
 body {
   background-color: #7ACFB2;
   font-size: 62.5%;
-  font-family: 'Helvetica neue', Helvetica, Arial, sans-serif;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   height: 100%;
 }
 
-/* line 51, ../_scss/screen.scss */
+/* line 17, ../_scss/screen.scss */
 #container {
   width: 100%;
   height: 100%;
 }
 
-/* line 56, ../_scss/screen.scss */
+/* line 22, ../_scss/screen.scss */
 .clear {
   clear: both;
 }
 
-/* line 60, ../_scss/screen.scss */
+/* line 26, ../_scss/screen.scss */
 header {
   display: none;
-}
-
-/* line 66, ../_scss/screen.scss */
-#navigation, #content {
-  width: 25%;
-  float: left;
-  height: 100%;
-}
-
-/* line 73, ../_scss/screen.scss */
-#navigation a {
-  color: #FFF !important;
-  font-size: 2em !important;
-  text-decoration: none !important;
-}
-
-/* line 88, ../_scss/screen.scss */
-#content {
-  min-width: 75%;
-  width: auto;
-  overflow: hidden;
-  position: relative;
-}
-/* line 94, ../_scss/screen.scss */
-#content .screen {
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  color: #FFF;
-  -webkit-transition: margin 800ms cubic-bezier(0.77, 0, 0.175, 1);
-  -moz-transition: margin 800ms cubic-bezier(0.77, 0, 0.175, 1);
-  -o-transition: margin 800ms cubic-bezier(0.77, 0, 0.175, 1);
-  transition: margin 800ms cubic-bezier(0.77, 0, 0.175, 1);
-}
-/* line 101, ../_scss/screen.scss */
-#content .screen.pushRightIn {
-  margin-left: 0;
-}
-/* line 105, ../_scss/screen.scss */
-#content .screen.pushRightOut {
-  margin-left: 100%;
 }

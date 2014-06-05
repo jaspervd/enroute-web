@@ -45,7 +45,7 @@ module.exports = function (grunt) {
                     wrap: true
                 },
                 files: {
-                    'result/js/app.js': concatpaths
+                    'js/app.js': concatpaths
                 }
             }
         },
@@ -62,7 +62,7 @@ module.exports = function (grunt) {
             production: {
                 options: {
                     sassDir: '_scss',
-                    cssDir: 'result/css',
+                    cssDir: 'css',
                     environment: 'production',
                     outputStyle: 'compressed',
                     force: true
@@ -97,7 +97,7 @@ module.exports = function (grunt) {
                     {
                         expand: true,
                         src: imagepaths,
-                        dest: 'result/images',
+                        dest: 'images',
                         rename: function (filePath, src) {
                             var pieces = src.split("/");
                             return filePath + '/' + pieces[pieces.length - 1];
