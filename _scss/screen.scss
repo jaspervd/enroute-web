@@ -2,6 +2,7 @@
 @import "compass";
 @import "compass/css3/border-radius";
 @import "compass/css3/transition";
+@import "compass/css3/transform";
 
 // Main divs and tags
 
@@ -53,6 +54,68 @@ header {
   background-color: #F8F2AB;
   width: 30%;
   margin: -15% 0 0 -15%;
+
+  #days {
+    position: absolute;
+    top: -15px;
+    bottom: 0;
+    left: -15px;
+    right: 0;
+    margin-left: 50%;
+    margin-top: 50%;
+  }
+
+  .day {
+    background-color: #E84F89;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    line-height: 30px;
+
+    position: absolute;
+    @include border-radius(50%);
+  }
+
+  #showSelectedDay {
+    background-color: rgba(255, 255, 255, .5);
+    width: 30px;
+    height: 30px;
+    border: 2px solid #FFF;
+    margin-top: -216px;
+    position: absolute;
+
+    @include transform-style(preserve-3d);
+    @include transform-origin(50%, 231px);
+    @include transform(rotate(0deg));
+    @include border-radius(50%);
+  }
+
+  #dragDayHandle {
+    background-color: #22282F;
+    width: 30px;
+    height: 30px;
+    color: #FFF;
+    display: block;
+    text-decoration: none;
+    font-size: 2em;
+    text-align: center;
+    line-height: 30px;
+    position: absolute;
+    margin-top: -216px;
+    @include transition(width .2s, height .2s);
+
+    &:hover, &:focus {
+      width: 32px;
+      height: 32px;
+      line-height: 32px;
+    }
+
+    @include transform-style(preserve-3d);
+    @include transform-origin(50%, 231px);
+    @include transform(rotate(-180deg));
+
+    @include border-radius(50%);
+  }
 }
 
 // Forest
