@@ -1,5 +1,7 @@
 @import "compass/reset";
 @import "compass";
+@import "compass/css3/border-radius";
+@import "compass/css3/transition";
 
 // Main divs and tags
 
@@ -12,6 +14,7 @@ body {
   font-size: 62.5%;
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   height: 100%;
+  overflow: hidden;
 }
 
 #container {
@@ -28,3 +31,55 @@ header {
 }
 
 // Navigation
+
+#nav {
+  background-color: #22282F;
+  width: 25%;
+  height: 100%;
+  position: absolute;
+  z-index: 10;
+  color: #FFF;
+  left: -20%;
+  @include transition(left 1s);
+
+  &:hover {
+    left: 0;
+  }
+}
+
+// Durbuy
+
+#durbuy {
+  background-color: #F8F2AB;
+  width: 30%;
+  margin: -15% 0 0 -15%;
+}
+
+// Forest
+
+#forest {
+  background-color: #B4D6A4;
+  width: 70%;
+  margin: -35% 0 0 -35%;
+}
+
+// City
+
+#city {
+  background-color: #67BC9A;
+  width: 100%;
+  margin: -50% 0 0 -50%;
+}
+
+#durbuy, #forest, #city {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  @include border-radius(50%);
+
+  &:before { // fix for equal height and width
+    content: "";
+    display: block;
+    padding-top: 100%;
+  }
+}
