@@ -17,7 +17,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   
 
 
-  return "<div id=\"city\"></div>\n<div id=\"forest\"></div>\n<div id=\"daySelector\"><span class=\"handle\">==</span></div>\n<div id=\"durbuy\">\n	<nav id=\"days\">\n		<header>\n			<h1>Dagen</h1>\n		</header>\n		<ul></ul>\n	</nav>\n</div>";
+  return "<div id=\"city\"></div>\n<div id=\"forest\"></div>\n<div id=\"daySelector\"><span class=\"handle\">==</span><span class=\"select\"></span></div>\n<div id=\"durbuy\">\n	<nav id=\"days\">\n		<header>\n			<h1>Dagen</h1>\n		</header>\n		<ul></ul>\n	</nav>\n</div>";
   });
 
 this["tpl"]["navigation"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
@@ -279,15 +279,17 @@ var HomeView = Backbone.View.extend({
 
             $handle.mousedown(function() {
                 dragging = true;
+                $('*').disableSelection();
             });
 
             $(document).mouseup(function() {
                 dragging = false;
-                console.log($target);
+                console.log($target.find('.select'));
+                $('*').enableSelection();
             });
 
             //TODO:
-            //collision test for $target
+            //collision test for $target or by calculating item by degrees
 
             $(document).on('mousemove', function(e) {
                 if (dragging) {
@@ -304,9 +306,8 @@ var HomeView = Backbone.View.extend({
     },
 
     createDays: function() {
-        var step = 360 /
-            this.collection.length;
-        var radius = $('#durbuy').width() / 2 + 40;
+        var step = 360 / this.collection.length;
+        var radius = $('#durbuy').width() / 2 + 60;
         var x, y, angle;
         for (var i = 1; i <= this.collection.length; i++) {
             angle = -((step * i) * (Math.PI / 180) + 160);

@@ -214,22 +214,30 @@ header {
   color: #FFF;
   text-decoration: none;
 }
+/* line 141, ../_scss/screen.scss */
+#daySelector .select {
+  width: 70px;
+  height: 64px;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
 
-/* line 144, ../_scss/screen.scss */
+/* line 152, ../_scss/screen.scss */
 #forest {
   background-color: #f1f5cf;
   width: 70%;
   margin: -35% 0 0 -35%;
 }
 
-/* line 152, ../_scss/screen.scss */
+/* line 160, ../_scss/screen.scss */
 #city {
   background-color: #67BC9A;
   width: 100%;
   margin: -50% 0 0 -50%;
 }
 
-/* line 158, ../_scss/screen.scss */
+/* line 166, ../_scss/screen.scss */
 #forest, #city {
   position: absolute;
   left: 50%;
@@ -240,7 +248,7 @@ header {
   -o-border-radius: 50%;
   border-radius: 50%;
 }
-/* line 164, ../_scss/screen.scss */
+/* line 172, ../_scss/screen.scss */
 #forest:before, #city:before {
   content: "";
   display: block;
