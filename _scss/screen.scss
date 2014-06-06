@@ -116,22 +116,26 @@ header {
 
 #daySelector {
   background-image: url('../images/day_selector.svg');
-  background-size: 70px 490px;
-  width: 70px;
-  height: 490px;
+  background-size: 490px 70px;
+  width: 490px;
+  height: 70px;
   position: absolute;
   display: block;
-  margin: -245px 0 0 -35px;
+  margin: -35px 0 0 -245px;
   position: absolute;
   left: 50%;
   top: 50%;
+  //@include transform(rotate(180deg));
 
   .handle {
-    border: 2px solid #FFF;
     width: 70px;
     height: 64px;
     display: block;
     cursor: move;
+    line-height: 64px;
+    text-align: center;
+    color: #FFF;
+    text-decoration: none;
   }
 }
 

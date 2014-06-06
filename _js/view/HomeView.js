@@ -7,6 +7,14 @@ var HomeView = Backbone.View.extend({
         this.collection.on('sync reset', this.render);
     },
 
+    events: {
+        'click #daySelector': 'handleDaySelector'
+    },
+
+    handleDaySelector: function(e) {
+        e.preventDefault();
+    },
+
     render: function() {
         console.log('[HomeView] render()');
         /*this.clear();
@@ -19,15 +27,49 @@ var HomeView = Backbone.View.extend({
 
         this.createDays();
         //this.handleDrag();
-        this.handleTheRealDrag();
+        //this.handleTheRealDrag();
+        this.handleRotation();
         //this.handleDrop();
 
         return this;
     },
 
+    handleRotation: function() {
+        var $target = $('#daySelector');
+        var $handle = $target.find('.handle');
+        if ($handle.length > 0) {
+            var offset = $target.offset();
+            var dragging = false;
+
+            $handle.mousedown(function() {
+                dragging = true;
+            });
+
+            $(document).mouseup(function() {
+                dragging = false;
+            });
+
+            $(document).on('mousemove', function(e) {
+                if (dragging) {
+                    var center_x = (offset.left) + ($target.width() / 2);
+                    var center_y = (offset.top) + ($target.height() / 2);
+                    var mouse_x = e.pageX;
+                    var mouse_y = e.pageY;
+                    var radians = Math.atan2(mouse_x - center_x, mouse_y - center_y);
+                    var degree = (radians * (180 / Math.PI) * -1) - 90; // convert degree for outer
+                    $target.css('transform', 'rotate(' + degree + 'deg)');
+                }
+            });
+        }
+
+    },
+
     handleTheRealDrag: function() {
-        $('#daySelector').rotatable({angle: Math.PI, handle: $('.handle')});
-        /*$('#daySelector').draggable({
+        $('#daySelector').rotatable({
+            angle: Math.PI,
+            handle: $('.handle')
+        });
+        /* $('#daySelector').draggable({
             handle: '.handle',
             helper: 'clone',
             drag: function(event, ui) {
@@ -47,11 +89,12 @@ var HomeView = Backbone.View.extend({
             stop: function() {
                 $('body').enableSelection();
             }
-        });*/
+        }); */
     },
 
     createDays: function() {
-        var step = 360 / this.collection.length;
+        var step = 360 /
+            this.collection.length;
         var radius = $('#durbuy').width() / 2 + 40;
         var x, y, angle;
         for (var i = 1; i <= this.collection.length; i++) {

@@ -193,40 +193,43 @@ header {
 /* line 117, ../_scss/screen.scss */
 #daySelector {
   background-image: url("../images/day_selector.svg");
-  background-size: 70px 490px;
-  width: 70px;
-  height: 490px;
+  background-size: 490px 70px;
+  width: 490px;
+  height: 70px;
   position: absolute;
   display: block;
-  margin: -245px 0 0 -35px;
+  margin: -35px 0 0 -245px;
   position: absolute;
   left: 50%;
   top: 50%;
 }
-/* line 129, ../_scss/screen.scss */
+/* line 130, ../_scss/screen.scss */
 #daySelector .handle {
-  border: 2px solid #FFF;
   width: 70px;
   height: 64px;
   display: block;
   cursor: move;
+  line-height: 64px;
+  text-align: center;
+  color: #FFF;
+  text-decoration: none;
 }
 
-/* line 140, ../_scss/screen.scss */
+/* line 144, ../_scss/screen.scss */
 #forest {
   background-color: #f1f5cf;
   width: 70%;
   margin: -35% 0 0 -35%;
 }
 
-/* line 148, ../_scss/screen.scss */
+/* line 152, ../_scss/screen.scss */
 #city {
   background-color: #67BC9A;
   width: 100%;
   margin: -50% 0 0 -50%;
 }
 
-/* line 154, ../_scss/screen.scss */
+/* line 158, ../_scss/screen.scss */
 #forest, #city {
   position: absolute;
   left: 50%;
@@ -237,7 +240,7 @@ header {
   -o-border-radius: 50%;
   border-radius: 50%;
 }
-/* line 160, ../_scss/screen.scss */
+/* line 164, ../_scss/screen.scss */
 #forest:before, #city:before {
   content: "";
   display: block;
