@@ -125,7 +125,7 @@ header {
   position: absolute;
   left: 50%;
   top: 50%;
-  //@include transform(rotate(180deg));
+  //@include transform(rotate(-90deg)); // CAUSING PROBLEMS :'(
 
   .handle {
     width: 70px;
