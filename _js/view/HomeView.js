@@ -7,12 +7,6 @@ var HomeView = Backbone.View.extend({
         this.collection.on('sync reset', this.render);
     },
 
-    clear: function() {
-        $('#city').remove();
-        $('#forest').remove();
-        $('#durbuy').remove();
-    },
-
     render: function() {
         console.log('[HomeView] render()');
         /*this.clear();
@@ -24,10 +18,36 @@ var HomeView = Backbone.View.extend({
         this.$el.html(this.template());
 
         this.createDays();
-        this.handleDrop();
-        this.handleDrag();
+        //this.handleDrag();
+        this.handleTheRealDrag();
+        //this.handleDrop();
 
         return this;
+    },
+
+    handleTheRealDrag: function() {
+        $('#daySelector').rotatable({angle: Math.PI, handle: $('.handle')});
+        /*$('#daySelector').draggable({
+            handle: '.handle',
+            helper: 'clone',
+            drag: function(event, ui) {
+                $('body').disableSelection();
+
+                var x = ui.position.left - $('#daySelector').width() / 2;
+                var y = ui.position.top - $('#daySelector').height() / 2;
+                var angle = -(Math.atan2(x, y) * 360);
+                var rotateCSS = 'rotate(' + angle + 'deg)';
+                console.log(angle);
+
+                $(this).css({
+                    '-moz-transform': rotateCSS,
+                    '-webkit-transform': rotateCSS
+                });
+            },
+            stop: function() {
+                $('body').enableSelection();
+            }
+        });*/
     },
 
     createDays: function() {
@@ -98,8 +118,8 @@ var HomeView = Backbone.View.extend({
     calculatePosition: function(inverted, data) {
         var offsetSelector = $('#durbuy').parent();
         var angle;
-        var x = event.pageX - offsetSelector.offset().left - offsetSelector.width() / 2;
-        var y = event.pageY - offsetSelector.offset().top - offsetSelector.height() / 2;
+        var x = event.pageX + 40 - offsetSelector.offset().left - offsetSelector.width() / 2;
+        var y = event.pageY + 40 - offsetSelector.offset().top - offsetSelector.height() / 2;
         if (inverted !== true) {
             angle = Math.atan2(x, y);
         } else {

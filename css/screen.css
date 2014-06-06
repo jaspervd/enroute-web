@@ -114,21 +114,26 @@ header {
 
 /* line 53, ../_scss/screen.scss */
 #durbuy {
-  background-color: #F8F2AB;
-  width: 30%;
-  margin: -15% 0 0 -15%;
+  background-image: url("../images/logo.png");
+  background-size: 303.5px 312.5px;
+  width: 303.5px;
+  height: 312.5px;
+  margin: -166.7px 0 0 -151.7px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
 }
-/* line 58, ../_scss/screen.scss */
+/* line 63, ../_scss/screen.scss */
 #durbuy #days {
   position: absolute;
-  top: -15px;
+  top: 0;
   bottom: 0;
   left: -15px;
   right: 0;
   margin-left: 50%;
   margin-top: 50%;
 }
-/* line 68, ../_scss/screen.scss */
+/* line 73, ../_scss/screen.scss */
 #durbuy .day {
   background-color: #E84F89;
   width: 30px;
@@ -142,7 +147,7 @@ header {
   -o-border-radius: 50%;
   border-radius: 50%;
 }
-/* line 79, ../_scss/screen.scss */
+/* line 84, ../_scss/screen.scss */
 #durbuy #showSelectedDay {
   background-color: rgba(255, 255, 255, 0.5);
   width: 30px;
@@ -155,7 +160,7 @@ header {
   -o-border-radius: 50%;
   border-radius: 50%;
 }
-/* line 89, ../_scss/screen.scss */
+/* line 94, ../_scss/screen.scss */
 #durbuy #dragDayHandle {
   background-color: #22282F;
   width: 30px;
@@ -167,7 +172,7 @@ header {
   text-align: center;
   line-height: 30px;
   position: absolute;
-  top: 510px;
+  top: 383px;
   -webkit-transition: width 0.2s, height 0.2s;
   -moz-transition: width 0.2s, height 0.2s;
   -o-transition: width 0.2s, height 0.2s;
@@ -178,29 +183,51 @@ header {
   -o-border-radius: 50%;
   border-radius: 50%;
 }
-/* line 104, ../_scss/screen.scss */
+/* line 109, ../_scss/screen.scss */
 #durbuy #dragDayHandle:hover, #durbuy #dragDayHandle:focus {
   width: 32px;
   height: 32px;
   line-height: 32px;
 }
 
-/* line 114, ../_scss/screen.scss */
+/* line 117, ../_scss/screen.scss */
+#daySelector {
+  background-image: url("../images/day_selector.svg");
+  background-size: 70px 490px;
+  width: 70px;
+  height: 490px;
+  position: absolute;
+  display: block;
+  margin: -245px 0 0 -35px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+}
+/* line 129, ../_scss/screen.scss */
+#daySelector .handle {
+  border: 2px solid #FFF;
+  width: 70px;
+  height: 64px;
+  display: block;
+  cursor: move;
+}
+
+/* line 140, ../_scss/screen.scss */
 #forest {
-  background-color: #B4D6A4;
+  background-color: #f1f5cf;
   width: 70%;
   margin: -35% 0 0 -35%;
 }
 
-/* line 122, ../_scss/screen.scss */
+/* line 148, ../_scss/screen.scss */
 #city {
   background-color: #67BC9A;
   width: 100%;
   margin: -50% 0 0 -50%;
 }
 
-/* line 128, ../_scss/screen.scss */
-#durbuy, #forest, #city {
+/* line 154, ../_scss/screen.scss */
+#forest, #city {
   position: absolute;
   left: 50%;
   top: 50%;
@@ -210,8 +237,8 @@ header {
   -o-border-radius: 50%;
   border-radius: 50%;
 }
-/* line 134, ../_scss/screen.scss */
-#durbuy:before, #forest:before, #city:before {
+/* line 160, ../_scss/screen.scss */
+#forest:before, #city:before {
   content: "";
   display: block;
   padding-top: 100%;
