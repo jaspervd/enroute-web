@@ -289,7 +289,11 @@ var HomeView = Backbone.View.extend({
                 dragging = false;
                 $('*').enableSelection();
                 //console.log(-(rotation - 90));
-                console.log(self.collision($target.find('.select'), $('.day')));
+                $.each($('.day'), function(key, value) {
+                    if(self.collision($target.find('.select'), $(value))) {
+                        console.log('the selected day would be', $(value).html());
+                    }
+                });
             });
 
             $(document).on('mousemove', function(e) {
