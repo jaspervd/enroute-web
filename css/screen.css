@@ -140,6 +140,7 @@ header {
   height: 30px;
   text-align: center;
   line-height: 30px;
+  opacity: .6;
   position: absolute;
   -webkit-border-radius: 50%;
   -moz-border-radius: 50%;
@@ -147,7 +148,7 @@ header {
   -o-border-radius: 50%;
   border-radius: 50%;
 }
-/* line 84, ../_scss/screen.scss */
+/* line 85, ../_scss/screen.scss */
 #durbuy #showSelectedDay {
   background-color: rgba(255, 255, 255, 0.5);
   width: 30px;
@@ -160,7 +161,7 @@ header {
   -o-border-radius: 50%;
   border-radius: 50%;
 }
-/* line 94, ../_scss/screen.scss */
+/* line 95, ../_scss/screen.scss */
 #durbuy #dragDayHandle {
   background-color: #22282F;
   width: 30px;
@@ -183,14 +184,14 @@ header {
   -o-border-radius: 50%;
   border-radius: 50%;
 }
-/* line 109, ../_scss/screen.scss */
+/* line 110, ../_scss/screen.scss */
 #durbuy #dragDayHandle:hover, #durbuy #dragDayHandle:focus {
   width: 32px;
   height: 32px;
   line-height: 32px;
 }
 
-/* line 117, ../_scss/screen.scss */
+/* line 118, ../_scss/screen.scss */
 #daySelector {
   background-image: url("../images/day_selector.svg");
   background-size: 490px 70px;
@@ -203,7 +204,7 @@ header {
   left: 50%;
   top: 50%;
 }
-/* line 130, ../_scss/screen.scss */
+/* line 131, ../_scss/screen.scss */
 #daySelector .handle {
   width: 70px;
   height: 64px;
@@ -214,7 +215,7 @@ header {
   color: #FFF;
   text-decoration: none;
 }
-/* line 141, ../_scss/screen.scss */
+/* line 142, ../_scss/screen.scss */
 #daySelector .select {
   width: 70px;
   height: 64px;
@@ -223,21 +224,21 @@ header {
   top: 0;
 }
 
-/* line 152, ../_scss/screen.scss */
+/* line 153, ../_scss/screen.scss */
 #forest {
   background-color: #f1f5cf;
   width: 70%;
   margin: -35% 0 0 -35%;
 }
 
-/* line 160, ../_scss/screen.scss */
+/* line 161, ../_scss/screen.scss */
 #city {
   background-color: #67BC9A;
   width: 100%;
   margin: -50% 0 0 -50%;
 }
 
-/* line 166, ../_scss/screen.scss */
+/* line 167, ../_scss/screen.scss */
 #forest, #city {
   position: absolute;
   left: 50%;
@@ -248,7 +249,7 @@ header {
   -o-border-radius: 50%;
   border-radius: 50%;
 }
-/* line 172, ../_scss/screen.scss */
+/* line 173, ../_scss/screen.scss */
 #forest:before, #city:before {
   content: "";
   display: block;

@@ -24,20 +24,21 @@ var HomeView = Backbone.View.extend({
         if ($handle.length > 0) {
             var offset = $target.offset();
             var dragging = false;
+            var rotation = 0;
 
             $handle.mousedown(function() {
                 dragging = true;
                 $('*').disableSelection();
             });
 
+            var self = this;
+
             $(document).mouseup(function() {
                 dragging = false;
-                console.log($target.find('.select'));
                 $('*').enableSelection();
+                //console.log(-(rotation - 90));
+                console.log(self.collision($target.find('.select'), $('.day')));
             });
-
-            //TODO:
-            //collision test for $target or by calculating item by degrees
 
             $(document).on('mousemove', function(e) {
                 if (dragging) {
@@ -47,10 +48,29 @@ var HomeView = Backbone.View.extend({
                     var mouse_y = e.pageY;
                     var radians = Math.atan2(mouse_x - center_x, mouse_y - center_y);
                     var degree = (radians * (180 / Math.PI) * -1) - 90; // convert degree for outer
+                    rotation = degree;
                     $target.css('transform', 'rotate(' + degree + 'deg)');
                 }
             });
         }
+    },
+
+    collision: function($select, $day) {
+        var selectBox = {
+            x1: $select.offset().top,
+            y1: $select.offset().left,
+            x2: ($select.offset().top + $select.width()),
+            y2: ($select.offset().left + $select.width())
+        };
+
+        var dayBox = {
+            x1: $day.offset().top,
+            y1: $day.offset().left,
+            x2: ($day.offset().top + $day.width()),
+            y2: ($day.offset().left + $day.width())
+        };
+
+        return (selectBox.x1 <= dayBox.x1 && selectBox.y2 >= dayBox.y2 && selectBox.x2 >= dayBox.x2 && selectBox.y1 <= dayBox.y1);
     },
 
     createDays: function() {
