@@ -24,7 +24,6 @@ var HomeView = Backbone.View.extend({
         if ($handle.length > 0) {
             var offset = $target.offset();
             var dragging = false;
-            var rotation = 0;
 
             $handle.mousedown(function() {
                 dragging = true;
@@ -36,10 +35,17 @@ var HomeView = Backbone.View.extend({
             $(document).mouseup(function() {
                 dragging = false;
                 $('*').enableSelection();
-                //console.log(-(rotation - 90));
                 $.each($('.day'), function(key, value) {
-                    if(self.collision($target.find('.select'), $(value))) {
-                        console.log('the selected day would be', $(value).html());
+                    if (self.checkForOverlap($target.find('.select'), $(value))) {
+                        var center_x = (offset.left) + ($target.width() / 2);
+                        var center_y = (offset.top) + ($target.height() / 2);
+                        var mouse_x = $(value).offset().left + $(value).width() / 2;
+                        var mouse_y = $(value).offset().top + $(value).height() / 2;
+                        var radians = Math.atan2(mouse_x - center_x, mouse_y - center_y);
+                        var degree = ((radians * (180 / Math.PI) * -1) + 90); // convert degree for reversal
+                        self.trigger('day_selected', $(value).attr('data-day'));
+                        $target.css('transform', 'rotate(' + degree + 'deg)');
+                        return false;
                     }
                 });
             });
@@ -51,15 +57,14 @@ var HomeView = Backbone.View.extend({
                     var mouse_x = e.pageX;
                     var mouse_y = e.pageY;
                     var radians = Math.atan2(mouse_x - center_x, mouse_y - center_y);
-                    var degree = (radians * (180 / Math.PI) * -1) - 90; // convert degree for outer
-                    rotation = degree;
+                    var degree = (radians * (180 / Math.PI) * -1) - 90; // convert degree for reversal
                     $target.css('transform', 'rotate(' + degree + 'deg)');
                 }
             });
         }
     },
 
-    collision: function($select, $day) {
+    checkForOverlap: function($select, $day) {
         var selectBox = {
             x1: $select.offset().top,
             y1: $select.offset().left,
@@ -81,11 +86,11 @@ var HomeView = Backbone.View.extend({
         var step = 360 / this.collection.length;
         var radius = $('#durbuy').width() / 2 + 60;
         var x, y, angle;
-        for (var i = 1; i <= this.collection.length; i++) {
-            angle = -((step * i) * (Math.PI / 180) + 160);
+        for (var i = 0; i < this.collection.length; i++) {
+            angle = -((step * (i + 1)) * (Math.PI / 180) + 160);
             x = Math.cos(angle) * radius;
             y = Math.sin(angle) * radius;
-            this.$el.find('ul').append('<li class="day" style="margin-top:' + x + 'px;margin-left:' + y + 'px">#' + i + '</li>');
+            this.$el.find('ul').append('<li class="day" data-day="' + this.collection.at(i).get('title') + '" style="margin-top:' + x + 'px;margin-left:' + y + 'px">#' + i + '</li>');
         }
     },
 });

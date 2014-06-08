@@ -128,23 +128,36 @@ header {
   top: 50%;
   //@include transform(rotate(-90deg)); // CAUSING PROBLEMS :'(
 
-  .handle {
-    width: 70px;
-    height: 64px;
-    display: block;
-    cursor: move;
-    line-height: 64px;
-    text-align: center;
-    color: #FFF;
-    text-decoration: none;
+    .handle {
+      width: 70px;
+      height: 64px;
+      display: block;
+      cursor: move;
+      line-height: 64px;
+      text-align: center;
+      color: #FFF;
+      text-decoration: none;
+    }
+
+    .select {
+      width: 70px;
+      height: 70px;
+      position: absolute;
+      right: 0;
+      top: 0;
+    }
   }
 
-  .select {
-    width: 70px;
-    height: 64px;
+// Day
+
+#day {
+  position: absolute;
+
+  .building {
+    width: 40px;
+    height: 200px;
+    background-color: #FF0000;
     position: absolute;
-    right: 0;
-    top: 0;
   }
 }
 

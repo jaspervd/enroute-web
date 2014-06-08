@@ -218,27 +218,39 @@ header {
 /* line 142, ../_scss/screen.scss */
 #daySelector .select {
   width: 70px;
-  height: 64px;
+  height: 70px;
   position: absolute;
   right: 0;
   top: 0;
 }
 
 /* line 153, ../_scss/screen.scss */
+#day {
+  position: absolute;
+}
+/* line 156, ../_scss/screen.scss */
+#day .building {
+  width: 40px;
+  height: 200px;
+  background-color: #FF0000;
+  position: absolute;
+}
+
+/* line 166, ../_scss/screen.scss */
 #forest {
   background-color: #f1f5cf;
   width: 70%;
   margin: -35% 0 0 -35%;
 }
 
-/* line 161, ../_scss/screen.scss */
+/* line 174, ../_scss/screen.scss */
 #city {
   background-color: #67BC9A;
   width: 100%;
   margin: -50% 0 0 -50%;
 }
 
-/* line 167, ../_scss/screen.scss */
+/* line 180, ../_scss/screen.scss */
 #forest, #city {
   position: absolute;
   left: 50%;
@@ -249,7 +261,7 @@ header {
   -o-border-radius: 50%;
   border-radius: 50%;
 }
-/* line 173, ../_scss/screen.scss */
+/* line 186, ../_scss/screen.scss */
 #forest:before, #city:before {
   content: "";
   display: block;

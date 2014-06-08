@@ -2,6 +2,20 @@
 
 this["tpl"] = this["tpl"] || {};
 
+this["tpl"]["day"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+  this.compilerInfo = [4,'>= 1.0.0'];
+helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
+  var buffer = "", stack1, helper, functionType="function", escapeExpression=this.escapeExpression;
+
+
+  buffer += "<header>\n	<h1>";
+  if (helper = helpers.title) { stack1 = helper.call(depth0, {hash:{},data:data}); }
+  else { helper = (depth0 && depth0.title); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
+  buffer += escapeExpression(stack1)
+    + "</h1>\n</header>";
+  return buffer;
+  });
+
 this["tpl"]["enroute"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
@@ -222,13 +236,36 @@ var Days = Backbone.Collection.extend({
     url: Settings.API + "/days"
 });
 
+var DayView = Backbone.View.extend({
+    id: 'day',
+    tagName: 'section',
+    template: tpl.day,
+
+    initialize: function() {
+        _.bindAll.apply(_, [this].concat(_.functions(this)));
+    },
+
+    render: function() {
+        this.$el.html(this.template());
+        var buildings = 12;
+        for (var i = 0; i < buildings; i++) {
+            var angle = -(((360 / buildings) * (i + 1)) * (Math.PI / 180) + 160);
+            this.$el.append('<div class="building" style="transform:rotate('+ angle +'deg);"></div>');
+        }
+
+        return this;
+    }
+});
+
 /* globals NavigationView:true */
 /* globals HomeView:true */
 /* globals Days:true */
+/* globals DayView:true */
 var EnRouteApp = Backbone.View.extend({
     id: 'container',
     tagName: 'div',
     template: tpl.enroute,
+    currentDay: undefined,
 
     initialize: function() {
         _.bindAll.apply(_, [this].concat(_.functions(this)));
@@ -240,6 +277,18 @@ var EnRouteApp = Backbone.View.extend({
         this.homeView = new HomeView({
             collection: this.days
         });
+
+        this.homeView.on('day_selected', this.showDay);
+    },
+
+    showDay: function(day) {
+        console.log('[EnRouteApp]', day);
+        if(day !== this.currentDay) {
+            var dayView = new DayView({model: this.days.findWhere({title: day})});
+            this.currentDay = day;
+            this.$el.append(dayView.render().$el);
+            Backbone.history.navigate('dag/'+ day);
+        }
     },
 
     render: function() {
@@ -276,7 +325,6 @@ var HomeView = Backbone.View.extend({
         if ($handle.length > 0) {
             var offset = $target.offset();
             var dragging = false;
-            var rotation = 0;
 
             $handle.mousedown(function() {
                 dragging = true;
@@ -288,10 +336,17 @@ var HomeView = Backbone.View.extend({
             $(document).mouseup(function() {
                 dragging = false;
                 $('*').enableSelection();
-                //console.log(-(rotation - 90));
                 $.each($('.day'), function(key, value) {
-                    if(self.collision($target.find('.select'), $(value))) {
-                        console.log('the selected day would be', $(value).html());
+                    if (self.checkForOverlap($target.find('.select'), $(value))) {
+                        var center_x = (offset.left) + ($target.width() / 2);
+                        var center_y = (offset.top) + ($target.height() / 2);
+                        var mouse_x = $(value).offset().left + $(value).width() / 2;
+                        var mouse_y = $(value).offset().top + $(value).height() / 2;
+                        var radians = Math.atan2(mouse_x - center_x, mouse_y - center_y);
+                        var degree = ((radians * (180 / Math.PI) * -1) + 90); // convert degree for reversal
+                        self.trigger('day_selected', $(value).attr('data-day'));
+                        $target.css('transform', 'rotate(' + degree + 'deg)');
+                        return false;
                     }
                 });
             });
@@ -303,15 +358,14 @@ var HomeView = Backbone.View.extend({
                     var mouse_x = e.pageX;
                     var mouse_y = e.pageY;
                     var radians = Math.atan2(mouse_x - center_x, mouse_y - center_y);
-                    var degree = (radians * (180 / Math.PI) * -1) - 90; // convert degree for outer
-                    rotation = degree;
+                    var degree = (radians * (180 / Math.PI) * -1) - 90; // convert degree for reversal
                     $target.css('transform', 'rotate(' + degree + 'deg)');
                 }
             });
         }
     },
 
-    collision: function($select, $day) {
+    checkForOverlap: function($select, $day) {
         var selectBox = {
             x1: $select.offset().top,
             y1: $select.offset().left,
@@ -333,11 +387,11 @@ var HomeView = Backbone.View.extend({
         var step = 360 / this.collection.length;
         var radius = $('#durbuy').width() / 2 + 60;
         var x, y, angle;
-        for (var i = 1; i <= this.collection.length; i++) {
-            angle = -((step * i) * (Math.PI / 180) + 160);
+        for (var i = 0; i < this.collection.length; i++) {
+            angle = -((step * (i + 1)) * (Math.PI / 180) + 160);
             x = Math.cos(angle) * radius;
             y = Math.sin(angle) * radius;
-            this.$el.find('ul').append('<li class="day" style="margin-top:' + x + 'px;margin-left:' + y + 'px">#' + i + '</li>');
+            this.$el.find('ul').append('<li class="day" data-day="' + this.collection.at(i).get('title') + '" style="margin-top:' + x + 'px;margin-left:' + y + 'px">#' + i + '</li>');
         }
     },
 });
