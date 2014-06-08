@@ -338,12 +338,8 @@ var HomeView = Backbone.View.extend({
                 $('*').enableSelection();
                 $.each($('.day'), function(key, value) {
                     if (self.checkForOverlap($target.find('.select'), $(value))) {
-                        var center_x = (offset.left) + ($target.width() / 2);
-                        var center_y = (offset.top) + ($target.height() / 2);
-                        var mouse_x = $(value).offset().left + $(value).width() / 2;
-                        var mouse_y = $(value).offset().top + $(value).height() / 2;
-                        var radians = Math.atan2(mouse_x - center_x, mouse_y - center_y);
-                        var degree = ((radians * (180 / Math.PI) * -1) + 90); // convert degree for reversal
+                        var radians = self.calculateRadians(offset, $target, $(value).offset().left + $(value).width() / 2, $(value).offset().top + $(value).height() / 2);
+                        var degree = (radians * (180 / Math.PI) * -1) + 90;
                         self.trigger('day_selected', $(value).attr('data-day'));
                         $target.css('transform', 'rotate(' + degree + 'deg)');
                         return false;
@@ -353,16 +349,18 @@ var HomeView = Backbone.View.extend({
 
             $(document).on('mousemove', function(e) {
                 if (dragging) {
-                    var center_x = (offset.left) + ($target.width() / 2);
-                    var center_y = (offset.top) + ($target.height() / 2);
-                    var mouse_x = e.pageX;
-                    var mouse_y = e.pageY;
-                    var radians = Math.atan2(mouse_x - center_x, mouse_y - center_y);
+                    var radians = self.calculateRadians(offset, $target, e.pageX, e.pageY);
                     var degree = (radians * (180 / Math.PI) * -1) - 90; // convert degree for reversal
                     $target.css('transform', 'rotate(' + degree + 'deg)');
                 }
             });
         }
+    },
+
+    calculateRadians: function(offset, $target, object_x, object_y) {
+        var center_x = (offset.left) + ($target.width() / 2);
+        var center_y = (offset.top) + ($target.height() / 2);
+        return Math.atan2(object_x - center_x, object_y - center_y);
     },
 
     checkForOverlap: function($select, $day) {
