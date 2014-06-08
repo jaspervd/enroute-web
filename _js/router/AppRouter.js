@@ -12,7 +12,8 @@ var AppRouter = Backbone.Router.extend({
 
     routes: {
         '': 'home',
-        'home/': 'home'
+        'home/': 'home',
+        '*path': 'home'
     },
 
     home: function () {

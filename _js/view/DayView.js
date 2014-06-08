@@ -10,9 +10,12 @@ var DayView = Backbone.View.extend({
     render: function() {
         this.$el.html(this.template());
         var buildings = 12;
+        var step = 360 / buildings;
+        var degree;
+
         for (var i = 0; i < buildings; i++) {
-            var angle = -(((360 / buildings) * (i + 1)) * (Math.PI / 180) + 160);
-            this.$el.append('<div class="building" style="transform:rotate('+ angle +'deg);"></div>');
+            this.$el.append('<div class="building"></div>');
+            this.$el.find('.building:last').css('transform', 'rotate(' + (step * i) + 'deg)');
         }
 
         return this;

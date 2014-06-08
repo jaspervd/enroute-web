@@ -25,6 +25,7 @@ var EnRouteApp = Backbone.View.extend({
     showDay: function(day) {
         console.log('[EnRouteApp]', day);
         if(day !== this.currentDay) {
+            $('#day').remove();
             var dayView = new DayView({model: this.days.findWhere({title: day})});
             this.currentDay = day;
             this.$el.append(dayView.render().$el);

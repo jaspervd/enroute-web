@@ -63,12 +63,100 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
   display: block;
 }
 
-/* line 9, ../_scss/screen.scss */
+@-webkit-keyframes showBuilding {
+  /* line 8, ../_scss/screen.scss */
+  0% {
+    -webkit-transform-origin: 50% 100px;
+    -moz-transform-origin: 50% 100px;
+    -ms-transform-origin: 50% 100px;
+    -o-transform-origin: 50% 100px;
+    transform-origin: 50% 100px;
+    margin-top: -100px;
+  }
+
+  /* line 9, ../_scss/screen.scss */
+  100% {
+    -webkit-transform-origin: 50% 320px;
+    -moz-transform-origin: 50% 320px;
+    -ms-transform-origin: 50% 320px;
+    -o-transform-origin: 50% 320px;
+    transform-origin: 50% 320px;
+    margin-top: -320px;
+  }
+}
+
+@-moz-keyframes showBuilding {
+  /* line 12, ../_scss/screen.scss */
+  0% {
+    -webkit-transform-origin: 50% 100px;
+    -moz-transform-origin: 50% 100px;
+    -ms-transform-origin: 50% 100px;
+    -o-transform-origin: 50% 100px;
+    transform-origin: 50% 100px;
+    margin-top: -100px;
+  }
+
+  /* line 13, ../_scss/screen.scss */
+  100% {
+    -webkit-transform-origin: 50% 320px;
+    -moz-transform-origin: 50% 320px;
+    -ms-transform-origin: 50% 320px;
+    -o-transform-origin: 50% 320px;
+    transform-origin: 50% 320px;
+    margin-top: -320px;
+  }
+}
+
+@-o-keyframes showBuilding {
+  /* line 16, ../_scss/screen.scss */
+  0% {
+    -webkit-transform-origin: 50% 100px;
+    -moz-transform-origin: 50% 100px;
+    -ms-transform-origin: 50% 100px;
+    -o-transform-origin: 50% 100px;
+    transform-origin: 50% 100px;
+    margin-top: -100px;
+  }
+
+  /* line 17, ../_scss/screen.scss */
+  100% {
+    -webkit-transform-origin: 50% 320px;
+    -moz-transform-origin: 50% 320px;
+    -ms-transform-origin: 50% 320px;
+    -o-transform-origin: 50% 320px;
+    transform-origin: 50% 320px;
+    margin-top: -320px;
+  }
+}
+
+@keyframes showBuilding {
+  /* line 20, ../_scss/screen.scss */
+  0% {
+    -webkit-transform-origin: 50% 100px;
+    -moz-transform-origin: 50% 100px;
+    -ms-transform-origin: 50% 100px;
+    -o-transform-origin: 50% 100px;
+    transform-origin: 50% 100px;
+    margin-top: -100px;
+  }
+
+  /* line 21, ../_scss/screen.scss */
+  100% {
+    -webkit-transform-origin: 50% 320px;
+    -moz-transform-origin: 50% 320px;
+    -ms-transform-origin: 50% 320px;
+    -o-transform-origin: 50% 320px;
+    transform-origin: 50% 320px;
+    margin-top: -320px;
+  }
+}
+
+/* line 26, ../_scss/screen.scss */
 html {
   height: 100%;
 }
 
-/* line 13, ../_scss/screen.scss */
+/* line 30, ../_scss/screen.scss */
 body {
   background-color: #7ACFB2;
   font-size: 62.5%;
@@ -77,23 +165,23 @@ body {
   overflow: hidden;
 }
 
-/* line 21, ../_scss/screen.scss */
+/* line 38, ../_scss/screen.scss */
 #container {
   width: 100%;
   height: 100%;
 }
 
-/* line 26, ../_scss/screen.scss */
+/* line 43, ../_scss/screen.scss */
 .clear {
   clear: both;
 }
 
-/* line 30, ../_scss/screen.scss */
+/* line 47, ../_scss/screen.scss */
 header {
   display: none;
 }
 
-/* line 36, ../_scss/screen.scss */
+/* line 53, ../_scss/screen.scss */
 #nav {
   background-color: #22282F;
   width: 25%;
@@ -107,12 +195,12 @@ header {
   -o-transition: left 1s;
   transition: left 1s;
 }
-/* line 46, ../_scss/screen.scss */
+/* line 63, ../_scss/screen.scss */
 #nav:hover {
   left: 0;
 }
 
-/* line 53, ../_scss/screen.scss */
+/* line 70, ../_scss/screen.scss */
 #durbuy {
   background-image: url("../images/logo.png");
   background-size: 303.5px 312.5px;
@@ -122,8 +210,9 @@ header {
   position: absolute;
   left: 50%;
   top: 50%;
+  z-index: 5;
 }
-/* line 63, ../_scss/screen.scss */
+/* line 81, ../_scss/screen.scss */
 #durbuy #days {
   position: absolute;
   top: 0;
@@ -133,7 +222,7 @@ header {
   margin-left: 50%;
   margin-top: 50%;
 }
-/* line 73, ../_scss/screen.scss */
+/* line 91, ../_scss/screen.scss */
 #durbuy .day {
   background-color: #E84F89;
   width: 30px;
@@ -148,7 +237,7 @@ header {
   -o-border-radius: 50%;
   border-radius: 50%;
 }
-/* line 85, ../_scss/screen.scss */
+/* line 103, ../_scss/screen.scss */
 #durbuy #showSelectedDay {
   background-color: rgba(255, 255, 255, 0.5);
   width: 30px;
@@ -161,7 +250,7 @@ header {
   -o-border-radius: 50%;
   border-radius: 50%;
 }
-/* line 95, ../_scss/screen.scss */
+/* line 113, ../_scss/screen.scss */
 #durbuy #dragDayHandle {
   background-color: #22282F;
   width: 30px;
@@ -184,14 +273,14 @@ header {
   -o-border-radius: 50%;
   border-radius: 50%;
 }
-/* line 110, ../_scss/screen.scss */
+/* line 128, ../_scss/screen.scss */
 #durbuy #dragDayHandle:hover, #durbuy #dragDayHandle:focus {
   width: 32px;
   height: 32px;
   line-height: 32px;
 }
 
-/* line 118, ../_scss/screen.scss */
+/* line 136, ../_scss/screen.scss */
 #daySelector {
   background-image: url("../images/day_selector.svg");
   background-size: 490px 70px;
@@ -201,10 +290,11 @@ header {
   display: block;
   margin: -35px 0 0 -245px;
   position: absolute;
+  z-index: 5;
   left: 50%;
   top: 50%;
 }
-/* line 131, ../_scss/screen.scss */
+/* line 150, ../_scss/screen.scss */
 #daySelector .handle {
   width: 70px;
   height: 64px;
@@ -215,7 +305,7 @@ header {
   color: #FFF;
   text-decoration: none;
 }
-/* line 142, ../_scss/screen.scss */
+/* line 161, ../_scss/screen.scss */
 #daySelector .select {
   width: 70px;
   height: 70px;
@@ -224,33 +314,41 @@ header {
   top: 0;
 }
 
-/* line 153, ../_scss/screen.scss */
+/* line 172, ../_scss/screen.scss */
 #day {
+  top: 50%;
+  left: 50%;
   position: absolute;
+  z-index: 4;
 }
-/* line 156, ../_scss/screen.scss */
+/* line 178, ../_scss/screen.scss */
 #day .building {
   width: 40px;
   height: 200px;
   background-color: #FF0000;
   position: absolute;
+  margin-left: -20px;
+  -webkit-animation: showBuilding 2s forwards;
+  -moz-animation: showBuilding 2s forwards;
+  -o-animation: showBuilding 2s forwards;
+  animation: showBuilding 2s forwards;
 }
 
-/* line 166, ../_scss/screen.scss */
+/* line 193, ../_scss/screen.scss */
 #forest {
   background-color: #f1f5cf;
   width: 70%;
   margin: -35% 0 0 -35%;
 }
 
-/* line 174, ../_scss/screen.scss */
+/* line 201, ../_scss/screen.scss */
 #city {
   background-color: #67BC9A;
   width: 100%;
   margin: -50% 0 0 -50%;
 }
 
-/* line 180, ../_scss/screen.scss */
+/* line 207, ../_scss/screen.scss */
 #forest, #city {
   position: absolute;
   left: 50%;
@@ -261,7 +359,7 @@ header {
   -o-border-radius: 50%;
   border-radius: 50%;
 }
-/* line 186, ../_scss/screen.scss */
+/* line 213, ../_scss/screen.scss */
 #forest:before, #city:before {
   content: "";
   display: block;
