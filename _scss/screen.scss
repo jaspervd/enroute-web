@@ -28,7 +28,7 @@ html {
 }
 
 body {
-  background-color: #7ACFB2;
+  background-color: #f1f5cf;
   font-size: 62.5%;
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   height: 100%;
@@ -90,10 +90,10 @@ header {
 
   .day {
     background-color: #E84F89;
-    width: 30px;
-    height: 30px;
+    width: 40px;
+    height: 40px;
     text-align: center;
-    line-height: 30px;
+    line-height: 40px;
     opacity: .6;
 
     position: absolute;
@@ -135,12 +135,12 @@ header {
 
 #daySelector {
   background-image: url('../images/day_selector.svg');
-  background-size: 490px 70px;
-  width: 490px;
-  height: 70px;
+  background-size: 514px 74px;
+  width: 514px;
+  height: 74px;
   position: absolute;
   display: block;
-  margin: -35px 0 0 -245px;
+  margin: -37px 0 0 -257px;
   position: absolute;
   z-index: 5;
   left: 50%;
@@ -148,19 +148,18 @@ header {
   //@include transform(rotate(-90deg)); // CAUSING PROBLEMS :'(
 
     .handle {
-      width: 70px;
-      height: 64px;
+      width: 54px;
+      height: 54px;
+      margin-top: 7px;
       display: block;
       cursor: move;
-      line-height: 64px;
-      text-align: center;
       color: #FFF;
       text-decoration: none;
     }
 
     .select {
-      width: 70px;
-      height: 70px;
+      width: 74px;
+      height: 74px;
       position: absolute;
       right: 0;
       top: 0;
@@ -176,16 +175,29 @@ header {
   z-index: 4;
 
   .building {
+    background-color: rgba(122, 0, 50, .4);
     width: 40px;
     height: 200px;
-    background-color: #FF0000;
     position: absolute;
     margin-left: -20px;
-    -webkit-animation: showBuilding 2s forwards;
-    -moz-animation:    showBuilding 2s forwards;
-    -o-animation:      showBuilding 2s forwards;
-    animation:         showBuilding 2s forwards;
+    -webkit-animation: showBuilding 1s forwards;
+    -moz-animation:    showBuilding 1s forwards;
+    -o-animation:      showBuilding 1s forwards;
+    animation:         showBuilding 1s forwards;
   }
+}
+
+// River
+
+#river {
+  background-image: url('../images/river.png');
+  width: 370px;
+  height: 364px;
+  background-size: 370px 364px;
+  margin: -182px 0 0 -182px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
 }
 
 // Forest

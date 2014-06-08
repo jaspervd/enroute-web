@@ -158,7 +158,7 @@ html {
 
 /* line 30, ../_scss/screen.scss */
 body {
-  background-color: #7ACFB2;
+  background-color: #f1f5cf;
   font-size: 62.5%;
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   height: 100%;
@@ -225,10 +225,10 @@ header {
 /* line 91, ../_scss/screen.scss */
 #durbuy .day {
   background-color: #E84F89;
-  width: 30px;
-  height: 30px;
+  width: 40px;
+  height: 40px;
   text-align: center;
-  line-height: 30px;
+  line-height: 40px;
   opacity: .6;
   position: absolute;
   -webkit-border-radius: 50%;
@@ -283,12 +283,12 @@ header {
 /* line 136, ../_scss/screen.scss */
 #daySelector {
   background-image: url("../images/day_selector.svg");
-  background-size: 490px 70px;
-  width: 490px;
-  height: 70px;
+  background-size: 514px 74px;
+  width: 514px;
+  height: 74px;
   position: absolute;
   display: block;
-  margin: -35px 0 0 -245px;
+  margin: -37px 0 0 -257px;
   position: absolute;
   z-index: 5;
   left: 50%;
@@ -296,59 +296,70 @@ header {
 }
 /* line 150, ../_scss/screen.scss */
 #daySelector .handle {
-  width: 70px;
-  height: 64px;
+  width: 54px;
+  height: 54px;
+  margin-top: 7px;
   display: block;
   cursor: move;
-  line-height: 64px;
-  text-align: center;
   color: #FFF;
   text-decoration: none;
 }
-/* line 161, ../_scss/screen.scss */
+/* line 160, ../_scss/screen.scss */
 #daySelector .select {
-  width: 70px;
-  height: 70px;
+  width: 74px;
+  height: 74px;
   position: absolute;
   right: 0;
   top: 0;
 }
 
-/* line 172, ../_scss/screen.scss */
+/* line 171, ../_scss/screen.scss */
 #day {
   top: 50%;
   left: 50%;
   position: absolute;
   z-index: 4;
 }
-/* line 178, ../_scss/screen.scss */
+/* line 177, ../_scss/screen.scss */
 #day .building {
+  background-color: rgba(122, 0, 50, 0.4);
   width: 40px;
   height: 200px;
-  background-color: #FF0000;
   position: absolute;
   margin-left: -20px;
-  -webkit-animation: showBuilding 2s forwards;
-  -moz-animation: showBuilding 2s forwards;
-  -o-animation: showBuilding 2s forwards;
-  animation: showBuilding 2s forwards;
+  -webkit-animation: showBuilding 1s forwards;
+  -moz-animation: showBuilding 1s forwards;
+  -o-animation: showBuilding 1s forwards;
+  animation: showBuilding 1s forwards;
 }
 
-/* line 193, ../_scss/screen.scss */
+/* line 192, ../_scss/screen.scss */
+#river {
+  background-image: url("../images/river.png");
+  width: 370px;
+  height: 364px;
+  background-size: 370px 364px;
+  margin: -182px 0 0 -182px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+}
+
+/* line 205, ../_scss/screen.scss */
 #forest {
   background-color: #f1f5cf;
   width: 70%;
   margin: -35% 0 0 -35%;
 }
 
-/* line 201, ../_scss/screen.scss */
+/* line 213, ../_scss/screen.scss */
 #city {
   background-color: #67BC9A;
   width: 100%;
   margin: -50% 0 0 -50%;
 }
 
-/* line 207, ../_scss/screen.scss */
+/* line 219, ../_scss/screen.scss */
 #forest, #city {
   position: absolute;
   left: 50%;
@@ -359,7 +370,7 @@ header {
   -o-border-radius: 50%;
   border-radius: 50%;
 }
-/* line 213, ../_scss/screen.scss */
+/* line 225, ../_scss/screen.scss */
 #forest:before, #city:before {
   content: "";
   display: block;

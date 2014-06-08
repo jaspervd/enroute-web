@@ -31,7 +31,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   
 
 
-  return "<div id=\"city\"></div>\n<div id=\"forest\"></div>\n<div id=\"daySelector\"><span class=\"handle\">==</span><span class=\"select\"></span></div>\n<div id=\"durbuy\">\n	<nav id=\"days\">\n		<header>\n			<h1>Dagen</h1>\n		</header>\n		<ul></ul>\n	</nav>\n</div>";
+  return "<div id=\"city\"></div>\n<div id=\"forest\"></div>\n<div id=\"river\"></div>\n<div id=\"daySelector\"><span class=\"handle\"></span><span class=\"select\"></span></div>\n<div id=\"durbuy\">\n	<nav id=\"days\">\n		<header>\n			<h1>Dagen</h1>\n		</header>\n		<ul></ul>\n	</nav>\n</div>";
   });
 
 this["tpl"]["navigation"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
@@ -388,7 +388,7 @@ var HomeView = Backbone.View.extend({
 
     createDays: function() {
         var step = 360 / this.collection.length;
-        var radius = $('#durbuy').width() / 2 + 60;
+        var radius = $('#durbuy').width() / 2 + 70;
         var x, y, angle;
         for (var i = 0; i < this.collection.length; i++) {
             angle = -((step * (i + 1)) * (Math.PI / 180) + 160);

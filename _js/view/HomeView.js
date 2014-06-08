@@ -82,7 +82,7 @@ var HomeView = Backbone.View.extend({
 
     createDays: function() {
         var step = 360 / this.collection.length;
-        var radius = $('#durbuy').width() / 2 + 60;
+        var radius = $('#durbuy').width() / 2 + 70;
         var x, y, angle;
         for (var i = 0; i < this.collection.length; i++) {
             angle = -((step * (i + 1)) * (Math.PI / 180) + 160);

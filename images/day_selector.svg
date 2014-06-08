@@ -2,11 +2,21 @@
 <!-- Generator: Adobe Illustrator 17.1.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	 viewBox="40.6 26.6 100 14.1" enable-background="new 40.6 26.6 100 14.1" xml:space="preserve">
-<circle fill="#8C3533" cx="47.2" cy="34" r="6.6"/>
-<circle fill="#8C3533" cx="134" cy="34.1" r="6.6"/>
-<rect x="46.2" y="33" fill="#8C3533" width="91.7" height="2.8"/>
-<rect x="46.5" y="32.4" fill="#B2463F" width="91.7" height="2.8"/>
-<circle fill="#B2463F" cx="134" cy="33.3" r="6.6"/>
-<circle fill="#B2463F" cx="47.5" cy="33.3" r="6.6"/>
+	 viewBox="-62.7 34 369 53.7" enable-background="new -62.7 34 369 53.7" xml:space="preserve">
+<g>
+	<path fill-rule="evenodd" clip-rule="evenodd" fill="#8C3533" d="M-38.2,58.9L261.4,58l0,9.7l-299.6,0.9L-38.2,58.9z"/>
+	<path fill-rule="evenodd" clip-rule="evenodd" fill="#B2463F" d="M-38.2,56.1l299.6-0.9l0,9.7l-299.6,0.9L-38.2,56.1z"/>
+	<path fill-rule="evenodd" clip-rule="evenodd" fill="#8C3533" d="M-57,76.8c-7.6-7.6-7.6-19.8,0-27.4c7.6-7.6,19.8-7.6,27.4,0
+		c7.6,7.6,7.6,19.8,0,27.4C-37.2,84.4-49.5,84.4-57,76.8z"/>
+	<path fill-rule="evenodd" clip-rule="evenodd" fill="#B2463F" d="M-56.5,74.2c-7.6-7.6-7.6-19.8,0-27.4c7.6-7.6,19.8-7.6,27.4,0
+		c7.6,7.6,7.6,19.8,0,27.4C-36.7,81.8-49,81.8-56.5,74.2z"/>
+	<path fill-rule="evenodd" clip-rule="evenodd" fill="#8C3533" d="M262.7,80.4c-9.8-9.8-9.8-25.7,0-35.5c9.8-9.8,25.7-9.8,35.5,0
+		c9.8,9.8,9.8,25.7,0,35.5C288.4,90.2,272.5,90.2,262.7,80.4z"/>
+	<path fill-rule="evenodd" clip-rule="evenodd" fill="#B2463F" d="M263.4,76.9c-9.8-9.8-9.8-25.7,0-35.5c9.8-9.8,25.7-9.8,35.5,0
+		c9.8,9.8,9.8,25.7,0,35.5C289.1,86.8,273.2,86.8,263.4,76.9z"/>
+</g>
+<g>
+	<polygon fill="#F1F5CF" points="-42.9,45.6 -42.9,45.7 -38,50.5 -37.9,50.6 -37.9,50.6 -41.8,50.6 -41.8,70.3 -37.9,70.3 -43,75.4 
+		-48,70.3 -44.2,70.3 -44.2,50.6 -48,50.6 -47.9,50.5 -43.1,45.7 -43,45.6 -42.9,45.6 	"/>
+</g>
 </svg>
