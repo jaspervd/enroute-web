@@ -224,63 +224,17 @@ header {
 }
 /* line 91, ../_scss/screen.scss */
 #durbuy .day {
-  background-color: #E84F89;
-  width: 40px;
-  height: 40px;
+  width: 36px;
+  height: 36px;
   text-align: center;
-  line-height: 40px;
   opacity: .6;
+  font-family: Sahara, sans-serif;
+  font-size: 34px;
+  color: #f1f5cf;
   position: absolute;
-  -webkit-border-radius: 50%;
-  -moz-border-radius: 50%;
-  -ms-border-radius: 50%;
-  -o-border-radius: 50%;
-  border-radius: 50%;
-}
-/* line 103, ../_scss/screen.scss */
-#durbuy #showSelectedDay {
-  background-color: rgba(255, 255, 255, 0.5);
-  width: 30px;
-  height: 30px;
-  border: 2px solid #FFF;
-  position: absolute;
-  -webkit-border-radius: 50%;
-  -moz-border-radius: 50%;
-  -ms-border-radius: 50%;
-  -o-border-radius: 50%;
-  border-radius: 50%;
-}
-/* line 113, ../_scss/screen.scss */
-#durbuy #dragDayHandle {
-  background-color: #22282F;
-  width: 30px;
-  height: 30px;
-  color: #FFF;
-  display: block;
-  text-decoration: none;
-  font-size: 2em;
-  text-align: center;
-  line-height: 30px;
-  position: absolute;
-  top: 383px;
-  -webkit-transition: width 0.2s, height 0.2s;
-  -moz-transition: width 0.2s, height 0.2s;
-  -o-transition: width 0.2s, height 0.2s;
-  transition: width 0.2s, height 0.2s;
-  -webkit-border-radius: 50%;
-  -moz-border-radius: 50%;
-  -ms-border-radius: 50%;
-  -o-border-radius: 50%;
-  border-radius: 50%;
-}
-/* line 128, ../_scss/screen.scss */
-#durbuy #dragDayHandle:hover, #durbuy #dragDayHandle:focus {
-  width: 32px;
-  height: 32px;
-  line-height: 32px;
 }
 
-/* line 136, ../_scss/screen.scss */
+/* line 105, ../_scss/screen.scss */
 #daySelector {
   background-image: url("../images/day_selector.svg");
   background-size: 514px 74px;
@@ -294,7 +248,7 @@ header {
   left: 50%;
   top: 50%;
 }
-/* line 150, ../_scss/screen.scss */
+/* line 119, ../_scss/screen.scss */
 #daySelector .handle {
   width: 54px;
   height: 54px;
@@ -304,7 +258,7 @@ header {
   color: #FFF;
   text-decoration: none;
 }
-/* line 160, ../_scss/screen.scss */
+/* line 129, ../_scss/screen.scss */
 #daySelector .select {
   width: 74px;
   height: 74px;
@@ -313,14 +267,14 @@ header {
   top: 0;
 }
 
-/* line 171, ../_scss/screen.scss */
+/* line 140, ../_scss/screen.scss */
 #day {
   top: 50%;
   left: 50%;
   position: absolute;
   z-index: 4;
 }
-/* line 177, ../_scss/screen.scss */
+/* line 146, ../_scss/screen.scss */
 #day .building {
   background-color: rgba(122, 0, 50, 0.4);
   width: 40px;
@@ -333,7 +287,7 @@ header {
   animation: showBuilding 1s forwards;
 }
 
-/* line 192, ../_scss/screen.scss */
+/* line 161, ../_scss/screen.scss */
 #river {
   background-image: url("../images/river.png");
   width: 370px;
@@ -345,21 +299,21 @@ header {
   top: 50%;
 }
 
-/* line 205, ../_scss/screen.scss */
+/* line 174, ../_scss/screen.scss */
 #forest {
   background-color: #f1f5cf;
   width: 70%;
   margin: -35% 0 0 -35%;
 }
 
-/* line 213, ../_scss/screen.scss */
+/* line 182, ../_scss/screen.scss */
 #city {
   background-color: #67BC9A;
   width: 100%;
   margin: -50% 0 0 -50%;
 }
 
-/* line 219, ../_scss/screen.scss */
+/* line 188, ../_scss/screen.scss */
 #forest, #city {
   position: absolute;
   left: 50%;
@@ -370,7 +324,7 @@ header {
   -o-border-radius: 50%;
   border-radius: 50%;
 }
-/* line 225, ../_scss/screen.scss */
+/* line 194, ../_scss/screen.scss */
 #forest:before, #city:before {
   content: "";
   display: block;

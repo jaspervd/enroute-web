@@ -89,47 +89,16 @@ header {
   }
 
   .day {
-    background-color: #E84F89;
-    width: 40px;
-    height: 40px;
+    width: 36px;
+    height: 36px;
     text-align: center;
-    line-height: 40px;
     opacity: .6;
+    font-family: Sahara, sans-serif;
+    font-size: 34px;
+    color: #f1f5cf;
+    // TODO: Sahara webfont
 
     position: absolute;
-    @include border-radius(50%);
-  }
-
-  #showSelectedDay {
-    background-color: rgba(255, 255, 255, .5);
-    width: 30px;
-    height: 30px;
-    border: 2px solid #FFF;
-    position: absolute;
-
-    @include border-radius(50%);
-  }
-
-  #dragDayHandle {
-    background-color: #22282F;
-    width: 30px;
-    height: 30px;
-    color: #FFF;
-    display: block;
-    text-decoration: none;
-    font-size: 2em;
-    text-align: center;
-    line-height: 30px;
-    position: absolute;
-    top: 383px;
-    @include transition(width .2s, height .2s);
-    @include border-radius(50%);
-
-    &:hover, &:focus {
-      width: 32px;
-      height: 32px;
-      line-height: 32px;
-    }
   }
 }
 

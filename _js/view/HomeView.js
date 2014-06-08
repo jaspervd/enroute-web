@@ -83,12 +83,13 @@ var HomeView = Backbone.View.extend({
     createDays: function() {
         var step = 360 / this.collection.length;
         var radius = $('#durbuy').width() / 2 + 70;
-        var x, y, angle;
+        var x, y, angle, date;
         for (var i = 0; i < this.collection.length; i++) {
+            date = new Date(this.collection.at(i).get('title'));
             angle = -((step * (i + 1)) * (Math.PI / 180) + 160);
             x = Math.cos(angle) * radius;
             y = Math.sin(angle) * radius;
-            this.$el.find('ul').append('<li class="day" data-day="' + this.collection.at(i).get('title') + '" style="margin-top:' + x + 'px;margin-left:' + y + 'px">#' + i + '</li>');
+            this.$el.find('ul').append('<li class="day" data-day="' + this.collection.at(i).get('title') + '" style="margin-top:' + x + 'px;margin-left:' + y + 'px">' + date.getDate() + '</li>');
         }
     },
 });
