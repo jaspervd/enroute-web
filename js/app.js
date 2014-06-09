@@ -442,6 +442,7 @@ var HomeView = Backbone.View.extend({
 
             var step = 360 / this.collection.length;
             var toctocAudio = document.getElementById('toctoc');
+            var selectedDay;
 
             $(document).on('mousemove', function(e) {
                 if (dragging) {
@@ -450,9 +451,12 @@ var HomeView = Backbone.View.extend({
                     $target.css('transform', 'rotate(' + degree + 'deg)');
                     $.each($('.day'), function(key, value) {
                         if (self.checkForOverlap($target.find('.select'), $(value))) {
-                            toctocAudio.play();
-                            $(value).removeClass('almostFocus').addClass('focus');
-                            $('.day:nth-child(' + (key - 2) + '), .day:nth-child(' + (key) + ')').removeClass('focus').addClass('almostFocus');
+                            if (selectedDay !== value) {
+                                selectedDay = value;
+                                toctocAudio.play();
+                                $(value).removeClass('almostFocus').addClass('focus');
+                                $('.day:nth-child(' + (key - 2) + '), .day:nth-child(' + (key) + ')').removeClass('focus').addClass('almostFocus');
+                            }
                         }
                     });
                 }
