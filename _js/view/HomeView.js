@@ -1,4 +1,8 @@
+/* globals Moment:true */
+
 var HomeView = Backbone.View.extend({
+    id: 'home',
+    tagName: 'div',
     template: tpl.home,
 
     initialize: function() {
@@ -56,10 +60,13 @@ var HomeView = Backbone.View.extend({
                     var radians = self.calculateRadians(offset, $target, e.pageX, e.pageY);
                     var degree = (radians * (180 / Math.PI) * -1) - 90; // convert degree for reversal
                     $target.css('transform', 'rotate(' + degree + 'deg)');
+                    $target.find('.month').css('transform', 'rotate(' + (degree * -1) + 'deg)');
                     $.each($('.day'), function(key, value) {
                         if (self.checkForOverlap($target.find('.select'), $(value))) {
                             if (selectedDay !== value) {
+                                var date = moment($(value).attr('data-day'));
                                 selectedDay = value;
+                                $target.find('.month').html(date.format('MMMM'));
                                 toctocAudio.play();
                                 $(value).removeClass('almostFocus').addClass('focus');
                                 $('.day:nth-child(' + (key - 2) + '), .day:nth-child(' + (key) + ')').removeClass('focus').addClass('almostFocus');

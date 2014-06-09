@@ -44,7 +44,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   
 
 
-  return "sooooooon lulz";
+  return "<header>\n	<h1>Tickets</h1>\n</header>\n<p>sooooooon lulz</p>";
   }));
 
 this["tpl"]["content"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
@@ -85,7 +85,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   
 
 
-  return "<div id=\"city\"></div>\n<div id=\"street\"></div>\n<div id=\"forest\"></div>\n<div id=\"river\"></div>\n<div id=\"daySelector\"><span class=\"handle\"></span><span class=\"select\"></span></div>\n<div id=\"durbuy\">\n	<nav id=\"days\">\n		<header>\n			<h1>Dagen</h1>\n		</header>\n		<ul></ul>\n	</nav>\n	<audio id=\"toctoc\">\n		<source src=\"assets/toctoc.mp3\" type=\"audio/mpeg; codecs='mp3'\">\n		<source src=\"assets/toctoc.ogg\" type=\"audio/ogg; codecs='vorbis'\">\n	</audio>\n</div>";
+  return "<div id=\"city\"></div>\n<div id=\"street\"></div>\n<div id=\"forest\"></div>\n<div id=\"river\"></div>\n<div id=\"daySelector\"><span class=\"handle\"></span><span class=\"select\"></span><span class=\"month\">juni</span></div>\n<div id=\"durbuy\">\n	<nav id=\"days\">\n		<header>\n			<h1>Dagen</h1>\n		</header>\n		<ul></ul>\n	</nav>\n	<audio id=\"toctoc\">\n		<source src=\"assets/toctoc.mp3\" type=\"audio/mpeg; codecs='mp3'\">\n		<source src=\"assets/toctoc.ogg\" type=\"audio/ogg; codecs='vorbis'\">\n	</audio>\n</div>";
   });
 
 Handlebars.registerHelper('pleaselog', function (string) {
@@ -429,7 +429,11 @@ var ErrorView = Backbone.View.extend({
     }
 });
 
+/* globals Moment:true */
+
 var HomeView = Backbone.View.extend({
+    id: 'home',
+    tagName: 'div',
     template: tpl.home,
 
     initialize: function() {
@@ -487,10 +491,13 @@ var HomeView = Backbone.View.extend({
                     var radians = self.calculateRadians(offset, $target, e.pageX, e.pageY);
                     var degree = (radians * (180 / Math.PI) * -1) - 90; // convert degree for reversal
                     $target.css('transform', 'rotate(' + degree + 'deg)');
+                    $target.find('.month').css('transform', 'rotate(' + (degree * -1) + 'deg)');
                     $.each($('.day'), function(key, value) {
                         if (self.checkForOverlap($target.find('.select'), $(value))) {
                             if (selectedDay !== value) {
+                                var date = moment($(value).attr('data-day'));
                                 selectedDay = value;
+                                $target.find('.month').html(date.format('MMMM'));
                                 toctocAudio.play();
                                 $(value).removeClass('almostFocus').addClass('focus');
                                 $('.day:nth-child(' + (key - 2) + '), .day:nth-child(' + (key) + ')').removeClass('focus').addClass('almostFocus');
@@ -672,6 +679,7 @@ var TicketsView = Backbone.View.extend({
 
 /* globals AppRouter:true */
 
+moment.lang('nl');
 var router = new AppRouter();
 Backbone.history.start();
 

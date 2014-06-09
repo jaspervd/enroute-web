@@ -57,7 +57,7 @@ body {
   clear: both;
 }
 
-header {
+#home header, nav header, #container > header {
   display: none;
 }
 
@@ -196,6 +196,19 @@ header {
       right: 0;
       top: 0;
     }
+
+    .month {
+      background-color: #f4c747;
+      @include border-radius(6px);
+      color: #ac443d;
+      width: 74px;
+      padding: 6px;
+      text-align: center;
+      position: absolute;
+      right: -4px;
+      bottom: -26px;
+      font-size: 1.2em;
+    }
   }
 
 // Day
@@ -230,16 +243,15 @@ header {
   position: absolute;
   left: 50%;
   top: 50%;
-  -webkit-animation: rotateCircle 340s;
-  -moz-animation:    rotateCircle 340s;
-  -o-animation:      rotateCircle 340s;
-  animation:         rotateCircle 340s;
+  -webkit-animation: rotateCircle 340s infinite;
+  -moz-animation:    rotateCircle 340s infinite;
+  -o-animation:      rotateCircle 340s infinite;
+  animation:         rotateCircle 340s infinite;
 }
 
 // Forest
 
 #forest {
-  background-color: #f1f5cf;
   width: 70%;
   margin: -35% 0 0 -35%;
 }
@@ -248,33 +260,22 @@ header {
 
 #street {
   background: url('../images/street.svg') no-repeat;
-  width: 88%;
-  position: absolute;
-  top: 50%;
-  left: 50%;
+  width: 86%;
   z-index: 1;
-  margin: -44% 0 0 -44%;
-
-    &:before { // fix for equal height and width
-      content: "";
-      display: block;
-      padding-top: 100%;
-    }
-  }
+  margin: -43% 0 0 -43%;
+}
 
 // City
 
 #city {
-  background-color: #67BC9A;
   width: 100%;
   margin: -50% 0 0 -50%;
 }
 
-#forest, #city {
+#forest, #city, #street {
   position: absolute;
   left: 50%;
   top: 50%;
-  @include border-radius(50%);
 
   &:before { // fix for equal height and width
     content: "";
