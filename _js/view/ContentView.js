@@ -29,7 +29,7 @@ var ContentView = Backbone.View.extend({
 
             switch (this.currentContent) {
                 case 'tickets':
-                    var ticketsView = new TicketsView();
+                    var ticketsView = new TicketsView({collection: this.collection});
                     this.$el.append(ticketsView.render().$el);
                     break;
 

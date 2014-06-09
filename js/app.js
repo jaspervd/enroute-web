@@ -41,10 +41,56 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 Handlebars.registerPartial("tickets", this["tpl"]["tickets"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
+  var buffer = "", stack1, helper, options, functionType="function", escapeExpression=this.escapeExpression, helperMissing=helpers.helperMissing, self=this;
+
+function program1(depth0,data) {
   
+  var buffer = "", stack1;
+  buffer += "\n    	<div>\n    		<label for=\"txtName\">Naam:</label>\n    		<input type=\"text\" required name=\"txtName\" id=\"txtName\" placeholder=\"Joske Vermeulen\"/>\n    	</div>\n\n    	<div>\n    		<label for=\"txtEmail\">E-mailadres:</label>\n    		<input type=\"email\" required name=\"txtEmail\" id=\"txtEmail\" placeholder=\"joske.vermeulen@trammezand.lei\" />\n    	</div>\n\n    	<div>\n    		<label for=\"rngTickets\">Aantal tickets:</label>\n    		<input type=\"range\" required name=\"rngTickets\" id=\"rngTickets\" min=\"1\" max=\""
+    + escapeExpression(((stack1 = ((stack1 = (depth0 && depth0.ticket)),stack1 == null || stack1 === false ? stack1 : stack1.tickets_available)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "\" />\n    	</div>\n    	";
+  return buffer;
+  }
 
+function program3(depth0,data) {
+  
+  
+  return "\n    	<div>\n    		<label for=\"txtName\">Schoolnaam:</label>\n    		<input type=\"text\" required name=\"txtName\" id=\"txtName\" placeholder=\"Volledige schoolnaam\"/>\n    	</div>\n\n    	<div>\n    		<label for=\"txtEmail\">E-mailadres:</label>\n    		<input type=\"email\" required name=\"txtEmail\" id=\"txtEmail\" placeholder=\"joske.vermeulen@trammezand.lei\"/>\n    	</div>\n    	";
+  }
 
-  return "<header>\n	<h1>Tickets</h1>\n</header>\n<p>sooooooon lulz</p>";
+function program5(depth0,data) {
+  
+  var buffer = "", stack1;
+  buffer += "\n    	<ul>\n    		";
+  stack1 = helpers.each.call(depth0, (depth0 && depth0.days), {hash:{},inverse:self.noop,fn:self.program(6, program6, data),data:data});
+  if(stack1 || stack1 === 0) { buffer += stack1; }
+  buffer += "\n    	</ul>\n    	";
+  return buffer;
+  }
+function program6(depth0,data) {
+  
+  var buffer = "", stack1, helper, options;
+  buffer += "\n    		<li><a href=\"\" data-date=\"";
+  if (helper = helpers.title) { stack1 = helper.call(depth0, {hash:{},data:data}); }
+  else { helper = (depth0 && depth0.title); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
+  buffer += escapeExpression(stack1)
+    + "\">"
+    + escapeExpression((helper = helpers.formatDate || (depth0 && depth0.formatDate),options={hash:{},data:data},helper ? helper.call(depth0, (depth0 && depth0.title), options) : helperMissing.call(depth0, "formatDate", (depth0 && depth0.title), options)))
+    + "</a></li>\n    		";
+  return buffer;
+  }
+
+  buffer += "    <header>\n    	<h1>Ticket bestellen</h1>\n    </header>\n    <form method=\"post\" action=\"\">\n    	";
+  stack1 = (helper = helpers.ifTypeIsPublic || (depth0 && depth0.ifTypeIsPublic),options={hash:{},inverse:self.noop,fn:self.program(1, program1, data),data:data},helper ? helper.call(depth0, ((stack1 = (depth0 && depth0.ticket)),stack1 == null || stack1 === false ? stack1 : stack1.type), options) : helperMissing.call(depth0, "ifTypeIsPublic", ((stack1 = (depth0 && depth0.ticket)),stack1 == null || stack1 === false ? stack1 : stack1.type), options));
+  if(stack1 || stack1 === 0) { buffer += stack1; }
+  buffer += "\n    	";
+  stack1 = (helper = helpers.ifTypeIsSchool || (depth0 && depth0.ifTypeIsSchool),options={hash:{},inverse:self.noop,fn:self.program(3, program3, data),data:data},helper ? helper.call(depth0, ((stack1 = (depth0 && depth0.ticket)),stack1 == null || stack1 === false ? stack1 : stack1.type), options) : helperMissing.call(depth0, "ifTypeIsSchool", ((stack1 = (depth0 && depth0.ticket)),stack1 == null || stack1 === false ? stack1 : stack1.type), options));
+  if(stack1 || stack1 === 0) { buffer += stack1; }
+  buffer += "\n\n    	";
+  stack1 = helpers['if'].call(depth0, (depth0 && depth0.days), {hash:{},inverse:self.noop,fn:self.program(5, program5, data),data:data});
+  if(stack1 || stack1 === 0) { buffer += stack1; }
+  buffer += "\n\n    	<div>\n    		<input type=\"submit\" name=\"btnSubmit\" value=\"Verder naar bestellen\"/>\n    	</div>\n    </form>";
+  return buffer;
   }));
 
 this["tpl"]["content"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
@@ -87,10 +133,6 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
   return "<div id=\"city\"></div>\n<div id=\"street\"></div>\n<div id=\"forest\"></div>\n<div id=\"river\"></div>\n<div id=\"daySelector\"><span class=\"handle\"></span><span class=\"select\"></span><span class=\"month\">juni</span></div>\n<div id=\"durbuy\">\n	<nav id=\"days\">\n		<header>\n			<h1>Dagen</h1>\n		</header>\n		<ul></ul>\n	</nav>\n	<audio id=\"toctoc\">\n		<source src=\"assets/toctoc.mp3\" type=\"audio/mpeg; codecs='mp3'\">\n		<source src=\"assets/toctoc.ogg\" type=\"audio/ogg; codecs='vorbis'\">\n	</audio>\n</div>";
   });
-
-Handlebars.registerHelper('pleaselog', function (string) {
-    console.log(string);
-});
 
 Handlebars.registerHelper('formatDate', function (date) {
     moment.lang('nl');
@@ -313,7 +355,7 @@ var ContentView = Backbone.View.extend({
 
             switch (this.currentContent) {
                 case 'tickets':
-                    var ticketsView = new TicketsView();
+                    var ticketsView = new TicketsView({collection: this.collection});
                     this.$el.append(ticketsView.render().$el);
                     break;
 
@@ -387,7 +429,10 @@ var EnRouteApp = Backbone.View.extend({
         this.days = new Days();
         this.days.fetch();
 
-        this.contentView = new ContentView();
+        this.contentView = new ContentView({
+            collection: this.days
+        });
+
         this.homeView = new HomeView({
             collection: this.days
         });
@@ -662,17 +707,106 @@ var InfoView = Backbone.View.extend({
     }
 });
 
+/* globals SuccessView:true */
+/* globals ErrorView:true */
+/* globals Validate:true */
+/* globals Ticket:true */
+
 var TicketsView = Backbone.View.extend({
     id: 'tickets',
     tagName: 'section',
     template: tpl.tickets,
+    currentTicket: undefined,
 
     initialize: function() {
         _.bindAll.apply(_, [this].concat(_.functions(this)));
+        this.currentTicket = this.collection.findWhere({'title': moment().format('YYYY-MM-DD')});
+    },
+
+    events: {
+        'click a': 'selectTicket',
+        'submit form': 'orderTicket',
+        'blur #xtName': 'validateName',
+        'keyup #txtName': 'validateName',
+        'blur #txtEmail': 'validateEmail',
+        'keyup #txtEmail': 'validateEmail'
+    },
+
+    selectTicket: function(e) {
+        console.log('[TicketsView]', $(e.currentTarget).attr('data-date'));
+        e.preventDefault();
+        var date = $(e.currentTarget).attr('data-date');
+        var newTicket = this.collection.findWhere({'title': date});
+        if(this.currentTicket !== newTicket) {
+            this.currentTicket = newTicket;
+            this.render();
+        }
+    },
+
+    orderTicket: function (e) {
+        console.log('[TicketsView] orderTicket()');
+        e.preventDefault();
+        this.clean();
+        var self = this; // fix for error handler
+        var tickets = this.$el.find('#rngTickets').val();
+        var ticket = new Ticket({
+            day_id: this.currentTicket.get('id'),
+            name: this.$el.find('#txtName').val(),
+            email: this.$el.find('#txtEmail').val()
+        });
+        if (tickets) {
+            ticket.set('tickets', parseInt(tickets));
+        }
+        if (Validate.fullName(this.$el.find('#txtName')) && Validate.email(this.$el.find('#txtEmail'))) {
+            ticket.save({}, {
+                success: function (model, response) {
+                    var successView = new SuccessView({model: 'Dag '+ response.name +', je hebt succesvol '+ response.tickets +' tickets besteld voor de workshop op '+ response.tickets.title +'!'});
+                    self.$el.find('.txtName, .txtEmail').val('');
+                    self.$el.append(successView.render().$el);
+                },
+                error: function (model, response) {
+                    console.log('[TicketView] generated 500 error code');
+                    _.each(response.responseJSON.errors, function (error, key) {
+                        console.log('[' + key + ']', error);
+                        var errorView = new ErrorView({model: error});
+                        var $elToInsertAfter;
+                        if (key === 'name') {
+                            $elToInsertAfter = '#txtName';
+                        }
+                        if (key === 'email') {
+                            $elToInsertAfter = '#txtEmail';
+                        }
+                        if (tickets && key === 'tickets') {
+                            $elToInsertAfter = '#rngTickets';
+                        } else if (key === tickets) {
+                            $elToInsertAfter = '#btnSubmit';
+                        }
+                        if (key === 'day_id') {
+                            self.$el.prepend(errorView.render().$el);
+                        } else {
+                            self.$el.find($elToInsertAfter).after(errorView.render().$el);
+                        }
+                    });
+                }
+            });
+        }
+    },
+
+    validateName: function(e) {
+        Validate.fullName(e.currentTarget);
+    },
+
+    validateEmail: function(e) {
+        Validate.email(e.currentTarget);
+    },
+
+    clean: function () {
+        $('.success').remove();
+        $('.error').remove();
     },
 
     render: function() {
-        this.$el.html(this.template());
+        this.$el.html(this.template({days: this.collection.toJSON(), ticket: this.currentTicket.toJSON()}));
         return this;
     }
 });

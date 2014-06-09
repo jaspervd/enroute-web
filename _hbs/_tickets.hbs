@@ -1,4 +1,44 @@
-<header>
-	<h1>Tickets</h1>
-</header>
-<p>sooooooon lulz</p>
+    <header>
+    	<h1>Ticket bestellen</h1>
+    </header>
+    <form method="post" action="">
+    	{{#ifTypeIsPublic ticket.type}}
+    	<div>
+    		<label for="txtName">Naam:</label>
+    		<input type="text" required name="txtName" id="txtName" placeholder="Joske Vermeulen"/>
+    	</div>
+
+    	<div>
+    		<label for="txtEmail">E-mailadres:</label>
+    		<input type="email" required name="txtEmail" id="txtEmail" placeholder="joske.vermeulen@trammezand.lei" />
+    	</div>
+
+    	<div>
+    		<label for="rngTickets">Aantal tickets:</label>
+    		<input type="range" required name="rngTickets" id="rngTickets" min="1" max="{{ticket.tickets_available}}" />
+    	</div>
+    	{{/ifTypeIsPublic}}
+    	{{#ifTypeIsSchool ticket.type}}
+    	<div>
+    		<label for="txtName">Schoolnaam:</label>
+    		<input type="text" required name="txtName" id="txtName" placeholder="Volledige schoolnaam"/>
+    	</div>
+
+    	<div>
+    		<label for="txtEmail">E-mailadres:</label>
+    		<input type="email" required name="txtEmail" id="txtEmail" placeholder="joske.vermeulen@trammezand.lei"/>
+    	</div>
+    	{{/ifTypeIsSchool}}
+
+    	{{#if days}}
+    	<ul>
+    		{{#each days}}
+    		<li><a href="" data-date="{{title}}">{{formatDate title}}</a></li>
+    		{{/each}}
+    	</ul>
+    	{{/if}}
+
+    	<div>
+    		<input type="submit" name="btnSubmit" value="Verder naar bestellen"/>
+    	</div>
+    </form>

@@ -14,7 +14,10 @@ var EnRouteApp = Backbone.View.extend({
         this.days = new Days();
         this.days.fetch();
 
-        this.contentView = new ContentView();
+        this.contentView = new ContentView({
+            collection: this.days
+        });
+
         this.homeView = new HomeView({
             collection: this.days
         });
