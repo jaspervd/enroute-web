@@ -409,6 +409,10 @@ var DayView = Backbone.View.extend({
             this.$el.find('.building:last').css('transform', 'rotate(' + (step * i) + 'deg)');
         }
 
+        setTimeout(function(){
+            $('body').find('.building').addClass("show");
+        }, 200); // current way to solve animation after added to the dom
+
         return this;
     }
 });
