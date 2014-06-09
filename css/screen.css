@@ -151,12 +151,56 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
   }
 }
 
-/* line 26, ../_scss/screen.scss */
+@-webkit-keyframes rotateCircle {
+  /* line 25, ../_scss/screen.scss */
+  100% {
+    -webkit-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+@-moz-keyframes rotateCircle {
+  /* line 28, ../_scss/screen.scss */
+  100% {
+    -webkit-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+@-o-keyframes rotateCircle {
+  /* line 31, ../_scss/screen.scss */
+  100% {
+    -webkit-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes rotateCircle {
+  /* line 34, ../_scss/screen.scss */
+  100% {
+    -webkit-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+/* line 39, ../_scss/screen.scss */
 html {
   height: 100%;
 }
 
-/* line 30, ../_scss/screen.scss */
+/* line 43, ../_scss/screen.scss */
 body {
   background-color: #f1f5cf;
   font-size: 62.5%;
@@ -165,23 +209,23 @@ body {
   overflow: hidden;
 }
 
-/* line 38, ../_scss/screen.scss */
+/* line 51, ../_scss/screen.scss */
 #container {
   width: 100%;
   height: 100%;
 }
 
-/* line 43, ../_scss/screen.scss */
+/* line 56, ../_scss/screen.scss */
 .clear {
   clear: both;
 }
 
-/* line 47, ../_scss/screen.scss */
+/* line 60, ../_scss/screen.scss */
 header {
   display: none;
 }
 
-/* line 53, ../_scss/screen.scss */
+/* line 66, ../_scss/screen.scss */
 #nav {
   background-color: #22282F;
   width: 25%;
@@ -195,12 +239,12 @@ header {
   -o-transition: left 1s;
   transition: left 1s;
 }
-/* line 63, ../_scss/screen.scss */
+/* line 76, ../_scss/screen.scss */
 #nav:hover {
   left: 0;
 }
 
-/* line 70, ../_scss/screen.scss */
+/* line 83, ../_scss/screen.scss */
 #durbuy {
   background-image: url("../images/logo.png");
   background-size: 303.5px 312.5px;
@@ -212,7 +256,7 @@ header {
   top: 50%;
   z-index: 5;
 }
-/* line 81, ../_scss/screen.scss */
+/* line 94, ../_scss/screen.scss */
 #durbuy #days {
   position: absolute;
   top: 0;
@@ -222,19 +266,33 @@ header {
   margin-left: 50%;
   margin-top: 50%;
 }
-/* line 91, ../_scss/screen.scss */
+/* line 104, ../_scss/screen.scss */
 #durbuy .day {
   width: 36px;
   height: 36px;
   text-align: center;
-  opacity: .6;
+  opacity: 0;
   font-family: Sahara, sans-serif;
   font-size: 34px;
   color: #f1f5cf;
   position: absolute;
+  -webkit-transition: opacity 0.3s;
+  -moz-transition: opacity 0.3s;
+  -o-transition: opacity 0.3s;
+  transition: opacity 0.3s;
+}
+/* line 117, ../_scss/screen.scss */
+#durbuy .day.focus {
+  opacity: 1;
+  display: block;
+}
+/* line 122, ../_scss/screen.scss */
+#durbuy .day.almostFocus {
+  opacity: .6;
+  display: block;
 }
 
-/* line 105, ../_scss/screen.scss */
+/* line 129, ../_scss/screen.scss */
 #daySelector {
   background-image: url("../images/day_selector.svg");
   background-size: 514px 74px;
@@ -248,7 +306,7 @@ header {
   left: 50%;
   top: 50%;
 }
-/* line 119, ../_scss/screen.scss */
+/* line 143, ../_scss/screen.scss */
 #daySelector .handle {
   width: 54px;
   height: 54px;
@@ -258,7 +316,7 @@ header {
   color: #FFF;
   text-decoration: none;
 }
-/* line 129, ../_scss/screen.scss */
+/* line 153, ../_scss/screen.scss */
 #daySelector .select {
   width: 74px;
   height: 74px;
@@ -267,14 +325,14 @@ header {
   top: 0;
 }
 
-/* line 140, ../_scss/screen.scss */
+/* line 164, ../_scss/screen.scss */
 #day {
   top: 50%;
   left: 50%;
   position: absolute;
   z-index: 4;
 }
-/* line 146, ../_scss/screen.scss */
+/* line 170, ../_scss/screen.scss */
 #day .building {
   background-color: rgba(122, 0, 50, 0.4);
   width: 40px;
@@ -287,7 +345,7 @@ header {
   animation: showBuilding 1s forwards;
 }
 
-/* line 161, ../_scss/screen.scss */
+/* line 185, ../_scss/screen.scss */
 #river {
   background-image: url("../images/river.png");
   width: 370px;
@@ -297,23 +355,27 @@ header {
   position: absolute;
   left: 50%;
   top: 50%;
+  -webkit-animation: rotateCircle 340s;
+  -moz-animation: rotateCircle 340s;
+  -o-animation: rotateCircle 340s;
+  animation: rotateCircle 340s;
 }
 
-/* line 174, ../_scss/screen.scss */
+/* line 202, ../_scss/screen.scss */
 #forest {
   background-color: #f1f5cf;
   width: 70%;
   margin: -35% 0 0 -35%;
 }
 
-/* line 182, ../_scss/screen.scss */
+/* line 210, ../_scss/screen.scss */
 #city {
   background-color: #67BC9A;
   width: 100%;
   margin: -50% 0 0 -50%;
 }
 
-/* line 188, ../_scss/screen.scss */
+/* line 216, ../_scss/screen.scss */
 #forest, #city {
   position: absolute;
   left: 50%;
@@ -324,7 +386,7 @@ header {
   -o-border-radius: 50%;
   border-radius: 50%;
 }
-/* line 194, ../_scss/screen.scss */
+/* line 222, ../_scss/screen.scss */
 #forest:before, #city:before {
   content: "";
   display: block;

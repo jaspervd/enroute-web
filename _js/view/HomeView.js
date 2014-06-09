@@ -46,11 +46,21 @@ var HomeView = Backbone.View.extend({
                 });
             });
 
+             var step = 360 / this.collection.length;
+
             $(document).on('mousemove', function(e) {
                 if (dragging) {
                     var radians = self.calculateRadians(offset, $target, e.pageX, e.pageY);
                     var degree = (radians * (180 / Math.PI) * -1) - 90; // convert degree for reversal
                     $target.css('transform', 'rotate(' + degree + 'deg)');
+                    if ((parseInt(degree) % step) === 0) { // every step (12) degrees, to avoid mass animation
+                        $.each($('.day'), function(key, value) {
+                            if (self.checkForOverlap($target.find('.select'), $(value))) {
+                                $(value).removeClass('almostFocus').addClass('focus');
+                                $('.day:nth-child(' + (key - 2) + '), .day:nth-child(' + (key) + ')').switchClass('focus', 'almostFocus');
+                            }
+                        });
+                    }
                 }
             });
         }

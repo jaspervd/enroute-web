@@ -21,6 +21,19 @@
   100% { @include transform-origin(50%, 320px); margin-top: -320px; }
 }
 
+@-webkit-keyframes rotateCircle {
+  100% { @include transform(rotate(360deg)); }
+}
+@-moz-keyframes rotateCircle {
+  100% { @include transform(rotate(360deg)); }
+}
+@-o-keyframes rotateCircle {
+  100% { @include transform(rotate(360deg)); }
+}
+@keyframes rotateCircle {
+  100% { @include transform(rotate(360deg)); }
+}
+
 // Main divs and tags
 
 html {
@@ -92,13 +105,24 @@ header {
     width: 36px;
     height: 36px;
     text-align: center;
-    opacity: .6;
+    opacity: 0;
     font-family: Sahara, sans-serif;
     font-size: 34px;
     color: #f1f5cf;
+    //display: none;
     // TODO: Sahara webfont
-
     position: absolute;
+    @include transition(opacity .3s);
+
+    &.focus {
+      opacity: 1;
+      display: block;
+    }
+
+    &.almostFocus {
+      opacity: .6;
+      display: block;
+    }
   }
 }
 
@@ -167,6 +191,10 @@ header {
   position: absolute;
   left: 50%;
   top: 50%;
+  -webkit-animation: rotateCircle 340s;
+  -moz-animation:    rotateCircle 340s;
+  -o-animation:      rotateCircle 340s;
+  animation:         rotateCircle 340s;
 }
 
 // Forest
