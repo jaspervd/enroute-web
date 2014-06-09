@@ -9,7 +9,6 @@ var HomeView = Backbone.View.extend({
 
     render: function() {
         console.log('[HomeView] render()');
-
         this.$el.html(this.template());
 
         this.createDays();

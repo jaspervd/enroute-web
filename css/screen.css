@@ -232,7 +232,7 @@ header {
   height: 100%;
   position: absolute;
   z-index: 10;
-  color: #FFF;
+  color: #333;
   left: -25%;
   border: 20px solid #f1f5cf;
   border-right-style: inset;
@@ -408,13 +408,30 @@ header {
 }
 
 /* line 249, ../_scss/screen.scss */
+#street {
+  background: url("../images/street.svg") no-repeat;
+  width: 88%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 1;
+  margin: -44% 0 0 -44%;
+}
+/* line 258, ../_scss/screen.scss */
+#street:before {
+  content: "";
+  display: block;
+  padding-top: 100%;
+}
+
+/* line 267, ../_scss/screen.scss */
 #city {
   background-color: #67BC9A;
   width: 100%;
   margin: -50% 0 0 -50%;
 }
 
-/* line 255, ../_scss/screen.scss */
+/* line 273, ../_scss/screen.scss */
 #forest, #city {
   position: absolute;
   left: 50%;
@@ -425,7 +442,7 @@ header {
   -o-border-radius: 50%;
   border-radius: 50%;
 }
-/* line 261, ../_scss/screen.scss */
+/* line 279, ../_scss/screen.scss */
 #forest:before, #city:before {
   content: "";
   display: block;
