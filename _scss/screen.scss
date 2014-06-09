@@ -61,16 +61,19 @@ header {
   display: none;
 }
 
-// Navigation
+// Content
 
 #content {
-  background-color: #22282F;
+  background-color: #f1f5cf;
   width: 25%;
   height: 100%;
   position: absolute;
   z-index: 10;
   color: #FFF;
   left: -25%;
+  border: 20px solid #f1f5cf;
+  border-right-style: inset;
+  border-right-color: #bec392;
   @include transition(left 1s);
 
   &.slideOut {
@@ -85,10 +88,18 @@ header {
 
     li {
       background-image: url('../images/nav_button.svg');
-      background-size: 110px 45px;
+      background-size: 110px 90px;
       width: 110px;
       height: 45px;
       margin-bottom: 8px;
+
+      &:hover, &.active {
+        background-position: 0 -45px;
+
+        a {
+          color: #b2463f;
+        }
+      }
     }
 
     a {

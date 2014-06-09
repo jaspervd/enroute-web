@@ -67,7 +67,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   
 
 
-  return "<div id=\"city\"></div>\n<div id=\"forest\"></div>\n<div id=\"river\"></div>\n<div id=\"daySelector\"><span class=\"handle\"></span><span class=\"select\"></span></div>\n<div id=\"durbuy\">\n	<nav id=\"days\">\n		<header>\n			<h1>Dagen</h1>\n		</header>\n		<ul></ul>\n	</nav>\n</div>";
+  return "<div id=\"city\"></div>\n<div id=\"forest\"></div>\n<div id=\"river\"></div>\n<div id=\"daySelector\"><span class=\"handle\"></span><span class=\"select\"></span></div>\n<div id=\"durbuy\">\n	<nav id=\"days\">\n		<header>\n			<h1>Dagen</h1>\n		</header>\n		<ul></ul>\n	</nav>\n	<audio id=\"toctoc\">\n		<source src=\"assets/toctoc.mp3\" type=\"audio/mpeg; codecs='mp3'\">\n		<source src=\"assets/toctoc.ogg\" type=\"audio/ogg; codecs='vorbis'\">\n	</audio>\n</div>";
   });
 
 Handlebars.registerHelper('pleaselog', function (string) {
@@ -287,6 +287,8 @@ var ContentView = Backbone.View.extend({
         e.preventDefault();
         this.clear();
         this.$el.addClass('slideOut');
+        $('nav a').parent().removeClass('active');
+        $(e.currentTarget).parent().addClass('active');
         var newContent = $(e.currentTarget).attr('data-content');
         if (this.currentContent !== newContent) {
             this.currentContent = newContent;
@@ -439,6 +441,7 @@ var HomeView = Backbone.View.extend({
             });
 
             var step = 360 / this.collection.length;
+            var toctocAudio = document.getElementById('toctoc');
 
             $(document).on('mousemove', function(e) {
                 if (dragging) {
@@ -447,6 +450,7 @@ var HomeView = Backbone.View.extend({
                     $target.css('transform', 'rotate(' + degree + 'deg)');
                     $.each($('.day'), function(key, value) {
                         if (self.checkForOverlap($target.find('.select'), $(value))) {
+                            toctocAudio.play();
                             $(value).removeClass('almostFocus').addClass('focus');
                             $('.day:nth-child(' + (key - 2) + '), .day:nth-child(' + (key) + ')').removeClass('focus').addClass('almostFocus');
                         }

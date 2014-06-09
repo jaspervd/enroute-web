@@ -21,6 +21,8 @@ var ContentView = Backbone.View.extend({
         e.preventDefault();
         this.clear();
         this.$el.addClass('slideOut');
+        $('nav a').parent().removeClass('active');
+        $(e.currentTarget).parent().addClass('active');
         var newContent = $(e.currentTarget).attr('data-content');
         if (this.currentContent !== newContent) {
             this.currentContent = newContent;
