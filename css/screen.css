@@ -166,6 +166,8 @@ body {
   z-index: 10;
   color: #333;
   left: -25%;
+  margin-left: -40px;
+  padding-right: 20px;
   border: 20px solid #f1f5cf;
   border-right-style: inset;
   border-right-color: #bec392;
@@ -174,18 +176,18 @@ body {
   -o-transition: left 1s;
   transition: left 1s;
 }
-/* line 86, ../_scss/screen.scss */
+/* line 88, ../_scss/screen.scss */
 #content.slideOut {
   left: 0;
 }
-/* line 90, ../_scss/screen.scss */
+/* line 92, ../_scss/screen.scss */
 #content nav {
   width: 110px;
   right: -110px;
   top: 25px;
   position: absolute;
 }
-/* line 96, ../_scss/screen.scss */
+/* line 98, ../_scss/screen.scss */
 #content nav li {
   background-image: url("../images/nav_button.svg");
   background-size: 110px 90px;
@@ -193,15 +195,15 @@ body {
   height: 45px;
   margin-bottom: 8px;
 }
-/* line 103, ../_scss/screen.scss */
+/* line 105, ../_scss/screen.scss */
 #content nav li:hover, #content nav li.active {
   background-position: 0 -45px;
 }
-/* line 106, ../_scss/screen.scss */
+/* line 108, ../_scss/screen.scss */
 #content nav li:hover a, #content nav li.active a {
   color: #b2463f;
 }
-/* line 112, ../_scss/screen.scss */
+/* line 114, ../_scss/screen.scss */
 #content nav a {
   width: 98px;
   height: 45px;
@@ -214,7 +216,7 @@ body {
   padding-top: 9px;
 }
 
-/* line 128, ../_scss/screen.scss */
+/* line 130, ../_scss/screen.scss */
 #durbuy {
   background-image: url("../images/logo.png");
   background-size: 303.5px 312.5px;
@@ -226,7 +228,7 @@ body {
   top: 50%;
   z-index: 5;
 }
-/* line 139, ../_scss/screen.scss */
+/* line 141, ../_scss/screen.scss */
 #durbuy #days {
   position: absolute;
   top: 0;
@@ -236,7 +238,7 @@ body {
   margin-left: 50%;
   margin-top: 50%;
 }
-/* line 149, ../_scss/screen.scss */
+/* line 151, ../_scss/screen.scss */
 #durbuy .day {
   width: 36px;
   width: 36px;
@@ -252,18 +254,18 @@ body {
   -o-transition: opacity 0.3s;
   transition: opacity 0.3s;
 }
-/* line 162, ../_scss/screen.scss */
+/* line 164, ../_scss/screen.scss */
 #durbuy .day.focus {
   opacity: 1;
   display: block;
 }
-/* line 167, ../_scss/screen.scss */
+/* line 169, ../_scss/screen.scss */
 #durbuy .day.almostFocus {
   opacity: .6;
   display: block;
 }
 
-/* line 174, ../_scss/screen.scss */
+/* line 176, ../_scss/screen.scss */
 #daySelector {
   background-image: url("../images/day_selector.svg");
   background-size: 514px 74px;
@@ -277,7 +279,7 @@ body {
   left: 50%;
   top: 50%;
 }
-/* line 188, ../_scss/screen.scss */
+/* line 190, ../_scss/screen.scss */
 #daySelector .handle {
   width: 54px;
   height: 54px;
@@ -287,7 +289,7 @@ body {
   color: #FFF;
   text-decoration: none;
 }
-/* line 198, ../_scss/screen.scss */
+/* line 200, ../_scss/screen.scss */
 #daySelector .select {
   width: 74px;
   height: 74px;
@@ -295,7 +297,7 @@ body {
   right: 0;
   top: 0;
 }
-/* line 206, ../_scss/screen.scss */
+/* line 208, ../_scss/screen.scss */
 #daySelector .month {
   background-color: #f4c747;
   -webkit-border-radius: 6px;
@@ -313,14 +315,14 @@ body {
   font-size: 1.2em;
 }
 
-/* line 222, ../_scss/screen.scss */
+/* line 224, ../_scss/screen.scss */
 #day {
   top: 50%;
   left: 50%;
   position: absolute;
   z-index: 4;
 }
-/* line 228, ../_scss/screen.scss */
+/* line 230, ../_scss/screen.scss */
 #day .building {
   background-color: rgba(122, 0, 50, 0.4);
   width: 80px;
@@ -338,7 +340,7 @@ body {
   -o-transform-origin: 50% 100px;
   transform-origin: 50% 100px;
 }
-/* line 238, ../_scss/screen.scss */
+/* line 240, ../_scss/screen.scss */
 #day .building.show {
   margin-top: -320px !important;
   -webkit-transform-origin: 50% 320px;
@@ -348,7 +350,7 @@ body {
   transform-origin: 50% 320px;
 }
 
-/* line 247, ../_scss/screen.scss */
+/* line 249, ../_scss/screen.scss */
 #river {
   background-image: url("../images/river.png");
   width: 370px;
@@ -364,13 +366,13 @@ body {
   animation: rotateCircle 340s infinite;
 }
 
-/* line 264, ../_scss/screen.scss */
+/* line 266, ../_scss/screen.scss */
 #forest {
   width: 70%;
   margin: -35% 0 0 -35%;
 }
 
-/* line 271, ../_scss/screen.scss */
+/* line 273, ../_scss/screen.scss */
 #street {
   background: url("../images/street.svg") no-repeat;
   width: 86%;
@@ -378,19 +380,19 @@ body {
   margin: -43% 0 0 -43%;
 }
 
-/* line 280, ../_scss/screen.scss */
+/* line 282, ../_scss/screen.scss */
 #city {
   width: 100%;
   margin: -50% 0 0 -50%;
 }
 
-/* line 285, ../_scss/screen.scss */
+/* line 287, ../_scss/screen.scss */
 #forest, #city, #street {
   position: absolute;
   left: 50%;
   top: 50%;
 }
-/* line 290, ../_scss/screen.scss */
+/* line 292, ../_scss/screen.scss */
 #forest:before, #city:before, #street:before {
   content: "";
   display: block;
