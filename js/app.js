@@ -311,6 +311,12 @@ var ContentView = Backbone.View.extend({
                     break;
             }
         }
+
+        var self = this;
+        this.$el.next().one('click', function() {
+            $('nav a').parent().removeClass('active');
+            self.$el.removeClass('slideOut');
+        });
     },
 
     clear: function() {
