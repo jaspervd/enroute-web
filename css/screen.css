@@ -65,8 +65,8 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
 
 @font-face {
   font-family: 'Sahara';
-  src: url("sahara.eot");
-  src: url("sahara.eot?#iefix") format("embedded-opentype"), url("sahara.woff") format("woff"), url("sahara.ttf") format("truetype"), url("sahara.svg#sahararegular") format("svg");
+  src: url("../assets/fonts/sahara.eot");
+  src: url("../assets/fonts/sahara.eot?#iefix") format("embedded-opentype"), url("../assets/fonts/sahara.woff") format("woff"), url("../assets/fonts/sahara.ttf") format("truetype"), url("../assets/fonts/sahara.svg#sahararegular") format("svg");
   font-weight: normal;
   font-style: normal;
 }
