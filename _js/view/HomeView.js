@@ -33,34 +33,34 @@ var HomeView = Backbone.View.extend({
             var self = this;
 
             $(document).mouseup(function() {
-                dragging = false;
-                $('*').enableSelection();
-                $.each($('.day'), function(key, value) {
-                    if (self.checkForOverlap($target.find('.select'), $(value))) {
-                        var radians = self.calculateRadians(offset, $target, $(value).offset().left + $(value).width() / 2, $(value).offset().top + $(value).height() / 2);
-                        var degree = (radians * (180 / Math.PI) * -1) + 90;
-                        self.trigger('day_selected', $(value).attr('data-day'));
-                        $target.css('transform', 'rotate(' + degree + 'deg)');
-                        return false;
-                    }
-                });
+                if (dragging) {
+                    dragging = false;
+                    $('*').enableSelection();
+                    $.each($('.day'), function(key, value) {
+                        if (self.checkForOverlap($target.find('.select'), $(value))) {
+                            var radians = self.calculateRadians(offset, $target, $(value).offset().left + $(value).width() / 2, $(value).offset().top + $(value).height() / 2);
+                            var degree = (radians * (180 / Math.PI) * -1) + 90;
+                            self.trigger('day_selected', $(value).attr('data-day'));
+                            $target.css('transform', 'rotate(' + degree + 'deg)');
+                            return false;
+                        }
+                    });
+                }
             });
 
-             var step = 360 / this.collection.length;
+            var step = 360 / this.collection.length;
 
             $(document).on('mousemove', function(e) {
                 if (dragging) {
                     var radians = self.calculateRadians(offset, $target, e.pageX, e.pageY);
                     var degree = (radians * (180 / Math.PI) * -1) - 90; // convert degree for reversal
                     $target.css('transform', 'rotate(' + degree + 'deg)');
-                    if ((parseInt(degree) % step) === 0) { // every step (12) degrees, to avoid mass animation
-                        $.each($('.day'), function(key, value) {
-                            if (self.checkForOverlap($target.find('.select'), $(value))) {
-                                $(value).removeClass('almostFocus').addClass('focus');
-                                $('.day:nth-child(' + (key - 2) + '), .day:nth-child(' + (key) + ')').switchClass('focus', 'almostFocus');
-                            }
-                        });
-                    }
+                    $.each($('.day'), function(key, value) {
+                        if (self.checkForOverlap($target.find('.select'), $(value))) {
+                            $(value).removeClass('almostFocus').addClass('focus');
+                            $('.day:nth-child(' + (key - 2) + '), .day:nth-child(' + (key) + ')').removeClass('focus').addClass('almostFocus');
+                        }
+                    });
                 }
             });
         }

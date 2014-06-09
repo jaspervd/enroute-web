@@ -1,4 +1,4 @@
-/* globals NavigationView:true */
+/* globals ContentView:true */
 /* globals HomeView:true */
 /* globals Days:true */
 /* globals DayView:true */
@@ -14,7 +14,7 @@ var EnRouteApp = Backbone.View.extend({
         this.days = new Days();
         this.days.fetch();
 
-        this.navigationView = new NavigationView();
+        this.contentView = new ContentView();
         this.homeView = new HomeView({
             collection: this.days
         });
@@ -35,7 +35,7 @@ var EnRouteApp = Backbone.View.extend({
 
     render: function() {
         this.$el.html(this.template());
-        this.$el.append(this.navigationView.render().$el);
+        this.$el.append(this.contentView.render().$el);
         this.$el.append(this.homeView.render().$el);
         return this;
     }

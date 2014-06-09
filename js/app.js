@@ -2,6 +2,42 @@
 
 this["tpl"] = this["tpl"] || {};
 
+Handlebars.registerPartial("contact", this["tpl"]["contact"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+  this.compilerInfo = [4,'>= 1.0.0'];
+helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
+  
+
+
+  return "<header>\n	<h1>Contact</h1>\n</header>\n<form method=\"post\" action=\"\">\n	<div>\n		<label for=\"txtName\">Naam:</label>\n		<input type=\"text\" required name=\"txtName\" id=\"txtName\" placeholder=\"Joske Vermeulen\"/>\n	</div>\n\n	<div>\n		<label for=\"txtEmail\">E-mailadres:</label>\n		<input type=\"email\" required name=\"txtEmail\" id=\"txtEmail\" placeholder=\"joske.vermeulen@trammezand.lei\" />\n	</div>\n\n	<div>\n		<label for=\"txtMessage\">Bericht:</label>\n		<textarea name=\"txtMessage\" required id=\"txtMessage\" cols=\"30\" rows=\"10\"></textarea>\n	</div>\n\n	<div>\n		<input type=\"submit\" name=\"btnSubmit\" id=\"btnSubmitContact\" value=\"Versturen\"/>\n	</div>\n</form>";
+  }));
+
+Handlebars.registerPartial("info", this["tpl"]["info"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+  this.compilerInfo = [4,'>= 1.0.0'];
+helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
+  
+
+
+  return "<header>\n	<h1>En Route</h1>\n</header>\n<p>\n	En Route daagt je uit om gedurende één dag de stad anders te bekijken en te beleven. Samen met een kunstdocent ga je op ontdekkingsreis door de pittoreske straatjes van Durbuy.\n</p>";
+  }));
+
+Handlebars.registerPartial("tickets", this["tpl"]["tickets"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+  this.compilerInfo = [4,'>= 1.0.0'];
+helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
+  
+
+
+  return "sooooooon lulz";
+  }));
+
+this["tpl"]["content"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+  this.compilerInfo = [4,'>= 1.0.0'];
+helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
+  
+
+
+  return "<header>\n	<h1>Content</h1>\n</header>\n<nav>\n	<header>\n		<h1>Navigatie</h1>\n	</header>\n	<ul>\n		<li><a href=\"\" data-content=\"info\">En Route</a></li>\n		<li><a href=\"\" data-content=\"tickets\">Tickets</a></li>\n		<li><a href=\"\" data-content=\"contact\">Contact</a></li>\n	</ul>\n</nav>";
+  });
+
 this["tpl"]["day"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
@@ -32,15 +68,6 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
 
   return "<div id=\"city\"></div>\n<div id=\"forest\"></div>\n<div id=\"river\"></div>\n<div id=\"daySelector\"><span class=\"handle\"></span><span class=\"select\"></span></div>\n<div id=\"durbuy\">\n	<nav id=\"days\">\n		<header>\n			<h1>Dagen</h1>\n		</header>\n		<ul></ul>\n	</nav>\n</div>";
-  });
-
-this["tpl"]["navigation"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
-  this.compilerInfo = [4,'>= 1.0.0'];
-helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
-  
-
-
-  return "<header>\n	<h1>En Route</h1>\n</header>\n<p>\n	En Route daagt je uit om gedurende één dag de stad anders te bekijken en te beleven. Samen met een kunstdocent ga je op ontdekkingsreis door de pittoreske straatjes van Durbuy.\n</p>";
   });
 
 Handlebars.registerHelper('pleaselog', function (string) {
@@ -237,6 +264,63 @@ var Days = Backbone.Collection.extend({
     url: Settings.API + "/days"
 });
 
+/* globals InfoView:true */
+/* globals TicketsView:true */
+/* globals ContactView:true */
+
+var ContentView = Backbone.View.extend({
+    id: 'content',
+    tagName: 'section',
+    template: tpl.content,
+    currentContent: undefined,
+
+    initialize: function() {
+        _.bindAll.apply(_, [this].concat(_.functions(this)));
+    },
+
+    events: {
+        'click nav a': 'showContent'
+    },
+
+    showContent: function(e) {
+        console.log('[ContentView] showContent()');
+        e.preventDefault();
+        this.clear();
+        this.$el.addClass('slideOut');
+        var newContent = $(e.currentTarget).attr('data-content');
+        if (this.currentContent !== newContent) {
+            this.currentContent = newContent;
+
+            switch (this.currentContent) {
+                case 'tickets':
+                    var ticketsView = new TicketsView();
+                    this.$el.append(ticketsView.render().$el);
+                    break;
+
+                case 'contact':
+                    var contactView = new ContactView();
+                    this.$el.append(contactView.render().$el);
+                    break;
+
+                default:
+                case 'info':
+                    var infoView = new InfoView();
+                    this.$el.append(infoView.render().$el);
+                    break;
+            }
+        }
+    },
+
+    clear: function() {
+        this.$el.find('section').remove();
+    },
+
+    render: function() {
+        this.$el.html(this.template());
+        return this;
+    }
+});
+
 var DayView = Backbone.View.extend({
     id: 'day',
     tagName: 'section',
@@ -261,7 +345,7 @@ var DayView = Backbone.View.extend({
     }
 });
 
-/* globals NavigationView:true */
+/* globals ContentView:true */
 /* globals HomeView:true */
 /* globals Days:true */
 /* globals DayView:true */
@@ -277,7 +361,7 @@ var EnRouteApp = Backbone.View.extend({
         this.days = new Days();
         this.days.fetch();
 
-        this.navigationView = new NavigationView();
+        this.contentView = new ContentView();
         this.homeView = new HomeView({
             collection: this.days
         });
@@ -298,7 +382,7 @@ var EnRouteApp = Backbone.View.extend({
 
     render: function() {
         this.$el.html(this.template());
-        this.$el.append(this.navigationView.render().$el);
+        this.$el.append(this.contentView.render().$el);
         this.$el.append(this.homeView.render().$el);
         return this;
     }
@@ -339,34 +423,34 @@ var HomeView = Backbone.View.extend({
             var self = this;
 
             $(document).mouseup(function() {
-                dragging = false;
-                $('*').enableSelection();
-                $.each($('.day'), function(key, value) {
-                    if (self.checkForOverlap($target.find('.select'), $(value))) {
-                        var radians = self.calculateRadians(offset, $target, $(value).offset().left + $(value).width() / 2, $(value).offset().top + $(value).height() / 2);
-                        var degree = (radians * (180 / Math.PI) * -1) + 90;
-                        self.trigger('day_selected', $(value).attr('data-day'));
-                        $target.css('transform', 'rotate(' + degree + 'deg)');
-                        return false;
-                    }
-                });
+                if (dragging) {
+                    dragging = false;
+                    $('*').enableSelection();
+                    $.each($('.day'), function(key, value) {
+                        if (self.checkForOverlap($target.find('.select'), $(value))) {
+                            var radians = self.calculateRadians(offset, $target, $(value).offset().left + $(value).width() / 2, $(value).offset().top + $(value).height() / 2);
+                            var degree = (radians * (180 / Math.PI) * -1) + 90;
+                            self.trigger('day_selected', $(value).attr('data-day'));
+                            $target.css('transform', 'rotate(' + degree + 'deg)');
+                            return false;
+                        }
+                    });
+                }
             });
 
-             var step = 360 / this.collection.length;
+            var step = 360 / this.collection.length;
 
             $(document).on('mousemove', function(e) {
                 if (dragging) {
                     var radians = self.calculateRadians(offset, $target, e.pageX, e.pageY);
                     var degree = (radians * (180 / Math.PI) * -1) - 90; // convert degree for reversal
                     $target.css('transform', 'rotate(' + degree + 'deg)');
-                    if ((parseInt(degree) % step) === 0) { // every step (12) degrees, to avoid mass animation
-                        $.each($('.day'), function(key, value) {
-                            if (self.checkForOverlap($target.find('.select'), $(value))) {
-                                $(value).removeClass('almostFocus').addClass('focus');
-                                $('.day:nth-child(' + (key - 2) + '), .day:nth-child(' + (key) + ')').switchClass('focus', 'almostFocus');
-                            }
-                        });
-                    }
+                    $.each($('.day'), function(key, value) {
+                        if (self.checkForOverlap($target.find('.select'), $(value))) {
+                            $(value).removeClass('almostFocus').addClass('focus');
+                            $('.day:nth-child(' + (key - 2) + '), .day:nth-child(' + (key) + ')').removeClass('focus').addClass('almostFocus');
+                        }
+                    });
                 }
             });
         }
@@ -410,10 +494,40 @@ var HomeView = Backbone.View.extend({
     },
 });
 
-var NavigationView = Backbone.View.extend({
-    id: 'nav',
-    tagName: 'nav',
-    template: tpl.navigation,
+var ContactView = Backbone.View.extend({
+    id: 'contact',
+    tagName: 'section',
+    template: tpl.contact,
+
+    initialize: function() {
+        _.bindAll.apply(_, [this].concat(_.functions(this)));
+    },
+
+    render: function() {
+        this.$el.html(this.template());
+        return this;
+    }
+});
+
+var InfoView = Backbone.View.extend({
+    id: 'info',
+    tagName: 'section',
+    template: tpl.info,
+
+    initialize: function() {
+        _.bindAll.apply(_, [this].concat(_.functions(this)));
+    },
+
+    render: function() {
+        this.$el.html(this.template());
+        return this;
+    }
+});
+
+var TicketsView = Backbone.View.extend({
+    id: 'tickets',
+    tagName: 'section',
+    template: tpl.tickets,
 
     initialize: function() {
         _.bindAll.apply(_, [this].concat(_.functions(this)));

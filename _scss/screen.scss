@@ -63,18 +63,45 @@ header {
 
 // Navigation
 
-#nav {
+#content {
   background-color: #22282F;
   width: 25%;
   height: 100%;
   position: absolute;
   z-index: 10;
   color: #FFF;
-  left: -20%;
+  left: -25%;
   @include transition(left 1s);
 
-  &:hover {
+  &.slideOut {
     left: 0;
+  }
+
+  nav {
+    width: 110px;
+    right: -110px;
+    top: 25px;
+    position: absolute;
+
+    li {
+      background-image: url('../images/nav_button.svg');
+      background-size: 110px 45px;
+      width: 110px;
+      height: 45px;
+      margin-bottom: 8px;
+    }
+
+    a {
+      width: 98px;
+      height: 45px;
+      font-family: Sahara, sans-serif;
+      font-size: 30px;
+      text-align: center;
+      display: block;
+      color: #f1f5cf;
+      text-decoration: none;
+      padding-top: 9px;
+    }
   }
 }
 
@@ -103,11 +130,12 @@ header {
 
   .day {
     width: 36px;
+    width: 36px;
     height: 36px;
     text-align: center;
     opacity: 0;
     font-family: Sahara, sans-serif;
-    font-size: 34px;
+    font-size: 46px;
     color: #f1f5cf;
     //display: none;
     // TODO: Sahara webfont

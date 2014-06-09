@@ -1,4 +1,4 @@
-var jspaths = ['_js/helpers.js', '_js/classes/*.js', '_js/model/*.js', '_js/router/*.js', '_js/collection/*.js', '_js/view/*.js', '_js/app.js'];
+var jspaths = ['_js/helpers.js', '_js/classes/*.js', '_js/model/*.js', '_js/router/*.js', '_js/collection/*.js', '_js/view/*.js', '_js/view/*/*.js', '_js/app.js'];
 var csspaths = ['_scss/*.scss'];
 var templatepaths = ['_hbs/*.hbs'];
 var imagepaths = ['_images/*.{png,jpg,gif}'];

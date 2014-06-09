@@ -1,7 +1,7 @@
-var NavigationView = Backbone.View.extend({
-    id: 'nav',
-    tagName: 'nav',
-    template: tpl.navigation,
+var TicketsView = Backbone.View.extend({
+    id: 'tickets',
+    tagName: 'section',
+    template: tpl.tickets,
 
     initialize: function() {
         _.bindAll.apply(_, [this].concat(_.functions(this)));
