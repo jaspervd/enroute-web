@@ -153,7 +153,7 @@ body {
   height: 100%;
   position: absolute;
   pointer-events: none;
-  z-index: 99;
+  z-index: 9999;
   opacity: .5;
 }
 
@@ -163,7 +163,7 @@ body {
   width: 25%;
   height: 100%;
   position: absolute;
-  z-index: 10;
+  z-index: 8888;
   color: #333;
   left: -25%;
   margin-left: -40px;
@@ -231,7 +231,7 @@ body {
   position: absolute;
   left: 50%;
   top: 50%;
-  z-index: 5;
+  z-index: 7777;
 }
 /* line 151, ../_scss/screen.scss */
 #durbuy #days {
@@ -280,7 +280,7 @@ body {
   display: block;
   margin: -134px 0 0 -257px;
   position: absolute;
-  z-index: 5;
+  z-index: 6666;
   left: 50%;
   top: 50%;
 }
@@ -333,11 +333,11 @@ body {
   top: 50%;
   left: 50%;
   position: absolute;
-  z-index: 4;
+  z-index: 4444;
 }
 /* line 248, ../_scss/screen.scss */
 #day .building {
-  background-color: rgba(122, 0, 50, 0.4);
+  background-color: #b2463f;
   width: 80px;
   height: 200px;
   position: absolute;
@@ -399,33 +399,41 @@ body {
   background: no-repeat;
   background-size: 100%;
   position: absolute;
+  -webkit-transition: margin 1s ease;
+  -moz-transition: margin 1s ease;
+  -o-transition: margin 1s ease;
+  transition: margin 1s ease;
 }
-/* line 303, ../_scss/screen.scss */
+/* line 304, ../_scss/screen.scss */
+#forest .tree.goInsideBitch {
+  margin: 0 !important;
+}
+/* line 308, ../_scss/screen.scss */
 #forest .tree.type1 {
   background-image: url("../images/tree_1.svg");
   width: 78px;
   height: 114px;
 }
-/* line 309, ../_scss/screen.scss */
+/* line 314, ../_scss/screen.scss */
 #forest .tree.type2 {
   background-image: url("../images/tree_2.svg");
   width: 45px;
   height: 82px;
 }
-/* line 315, ../_scss/screen.scss */
+/* line 320, ../_scss/screen.scss */
 #forest .tree.type3 {
   background-image: url("../images/tree_3.svg");
   width: 45px;
   height: 82px;
 }
-/* line 321, ../_scss/screen.scss */
+/* line 326, ../_scss/screen.scss */
 #forest .tree.type4 {
   background-image: url("../images/tree_4.svg");
   width: 45px;
   height: 82px;
 }
 
-/* line 331, ../_scss/screen.scss */
+/* line 336, ../_scss/screen.scss */
 #city {
   background: url("../images/city.svg") no-repeat;
   background-size: 100% 100%;
@@ -435,7 +443,7 @@ body {
   left: 50%;
   top: 50%;
 }
-/* line 340, ../_scss/screen.scss */
+/* line 345, ../_scss/screen.scss */
 #city:before {
   content: "";
   display: block;

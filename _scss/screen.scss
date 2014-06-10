@@ -65,7 +65,7 @@ body {
   height: 100%;
   position: absolute;
   pointer-events: none;
-  z-index: 99;
+  z-index: 9999;
   opacity: .5;
 }
 
@@ -76,7 +76,7 @@ body {
   width: 25%;
   height: 100%;
   position: absolute;
-  z-index: 10;
+  z-index: 8888;
   color: #333;
   left: -25%;
   margin-left: -40px;
@@ -146,7 +146,7 @@ body {
   position: absolute;
   left: 50%;
   top: 50%;
-  z-index: 5;
+  z-index: 7777;
 
   #days {
     position: absolute;
@@ -192,7 +192,7 @@ body {
   display: block;
   margin: -134px 0 0 -257px;
   position: absolute;
-  z-index: 5;
+  z-index: 6666;
   left: 50%;
   top: 50%;
   //@include transform(rotate(-90deg)); // CAUSING PROBLEMS :'(
@@ -243,10 +243,10 @@ body {
   top: 50%;
   left: 50%;
   position: absolute;
-  z-index: 4;
+  z-index: 4444;
 
   .building {
-    background-color: rgba(122, 0, 50, .4);
+    background-color: #b2463f;
     width: 80px;
     height: 200px;
     position: absolute;
@@ -299,6 +299,11 @@ body {
     background: no-repeat;
     background-size: 100%;
     position: absolute;
+    @include transition(margin 1s ease);
+
+    &.goInsideBitch {
+      margin: 0!important;
+    }
 
     &.type1 {
       background-image: url('../images/tree_1.svg');
