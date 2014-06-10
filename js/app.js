@@ -722,7 +722,7 @@ var HomeView = Backbone.View.extend({
         for (var n = 1; n < 8; n++) {
             var radius = $('#forest').width() / 2 - (25 * n) - 30;
             var rockI = _.random(0, 49); // no pun intended
-            for (var i = 0; i < 50; i++) {
+            for (var i = 0; i <= 50; i++) {
                 angle = (step * (i + 1)) * (Math.PI / 180);
                 x = Math.cos(angle) * (radius - 30) - 50;
                 y = Math.sin(angle) * radius - 25;
