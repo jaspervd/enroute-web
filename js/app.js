@@ -2,6 +2,30 @@
 
 this["tpl"] = this["tpl"] || {};
 
+Handlebars.registerPartial("admincontentitem", this["tpl"]["admincontentitem"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+  this.compilerInfo = [4,'>= 1.0.0'];
+helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
+  var buffer = "", stack1, helper, functionType="function", escapeExpression=this.escapeExpression;
+
+
+  buffer += "<li>\n    <span id=\"comment\"><strong>"
+    + escapeExpression(((stack1 = ((stack1 = (depth0 && depth0.day)),stack1 == null || stack1 === false ? stack1 : stack1.title)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + ": </strong>&laquo; ";
+  if (helper = helpers.url) { stack1 = helper.call(depth0, {hash:{},data:data}); }
+  else { helper = (depth0 && depth0.url); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
+  buffer += escapeExpression(stack1)
+    + " &raquo; ";
+  if (helper = helpers.approved) { stack1 = helper.call(depth0, {hash:{},data:data}); }
+  else { helper = (depth0 && depth0.approved); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
+  buffer += escapeExpression(stack1)
+    + "</span><br/>\n    <a class=\"approve\" href=\"\">approve</a>\n    <a class=\"deny\" href=\"\">deny</a>\n    <a class=\"delete\" href=\"\">delete</a><br/>\n    <span class=\"meta\">added on ";
+  if (helper = helpers.uploaded_date) { stack1 = helper.call(depth0, {hash:{},data:data}); }
+  else { helper = (depth0 && depth0.uploaded_date); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
+  buffer += escapeExpression(stack1)
+    + "</span>\n</li>";
+  return buffer;
+  }));
+
 Handlebars.registerPartial("contact", this["tpl"]["contact"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
@@ -92,6 +116,40 @@ function program6(depth0,data) {
   buffer += "\n\n    	<div>\n    		<input type=\"submit\" name=\"btnSubmit\" value=\"Verder naar bestellen\"/>\n    	</div>\n    </form>";
   return buffer;
   }));
+
+this["tpl"]["admin"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+  this.compilerInfo = [4,'>= 1.0.0'];
+helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
+  var buffer = "", stack1, functionType="function", escapeExpression=this.escapeExpression, helperMissing=helpers.helperMissing, self=this;
+
+function program1(depth0,data) {
+  
+  var buffer = "", stack1, helper, options;
+  buffer += "\n        <li><a href=\"\" class=\"title\" data=\"";
+  if (helper = helpers.id) { stack1 = helper.call(depth0, {hash:{},data:data}); }
+  else { helper = (depth0 && depth0.id); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
+  buffer += escapeExpression(stack1)
+    + "\">"
+    + escapeExpression((helper = helpers.formatDate || (depth0 && depth0.formatDate),options={hash:{},data:data},helper ? helper.call(depth0, (depth0 && depth0.title), options) : helperMissing.call(depth0, "formatDate", (depth0 && depth0.title), options)))
+    + "</a></li>\n    ";
+  return buffer;
+  }
+
+  buffer += "<header>\n    <h1>Admin</h1>\n</header>\n<nav>\n<header>\n    <h1>Dagen</h1>\n</header>\n<ul>\n    ";
+  stack1 = helpers.each.call(depth0, (depth0 && depth0.days), {hash:{},inverse:self.noop,fn:self.program(1, program1, data),data:data});
+  if(stack1 || stack1 === 0) { buffer += stack1; }
+  buffer += "\n</ul>\n</nav>";
+  return buffer;
+  });
+
+this["tpl"]["admincontent"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+  this.compilerInfo = [4,'>= 1.0.0'];
+helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
+  
+
+
+  return "<section id=\"admin_content\">\n    <header>\n        <h1>Beheer content</h1>\n    </header>\n    <ul></ul>\n</section>";
+  });
 
 this["tpl"]["content"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
@@ -290,6 +348,8 @@ var AppRouter = Backbone.Router.extend({
     routes: {
         '': 'home',
         'home/': 'home',
+        'admin/': 'admin',
+        'admin/:day': 'adminDayView',
         '*path': 'home'
     },
 
@@ -298,6 +358,21 @@ var AppRouter = Backbone.Router.extend({
         this.enRouteApp = new EnRouteApp();
         $('#container').remove();
         $('body').prepend(this.enRouteApp.render().$el);
+    },
+
+    admin: function() {
+        console.log('[AppRouter] admin()');
+        this.adminApp = new AdminApp();
+        $('#container').remove();
+        $('body').prepend(this.adminApp.render().$el);
+    },
+
+    adminDayView: function (day) {
+        console.log('[AppRouter] adminDayView()');
+        this.adminApp = new AdminApp();
+        this.adminApp.currentDay = day;
+        $('#container, noscript').remove();
+        $('body').prepend(this.adminApp.render().$el);
     }
 });
 
@@ -322,6 +397,144 @@ var Contents = Backbone.Collection.extend({
 var Days = Backbone.Collection.extend({
     model: Day,
     url: Settings.API + "/days"
+});
+
+/* globals Contents:true */
+/* globals Days:true */
+/* globals AdminContentView:true */
+
+var AdminApp = Backbone.View.extend({
+    id: 'container',
+    tagName: 'div',
+    template: tpl.admin,
+    prevDay: 0,
+    currentDay: 0,
+
+    initialize: function () {
+        _.bindAll.apply(_, [this].concat(_.functions(this)));
+
+        this.days = new Days();
+        this.days.fetch();
+        this.days.on('sync reset', this.render);
+
+        this.content = new Contents();
+        this.content.fetch();
+
+        this.adminContentView = new AdminContentView({collection: this.content});
+    },
+
+    events: {
+        'click .title': 'showDay'
+    },
+
+    showDay: function(e) {
+        console.log('[AdminApp] showDay()');
+        e.preventDefault();
+        this.currentDay = $(e.currentTarget).attr('data');
+        this.renderDay();
+    },
+
+    renderDay: function() {
+        if(this.prevDay !== this.currentDay) {
+            this.prevDay = this.currentDay;
+            this.adminContentView.updateToDay(this.currentDay);
+            this.render();
+            Backbone.history.navigate('admin/'+ this.currentDay);
+        }
+    },
+
+    render: function () {
+        this.$el.html(this.template({days: this.days.toJSON()}));
+        this.$el.append(this.adminContentView.render().$el);
+        if(this.currentDay > 0) {
+            this.content.on('sync reset', this.renderDay);
+        }
+        return this;
+    }
+});
+
+var AdminContentItemView = Backbone.View.extend({
+    template: tpl.admincontentitem,
+
+    initialize: function () {
+        _.bindAll.apply(_, [this].concat(_.functions(this)));
+    },
+
+    events: {
+        "click .approve": "approveContent",
+        "click .deny": "denyContent",
+        "click .delete": "deleteContent"
+    },
+
+    approveContent: function (e) {
+        console.log('[AdminContentItemView] approveContent()');
+        e.preventDefault();
+        this.model.set('approved', 1);
+        this.model.url = this.model.urlRoot + "/" + this.model.id;
+        this.model.save();
+    },
+
+    denyContent: function (e) {
+        console.log('[AdminContentItemView] denyContent()');
+        e.preventDefault();
+        this.model.set('approved', 0);
+        this.model.url = this.model.urlRoot + "/" + this.model.id;
+        this.model.save();
+    },
+
+    deleteContent: function (e) {
+        console.log('[AdminContentItemView] deleteContent()');
+        e.preventDefault();
+        this.model.url = this.model.urlRoot + "/" + this.model.id;
+        this.model.destroy();
+    },
+
+    render: function () {
+        this.$el.html(this.template(this.model.toJSON()));
+        return this;
+    }
+});
+
+/* globals Contents:true */
+/* globals Content:true */
+/* globals AdminContentItemView:true */
+
+var AdminContentView = Backbone.View.extend({
+    template: tpl.admincontent,
+    currentDay: 0,
+    contents: undefined,
+
+    initialize: function () {
+        _.bindAll.apply(_, [this].concat(_.functions(this)));
+        this.collection.on("sync reset destroy", this.render);
+        this.contents = this.collection;
+    },
+
+    renderContent: function (content) {
+        var adminContentItemView = new AdminContentItemView({model: content});
+        this.$el.find('ul').append(adminContentItemView.render().$el);
+    },
+
+    updateToDay: function (day) {
+        console.log('[AdminContentView] updateToDay()', day);
+        this.currentDay = day;
+        this.collection = this.contents;
+        this.collection = new Contents(this.collection.where({day_id: this.currentDay}));
+        this.render();
+    },
+
+    render: function () {
+        this.$el.html(this.template());
+        if (this.collection.length > 0) {
+            this.collection.each(function (content, index) {
+                this.renderContent(content);
+            }, this);
+        } else {
+            this.$el.find('ul').remove();
+            this.$el.append('<p>Er is nog geen content beschikbaar voor deze dag.</p>');
+        }
+        return this;
+    }
 });
 
 /* globals InfoView:true */

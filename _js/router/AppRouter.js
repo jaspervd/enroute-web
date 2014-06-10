@@ -13,6 +13,8 @@ var AppRouter = Backbone.Router.extend({
     routes: {
         '': 'home',
         'home/': 'home',
+        'admin/': 'admin',
+        'admin/:day': 'adminDayView',
         '*path': 'home'
     },
 
@@ -21,5 +23,20 @@ var AppRouter = Backbone.Router.extend({
         this.enRouteApp = new EnRouteApp();
         $('#container').remove();
         $('body').prepend(this.enRouteApp.render().$el);
+    },
+
+    admin: function() {
+        console.log('[AppRouter] admin()');
+        this.adminApp = new AdminApp();
+        $('#container').remove();
+        $('body').prepend(this.adminApp.render().$el);
+    },
+
+    adminDayView: function (day) {
+        console.log('[AppRouter] adminDayView()');
+        this.adminApp = new AdminApp();
+        this.adminApp.currentDay = day;
+        $('#container, noscript').remove();
+        $('body').prepend(this.adminApp.render().$el);
     }
 });
