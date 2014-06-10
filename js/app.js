@@ -131,7 +131,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   
 
 
-  return "<div id=\"city\"></div>\n<div id=\"street\"></div>\n<div id=\"forest\"></div>\n<div id=\"river\"></div>\n<div id=\"daySelector\"><span class=\"handle\"></span><span class=\"select\"></span><span class=\"month\">juni</span></div>\n<div id=\"durbuy\">\n	<nav id=\"days\">\n		<header>\n			<h1>Dagen</h1>\n		</header>\n		<ul></ul>\n	</nav>\n	<audio id=\"toctoc\">\n		<source src=\"assets/toctoc.mp3\" type=\"audio/mpeg; codecs='mp3'\">\n		<source src=\"assets/toctoc.ogg\" type=\"audio/ogg; codecs='vorbis'\">\n	</audio>\n</div>";
+  return "<div id=\"city\"></div>\n<div id=\"street\"></div>\n<div id=\"forest\"></div>\n<div id=\"river\"></div>\n<div id=\"daySelector\">\n	<span class=\"handle\"></span>\n	<span class=\"select\"></span>\n	<span class=\"month\">\n		<span>juni</span>\n	</span>\n</div>\n<div id=\"durbuy\">\n	<nav id=\"days\">\n		<header>\n			<h1>Dagen</h1>\n		</header>\n		<ul></ul>\n	</nav>\n	<audio id=\"toctoc\">\n		<source src=\"assets/toctoc.mp3\" type=\"audio/mpeg; codecs='mp3'\">\n		<source src=\"assets/toctoc.ogg\" type=\"audio/ogg; codecs='vorbis'\">\n	</audio>\n</div>";
   });
 
 Handlebars.registerHelper('formatDate', function (date) {
@@ -535,6 +535,7 @@ var HomeView = Backbone.View.extend({
             var step = 360 / this.collection.length;
             var toctocAudio = document.getElementById('toctoc');
             var selectedDay;
+            var $outerDays;
 
             $(document).on('mousemove', function(e) {
                 if (dragging) {
@@ -547,10 +548,14 @@ var HomeView = Backbone.View.extend({
                             if (selectedDay !== value) {
                                 var date = moment($(value).attr('data-day'));
                                 selectedDay = value;
-                                $target.find('.month').html(date.format('MMMM'));
+                                $outerDays = $('.day:nth-child(' + (key - 2) + '), .day:nth-child(' + (key) + ')');
+                                $target.find('.month span').html(date.format('MMMM'));
+                                toctocAudio.pause();
+                                toctocAudio.currentTime = 0;
                                 toctocAudio.play();
                                 $(value).removeClass('almostFocus').addClass('focus');
-                                $('.day:nth-child(' + (key - 2) + '), .day:nth-child(' + (key) + ')').removeClass('focus').addClass('almostFocus');
+                                $outerDays.removeClass('focus').addClass('almostFocus');
+                                //$('.day').not($outerDays, $(value)).removeClass('focus almostFocus');
                             }
                         }
                     });
@@ -585,7 +590,7 @@ var HomeView = Backbone.View.extend({
 
     createDays: function() {
         var step = 360 / this.collection.length;
-        var radius = $('#durbuy').width() / 2 + 70;
+        var radius = $('#durbuy').width() / 2 + 60;
         var x, y, angle, date;
         for (var i = 0; i < this.collection.length; i++) {
             date = new Date(this.collection.at(i).get('title'));

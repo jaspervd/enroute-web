@@ -54,6 +54,7 @@ var HomeView = Backbone.View.extend({
             var step = 360 / this.collection.length;
             var toctocAudio = document.getElementById('toctoc');
             var selectedDay;
+            var $outerDays;
 
             $(document).on('mousemove', function(e) {
                 if (dragging) {
@@ -66,10 +67,14 @@ var HomeView = Backbone.View.extend({
                             if (selectedDay !== value) {
                                 var date = moment($(value).attr('data-day'));
                                 selectedDay = value;
-                                $target.find('.month').html(date.format('MMMM'));
+                                $outerDays = $('.day:nth-child(' + (key - 2) + '), .day:nth-child(' + (key) + ')');
+                                $target.find('.month span').html(date.format('MMMM'));
+                                toctocAudio.pause();
+                                toctocAudio.currentTime = 0;
                                 toctocAudio.play();
                                 $(value).removeClass('almostFocus').addClass('focus');
-                                $('.day:nth-child(' + (key - 2) + '), .day:nth-child(' + (key) + ')').removeClass('focus').addClass('almostFocus');
+                                $outerDays.removeClass('focus').addClass('almostFocus');
+                                //$('.day').not($outerDays, $(value)).removeClass('focus almostFocus');
                             }
                         }
                     });
@@ -104,7 +109,7 @@ var HomeView = Backbone.View.extend({
 
     createDays: function() {
         var step = 360 / this.collection.length;
-        var radius = $('#durbuy').width() / 2 + 70;
+        var radius = $('#durbuy').width() / 2 + 60;
         var x, y, angle, date;
         for (var i = 0; i < this.collection.length; i++) {
             date = new Date(this.collection.at(i).get('title'));

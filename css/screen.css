@@ -171,10 +171,10 @@ body {
   border: 20px solid #f1f5cf;
   border-right-style: inset;
   border-right-color: #bec392;
-  -webkit-transition: left 1s;
-  -moz-transition: left 1s;
-  -o-transition: left 1s;
-  transition: left 1s;
+  -webkit-transition: all 1s;
+  -moz-transition: all 1s;
+  -o-transition: all 1s;
+  transition: all 1s;
 }
 /* line 88, ../_scss/screen.scss */
 #content.slideOut {
@@ -300,6 +300,14 @@ body {
 }
 /* line 209, ../_scss/screen.scss */
 #daySelector .month {
+  width: 74px;
+  height: 74px;
+  bottom: 0;
+  right: 0;
+  position: absolute;
+}
+/* line 216, ../_scss/screen.scss */
+#daySelector .month span {
   background-color: #f4c747;
   -webkit-border-radius: 6px;
   -moz-border-radius: 6px;
@@ -311,19 +319,19 @@ body {
   padding: 6px;
   text-align: center;
   position: absolute;
-  right: -4px;
-  bottom: -26px;
+  bottom: -28px;
+  left: -6px;
   font-size: 1.2em;
 }
 
-/* line 225, ../_scss/screen.scss */
+/* line 233, ../_scss/screen.scss */
 #day {
   top: 50%;
   left: 50%;
   position: absolute;
   z-index: 4;
 }
-/* line 231, ../_scss/screen.scss */
+/* line 239, ../_scss/screen.scss */
 #day .building {
   background-color: rgba(122, 0, 50, 0.4);
   width: 80px;
@@ -341,7 +349,7 @@ body {
   -o-transform-origin: 50% 100px;
   transform-origin: 50% 100px;
 }
-/* line 241, ../_scss/screen.scss */
+/* line 249, ../_scss/screen.scss */
 #day .building.show {
   margin-top: -320px !important;
   -webkit-transform-origin: 50% 320px;
@@ -351,7 +359,7 @@ body {
   transform-origin: 50% 320px;
 }
 
-/* line 250, ../_scss/screen.scss */
+/* line 258, ../_scss/screen.scss */
 #river {
   background-image: url("../images/river.png");
   width: 370px;
@@ -367,13 +375,13 @@ body {
   animation: rotateCircle 340s infinite;
 }
 
-/* line 267, ../_scss/screen.scss */
+/* line 275, ../_scss/screen.scss */
 #forest {
   width: 70%;
   margin: -35% 0 0 -35%;
 }
 
-/* line 274, ../_scss/screen.scss */
+/* line 282, ../_scss/screen.scss */
 #street {
   background: url("../images/street.svg") no-repeat;
   width: 86%;
@@ -381,19 +389,19 @@ body {
   margin: -43% 0 0 -43%;
 }
 
-/* line 283, ../_scss/screen.scss */
+/* line 291, ../_scss/screen.scss */
 #city {
   width: 100%;
   margin: -50% 0 0 -50%;
 }
 
-/* line 288, ../_scss/screen.scss */
+/* line 296, ../_scss/screen.scss */
 #forest, #city, #street {
   position: absolute;
   left: 50%;
   top: 50%;
 }
-/* line 293, ../_scss/screen.scss */
+/* line 301, ../_scss/screen.scss */
 #forest:before, #city:before, #street:before {
   content: "";
   display: block;
