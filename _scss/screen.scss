@@ -167,18 +167,18 @@ body {
     font-family: Sahara, sans-serif;
     font-size: 46px;
     color: #f1f5cf;
-    //display: none;
+    z-index: 2222;
     position: absolute;
     @include transition(opacity .3s);
 
     &.focus {
       opacity: 1;
-      display: block;
+      z-index: 5555;
     }
 
     &.almostFocus {
       opacity: .6;
-      display: block;
+      z-index: 5555;
     }
   }
 }

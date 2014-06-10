@@ -253,6 +253,7 @@ body {
   font-family: Sahara, sans-serif;
   font-size: 46px;
   color: #f1f5cf;
+  z-index: 2222;
   position: absolute;
   -webkit-transition: opacity 0.3s;
   -moz-transition: opacity 0.3s;
@@ -262,12 +263,12 @@ body {
 /* line 174, ../_scss/screen.scss */
 #durbuy .day.focus {
   opacity: 1;
-  display: block;
+  z-index: 5555;
 }
 /* line 179, ../_scss/screen.scss */
 #durbuy .day.almostFocus {
   opacity: .6;
-  display: block;
+  z-index: 5555;
 }
 
 /* line 186, ../_scss/screen.scss */

@@ -85,6 +85,7 @@ var HomeView = Backbone.View.extend({
                             var radians = self.calculateRadians(offset, $target, $(value).offset().left + $(value).width() / 2, $(value).offset().top + $(value).height() / 2);
                             var degree = (radians * (180 / Math.PI) * -1) + 90;
                             self.trigger('day_selected', $(value).attr('data-day'));
+                            $target.find('.month').css('transform', 'rotate(' + (degree * -1) + 'deg)');
                             $target.css('transform', 'rotate(' + degree + 'deg)');
                             // TODO: animate ^ (via step)
                             // $('.tree').addClass('goInsideBitch');
@@ -106,19 +107,24 @@ var HomeView = Backbone.View.extend({
                     $target.css('transform', 'rotate(' + degree + 'deg)');
                     $target.find('.month').css('transform', 'rotate(' + (degree * -1) + 'deg)');
                     $.each($('.day'), function(key, value) {
+                        $outerDays = $('.day:nth-child(' + (key) + '), .day:nth-child(' + (key + 2) + ')');
                         if (self.checkForOverlap($target.find('.select'), $(value))) {
                             if (selectedDay !== value) {
                                 var date = moment($(value).attr('data-day'));
                                 selectedDay = value;
-                                $outerDays = $('.day:nth-child(' + (key - 2) + '), .day:nth-child(' + (key) + ')');
                                 $target.find('.month span').html(date.format('MMMM'));
                                 toctocAudio.pause();
                                 toctocAudio.currentTime = 0;
                                 toctocAudio.play();
                                 $(value).removeClass('almostFocus').addClass('focus');
                                 $outerDays.removeClass('focus').addClass('almostFocus');
-                                //$('.day').not($outerDays, $(value)).removeClass('focus almostFocus');
                             }
+                        } else {
+                            if($(value).hasClass('focus')) {
+                                console.log(key);
+                                $outerDays.removeClass('almostFocus');
+                            }
+                            $(value).removeClass('focus');
                         }
                     });
                 }
