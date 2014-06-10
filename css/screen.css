@@ -72,7 +72,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
 }
 
 @-webkit-keyframes rotateCircle {
-  /* line 19, ../_scss/screen.scss */
+  /* line 20, ../_scss/screen.scss */
   100% {
     -webkit-transform: rotate(360deg);
     -moz-transform: rotate(360deg);
@@ -83,7 +83,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
 }
 
 @-moz-keyframes rotateCircle {
-  /* line 22, ../_scss/screen.scss */
+  /* line 23, ../_scss/screen.scss */
   100% {
     -webkit-transform: rotate(360deg);
     -moz-transform: rotate(360deg);
@@ -94,7 +94,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
 }
 
 @-o-keyframes rotateCircle {
-  /* line 25, ../_scss/screen.scss */
+  /* line 26, ../_scss/screen.scss */
   100% {
     -webkit-transform: rotate(360deg);
     -moz-transform: rotate(360deg);
@@ -105,7 +105,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
 }
 
 @keyframes rotateCircle {
-  /* line 28, ../_scss/screen.scss */
+  /* line 29, ../_scss/screen.scss */
   100% {
     -webkit-transform: rotate(360deg);
     -moz-transform: rotate(360deg);
@@ -115,12 +115,12 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
   }
 }
 
-/* line 33, ../_scss/screen.scss */
+/* line 34, ../_scss/screen.scss */
 html {
   height: 100%;
 }
 
-/* line 37, ../_scss/screen.scss */
+/* line 38, ../_scss/screen.scss */
 body {
   background-color: #f1f5cf;
   font-size: 62.5%;
@@ -129,23 +129,23 @@ body {
   overflow: hidden;
 }
 
-/* line 45, ../_scss/screen.scss */
+/* line 46, ../_scss/screen.scss */
 #container {
   width: 100%;
   height: 100%;
 }
 
-/* line 50, ../_scss/screen.scss */
+/* line 51, ../_scss/screen.scss */
 .clear {
   clear: both;
 }
 
-/* line 54, ../_scss/screen.scss */
+/* line 55, ../_scss/screen.scss */
 #home header, nav header, #container > header {
   display: none;
 }
 
-/* line 60, ../_scss/screen.scss */
+/* line 61, ../_scss/screen.scss */
 #noise {
   background-image: url("../images/noise.png");
   background-size: 128px 128px;
@@ -157,7 +157,7 @@ body {
   opacity: .5;
 }
 
-/* line 73, ../_scss/screen.scss */
+/* line 74, ../_scss/screen.scss */
 #content {
   background-color: #f1f5cf;
   width: 25%;
@@ -171,24 +171,27 @@ body {
   border: 20px solid #f1f5cf;
   border-right-style: inset;
   border-right-color: #bec392;
+  -webkit-box-shadow: 40px 0 100px 0 rgba(50, 50, 50, 0.5);
+  -moz-box-shadow: 40px 0 100px 0 rgba(50, 50, 50, 0.5);
+  box-shadow: 40px 0 100px 0 rgba(50, 50, 50, 0.5);
   -webkit-transition: all 1s;
   -moz-transition: all 1s;
   -o-transition: all 1s;
   transition: all 1s;
 }
-/* line 88, ../_scss/screen.scss */
+/* line 90, ../_scss/screen.scss */
 #content.slideOut {
   left: 0;
   margin-left: 0;
 }
-/* line 93, ../_scss/screen.scss */
+/* line 95, ../_scss/screen.scss */
 #content nav {
   width: 110px;
   right: -110px;
   top: 25px;
   position: absolute;
 }
-/* line 99, ../_scss/screen.scss */
+/* line 101, ../_scss/screen.scss */
 #content nav li {
   background-image: url("../images/nav_button.svg");
   background-size: 110px 90px;
@@ -196,15 +199,15 @@ body {
   height: 45px;
   margin-bottom: 8px;
 }
-/* line 106, ../_scss/screen.scss */
+/* line 108, ../_scss/screen.scss */
 #content nav li:hover, #content nav li.active {
   background-position: 0 -45px;
 }
-/* line 109, ../_scss/screen.scss */
+/* line 111, ../_scss/screen.scss */
 #content nav li:hover a, #content nav li.active a {
   color: #b2463f;
 }
-/* line 115, ../_scss/screen.scss */
+/* line 117, ../_scss/screen.scss */
 #content nav a {
   width: 98px;
   height: 45px;
@@ -214,10 +217,11 @@ body {
   display: block;
   color: #f1f5cf;
   text-decoration: none;
-  padding-top: 9px;
+  padding-top: 7px;
+  padding-left: 5px;
 }
 
-/* line 131, ../_scss/screen.scss */
+/* line 140, ../_scss/screen.scss */
 #durbuy {
   background-image: url("../images/logo.png");
   background-size: 303.5px 312.5px;
@@ -229,7 +233,7 @@ body {
   top: 50%;
   z-index: 5;
 }
-/* line 142, ../_scss/screen.scss */
+/* line 151, ../_scss/screen.scss */
 #durbuy #days {
   position: absolute;
   top: 0;
@@ -239,7 +243,7 @@ body {
   margin-left: 50%;
   margin-top: 50%;
 }
-/* line 152, ../_scss/screen.scss */
+/* line 161, ../_scss/screen.scss */
 #durbuy .day {
   width: 36px;
   width: 36px;
@@ -255,18 +259,18 @@ body {
   -o-transition: opacity 0.3s;
   transition: opacity 0.3s;
 }
-/* line 165, ../_scss/screen.scss */
+/* line 174, ../_scss/screen.scss */
 #durbuy .day.focus {
   opacity: 1;
   display: block;
 }
-/* line 170, ../_scss/screen.scss */
+/* line 179, ../_scss/screen.scss */
 #durbuy .day.almostFocus {
   opacity: .6;
   display: block;
 }
 
-/* line 177, ../_scss/screen.scss */
+/* line 186, ../_scss/screen.scss */
 #daySelector {
   background-image: url("../images/day_selector.svg");
   background-size: 514px 74px;
@@ -280,7 +284,7 @@ body {
   left: 50%;
   top: 50%;
 }
-/* line 191, ../_scss/screen.scss */
+/* line 200, ../_scss/screen.scss */
 #daySelector .handle {
   width: 54px;
   height: 54px;
@@ -290,7 +294,7 @@ body {
   color: #FFF;
   text-decoration: none;
 }
-/* line 201, ../_scss/screen.scss */
+/* line 210, ../_scss/screen.scss */
 #daySelector .select {
   width: 74px;
   height: 74px;
@@ -298,7 +302,7 @@ body {
   right: 0;
   top: 0;
 }
-/* line 209, ../_scss/screen.scss */
+/* line 218, ../_scss/screen.scss */
 #daySelector .month {
   width: 74px;
   height: 74px;
@@ -306,7 +310,7 @@ body {
   right: 0;
   position: absolute;
 }
-/* line 216, ../_scss/screen.scss */
+/* line 225, ../_scss/screen.scss */
 #daySelector .month span {
   background-color: #f4c747;
   -webkit-border-radius: 6px;
@@ -324,14 +328,14 @@ body {
   font-size: 1.2em;
 }
 
-/* line 233, ../_scss/screen.scss */
+/* line 242, ../_scss/screen.scss */
 #day {
   top: 50%;
   left: 50%;
   position: absolute;
   z-index: 4;
 }
-/* line 239, ../_scss/screen.scss */
+/* line 248, ../_scss/screen.scss */
 #day .building {
   background-color: rgba(122, 0, 50, 0.4);
   width: 80px;
@@ -349,7 +353,7 @@ body {
   -o-transform-origin: 50% 100px;
   transform-origin: 50% 100px;
 }
-/* line 249, ../_scss/screen.scss */
+/* line 258, ../_scss/screen.scss */
 #day .building.show {
   margin-top: -320px !important;
   -webkit-transform-origin: 50% 320px;
@@ -359,7 +363,7 @@ body {
   transform-origin: 50% 320px;
 }
 
-/* line 258, ../_scss/screen.scss */
+/* line 267, ../_scss/screen.scss */
 #river {
   background-image: url("../images/river.png");
   width: 370px;
@@ -375,34 +379,55 @@ body {
   animation: rotateCircle 340s infinite;
 }
 
-/* line 275, ../_scss/screen.scss */
+/* line 284, ../_scss/screen.scss */
 #forest {
   width: 70%;
-  margin: -35% 0 0 -35%;
-}
-
-/* line 282, ../_scss/screen.scss */
-#street {
-  background: url("../images/street.svg") no-repeat;
-  width: 86%;
-  z-index: 1;
-  margin: -43% 0 0 -43%;
-}
-
-/* line 291, ../_scss/screen.scss */
-#city {
-  width: 100%;
-  margin: -50% 0 0 -50%;
-}
-
-/* line 296, ../_scss/screen.scss */
-#forest, #city, #street {
   position: absolute;
   left: 50%;
   top: 50%;
 }
-/* line 301, ../_scss/screen.scss */
-#forest:before, #city:before, #street:before {
+/* line 290, ../_scss/screen.scss */
+#forest .tree {
+  background: no-repeat;
+  position: absolute;
+}
+/* line 294, ../_scss/screen.scss */
+#forest .tree.type1 {
+  background-image: url("../images/tree_1.svg");
+  width: 78px;
+  height: 114px;
+}
+/* line 300, ../_scss/screen.scss */
+#forest .tree.type2 {
+  background-image: url("../images/tree_2.svg");
+  width: 45px;
+  height: 82px;
+}
+/* line 306, ../_scss/screen.scss */
+#forest .tree.type3 {
+  background-image: url("../images/tree_3.svg");
+  width: 45px;
+  height: 82px;
+}
+/* line 312, ../_scss/screen.scss */
+#forest .tree.type4 {
+  background-image: url("../images/tree_4.svg");
+  width: 45px;
+  height: 82px;
+}
+
+/* line 322, ../_scss/screen.scss */
+#city {
+  background: url("../images/city.svg") no-repeat;
+  background-size: 100% 100%;
+  width: 120%;
+  margin: -60% 0 0 -60%;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+}
+/* line 331, ../_scss/screen.scss */
+#city:before {
   content: "";
   display: block;
   padding-top: 100%;

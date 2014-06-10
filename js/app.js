@@ -131,7 +131,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   
 
 
-  return "<div id=\"city\"></div>\n<div id=\"street\"></div>\n<div id=\"forest\"></div>\n<div id=\"river\"></div>\n<div id=\"daySelector\">\n	<span class=\"handle\"></span>\n	<span class=\"select\"></span>\n	<span class=\"month\">\n		<span>juni</span>\n	</span>\n</div>\n<div id=\"durbuy\">\n	<nav id=\"days\">\n		<header>\n			<h1>Dagen</h1>\n		</header>\n		<ul></ul>\n	</nav>\n	<audio id=\"toctoc\">\n		<source src=\"assets/toctoc.mp3\" type=\"audio/mpeg; codecs='mp3'\">\n		<source src=\"assets/toctoc.ogg\" type=\"audio/ogg; codecs='vorbis'\">\n	</audio>\n</div>";
+  return "<div id=\"city\"></div>\n<div id=\"forest\"></div>\n<div id=\"river\"></div>\n<div id=\"daySelector\">\n	<span class=\"handle\"></span>\n	<span class=\"select\"></span>\n	<span class=\"month\">\n		<span>juni</span>\n	</span>\n</div>\n<div id=\"durbuy\">\n	<nav id=\"days\">\n		<header>\n			<h1>Dagen</h1>\n		</header>\n		<ul></ul>\n	</nav>\n	<audio id=\"toctoc\">\n		<source src=\"assets/toctoc.mp3\" type=\"audio/mpeg; codecs='mp3'\">\n		<source src=\"assets/toctoc.ogg\" type=\"audio/ogg; codecs='vorbis'\">\n	</audio>\n</div>";
   });
 
 Handlebars.registerHelper('formatDate', function (date) {
@@ -496,10 +496,46 @@ var HomeView = Backbone.View.extend({
         console.log('[HomeView] render()');
         this.$el.html(this.template());
 
+        this.createForest();
         this.createDays();
         this.handleRotation();
 
         return this;
+    },
+
+    createForest: function() {
+        var step = 360 / 50;
+        var x, y, z, angle, zoom;
+        for (var n = 1; n < 8; n++) {
+            var radius = $('#forest').width() / 2 - (25 * n) - 30;
+            for (var i = 0; i < 50; i++) {
+                angle = (step * (i + 1)) * (Math.PI / 180);
+                x = Math.cos(angle) * (radius - 30) - 50;
+                y = Math.sin(angle) * radius - 25;
+                zoom = _.random(70, 99);
+                if ((i % _.random(1, 20)) > 0) {
+                    if (y < $('#forest').width() / 2) {
+                        z = x;
+                    } else {
+                        z = -1 *x;
+                    }
+                    this.$el.find('#forest').append('<div class="tree type' + _.random(1, 4) + '" style="margin-top:' + x + 'px;margin-left:' + y + 'px;z-index:' + parseInt(z) + ';background-size:' + zoom + '%"></div>');
+                }
+            }
+        }
+    },
+
+    createDays: function() {
+        var step = 360 / this.collection.length;
+        var radius = $('#durbuy').width() / 2 + 60;
+        var x, y, angle, date;
+        for (var i = 0; i < this.collection.length; i++) {
+            date = new Date(this.collection.at(i).get('title'));
+            angle = -((step * (i + 1)) * (Math.PI / 180) + 160);
+            x = Math.cos(angle) * radius;
+            y = Math.sin(angle) * radius;
+            this.$el.find('ul').append('<li class="day" data-day="' + this.collection.at(i).get('title') + '" style="margin-top:' + x + 'px;margin-left:' + y + 'px">' + date.getDate() + '</li>');
+        }
     },
 
     handleRotation: function() {
@@ -586,19 +622,6 @@ var HomeView = Backbone.View.extend({
         };
 
         return (selectBox.x1 <= dayBox.x1 && selectBox.y2 >= dayBox.y2 && selectBox.x2 >= dayBox.x2 && selectBox.y1 <= dayBox.y1);
-    },
-
-    createDays: function() {
-        var step = 360 / this.collection.length;
-        var radius = $('#durbuy').width() / 2 + 60;
-        var x, y, angle, date;
-        for (var i = 0; i < this.collection.length; i++) {
-            date = new Date(this.collection.at(i).get('title'));
-            angle = -((step * (i + 1)) * (Math.PI / 180) + 160);
-            x = Math.cos(angle) * radius;
-            y = Math.sin(angle) * radius;
-            this.$el.find('ul').append('<li class="day" data-day="' + this.collection.at(i).get('title') + '" style="margin-top:' + x + 'px;margin-left:' + y + 'px">' + date.getDate() + '</li>');
-        }
     },
 });
 
