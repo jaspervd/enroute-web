@@ -387,36 +387,45 @@ body {
   top: 50%;
 }
 /* line 290, ../_scss/screen.scss */
-#forest .tree {
-  background: no-repeat;
+#forest .rocks {
+  background: url("../images/rocks.svg") no-repeat;
+  background-size: 195px 154px;
+  width: 195px;
+  height: 154px;
   position: absolute;
 }
-/* line 294, ../_scss/screen.scss */
+/* line 298, ../_scss/screen.scss */
+#forest .tree {
+  background: no-repeat;
+  background-size: 100%;
+  position: absolute;
+}
+/* line 303, ../_scss/screen.scss */
 #forest .tree.type1 {
   background-image: url("../images/tree_1.svg");
   width: 78px;
   height: 114px;
 }
-/* line 300, ../_scss/screen.scss */
+/* line 309, ../_scss/screen.scss */
 #forest .tree.type2 {
   background-image: url("../images/tree_2.svg");
   width: 45px;
   height: 82px;
 }
-/* line 306, ../_scss/screen.scss */
+/* line 315, ../_scss/screen.scss */
 #forest .tree.type3 {
   background-image: url("../images/tree_3.svg");
   width: 45px;
   height: 82px;
 }
-/* line 312, ../_scss/screen.scss */
+/* line 321, ../_scss/screen.scss */
 #forest .tree.type4 {
   background-image: url("../images/tree_4.svg");
   width: 45px;
   height: 82px;
 }
 
-/* line 322, ../_scss/screen.scss */
+/* line 331, ../_scss/screen.scss */
 #city {
   background: url("../images/city.svg") no-repeat;
   background-size: 100% 100%;
@@ -426,7 +435,7 @@ body {
   left: 50%;
   top: 50%;
 }
-/* line 331, ../_scss/screen.scss */
+/* line 340, ../_scss/screen.scss */
 #city:before {
   content: "";
   display: block;

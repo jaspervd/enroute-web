@@ -508,18 +508,23 @@ var HomeView = Backbone.View.extend({
         var x, y, z, angle, zoom;
         for (var n = 1; n < 8; n++) {
             var radius = $('#forest').width() / 2 - (25 * n) - 30;
+            var rockI = _.random(0, 49); // no pun intended
             for (var i = 0; i < 50; i++) {
                 angle = (step * (i + 1)) * (Math.PI / 180);
                 x = Math.cos(angle) * (radius - 30) - 50;
                 y = Math.sin(angle) * radius - 25;
                 zoom = _.random(70, 99);
-                if ((i % _.random(1, 20)) > 0) {
-                    if (y < $('#forest').width() / 2) {
-                        z = x;
-                    } else {
-                        z = -1 *x;
+                if(rockI === i && n > 4) {
+                    this.$el.find('#forest').append('<div class="rocks" style="margin-top:' + (x) + 'px;margin-left:' + (y - 50) + 'px;z-index:' + parseInt(z) + '"></div>');
+                } else {
+                    if ((i % _.random(1, 20)) > 0) {
+                        if (y < $('#forest').width() / 2) {
+                            z = x;
+                        } else {
+                            z = -1 * x;
+                        }
+                        this.$el.find('#forest').append('<div class="tree type' + _.random(1, 4) + '" style="margin-top:' + x + 'px;margin-left:' + y + 'px;z-index:' + parseInt(z) + ';background-size:' + zoom + '%"></div>');
                     }
-                    this.$el.find('#forest').append('<div class="tree type' + _.random(1, 4) + '" style="margin-top:' + x + 'px;margin-left:' + y + 'px;z-index:' + parseInt(z) + ';background-size:' + zoom + '%"></div>');
                 }
             }
         }
@@ -595,34 +600,34 @@ var HomeView = Backbone.View.extend({
                             }
                         }
                     });
-                }
-            });
-        }
-    },
+}
+});
+}
+},
 
-    calculateRadians: function(offset, $target, object_x, object_y) {
-        var center_x = (offset.left) + ($target.width() / 2);
-        var center_y = (offset.top) + ($target.height() / 2);
-        return Math.atan2(object_x - center_x, object_y - center_y);
-    },
+calculateRadians: function(offset, $target, object_x, object_y) {
+    var center_x = (offset.left) + ($target.width() / 2);
+    var center_y = (offset.top) + ($target.height() / 2);
+    return Math.atan2(object_x - center_x, object_y - center_y);
+},
 
-    checkForOverlap: function($select, $day) {
-        var selectBox = {
-            x1: $select.offset().top,
-            y1: $select.offset().left,
-            x2: ($select.offset().top + $select.width()),
-            y2: ($select.offset().left + $select.width())
-        };
+checkForOverlap: function($select, $day) {
+    var selectBox = {
+        x1: $select.offset().top,
+        y1: $select.offset().left,
+        x2: ($select.offset().top + $select.width()),
+        y2: ($select.offset().left + $select.width())
+    };
 
-        var dayBox = {
-            x1: $day.offset().top,
-            y1: $day.offset().left,
-            x2: ($day.offset().top + $day.width()),
-            y2: ($day.offset().left + $day.width())
-        };
+    var dayBox = {
+        x1: $day.offset().top,
+        y1: $day.offset().left,
+        x2: ($day.offset().top + $day.width()),
+        y2: ($day.offset().left + $day.width())
+    };
 
-        return (selectBox.x1 <= dayBox.x1 && selectBox.y2 >= dayBox.y2 && selectBox.x2 >= dayBox.x2 && selectBox.y1 <= dayBox.y1);
-    },
+    return (selectBox.x1 <= dayBox.x1 && selectBox.y2 >= dayBox.y2 && selectBox.x2 >= dayBox.x2 && selectBox.y1 <= dayBox.y1);
+},
 });
 
 var SuccessView = Backbone.View.extend({

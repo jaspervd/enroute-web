@@ -287,8 +287,17 @@ body {
   left: 50%;
   top: 50%;
 
+  .rocks {
+    background: url('../images/rocks.svg') no-repeat;
+    background-size: 195px 154px;
+    width: 195px;
+    height: 154px;
+    position: absolute;
+  }
+
   .tree {
     background: no-repeat;
+    background-size: 100%;
     position: absolute;
 
     &.type1 {
