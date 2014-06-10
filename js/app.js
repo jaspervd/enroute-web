@@ -532,7 +532,7 @@ var HomeView = Backbone.View.extend({
 
     createDays: function() {
         var step = 360 / this.collection.length;
-        var radius = $('#durbuy').width() / 2 + 60;
+        var radius = $('#durbuy').width() / 2 + 100;
         var x, y, angle, date;
         for (var i = 0; i < this.collection.length; i++) {
             date = new Date(this.collection.at(i).get('title'));

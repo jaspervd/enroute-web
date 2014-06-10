@@ -224,10 +224,10 @@ body {
 /* line 140, ../_scss/screen.scss */
 #durbuy {
   background-image: url("../images/logo.png");
-  background-size: 303.5px 312.5px;
-  width: 303.5px;
-  height: 312.5px;
-  margin: -166.7px 0 0 -151.7px;
+  background-size: 241px 249px;
+  width: 241px;
+  height: 249px;
+  margin: -134.5px 0 0 -120.5px;
   position: absolute;
   left: 50%;
   top: 50%;
@@ -273,12 +273,12 @@ body {
 /* line 186, ../_scss/screen.scss */
 #daySelector {
   background-image: url("../images/day_selector.svg");
-  background-size: 514px 74px;
+  background-size: 514px 268px;
   width: 514px;
-  height: 74px;
+  height: 268px;
   position: absolute;
   display: block;
-  margin: -37px 0 0 -257px;
+  margin: -134px 0 0 -257px;
   position: absolute;
   z-index: 5;
   left: 50%;
@@ -288,7 +288,7 @@ body {
 #daySelector .handle {
   width: 54px;
   height: 54px;
-  margin-top: 7px;
+  margin-top: 115px;
   display: block;
   cursor: move;
   color: #FFF;
@@ -300,13 +300,13 @@ body {
   height: 74px;
   position: absolute;
   right: 0;
-  top: 0;
+  top: 100px;
 }
 /* line 218, ../_scss/screen.scss */
 #daySelector .month {
   width: 74px;
   height: 74px;
-  bottom: 0;
+  bottom: 90px;
   right: 0;
   position: absolute;
 }
