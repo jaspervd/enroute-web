@@ -42,7 +42,7 @@ var HomeView = Backbone.View.extend({
                 for (var i = 0; i <= 50; i++) {
                     angle = (step * (i + 1)) * (Math.PI / 180);
                     x = Math.cos(angle) * (radius - 30) - fixRows * 2;
-                    y = Math.sin(angle) * radius - fixRows;
+                    y = Math.sin(angle) * (radius - 15) - fixRows;
                     zoom = _.random(70, 99);
                     if (rockI === i && n > 3 && n < (treeRows-1)) {
                         this.$el.find('#forest').append('<div class="rocks" style="margin-top:' + (x) + 'px;margin-left:' + (y - 50) + 'px;z-index:' + parseInt(z) + '"></div>');

@@ -42,8 +42,8 @@
 	}
 
 	#city {
-		width: 160% !important;
-		margin: -80% 0 0 -80% !important;
+		width: 180% !important;
+		margin: -90% 0 0 -90% !important;
 	}
 
 	#forest {
@@ -51,9 +51,29 @@
 	}
 }
 
+@media only screen and (max-width: 1099px) {
+	#forest {
+		width: 80% !important;
+	}
+}
+
+@media only screen and (max-width: 999px) {
+	#scalable {
+		@include transform(scale(.9) !important);
+	}
+
+	#forest {
+		width: 79%;
+	}
+}
+
 @media only screen and (max-width: 580px) {
 	#scalable {
 		@include transform(scale(.7) !important);
+	}
+
+	#forest {
+		width: 110% !important;
 	}
 }
 

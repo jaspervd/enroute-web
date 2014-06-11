@@ -107,8 +107,8 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
 
   /* line 44, ../_scss/responsive.scss */
   #city {
-    width: 160% !important;
-    margin: -80% 0 0 -80% !important;
+    width: 180% !important;
+    margin: -90% 0 0 -90% !important;
   }
 
   /* line 49, ../_scss/responsive.scss */
@@ -116,8 +116,29 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
     width: 100% !important;
   }
 }
-@media only screen and (max-width: 580px) {
+@media only screen and (max-width: 1099px) {
   /* line 55, ../_scss/responsive.scss */
+  #forest {
+    width: 80% !important;
+  }
+}
+@media only screen and (max-width: 999px) {
+  /* line 61, ../_scss/responsive.scss */
+  #scalable {
+    -webkit-transform: scale(0.9) !important;
+    -moz-transform: scale(0.9) !important;
+    -ms-transform: scale(0.9) !important;
+    -o-transform: scale(0.9) !important;
+    transform: scale(0.9) !important;
+  }
+
+  /* line 65, ../_scss/responsive.scss */
+  #forest {
+    width: 79%;
+  }
+}
+@media only screen and (max-width: 580px) {
+  /* line 71, ../_scss/responsive.scss */
   #scalable {
     -webkit-transform: scale(0.7) !important;
     -moz-transform: scale(0.7) !important;
@@ -125,9 +146,14 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
     -o-transform: scale(0.7) !important;
     transform: scale(0.7) !important;
   }
+
+  /* line 75, ../_scss/responsive.scss */
+  #forest {
+    width: 110% !important;
+  }
 }
 @media only screen and (max-width: 480px) {
-  /* line 61, ../_scss/responsive.scss */
+  /* line 81, ../_scss/responsive.scss */
   #scalable {
     -webkit-transform: scale(0.6) !important;
     -moz-transform: scale(0.6) !important;
@@ -136,7 +162,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
     transform: scale(0.6) !important;
   }
 
-  /* line 65, ../_scss/responsive.scss */
+  /* line 85, ../_scss/responsive.scss */
   #content nav {
     -webkit-transform: scale(0.8);
     -moz-transform: scale(0.8);
@@ -508,41 +534,38 @@ body {
   background: no-repeat;
   background-size: 100%;
   position: absolute;
+  width: 45px;
   -webkit-transition: margin 1s ease;
   -moz-transition: margin 1s ease;
   -o-transition: margin 1s ease;
   transition: margin 1s ease;
 }
-/* line 329, ../_scss/screen.scss */
+/* line 330, ../_scss/screen.scss */
 #forest .tree.goInsideBitch {
   margin: 0 !important;
 }
-/* line 333, ../_scss/screen.scss */
+/* line 334, ../_scss/screen.scss */
 #forest .tree.type1 {
   background-image: url("../images/tree_1.svg");
-  width: 78px;
-  height: 114px;
+  height: 75px;
 }
 /* line 339, ../_scss/screen.scss */
 #forest .tree.type2 {
   background-image: url("../images/tree_2.svg");
-  width: 45px;
-  height: 82px;
+  height: 93px;
 }
-/* line 345, ../_scss/screen.scss */
+/* line 344, ../_scss/screen.scss */
 #forest .tree.type3 {
   background-image: url("../images/tree_3.svg");
-  width: 45px;
-  height: 82px;
+  height: 87px;
 }
-/* line 351, ../_scss/screen.scss */
+/* line 349, ../_scss/screen.scss */
 #forest .tree.type4 {
   background-image: url("../images/tree_4.svg");
-  width: 45px;
-  height: 82px;
+  height: 87px;
 }
 
-/* line 361, ../_scss/screen.scss */
+/* line 358, ../_scss/screen.scss */
 #city {
   background: url("../images/city.svg") no-repeat;
   background-size: 100% 100%;
@@ -552,7 +575,7 @@ body {
   left: 50%;
   top: 50%;
 }
-/* line 370, ../_scss/screen.scss */
+/* line 367, ../_scss/screen.scss */
 #city:before {
   content: "";
   display: block;
