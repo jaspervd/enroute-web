@@ -4,12 +4,29 @@ var HomeView = Backbone.View.extend({
     id: 'home',
     tagName: 'div',
     template: tpl.home,
+    allowAudio: true,
     currentTreeRows: null,
 
     initialize: function() {
         _.bindAll.apply(_, [this].concat(_.functions(this)));
 
         this.collection.on('sync reset', this.render);
+    },
+
+    events: {
+        'click #toggleAudio': 'toggleAudio'
+    },
+
+    toggleAudio: function(e) {
+        e.preventDefault();
+        var birdsAudio = document.getElementById('ambient_birds');
+        this.allowAudio = !this.allowAudio;
+        if(this.allowAudio) {
+            birdsAudio.play();
+        } else {
+            birdsAudio.pause();
+            birdsAudio.currentTime = 0;
+        }
     },
 
     render: function() {
@@ -44,7 +61,7 @@ var HomeView = Backbone.View.extend({
                     x = Math.cos(angle) * (radius - 30) - fixRows * 2;
                     y = Math.sin(angle) * (radius - 15) - fixRows;
                     zoom = _.random(70, 99);
-                    if (rockI === i && n > 3 && n < (treeRows-1)) {
+                    if (rockI === i && n > 3 && n < (treeRows - 1)) {
                         this.$el.find('#forest').append('<div class="rocks" style="margin-top:' + (x) + 'px;margin-left:' + (y - 50) + 'px;z-index:' + parseInt(z) + '"></div>');
                     } else {
                         if ((i % _.random(1, 20)) > 0) {
@@ -131,16 +148,14 @@ var HomeView = Backbone.View.extend({
                                 var date = moment($(value).attr('data-day'));
                                 selectedDay = value;
                                 $target.find('.month span').html(date.format('MMMM'));
-                                toctocAudio.pause();
-                                toctocAudio.currentTime = 0;
-                                toctocAudio.play();
                                 $(value).removeClass('almostFocus').addClass('focus');
-                                //$outerDays.removeClass('focus').addClass('almostFocus');
+                                if (self.allowAudio) {
+                                    toctocAudio.pause();
+                                    toctocAudio.currentTime = 0;
+                                    toctocAudio.play();
+                                }
                             }
                         } else {
-                            /*if ($(value).hasClass('focus')) {
-                                $outerDays.removeClass('almostFocus');
-                            }*/
                             $(value).removeClass('focus');
                         }
                     });

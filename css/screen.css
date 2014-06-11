@@ -336,13 +336,21 @@ body {
 }
 
 /* line 145, ../_scss/screen.scss */
+#toggleAudio {
+  top: 20px;
+  right: 20px;
+  position: absolute;
+  z-index: 9998;
+}
+
+/* line 152, ../_scss/screen.scss */
 #scalable {
   position: absolute;
   left: 50%;
   top: 50%;
 }
 
-/* line 151, ../_scss/screen.scss */
+/* line 158, ../_scss/screen.scss */
 #text_city {
   background-image: url("../images/text_city.png");
   background-size: 198px 42px;
@@ -354,7 +362,7 @@ body {
   position: absolute;
 }
 
-/* line 164, ../_scss/screen.scss */
+/* line 171, ../_scss/screen.scss */
 #durbuy {
   background-image: url("../images/logo.png");
   background-size: 241px 249px;
@@ -366,7 +374,7 @@ body {
   top: 50%;
   z-index: 7777;
 }
-/* line 175, ../_scss/screen.scss */
+/* line 182, ../_scss/screen.scss */
 #durbuy #days {
   position: absolute;
   top: 0;
@@ -376,7 +384,7 @@ body {
   margin-left: 50%;
   margin-top: 50%;
 }
-/* line 185, ../_scss/screen.scss */
+/* line 192, ../_scss/screen.scss */
 #durbuy .day {
   width: 36px;
   width: 36px;
@@ -393,18 +401,18 @@ body {
   -o-transition: opacity 0.3s;
   transition: opacity 0.3s;
 }
-/* line 198, ../_scss/screen.scss */
+/* line 205, ../_scss/screen.scss */
 #durbuy .day.focus {
   opacity: 1;
   z-index: 5555;
 }
-/* line 203, ../_scss/screen.scss */
+/* line 210, ../_scss/screen.scss */
 #durbuy .day.almostFocus {
   opacity: .6;
   z-index: 5555;
 }
 
-/* line 210, ../_scss/screen.scss */
+/* line 217, ../_scss/screen.scss */
 #daySelector {
   background-image: url("../images/day_selector.svg");
   background-size: 514px 268px;
@@ -419,7 +427,7 @@ body {
   top: 50%;
   -webkit-overflow-scrolling: touch;
 }
-/* line 225, ../_scss/screen.scss */
+/* line 232, ../_scss/screen.scss */
 #daySelector .handle {
   width: 54px;
   height: 54px;
@@ -429,7 +437,7 @@ body {
   color: #FFF;
   text-decoration: none;
 }
-/* line 235, ../_scss/screen.scss */
+/* line 242, ../_scss/screen.scss */
 #daySelector .select {
   width: 74px;
   height: 74px;
@@ -437,7 +445,7 @@ body {
   right: 0;
   top: 100px;
 }
-/* line 243, ../_scss/screen.scss */
+/* line 250, ../_scss/screen.scss */
 #daySelector .month {
   width: 74px;
   height: 74px;
@@ -445,7 +453,7 @@ body {
   right: 0;
   position: absolute;
 }
-/* line 250, ../_scss/screen.scss */
+/* line 257, ../_scss/screen.scss */
 #daySelector .month span {
   background-color: #f4c747;
   -webkit-border-radius: 6px;
@@ -463,14 +471,14 @@ body {
   font-size: 1.2em;
 }
 
-/* line 267, ../_scss/screen.scss */
+/* line 274, ../_scss/screen.scss */
 #day {
   top: 50%;
   left: 50%;
   position: absolute;
   z-index: 4444;
 }
-/* line 273, ../_scss/screen.scss */
+/* line 280, ../_scss/screen.scss */
 #day .building {
   background-color: #b2463f;
   width: 80px;
@@ -488,7 +496,7 @@ body {
   -o-transform-origin: 50% 100px;
   transform-origin: 50% 100px;
 }
-/* line 283, ../_scss/screen.scss */
+/* line 290, ../_scss/screen.scss */
 #day .building.show {
   margin-top: -320px !important;
   -webkit-transform-origin: 50% 320px;
@@ -498,7 +506,7 @@ body {
   transform-origin: 50% 320px;
 }
 
-/* line 292, ../_scss/screen.scss */
+/* line 299, ../_scss/screen.scss */
 #river {
   background-image: url("../images/river.png");
   width: 370px;
@@ -514,14 +522,14 @@ body {
   animation: rotateCircle 340s infinite;
 }
 
-/* line 309, ../_scss/screen.scss */
+/* line 316, ../_scss/screen.scss */
 #forest {
   width: 70%;
   position: absolute;
   left: 50%;
   top: 50%;
 }
-/* line 315, ../_scss/screen.scss */
+/* line 322, ../_scss/screen.scss */
 #forest .rocks {
   background: url("../images/rocks.svg") no-repeat;
   background-size: 195px 154px;
@@ -529,7 +537,7 @@ body {
   height: 154px;
   position: absolute;
 }
-/* line 323, ../_scss/screen.scss */
+/* line 330, ../_scss/screen.scss */
 #forest .tree {
   background: no-repeat;
   background-size: 100%;
@@ -540,32 +548,32 @@ body {
   -o-transition: margin 1s ease;
   transition: margin 1s ease;
 }
-/* line 330, ../_scss/screen.scss */
+/* line 337, ../_scss/screen.scss */
 #forest .tree.goInsideBitch {
   margin: 0 !important;
 }
-/* line 334, ../_scss/screen.scss */
+/* line 341, ../_scss/screen.scss */
 #forest .tree.type1 {
   background-image: url("../images/tree_1.svg");
   height: 75px;
 }
-/* line 339, ../_scss/screen.scss */
+/* line 346, ../_scss/screen.scss */
 #forest .tree.type2 {
   background-image: url("../images/tree_2.svg");
   height: 93px;
 }
-/* line 344, ../_scss/screen.scss */
+/* line 351, ../_scss/screen.scss */
 #forest .tree.type3 {
   background-image: url("../images/tree_3.svg");
   height: 87px;
 }
-/* line 349, ../_scss/screen.scss */
+/* line 356, ../_scss/screen.scss */
 #forest .tree.type4 {
   background-image: url("../images/tree_4.svg");
   height: 87px;
 }
 
-/* line 358, ../_scss/screen.scss */
+/* line 365, ../_scss/screen.scss */
 #city {
   background: url("../images/city.svg") no-repeat;
   background-size: 100% 100%;
@@ -575,7 +583,7 @@ body {
   left: 50%;
   top: 50%;
 }
-/* line 367, ../_scss/screen.scss */
+/* line 374, ../_scss/screen.scss */
 #city:before {
   content: "";
   display: block;

@@ -142,6 +142,13 @@ body {
  // position: absolute;
 }
 
+#toggleAudio {
+  top: 20px;
+  right: 20px;
+  position: absolute;
+  z-index: 9998;
+}
+
 #scalable {
   position: absolute;
   left: 50%;
