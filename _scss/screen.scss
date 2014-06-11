@@ -142,10 +142,21 @@ body {
  // position: absolute;
 }
 
-#scale_days {
+#scalable {
   position: absolute;
   left: 50%;
   top: 50%;
+}
+
+#text_city {
+  background-image: url('../images/text_city.png');
+  background-size: 198px 42px;
+  width: 198px;
+  height: 42px;
+  margin: -211px 0 0 -99px;
+  top: 50%;
+  left: 50%;
+  position: absolute;
 }
 
 // Durbuy

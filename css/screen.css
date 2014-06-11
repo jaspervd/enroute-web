@@ -70,18 +70,22 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
     left: auto !important;
     top: -100%;
     border: none !important;
-    margin: 0 0 60px 0 !important;
-    padding: 0 0 60px 0 !important;
+    margin: 0 !important;
+    padding: 60px 0 0 0 !important;
     -webkit-box-shadow: none !important;
     -moz-box-shadow: none !important;
     box-shadow: none !important;
   }
   /* line 15, ../_scss/responsive.scss */
+  #content > a {
+    top: 60px !important;
+  }
+  /* line 19, ../_scss/responsive.scss */
   #content.slideOut {
-    top: 0 !important;
+    top: -60px !important;
     margin-left: 0 !important;
   }
-  /* line 20, ../_scss/responsive.scss */
+  /* line 24, ../_scss/responsive.scss */
   #content nav {
     width: 350px !important;
     top: auto !important;
@@ -91,45 +95,54 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
     margin-left: -175px;
     position: absolute;
   }
-  /* line 29, ../_scss/responsive.scss */
+  /* line 33, ../_scss/responsive.scss */
   #content nav li {
     float: left;
     margin-left: 10px;
   }
-  /* line 33, ../_scss/responsive.scss */
+  /* line 37, ../_scss/responsive.scss */
   #content nav li:first-child {
     margin-left: 0;
   }
 
-  /* line 40, ../_scss/responsive.scss */
+  /* line 44, ../_scss/responsive.scss */
   #city {
     width: 160% !important;
     margin: -80% 0 0 -80% !important;
   }
 
-  /* line 45, ../_scss/responsive.scss */
+  /* line 49, ../_scss/responsive.scss */
   #forest {
     width: 100% !important;
   }
 }
 @media only screen and (max-width: 580px) {
-  /* line 51, ../_scss/responsive.scss */
-  #scale_days, #river {
-    -webkit-transform: scale(0.7);
-    -moz-transform: scale(0.7);
-    -ms-transform: scale(0.7);
-    -o-transform: scale(0.7);
-    transform: scale(0.7);
+  /* line 55, ../_scss/responsive.scss */
+  #scalable {
+    -webkit-transform: scale(0.7) !important;
+    -moz-transform: scale(0.7) !important;
+    -ms-transform: scale(0.7) !important;
+    -o-transform: scale(0.7) !important;
+    transform: scale(0.7) !important;
   }
 }
 @media only screen and (max-width: 480px) {
-  /* line 57, ../_scss/responsive.scss */
-  #scale_days, #river {
-    -webkit-transform: scale(0.6);
-    -moz-transform: scale(0.6);
-    -ms-transform: scale(0.6);
-    -o-transform: scale(0.6);
-    transform: scale(0.6);
+  /* line 61, ../_scss/responsive.scss */
+  #scalable {
+    -webkit-transform: scale(0.6) !important;
+    -moz-transform: scale(0.6) !important;
+    -ms-transform: scale(0.6) !important;
+    -o-transform: scale(0.6) !important;
+    transform: scale(0.6) !important;
+  }
+
+  /* line 65, ../_scss/responsive.scss */
+  #content nav {
+    -webkit-transform: scale(0.8);
+    -moz-transform: scale(0.8);
+    -ms-transform: scale(0.8);
+    -o-transform: scale(0.8);
+    transform: scale(0.8);
   }
 }
 @font-face {
@@ -297,13 +310,25 @@ body {
 }
 
 /* line 145, ../_scss/screen.scss */
-#scale_days {
+#scalable {
   position: absolute;
   left: 50%;
   top: 50%;
 }
 
-/* line 153, ../_scss/screen.scss */
+/* line 151, ../_scss/screen.scss */
+#text_city {
+  background-image: url("../images/text_city.png");
+  background-size: 198px 42px;
+  width: 198px;
+  height: 42px;
+  margin: -211px 0 0 -99px;
+  top: 50%;
+  left: 50%;
+  position: absolute;
+}
+
+/* line 164, ../_scss/screen.scss */
 #durbuy {
   background-image: url("../images/logo.png");
   background-size: 241px 249px;
@@ -315,7 +340,7 @@ body {
   top: 50%;
   z-index: 7777;
 }
-/* line 164, ../_scss/screen.scss */
+/* line 175, ../_scss/screen.scss */
 #durbuy #days {
   position: absolute;
   top: 0;
@@ -325,7 +350,7 @@ body {
   margin-left: 50%;
   margin-top: 50%;
 }
-/* line 174, ../_scss/screen.scss */
+/* line 185, ../_scss/screen.scss */
 #durbuy .day {
   width: 36px;
   width: 36px;
@@ -342,18 +367,18 @@ body {
   -o-transition: opacity 0.3s;
   transition: opacity 0.3s;
 }
-/* line 187, ../_scss/screen.scss */
+/* line 198, ../_scss/screen.scss */
 #durbuy .day.focus {
   opacity: 1;
   z-index: 5555;
 }
-/* line 192, ../_scss/screen.scss */
+/* line 203, ../_scss/screen.scss */
 #durbuy .day.almostFocus {
   opacity: .6;
   z-index: 5555;
 }
 
-/* line 199, ../_scss/screen.scss */
+/* line 210, ../_scss/screen.scss */
 #daySelector {
   background-image: url("../images/day_selector.svg");
   background-size: 514px 268px;
@@ -368,7 +393,7 @@ body {
   top: 50%;
   -webkit-overflow-scrolling: touch;
 }
-/* line 214, ../_scss/screen.scss */
+/* line 225, ../_scss/screen.scss */
 #daySelector .handle {
   width: 54px;
   height: 54px;
@@ -378,7 +403,7 @@ body {
   color: #FFF;
   text-decoration: none;
 }
-/* line 224, ../_scss/screen.scss */
+/* line 235, ../_scss/screen.scss */
 #daySelector .select {
   width: 74px;
   height: 74px;
@@ -386,7 +411,7 @@ body {
   right: 0;
   top: 100px;
 }
-/* line 232, ../_scss/screen.scss */
+/* line 243, ../_scss/screen.scss */
 #daySelector .month {
   width: 74px;
   height: 74px;
@@ -394,7 +419,7 @@ body {
   right: 0;
   position: absolute;
 }
-/* line 239, ../_scss/screen.scss */
+/* line 250, ../_scss/screen.scss */
 #daySelector .month span {
   background-color: #f4c747;
   -webkit-border-radius: 6px;
@@ -412,14 +437,14 @@ body {
   font-size: 1.2em;
 }
 
-/* line 256, ../_scss/screen.scss */
+/* line 267, ../_scss/screen.scss */
 #day {
   top: 50%;
   left: 50%;
   position: absolute;
   z-index: 4444;
 }
-/* line 262, ../_scss/screen.scss */
+/* line 273, ../_scss/screen.scss */
 #day .building {
   background-color: #b2463f;
   width: 80px;
@@ -437,7 +462,7 @@ body {
   -o-transform-origin: 50% 100px;
   transform-origin: 50% 100px;
 }
-/* line 272, ../_scss/screen.scss */
+/* line 283, ../_scss/screen.scss */
 #day .building.show {
   margin-top: -320px !important;
   -webkit-transform-origin: 50% 320px;
@@ -447,7 +472,7 @@ body {
   transform-origin: 50% 320px;
 }
 
-/* line 281, ../_scss/screen.scss */
+/* line 292, ../_scss/screen.scss */
 #river {
   background-image: url("../images/river.png");
   width: 370px;
@@ -463,14 +488,14 @@ body {
   animation: rotateCircle 340s infinite;
 }
 
-/* line 298, ../_scss/screen.scss */
+/* line 309, ../_scss/screen.scss */
 #forest {
   width: 70%;
   position: absolute;
   left: 50%;
   top: 50%;
 }
-/* line 304, ../_scss/screen.scss */
+/* line 315, ../_scss/screen.scss */
 #forest .rocks {
   background: url("../images/rocks.svg") no-repeat;
   background-size: 195px 154px;
@@ -478,7 +503,7 @@ body {
   height: 154px;
   position: absolute;
 }
-/* line 312, ../_scss/screen.scss */
+/* line 323, ../_scss/screen.scss */
 #forest .tree {
   background: no-repeat;
   background-size: 100%;
@@ -488,36 +513,36 @@ body {
   -o-transition: margin 1s ease;
   transition: margin 1s ease;
 }
-/* line 318, ../_scss/screen.scss */
+/* line 329, ../_scss/screen.scss */
 #forest .tree.goInsideBitch {
   margin: 0 !important;
 }
-/* line 322, ../_scss/screen.scss */
+/* line 333, ../_scss/screen.scss */
 #forest .tree.type1 {
   background-image: url("../images/tree_1.svg");
   width: 78px;
   height: 114px;
 }
-/* line 328, ../_scss/screen.scss */
+/* line 339, ../_scss/screen.scss */
 #forest .tree.type2 {
   background-image: url("../images/tree_2.svg");
   width: 45px;
   height: 82px;
 }
-/* line 334, ../_scss/screen.scss */
+/* line 345, ../_scss/screen.scss */
 #forest .tree.type3 {
   background-image: url("../images/tree_3.svg");
   width: 45px;
   height: 82px;
 }
-/* line 340, ../_scss/screen.scss */
+/* line 351, ../_scss/screen.scss */
 #forest .tree.type4 {
   background-image: url("../images/tree_4.svg");
   width: 45px;
   height: 82px;
 }
 
-/* line 350, ../_scss/screen.scss */
+/* line 361, ../_scss/screen.scss */
 #city {
   background: url("../images/city.svg") no-repeat;
   background-size: 100% 100%;
@@ -527,7 +552,7 @@ body {
   left: 50%;
   top: 50%;
 }
-/* line 359, ../_scss/screen.scss */
+/* line 370, ../_scss/screen.scss */
 #city:before {
   content: "";
   display: block;

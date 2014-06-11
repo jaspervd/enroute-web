@@ -5,18 +5,22 @@
     left: auto !important;
     top: -100%;
     border: none !important;
-    margin: 0 0 60px 0 !important;
-    padding: 0 0 60px 0 !important;
+    margin: 0 !important;
+    padding: 60px 0 0 0 !important;
     -webkit-box-shadow: none !important;
     -moz-box-shadow: none !important;
     box-shadow: none !important;
   }
   /* line 15, ../_scss/responsive.scss */
+  #content > a {
+    top: 60px !important;
+  }
+  /* line 19, ../_scss/responsive.scss */
   #content.slideOut {
-    top: 0 !important;
+    top: -60px !important;
     margin-left: 0 !important;
   }
-  /* line 20, ../_scss/responsive.scss */
+  /* line 24, ../_scss/responsive.scss */
   #content nav {
     width: 350px !important;
     top: auto !important;
@@ -26,44 +30,53 @@
     margin-left: -175px;
     position: absolute;
   }
-  /* line 29, ../_scss/responsive.scss */
+  /* line 33, ../_scss/responsive.scss */
   #content nav li {
     float: left;
     margin-left: 10px;
   }
-  /* line 33, ../_scss/responsive.scss */
+  /* line 37, ../_scss/responsive.scss */
   #content nav li:first-child {
     margin-left: 0;
   }
 
-  /* line 40, ../_scss/responsive.scss */
+  /* line 44, ../_scss/responsive.scss */
   #city {
     width: 160% !important;
     margin: -80% 0 0 -80% !important;
   }
 
-  /* line 45, ../_scss/responsive.scss */
+  /* line 49, ../_scss/responsive.scss */
   #forest {
     width: 100% !important;
   }
 }
 @media only screen and (max-width: 580px) {
-  /* line 51, ../_scss/responsive.scss */
-  #scale_days, #river {
-    -webkit-transform: scale(0.7);
-    -moz-transform: scale(0.7);
-    -ms-transform: scale(0.7);
-    -o-transform: scale(0.7);
-    transform: scale(0.7);
+  /* line 55, ../_scss/responsive.scss */
+  #scalable {
+    -webkit-transform: scale(0.7) !important;
+    -moz-transform: scale(0.7) !important;
+    -ms-transform: scale(0.7) !important;
+    -o-transform: scale(0.7) !important;
+    transform: scale(0.7) !important;
   }
 }
 @media only screen and (max-width: 480px) {
-  /* line 57, ../_scss/responsive.scss */
-  #scale_days, #river {
-    -webkit-transform: scale(0.6);
-    -moz-transform: scale(0.6);
-    -ms-transform: scale(0.6);
-    -o-transform: scale(0.6);
-    transform: scale(0.6);
+  /* line 61, ../_scss/responsive.scss */
+  #scalable {
+    -webkit-transform: scale(0.6) !important;
+    -moz-transform: scale(0.6) !important;
+    -ms-transform: scale(0.6) !important;
+    -o-transform: scale(0.6) !important;
+    transform: scale(0.6) !important;
+  }
+
+  /* line 65, ../_scss/responsive.scss */
+  #content nav {
+    -webkit-transform: scale(0.8);
+    -moz-transform: scale(0.8);
+    -ms-transform: scale(0.8);
+    -o-transform: scale(0.8);
+    transform: scale(0.8);
   }
 }

@@ -8,12 +8,16 @@
 		left: auto !important;
 		top: -100%;
 		border: none !important;
-		margin: 0 0 60px 0 !important;
-		padding: 0 0 60px 0 !important;
+		margin: 0 !important;
+		padding: 60px 0 0 0 !important;
 		@include box-shadow(none !important);
 
+		> a {
+			top: 60px !important;
+		}
+
 		&.slideOut {
-			top: 0!important;
+			top: -60px !important;
 			margin-left: 0!important;
 		}
 
@@ -48,13 +52,17 @@
 }
 
 @media only screen and (max-width: 580px) {
-	#scale_days, #river {
-		@include transform(scale(.7));
+	#scalable {
+		@include transform(scale(.7) !important);
 	}
 }
 
 @media only screen and (max-width: 480px) {
-	#scale_days, #river {
-		@include transform(scale(.6));
+	#scalable {
+		@include transform(scale(.6) !important);
+	}
+
+	#content nav {
+		@include transform(scale(.8));
 	}
 }
