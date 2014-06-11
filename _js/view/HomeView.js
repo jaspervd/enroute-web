@@ -135,13 +135,12 @@ var HomeView = Backbone.View.extend({
                                 toctocAudio.currentTime = 0;
                                 toctocAudio.play();
                                 $(value).removeClass('almostFocus').addClass('focus');
-                                $outerDays.removeClass('focus').addClass('almostFocus');
+                                //$outerDays.removeClass('focus').addClass('almostFocus');
                             }
                         } else {
-                            if ($(value).hasClass('focus')) {
-                                console.log(key);
+                            /*if ($(value).hasClass('focus')) {
                                 $outerDays.removeClass('almostFocus');
-                            }
+                            }*/
                             $(value).removeClass('focus');
                         }
                     });
