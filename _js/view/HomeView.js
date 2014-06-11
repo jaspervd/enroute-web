@@ -4,6 +4,7 @@ var HomeView = Backbone.View.extend({
     id: 'home',
     tagName: 'div',
     template: tpl.home,
+    currentTreeRows: null,
 
     initialize: function() {
         _.bindAll.apply(_, [this].concat(_.functions(this)));
@@ -15,9 +16,12 @@ var HomeView = Backbone.View.extend({
         console.log('[HomeView] render()');
         this.$el.html(this.template());
 
+        this.currentTreeRows = 0;
         this.createForest();
         this.createDays();
         this.handleRotation();
+
+        $(window).on('resize', this.createForest);
 
         return this;
     },
@@ -25,24 +29,32 @@ var HomeView = Backbone.View.extend({
     createForest: function() {
         var step = 360 / 50;
         var x, y, z, angle, zoom;
-        for (var n = 1; n < 8; n++) {
-            var radius = $('#forest').width() / 2 - (25 * n) - 30;
-            var rockI = _.random(0, 49); // no pun intended
-            for (var i = 0; i <= 50; i++) {
-                angle = (step * (i + 1)) * (Math.PI / 180);
-                x = Math.cos(angle) * (radius - 30) - 50;
-                y = Math.sin(angle) * radius - 25;
-                zoom = _.random(70, 99);
-                if (rockI === i && n > 4) {
-                    this.$el.find('#forest').append('<div class="rocks" style="margin-top:' + (x) + 'px;margin-left:' + (y - 50) + 'px;z-index:' + parseInt(z) + '"></div>');
-                } else {
-                    if ((i % _.random(1, 20)) > 0) {
-                        if (y < $('#forest').width() / 2) {
-                            z = x;
-                        } else {
-                            z = -1 * x;
+        var treeRows = parseInt($('body').width() / 100) / 2;
+        var fixRows = 30;
+        console.log(this.currentTreeRows, treeRows);
+        if (this.currentTreeRows !== treeRows) {
+            this.currentTreeRows = treeRows;
+            $('.tree, .rocks').remove();
+
+            for (var n = 1; n < treeRows; n++) {
+                var radius = $('#forest').width() / 2 - (fixRows * n) - 30;
+                var rockI = _.random(0, 49); // no pun intended
+                for (var i = 0; i <= 50; i++) {
+                    angle = (step * (i + 1)) * (Math.PI / 180);
+                    x = Math.cos(angle) * (radius - 30) - fixRows * 2;
+                    y = Math.sin(angle) * radius - fixRows;
+                    zoom = _.random(70, 99);
+                    if (rockI === i && n > 3 && n < (treeRows-1)) {
+                        this.$el.find('#forest').append('<div class="rocks" style="margin-top:' + (x) + 'px;margin-left:' + (y - 50) + 'px;z-index:' + parseInt(z) + '"></div>');
+                    } else {
+                        if ((i % _.random(1, 20)) > 0) {
+                            if (y < $('#forest').width() / 2) {
+                                z = x;
+                            } else {
+                                z = -1 * x;
+                            }
+                            this.$el.find('#forest').append('<div data-circle="' + n + '" class="tree type' + _.random(1, 4) + '" style="margin-top:' + x + 'px;margin-left:' + y + 'px;z-index:' + parseInt(z) + ';background-size:' + zoom + '%"></div>');
                         }
-                        this.$el.find('#forest').append('<div data-circle="' + n + '" class="tree type' + _.random(1, 4) + '" style="margin-top:' + x + 'px;margin-left:' + y + 'px;z-index:' + parseInt(z) + ';background-size:' + zoom + '%"></div>');
                     }
                 }
             }
@@ -69,14 +81,18 @@ var HomeView = Backbone.View.extend({
             var offset = $target.offset();
             var dragging = false;
 
-            $handle.mousedown(function() {
+            $handle.on('touchstart mousedown', function(e) {
+                e.stopPropagation();
+                e.preventDefault();
                 dragging = true;
                 $('*').disableSelection();
             });
 
             var self = this;
 
-            $(document).mouseup(function() {
+            $(document).on('touchend mouseup', function(e) {
+                e.stopPropagation();
+                e.preventDefault();
                 if (dragging) {
                     dragging = false;
                     $('*').enableSelection();
@@ -100,7 +116,9 @@ var HomeView = Backbone.View.extend({
             var selectedDay;
             var $outerDays;
 
-            $(document).on('mousemove', function(e) {
+            $(document).on('touchmove mousemove', function(e) {
+                e.stopPropagation();
+                e.preventDefault();
                 if (dragging) {
                     var radians = self.calculateRadians(offset, $target, e.pageX, e.pageY);
                     var degree = (radians * (180 / Math.PI) * -1) - 90; // convert degree for reversal
@@ -120,7 +138,7 @@ var HomeView = Backbone.View.extend({
                                 $outerDays.removeClass('focus').addClass('almostFocus');
                             }
                         } else {
-                            if($(value).hasClass('focus')) {
+                            if ($(value).hasClass('focus')) {
                                 console.log(key);
                                 $outerDays.removeClass('almostFocus');
                             }

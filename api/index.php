@@ -139,7 +139,7 @@ $app->post('/contact/?', function () use ($app) {
             echo 'true';
         } else {
             header('HTTP/1.1 500 Internal Server Error');
-            echo json_encode(array('errors', ['mail', 'Er is iets misgegaan tijdens ']));
+            echo json_encode(array('errors', array('mail', 'Er is iets misgegaan tijdens ')));
         }
     } else {
         header('HTTP/1.1 500 Internal Server Error');

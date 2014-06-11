@@ -13,23 +13,26 @@ var ContentView = Backbone.View.extend({
     },
 
     events: {
-        'click nav a': 'showContent'
+        'click nav a': 'showContent',
+        'click .close': 'hideContent'
     },
 
     showContent: function(e) {
         console.log('[ContentView] showContent()');
         e.preventDefault();
-        this.clear();
         this.$el.addClass('slideOut');
         $('nav a').parent().removeClass('active');
         $(e.currentTarget).parent().addClass('active');
         var newContent = $(e.currentTarget).attr('data-content');
         if (this.currentContent !== newContent) {
             this.currentContent = newContent;
+            this.clear();
 
             switch (this.currentContent) {
                 case 'tickets':
-                    var ticketsView = new TicketsView({collection: this.collection});
+                    var ticketsView = new TicketsView({
+                        collection: this.collection
+                    });
                     this.$el.append(ticketsView.render().$el);
                     break;
 
@@ -46,11 +49,13 @@ var ContentView = Backbone.View.extend({
             }
         }
 
-        var self = this;
-        this.$el.next().one('click', function() {
-            $('nav a').parent().removeClass('active');
-            self.$el.removeClass('slideOut');
-        });
+        this.$el.next().one('mousedown', this.hideContent);
+    },
+
+    hideContent: function(e) {
+        e.preventDefault();
+        $('nav a').parent().removeClass('active');
+        this.$el.removeClass('slideOut');
     },
 
     clear: function() {

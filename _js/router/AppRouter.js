@@ -36,7 +36,7 @@ var AppRouter = Backbone.Router.extend({
         console.log('[AppRouter] adminDayView()');
         this.adminApp = new AdminApp();
         this.adminApp.currentDay = day;
-        $('#container, noscript').remove();
+        $('#container').remove();
         $('body').prepend(this.adminApp.render().$el);
     }
 });

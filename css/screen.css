@@ -63,6 +63,75 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
   display: block;
 }
 
+@media only screen and (max-width: 640px) {
+  /* line 6, ../_scss/responsive.scss */
+  #content {
+    width: 100% !important;
+    left: auto !important;
+    top: -100%;
+    border: none !important;
+    margin: 0 0 60px 0 !important;
+    padding: 0 0 60px 0 !important;
+    -webkit-box-shadow: none !important;
+    -moz-box-shadow: none !important;
+    box-shadow: none !important;
+  }
+  /* line 15, ../_scss/responsive.scss */
+  #content.slideOut {
+    top: 0 !important;
+    margin-left: 0 !important;
+  }
+  /* line 20, ../_scss/responsive.scss */
+  #content nav {
+    width: 350px !important;
+    top: auto !important;
+    right: auto !important;
+    left: 50%;
+    bottom: 0;
+    margin-left: -175px;
+    position: absolute;
+  }
+  /* line 29, ../_scss/responsive.scss */
+  #content nav li {
+    float: left;
+    margin-left: 10px;
+  }
+  /* line 33, ../_scss/responsive.scss */
+  #content nav li:first-child {
+    margin-left: 0;
+  }
+
+  /* line 40, ../_scss/responsive.scss */
+  #city {
+    width: 160% !important;
+    margin: -80% 0 0 -80% !important;
+  }
+
+  /* line 45, ../_scss/responsive.scss */
+  #forest {
+    width: 100% !important;
+  }
+}
+@media only screen and (max-width: 580px) {
+  /* line 51, ../_scss/responsive.scss */
+  #scale_days, #river {
+    -webkit-transform: scale(0.7);
+    -moz-transform: scale(0.7);
+    -ms-transform: scale(0.7);
+    -o-transform: scale(0.7);
+    transform: scale(0.7);
+  }
+}
+@media only screen and (max-width: 480px) {
+  /* line 57, ../_scss/responsive.scss */
+  #scale_days, #river {
+    -webkit-transform: scale(0.6);
+    -moz-transform: scale(0.6);
+    -ms-transform: scale(0.6);
+    -o-transform: scale(0.6);
+    transform: scale(0.6);
+  }
+}
 @font-face {
   font-family: 'Sahara';
   src: url("../assets/fonts/sahara.eot");
@@ -72,7 +141,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
 }
 
 @-webkit-keyframes rotateCircle {
-  /* line 20, ../_scss/screen.scss */
+  /* line 21, ../_scss/screen.scss */
   100% {
     -webkit-transform: rotate(360deg);
     -moz-transform: rotate(360deg);
@@ -83,7 +152,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
 }
 
 @-moz-keyframes rotateCircle {
-  /* line 23, ../_scss/screen.scss */
+  /* line 24, ../_scss/screen.scss */
   100% {
     -webkit-transform: rotate(360deg);
     -moz-transform: rotate(360deg);
@@ -94,7 +163,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
 }
 
 @-o-keyframes rotateCircle {
-  /* line 26, ../_scss/screen.scss */
+  /* line 27, ../_scss/screen.scss */
   100% {
     -webkit-transform: rotate(360deg);
     -moz-transform: rotate(360deg);
@@ -105,7 +174,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
 }
 
 @keyframes rotateCircle {
-  /* line 29, ../_scss/screen.scss */
+  /* line 30, ../_scss/screen.scss */
   100% {
     -webkit-transform: rotate(360deg);
     -moz-transform: rotate(360deg);
@@ -115,12 +184,12 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
   }
 }
 
-/* line 34, ../_scss/screen.scss */
+/* line 35, ../_scss/screen.scss */
 html {
   height: 100%;
 }
 
-/* line 38, ../_scss/screen.scss */
+/* line 39, ../_scss/screen.scss */
 body {
   background-color: #f1f5cf;
   font-size: 62.5%;
@@ -129,35 +198,35 @@ body {
   overflow: hidden;
 }
 
-/* line 46, ../_scss/screen.scss */
+/* line 47, ../_scss/screen.scss */
 #container {
   width: 100%;
   height: 100%;
 }
 
-/* line 51, ../_scss/screen.scss */
+/* line 52, ../_scss/screen.scss */
 .clear {
   clear: both;
 }
 
-/* line 55, ../_scss/screen.scss */
+/* line 56, ../_scss/screen.scss */
 #home header, nav header, #container > header {
   display: none;
 }
 
-/* line 61, ../_scss/screen.scss */
+/* line 62, ../_scss/screen.scss */
 #noise {
   background-image: url("../images/noise.png");
   background-size: 128px 128px;
   width: 100%;
   height: 100%;
-  position: absolute;
+  position: fixed;
   pointer-events: none;
   z-index: 9999;
   opacity: .5;
 }
 
-/* line 74, ../_scss/screen.scss */
+/* line 75, ../_scss/screen.scss */
 #content {
   background-color: #f1f5cf;
   width: 25%;
@@ -179,19 +248,25 @@ body {
   -o-transition: all 1s;
   transition: all 1s;
 }
-/* line 90, ../_scss/screen.scss */
+/* line 91, ../_scss/screen.scss */
 #content.slideOut {
   left: 0;
   margin-left: 0;
 }
-/* line 95, ../_scss/screen.scss */
+/* line 96, ../_scss/screen.scss */
+#content > a {
+  right: 10px;
+  top: 10px;
+  position: absolute;
+}
+/* line 102, ../_scss/screen.scss */
 #content nav {
   width: 110px;
   right: -110px;
   top: 25px;
   position: absolute;
 }
-/* line 101, ../_scss/screen.scss */
+/* line 108, ../_scss/screen.scss */
 #content nav li {
   background-image: url("../images/nav_button.svg");
   background-size: 110px 90px;
@@ -199,15 +274,15 @@ body {
   height: 45px;
   margin-bottom: 8px;
 }
-/* line 108, ../_scss/screen.scss */
+/* line 115, ../_scss/screen.scss */
 #content nav li:hover, #content nav li.active {
   background-position: 0 -45px;
 }
-/* line 111, ../_scss/screen.scss */
+/* line 118, ../_scss/screen.scss */
 #content nav li:hover a, #content nav li.active a {
   color: #b2463f;
 }
-/* line 117, ../_scss/screen.scss */
+/* line 124, ../_scss/screen.scss */
 #content nav a {
   width: 98px;
   height: 45px;
@@ -221,7 +296,14 @@ body {
   padding-left: 5px;
 }
 
-/* line 140, ../_scss/screen.scss */
+/* line 145, ../_scss/screen.scss */
+#scale_days {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+}
+
+/* line 153, ../_scss/screen.scss */
 #durbuy {
   background-image: url("../images/logo.png");
   background-size: 241px 249px;
@@ -233,7 +315,7 @@ body {
   top: 50%;
   z-index: 7777;
 }
-/* line 151, ../_scss/screen.scss */
+/* line 164, ../_scss/screen.scss */
 #durbuy #days {
   position: absolute;
   top: 0;
@@ -243,7 +325,7 @@ body {
   margin-left: 50%;
   margin-top: 50%;
 }
-/* line 161, ../_scss/screen.scss */
+/* line 174, ../_scss/screen.scss */
 #durbuy .day {
   width: 36px;
   width: 36px;
@@ -260,18 +342,18 @@ body {
   -o-transition: opacity 0.3s;
   transition: opacity 0.3s;
 }
-/* line 174, ../_scss/screen.scss */
+/* line 187, ../_scss/screen.scss */
 #durbuy .day.focus {
   opacity: 1;
   z-index: 5555;
 }
-/* line 179, ../_scss/screen.scss */
+/* line 192, ../_scss/screen.scss */
 #durbuy .day.almostFocus {
   opacity: .6;
   z-index: 5555;
 }
 
-/* line 186, ../_scss/screen.scss */
+/* line 199, ../_scss/screen.scss */
 #daySelector {
   background-image: url("../images/day_selector.svg");
   background-size: 514px 268px;
@@ -284,8 +366,9 @@ body {
   z-index: 6666;
   left: 50%;
   top: 50%;
+  -webkit-overflow-scrolling: touch;
 }
-/* line 200, ../_scss/screen.scss */
+/* line 214, ../_scss/screen.scss */
 #daySelector .handle {
   width: 54px;
   height: 54px;
@@ -295,7 +378,7 @@ body {
   color: #FFF;
   text-decoration: none;
 }
-/* line 210, ../_scss/screen.scss */
+/* line 224, ../_scss/screen.scss */
 #daySelector .select {
   width: 74px;
   height: 74px;
@@ -303,7 +386,7 @@ body {
   right: 0;
   top: 100px;
 }
-/* line 218, ../_scss/screen.scss */
+/* line 232, ../_scss/screen.scss */
 #daySelector .month {
   width: 74px;
   height: 74px;
@@ -311,7 +394,7 @@ body {
   right: 0;
   position: absolute;
 }
-/* line 225, ../_scss/screen.scss */
+/* line 239, ../_scss/screen.scss */
 #daySelector .month span {
   background-color: #f4c747;
   -webkit-border-radius: 6px;
@@ -329,14 +412,14 @@ body {
   font-size: 1.2em;
 }
 
-/* line 242, ../_scss/screen.scss */
+/* line 256, ../_scss/screen.scss */
 #day {
   top: 50%;
   left: 50%;
   position: absolute;
   z-index: 4444;
 }
-/* line 248, ../_scss/screen.scss */
+/* line 262, ../_scss/screen.scss */
 #day .building {
   background-color: #b2463f;
   width: 80px;
@@ -354,7 +437,7 @@ body {
   -o-transform-origin: 50% 100px;
   transform-origin: 50% 100px;
 }
-/* line 258, ../_scss/screen.scss */
+/* line 272, ../_scss/screen.scss */
 #day .building.show {
   margin-top: -320px !important;
   -webkit-transform-origin: 50% 320px;
@@ -364,7 +447,7 @@ body {
   transform-origin: 50% 320px;
 }
 
-/* line 267, ../_scss/screen.scss */
+/* line 281, ../_scss/screen.scss */
 #river {
   background-image: url("../images/river.png");
   width: 370px;
@@ -380,14 +463,14 @@ body {
   animation: rotateCircle 340s infinite;
 }
 
-/* line 284, ../_scss/screen.scss */
+/* line 298, ../_scss/screen.scss */
 #forest {
   width: 70%;
   position: absolute;
   left: 50%;
   top: 50%;
 }
-/* line 290, ../_scss/screen.scss */
+/* line 304, ../_scss/screen.scss */
 #forest .rocks {
   background: url("../images/rocks.svg") no-repeat;
   background-size: 195px 154px;
@@ -395,7 +478,7 @@ body {
   height: 154px;
   position: absolute;
 }
-/* line 298, ../_scss/screen.scss */
+/* line 312, ../_scss/screen.scss */
 #forest .tree {
   background: no-repeat;
   background-size: 100%;
@@ -405,36 +488,36 @@ body {
   -o-transition: margin 1s ease;
   transition: margin 1s ease;
 }
-/* line 304, ../_scss/screen.scss */
+/* line 318, ../_scss/screen.scss */
 #forest .tree.goInsideBitch {
   margin: 0 !important;
 }
-/* line 308, ../_scss/screen.scss */
+/* line 322, ../_scss/screen.scss */
 #forest .tree.type1 {
   background-image: url("../images/tree_1.svg");
   width: 78px;
   height: 114px;
 }
-/* line 314, ../_scss/screen.scss */
+/* line 328, ../_scss/screen.scss */
 #forest .tree.type2 {
   background-image: url("../images/tree_2.svg");
   width: 45px;
   height: 82px;
 }
-/* line 320, ../_scss/screen.scss */
+/* line 334, ../_scss/screen.scss */
 #forest .tree.type3 {
   background-image: url("../images/tree_3.svg");
   width: 45px;
   height: 82px;
 }
-/* line 326, ../_scss/screen.scss */
+/* line 340, ../_scss/screen.scss */
 #forest .tree.type4 {
   background-image: url("../images/tree_4.svg");
   width: 45px;
   height: 82px;
 }
 
-/* line 336, ../_scss/screen.scss */
+/* line 350, ../_scss/screen.scss */
 #city {
   background: url("../images/city.svg") no-repeat;
   background-size: 100% 100%;
@@ -444,7 +527,7 @@ body {
   left: 50%;
   top: 50%;
 }
-/* line 345, ../_scss/screen.scss */
+/* line 359, ../_scss/screen.scss */
 #city:before {
   content: "";
   display: block;

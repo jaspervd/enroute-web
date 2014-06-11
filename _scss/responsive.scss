@@ -1,0 +1,60 @@
+@import "compass/css3/transition";
+@import "compass/css3/box-shadow";
+@import "compass/css3/transform";
+
+@media only screen and (max-width: 640px) {
+	#content {
+		width: 100% !important;
+		left: auto !important;
+		top: -100%;
+		border: none !important;
+		margin: 0 0 60px 0 !important;
+		padding: 0 0 60px 0 !important;
+		@include box-shadow(none !important);
+
+		&.slideOut {
+			top: 0!important;
+			margin-left: 0!important;
+		}
+
+		nav {
+			width: 350px !important;
+			top: auto !important;
+			right: auto !important;
+			left: 50%;
+			bottom: 0;
+			margin-left: -175px;
+			position: absolute;
+
+			li {
+				float: left;
+				margin-left: 10px;
+
+				&:first-child {
+					margin-left: 0;
+				}
+			}
+		}
+	}
+
+	#city {
+		width: 160% !important;
+		margin: -80% 0 0 -80% !important;
+	}
+
+	#forest {
+		width: 100% !important;
+	}
+}
+
+@media only screen and (max-width: 580px) {
+	#scale_days, #river {
+		@include transform(scale(.7));
+	}
+}
+
+@media only screen and (max-width: 480px) {
+	#scale_days, #river {
+		@include transform(scale(.6));
+	}
+}
