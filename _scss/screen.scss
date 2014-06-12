@@ -53,8 +53,39 @@ body {
   clear: both;
 }
 
-#home header, nav header, #container > header {
+#home header, nav header, #container > header, form label {
   display: none;
+}
+
+.border_shadow {
+  .border_right {
+    width: 100%;
+    height: 7px;
+    border-top: solid 7px #c1c696;
+    border-left: solid 7px transparent;
+    position: absolute;
+    right: -7px;
+  }
+
+  .border_bottom {
+    width: 7px;
+    height: 100%;
+    border-left: solid 7px #dbe0b4;
+    border-top: solid 7px transparent;
+    position: absolute;
+    bottom: -7px;
+    right: -14px;
+  }
+
+  .border_connection {
+    width: 7px;
+    height: 7px;
+    border-bottom: solid 7px #c1c696;
+    border-right: solid 7px transparent;
+    position: absolute;
+    right: -7px;
+    bottom: -7px;
+  }
 }
 
 // Overlay noise
@@ -74,23 +105,24 @@ body {
 
 #content {
   background-color: #f1f5cf;
-  width: 25%;
+  width: 30%;
   height: 100%;
   position: absolute;
   z-index: 8888;
   color: #333;
   //left: -25%;
   margin-left: -40px;
-  padding-right: 20px;
-  border: 20px solid #f1f5cf;
-  border-right-style: inset;
-  border-right-color: #bec392;
+  border-right: 20px solid #bec392;
   @include box-shadow(40px 0 100px 0 rgba(50, 50, 50, 0.5));
   @include transition(all 1s);
 
   &.slideOut {
     left: 0;
     margin-left: 0;
+  }
+
+  header {
+    display: none;
   }
 
   > a {
@@ -136,24 +168,87 @@ body {
   }
 }
 
+#info {
+  background: #91ddc6 url('../images/bg_info.svg') left bottom no-repeat;
+  background-size: 100%;
+  width: 100%;
+  height: 100%;
+
+  .border_shadow {
+    font-size: 1.4em;
+    margin: 30px;
+    position: relative;
+    float: left;
+  }
+
+  .speech {
+    background: url('../images/speech.svg') no-repeat;
+    width: 30px;
+    height: 35px;
+    left: 60px;
+    bottom: -35px;
+    position: absolute;
+  }
+
+  p {
+    background-color: #f1f5cf;
+    padding: 20px;
+  }
+}
+
 #contact {
+  background: #91ddc6 url('../images/bg_contact.svg') left bottom no-repeat;
+  background-size: 100%;
+  width: 100%;
+  height: 100%;
 
   #length {
     width: 100%;
-    height: 200px;
+    height: 400px;
     overflow: hidden;
+    position: absolute;
+    bottom: 0;
 
-    div {
-      background-color: #00FF00;
-      width: 30px;
-      height: 70px;
-      float: left;
+    .row1 {
+      position: absolute;
+      bottom: 0;
+    }
+
+    .row2 {
+      position: absolute;
+      bottom: 80px;
+    }
+
+    .row3 {
+      position: absolute;
+      bottom: 120px;
     }
 
     .building {
-      background-color: #FF0000;
-      width: 30px;
-      height: 150px;
+      background-size: 100%;
+      height: 200px;
+      margin-bottom: 0;
+      float: left;
+      @include transition(margin 0.6s ease-out);
+
+      &.hide {
+        margin-bottom: -500px;
+      }
+
+      &.type1 {
+        background-image: url('../images/building_1.svg');
+        width: 128px;
+      }
+
+      &.type2 {
+        background-image: url('../images/building_2.svg');
+        width: 70px;
+      }
+
+      &.type3 {
+        background-image: url('../images/building_3.svg');
+        width: 60px;
+      }
     }
   }
 }

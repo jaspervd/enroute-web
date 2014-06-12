@@ -249,11 +249,41 @@ body {
 }
 
 /* line 56, ../_scss/screen.scss */
-#home header, nav header, #container > header {
+#home header, nav header, #container > header, form label {
   display: none;
 }
 
-/* line 62, ../_scss/screen.scss */
+/* line 61, ../_scss/screen.scss */
+.border_shadow .border_right {
+  width: 100%;
+  height: 7px;
+  border-top: solid 7px #c1c696;
+  border-left: solid 7px transparent;
+  position: absolute;
+  right: -7px;
+}
+/* line 70, ../_scss/screen.scss */
+.border_shadow .border_bottom {
+  width: 7px;
+  height: 100%;
+  border-left: solid 7px #dbe0b4;
+  border-top: solid 7px transparent;
+  position: absolute;
+  bottom: -7px;
+  right: -14px;
+}
+/* line 80, ../_scss/screen.scss */
+.border_shadow .border_connection {
+  width: 7px;
+  height: 7px;
+  border-bottom: solid 7px #c1c696;
+  border-right: solid 7px transparent;
+  position: absolute;
+  right: -7px;
+  bottom: -7px;
+}
+
+/* line 93, ../_scss/screen.scss */
 #noise {
   background-image: url("../images/noise.png");
   background-size: 128px 128px;
@@ -265,19 +295,16 @@ body {
   opacity: .5;
 }
 
-/* line 75, ../_scss/screen.scss */
+/* line 106, ../_scss/screen.scss */
 #content {
   background-color: #f1f5cf;
-  width: 25%;
+  width: 30%;
   height: 100%;
   position: absolute;
   z-index: 8888;
   color: #333;
   margin-left: -40px;
-  padding-right: 20px;
-  border: 20px solid #f1f5cf;
-  border-right-style: inset;
-  border-right-color: #bec392;
+  border-right: 20px solid #bec392;
   -webkit-box-shadow: 40px 0 100px 0 rgba(50, 50, 50, 0.5);
   -moz-box-shadow: 40px 0 100px 0 rgba(50, 50, 50, 0.5);
   box-shadow: 40px 0 100px 0 rgba(50, 50, 50, 0.5);
@@ -286,25 +313,29 @@ body {
   -o-transition: all 1s;
   transition: all 1s;
 }
-/* line 91, ../_scss/screen.scss */
+/* line 119, ../_scss/screen.scss */
 #content.slideOut {
   left: 0;
   margin-left: 0;
 }
-/* line 96, ../_scss/screen.scss */
+/* line 124, ../_scss/screen.scss */
+#content header {
+  display: none;
+}
+/* line 128, ../_scss/screen.scss */
 #content > a {
   right: 10px;
   top: 10px;
   position: absolute;
 }
-/* line 102, ../_scss/screen.scss */
+/* line 134, ../_scss/screen.scss */
 #content nav {
   width: 110px;
   right: -110px;
   top: 25px;
   position: absolute;
 }
-/* line 108, ../_scss/screen.scss */
+/* line 140, ../_scss/screen.scss */
 #content nav li {
   background-image: url("../images/nav_button.svg");
   background-size: 110px 90px;
@@ -312,15 +343,15 @@ body {
   height: 45px;
   margin-bottom: 8px;
 }
-/* line 115, ../_scss/screen.scss */
+/* line 147, ../_scss/screen.scss */
 #content nav li:hover, #content nav li.active {
   background-position: 0 -45px;
 }
-/* line 118, ../_scss/screen.scss */
+/* line 150, ../_scss/screen.scss */
 #content nav li:hover a, #content nav li.active a {
   color: #b2463f;
 }
-/* line 124, ../_scss/screen.scss */
+/* line 156, ../_scss/screen.scss */
 #content nav a {
   width: 98px;
   height: 45px;
@@ -334,27 +365,97 @@ body {
   padding-left: 5px;
 }
 
-/* line 141, ../_scss/screen.scss */
-#contact #length {
+/* line 171, ../_scss/screen.scss */
+#info {
+  background: #91ddc6 url("../images/bg_info.svg") left bottom no-repeat;
+  background-size: 100%;
   width: 100%;
-  height: 200px;
-  overflow: hidden;
+  height: 100%;
 }
-/* line 146, ../_scss/screen.scss */
-#contact #length div {
-  background-color: #00FF00;
-  width: 30px;
-  height: 70px;
+/* line 177, ../_scss/screen.scss */
+#info .border_shadow {
+  font-size: 1.4em;
+  margin: 30px;
+  position: relative;
   float: left;
 }
-/* line 153, ../_scss/screen.scss */
-#contact #length .building {
-  background-color: #FF0000;
+/* line 184, ../_scss/screen.scss */
+#info .speech {
+  background: url("../images/speech.svg") no-repeat;
   width: 30px;
-  height: 150px;
+  height: 35px;
+  left: 60px;
+  bottom: -35px;
+  position: absolute;
+}
+/* line 193, ../_scss/screen.scss */
+#info p {
+  background-color: #f1f5cf;
+  padding: 20px;
 }
 
-/* line 167, ../_scss/screen.scss */
+/* line 199, ../_scss/screen.scss */
+#contact {
+  background: #91ddc6 url("../images/bg_contact.svg") left bottom no-repeat;
+  background-size: 100%;
+  width: 100%;
+  height: 100%;
+}
+/* line 205, ../_scss/screen.scss */
+#contact #length {
+  width: 100%;
+  height: 400px;
+  overflow: hidden;
+  position: absolute;
+  bottom: 0;
+}
+/* line 212, ../_scss/screen.scss */
+#contact #length .row1 {
+  position: absolute;
+  bottom: 0;
+}
+/* line 217, ../_scss/screen.scss */
+#contact #length .row2 {
+  position: absolute;
+  bottom: 80px;
+}
+/* line 222, ../_scss/screen.scss */
+#contact #length .row3 {
+  position: absolute;
+  bottom: 120px;
+}
+/* line 227, ../_scss/screen.scss */
+#contact #length .building {
+  background-size: 100%;
+  height: 200px;
+  margin-bottom: 0;
+  float: left;
+  -webkit-transition: margin 0.6s ease-out;
+  -moz-transition: margin 0.6s ease-out;
+  -o-transition: margin 0.6s ease-out;
+  transition: margin 0.6s ease-out;
+}
+/* line 234, ../_scss/screen.scss */
+#contact #length .building.hide {
+  margin-bottom: -500px;
+}
+/* line 238, ../_scss/screen.scss */
+#contact #length .building.type1 {
+  background-image: url("../images/building_1.svg");
+  width: 128px;
+}
+/* line 243, ../_scss/screen.scss */
+#contact #length .building.type2 {
+  background-image: url("../images/building_2.svg");
+  width: 70px;
+}
+/* line 248, ../_scss/screen.scss */
+#contact #length .building.type3 {
+  background-image: url("../images/building_3.svg");
+  width: 60px;
+}
+
+/* line 262, ../_scss/screen.scss */
 #toggleAudio {
   background-image: url("../images/audio_button.svg");
   background-size: 36px 72px;
@@ -366,19 +467,19 @@ body {
   z-index: 9998;
   display: block;
 }
-/* line 178, ../_scss/screen.scss */
+/* line 273, ../_scss/screen.scss */
 #toggleAudio.play {
   background-position: 0 36px;
 }
 
-/* line 183, ../_scss/screen.scss */
+/* line 278, ../_scss/screen.scss */
 #scalable {
   position: absolute;
   left: 50%;
   top: 50%;
 }
 
-/* line 189, ../_scss/screen.scss */
+/* line 284, ../_scss/screen.scss */
 #text_city {
   background-image: url("../images/text_city.png");
   background-size: 198px 42px;
@@ -390,7 +491,7 @@ body {
   position: absolute;
 }
 
-/* line 202, ../_scss/screen.scss */
+/* line 297, ../_scss/screen.scss */
 #durbuy {
   background-image: url("../images/logo.png");
   background-size: 241px 249px;
@@ -402,7 +503,7 @@ body {
   top: 50%;
   z-index: 7777;
 }
-/* line 213, ../_scss/screen.scss */
+/* line 308, ../_scss/screen.scss */
 #durbuy #days {
   position: absolute;
   top: 0;
@@ -412,7 +513,7 @@ body {
   margin-left: 50%;
   margin-top: 50%;
 }
-/* line 223, ../_scss/screen.scss */
+/* line 318, ../_scss/screen.scss */
 #durbuy .day {
   width: 50px;
   height: 50px;
@@ -428,18 +529,18 @@ body {
   -o-transition: opacity 0.3s;
   transition: opacity 0.3s;
 }
-/* line 235, ../_scss/screen.scss */
+/* line 330, ../_scss/screen.scss */
 #durbuy .day.focus {
   opacity: 1;
   z-index: 5555;
 }
-/* line 240, ../_scss/screen.scss */
+/* line 335, ../_scss/screen.scss */
 #durbuy .day.almostFocus {
   opacity: .6;
   z-index: 5555;
 }
 
-/* line 247, ../_scss/screen.scss */
+/* line 342, ../_scss/screen.scss */
 #daySelector {
   background-image: url("../images/day_selector.svg");
   background-size: 514px 268px;
@@ -454,7 +555,7 @@ body {
   top: 50%;
   -webkit-overflow-scrolling: touch;
 }
-/* line 262, ../_scss/screen.scss */
+/* line 357, ../_scss/screen.scss */
 #daySelector .handle {
   width: 54px;
   height: 54px;
@@ -464,7 +565,7 @@ body {
   color: #FFF;
   text-decoration: none;
 }
-/* line 272, ../_scss/screen.scss */
+/* line 367, ../_scss/screen.scss */
 #daySelector .select {
   width: 90px;
   height: 90px;
@@ -472,7 +573,7 @@ body {
   right: -10px;
   top: 95px;
 }
-/* line 280, ../_scss/screen.scss */
+/* line 375, ../_scss/screen.scss */
 #daySelector .month {
   width: 74px;
   height: 74px;
@@ -480,7 +581,7 @@ body {
   right: 0;
   position: absolute;
 }
-/* line 287, ../_scss/screen.scss */
+/* line 382, ../_scss/screen.scss */
 #daySelector .month span {
   background-color: #f4c747;
   -webkit-border-radius: 6px;
@@ -498,14 +599,14 @@ body {
   font-size: 1.2em;
 }
 
-/* line 304, ../_scss/screen.scss */
+/* line 399, ../_scss/screen.scss */
 #day {
   top: 50%;
   left: 50%;
   position: absolute;
   z-index: 4444;
 }
-/* line 310, ../_scss/screen.scss */
+/* line 405, ../_scss/screen.scss */
 #day .building {
   background-color: #b2463f;
   width: 80px;
@@ -523,7 +624,7 @@ body {
   -o-transform-origin: 50% 100px;
   transform-origin: 50% 100px;
 }
-/* line 320, ../_scss/screen.scss */
+/* line 415, ../_scss/screen.scss */
 #day .building.show {
   margin-top: -320px !important;
   -webkit-transform-origin: 50% 320px;
@@ -533,7 +634,7 @@ body {
   transform-origin: 50% 320px;
 }
 
-/* line 329, ../_scss/screen.scss */
+/* line 424, ../_scss/screen.scss */
 #river {
   background-image: url("../images/river.png");
   width: 370px;
@@ -549,14 +650,14 @@ body {
   animation: rotateCircle 340s infinite;
 }
 
-/* line 346, ../_scss/screen.scss */
+/* line 441, ../_scss/screen.scss */
 #forest {
   width: 70%;
   position: absolute;
   left: 50%;
   top: 50%;
 }
-/* line 352, ../_scss/screen.scss */
+/* line 447, ../_scss/screen.scss */
 #forest .rocks {
   background: url("../images/rocks.svg") no-repeat;
   background-size: 195px 154px;
@@ -564,7 +665,7 @@ body {
   height: 154px;
   position: absolute;
 }
-/* line 360, ../_scss/screen.scss */
+/* line 455, ../_scss/screen.scss */
 #forest .tree {
   background: no-repeat;
   background-size: 100%;
@@ -575,32 +676,32 @@ body {
   -o-transition: margin 1s ease;
   transition: margin 1s ease;
 }
-/* line 367, ../_scss/screen.scss */
+/* line 462, ../_scss/screen.scss */
 #forest .tree.goInsideBitch {
   margin: 0 !important;
 }
-/* line 371, ../_scss/screen.scss */
+/* line 466, ../_scss/screen.scss */
 #forest .tree.type1 {
   background-image: url("../images/tree_1.svg");
   height: 75px;
 }
-/* line 376, ../_scss/screen.scss */
+/* line 471, ../_scss/screen.scss */
 #forest .tree.type2 {
   background-image: url("../images/tree_2.svg");
   height: 93px;
 }
-/* line 381, ../_scss/screen.scss */
+/* line 476, ../_scss/screen.scss */
 #forest .tree.type3 {
   background-image: url("../images/tree_3.svg");
   height: 87px;
 }
-/* line 386, ../_scss/screen.scss */
+/* line 481, ../_scss/screen.scss */
 #forest .tree.type4 {
   background-image: url("../images/tree_4.svg");
   height: 87px;
 }
 
-/* line 395, ../_scss/screen.scss */
+/* line 490, ../_scss/screen.scss */
 #city {
   background: url("../images/city.svg") no-repeat;
   background-size: 100% 100%;
@@ -610,7 +711,7 @@ body {
   left: 50%;
   top: 50%;
 }
-/* line 404, ../_scss/screen.scss */
+/* line 499, ../_scss/screen.scss */
 #city:before {
   content: "";
   display: block;

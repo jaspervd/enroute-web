@@ -7,7 +7,8 @@ var ContactView = Backbone.View.extend({
     id: 'contact',
     tagName: 'section',
     template: tpl.contact,
-    maxLength: 160,
+    maxLength: 260,
+    everyCharacters: 0,
 
     initialize: function() {
         _.bindAll.apply(_, [this].concat(_.functions(this)));
@@ -24,11 +25,14 @@ var ContactView = Backbone.View.extend({
     checkCharsHandler: function(e) {
         var charsLength = $(e.currentTarget).val().length;
         $('.length').find('span').html(charsLength);
-        for (var i = 1; i <= (this.maxLength / 20); i++) {
-            if (charsLength >= i * 20) {
-                $('#length').find('div').index(i).toggleClass('building');
+        console.log(this.maxLength / this.everyCharacters, this.maxLength, this.everyCharacters);
+        for (var i = 1; i <= (this.maxLength / this.everyCharacters); i++) {
+            var thisDiv = $('#length').find('.building').eq((i - 1));
+            if (charsLength >= i * this.everyCharacters) {
+                thisDiv.addClass('hide');
+            } else {
+                thisDiv.removeClass('hide');
             }
-            console.log(i, i*20, (charsLength >= i * 20));
         }
         this.controlSubmitButton((charsLength <= this.maxLength && charsLength > 0));
     },
@@ -107,6 +111,7 @@ var ContactView = Backbone.View.extend({
     render: function() {
         this.$el.html(this.template());
         this.$el.find('#txtMessage').on('keypress change paste focus textInput input', this.checkCharsHandler);
+        this.everyCharacters = this.$el.find('.building').length;
         return this;
     }
 });

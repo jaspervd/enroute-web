@@ -32,7 +32,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   
 
 
-  return "<header>\n	<h1>Contact</h1>\n</header>\n<form method=\"post\" action=\"\">\n	<div>\n		<label for=\"txtName\">Naam:</label>\n		<input type=\"text\" required name=\"txtName\" id=\"txtName\" placeholder=\"Joske Vermeulen\"/>\n	</div>\n\n	<div>\n		<label for=\"txtEmail\">E-mailadres:</label>\n		<input type=\"email\" required name=\"txtEmail\" id=\"txtEmail\" placeholder=\"joske.vermeulen@trammezand.lei\" />\n	</div>\n\n	<div>\n		<label for=\"txtMessage\">Bericht: <span class=\"length\"><span>0</span>/160</span></label>\n		<textarea name=\"txtMessage\" required id=\"txtMessage\" maxlength=\"160\" cols=\"30\" rows=\"10\"></textarea>\n	</div>\n\n	<div>\n		<input type=\"submit\" name=\"btnSubmit\" id=\"btnSubmitContact\" value=\"Versturen\"/>\n	</div>\n</form>\n<div id=\"length\">\n	<div class=\"building\"></div>\n	<div class=\"building\"></div>\n	<div class=\"building\"></div>\n	<div class=\"building\"></div>\n	<div class=\"building\"></div>\n	<div class=\"building\"></div>\n	<div class=\"building\"></div>\n	<div class=\"building\"></div>\n</div>";
+  return "<header>\n	<h1>Contact</h1>\n</header>\n<form method=\"post\" action=\"\">\n	<div>\n		<label for=\"txtName\">Naam:</label>\n		<input type=\"text\" required name=\"txtName\" id=\"txtName\" placeholder=\"Joske Vermeulen\"/>\n	</div>\n\n	<div>\n		<label for=\"txtEmail\">E-mailadres:</label>\n		<input type=\"email\" required name=\"txtEmail\" id=\"txtEmail\" placeholder=\"joske.vermeulen@trammezand.lei\" />\n	</div>\n\n	<div>\n		<label for=\"txtMessage\">Bericht:</label><span class=\"length\"><span>0</span>/260</span>\n		<textarea name=\"txtMessage\" required id=\"txtMessage\" maxlength=\"260\" cols=\"30\" rows=\"10\"></textarea>\n	</div>\n\n	<div>\n		<input type=\"submit\" name=\"btnSubmit\" id=\"btnSubmitContact\" value=\"Versturen\"/>\n	</div>\n</form>\n<div id=\"length\">\n		<div class=\"row3\">\n		<div class=\"building type3\"></div>\n		<div class=\"building type2\"></div>\n		<div class=\"building type2\"></div>\n		<div class=\"building type2\"></div>\n		<div class=\"building type3\"></div>\n	</div>\n	<div class=\"row2\">\n		<div class=\"building type2\"></div>\n		<div class=\"building type3\"></div>\n		<div class=\"building type3\"></div>\n	</div>\n	<div class=\"row1\">\n		<div class=\"building type1\"></div>\n		<div class=\"building type3\"></div>\n		<div class=\"building type2\"></div>\n		<div class=\"building type3\"></div>\n		<div class=\"building type2\"></div>\n	</div>\n	<div class=\"clear\"></div>\n</div>";
   }));
 
 Handlebars.registerPartial("error", this["tpl"]["error"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
@@ -50,7 +50,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   
 
 
-  return "<header>\n	<h1>En Route</h1>\n</header>\n<p>\n	En Route daagt je uit om gedurende één dag de stad anders te bekijken en te beleven. Samen met een kunstdocent ga je op ontdekkingsreis door de pittoreske straatjes van Durbuy.\n</p>";
+  return "<header>\n	<h1>En Route</h1>\n</header>\n<div class=\"border_shadow\">\n<p>\n	En Route daagt je uit om gedurende één dag de stad anders te bekijken en te beleven. Samen met een kunstdocent ga je op ontdekkingsreis door de pittoreske straatjes van Durbuy.\n</p>\n<div class=\"border_right\"></div>\n<div class=\"border_bottom\"></div>\n<div class=\"border_connection\"></div>\n<div class=\"speech\"></div>\n</div>";
   }));
 
 Handlebars.registerPartial("success", this["tpl"]["success"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
@@ -949,7 +949,8 @@ var ContactView = Backbone.View.extend({
     id: 'contact',
     tagName: 'section',
     template: tpl.contact,
-    maxLength: 160,
+    maxLength: 260,
+    everyCharacters: 0,
 
     initialize: function() {
         _.bindAll.apply(_, [this].concat(_.functions(this)));
@@ -966,11 +967,14 @@ var ContactView = Backbone.View.extend({
     checkCharsHandler: function(e) {
         var charsLength = $(e.currentTarget).val().length;
         $('.length').find('span').html(charsLength);
-        for (var i = 1; i <= (this.maxLength / 20); i++) {
-            if (charsLength >= i * 20) {
-                $('#length').find('div').index(i).toggleClass('building');
+        console.log(this.maxLength / this.everyCharacters, this.maxLength, this.everyCharacters);
+        for (var i = 1; i <= (this.maxLength / this.everyCharacters); i++) {
+            var thisDiv = $('#length').find('.building').eq((i - 1));
+            if (charsLength >= i * this.everyCharacters) {
+                thisDiv.addClass('hide');
+            } else {
+                thisDiv.removeClass('hide');
             }
-            console.log(i, i*20, (charsLength >= i * 20));
         }
         this.controlSubmitButton((charsLength <= this.maxLength && charsLength > 0));
     },
@@ -1049,6 +1053,7 @@ var ContactView = Backbone.View.extend({
     render: function() {
         this.$el.html(this.template());
         this.$el.find('#txtMessage').on('keypress change paste focus textInput input', this.checkCharsHandler);
+        this.everyCharacters = this.$el.find('.building').length;
         return this;
     }
 });

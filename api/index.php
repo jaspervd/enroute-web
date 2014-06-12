@@ -6,7 +6,7 @@ define('WWW_ROOT', dirname(dirname(__FILE__)) . DIRECTORY_SEPARATOR);
 require_once WWW_ROOT . 'classes' . DIRECTORY_SEPARATOR . 'Config.php';
 require_once WWW_ROOT . 'dao' . DIRECTORY_SEPARATOR . 'DaysDAO.php';
 require_once WWW_ROOT . 'dao' . DIRECTORY_SEPARATOR . 'TicketsDAO.php';
-//require_once WWW_ROOT . 'dao' . DIRECTORY_SEPARATOR . 'BiggieSmallsDAO.php';
+require_once WWW_ROOT . 'dao' . DIRECTORY_SEPARATOR . 'BiggieSmallsDAO.php';
 require_once WWW_ROOT . 'dao' . DIRECTORY_SEPARATOR . 'BuildingsDAO.php';
 require_once WWW_ROOT . 'includes' . DIRECTORY_SEPARATOR . 'Validate.php';
 require_once WWW_ROOT . 'includes' . DIRECTORY_SEPARATOR . 'Upload.php';
@@ -17,7 +17,7 @@ require_once WWW_ROOT . 'api' . DIRECTORY_SEPARATOR . 'Slim' . DIRECTORY_SEPARAT
 $app = new \Slim\Slim();
 $daysDAO = new DaysDAO();
 $ticketsDAO = new TicketsDAO();
-//$biggieSmallsDAO = new BiggieSmallsDAO();
+$biggieSmallsDAO = new BiggieSmallsDAO();
 $buildingsDAO = new BuildingsDAO();
 
 $app->get('/days/?', function () use ($daysDAO) {
