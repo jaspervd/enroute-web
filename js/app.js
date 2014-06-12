@@ -189,7 +189,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   
 
 
-  return "<div id=\"city\"></div>\n<div id=\"forest\"></div>\n<div id=\"scalable\">\n	<div id=\"text_city\"></div>\n	<div id=\"river\"></div>\n	<div id=\"daySelector\">\n		<span class=\"handle\"></span>\n		<span class=\"select\"></span>\n		<span class=\"month\">\n			<span>juni</span>\n		</span>\n	</div>\n	<div id=\"durbuy\">\n		<nav id=\"days\">\n			<header>\n				<h1>Dagen</h1>\n			</header>\n			<ul></ul>\n		</nav>\n		<audio id=\"toctoc\">\n			<source src=\"assets/toctoc.mp3\" type=\"audio/mpeg; codecs='mp3'\">\n			<source src=\"assets/toctoc.ogg\" type=\"audio/ogg; codecs='vorbis'\">\n		</audio>\n	</div>\n</div>\n<a href=\"\" id=\"toggleAudio\">toggle audio</a>\n<audio id=\"ambient_birds\" autoplay loop>\n	<source src=\"assets/ambient_birds.mp3\" type=\"audio/mpeg; codecs='mp3'\">\n	<source src=\"assets/ambient_birds.ogg\" type=\"audio/ogg; codecs='vorbis'\">\n</audio>";
+  return "<div id=\"city\"></div>\n<div id=\"forest\"></div>\n<div id=\"scalable\">\n	<div id=\"text_city\"></div>\n	<div id=\"river\"></div>\n	<div id=\"daySelector\">\n		<span class=\"handle\"></span>\n		<span class=\"select\"></span>\n		<span class=\"month\">\n			<span>juni</span>\n		</span>\n	</div>\n	<div id=\"durbuy\">\n		<nav id=\"days\">\n			<header>\n				<h1>Dagen</h1>\n			</header>\n			<ul></ul>\n		</nav>\n		<audio id=\"toctoc\">\n			<source src=\"assets/toctoc.mp3\" type=\"audio/mpeg; codecs='mp3'\">\n			<source src=\"assets/toctoc.ogg\" type=\"audio/ogg; codecs='vorbis'\">\n		</audio>\n	</div>\n</div>\n<a href=\"\" id=\"toggleAudio\" class=\"play\"></a>\n<audio id=\"ambient_birds\"<!-- autoplay loop>-->>\n	<source src=\"assets/ambient_birds.mp3\" type=\"audio/mpeg; codecs='mp3'\">\n	<source src=\"assets/ambient_birds.ogg\" type=\"audio/ogg; codecs='vorbis'\">\n</audio>";
   });
 
 Handlebars.registerHelper('formatDate', function (date) {
@@ -720,12 +720,13 @@ var HomeView = Backbone.View.extend({
         e.preventDefault();
         var birdsAudio = document.getElementById('ambient_birds');
         this.allowAudio = !this.allowAudio;
-        if(this.allowAudio) {
+        if (this.allowAudio) {
             birdsAudio.play();
         } else {
             birdsAudio.pause();
             birdsAudio.currentTime = 0;
         }
+        $(e.currentTarget).toggleClass('play');
     },
 
     render: function() {
@@ -781,12 +782,18 @@ var HomeView = Backbone.View.extend({
         var step = 360 / this.collection.length;
         var radius = $('#durbuy').width() / 2 + 95;
         var x, y, angle, date;
+        var disabled = '';
+        var todaysDate = new Date();
         for (var i = 0; i < this.collection.length; i++) {
             date = new Date(this.collection.at(i).get('title'));
             angle = -((step * (i + 1)) * (Math.PI / 180) + 160);
             x = Math.cos(angle) * radius - 10;
             y = Math.sin(angle) * radius;
-            this.$el.find('ul').append('<li class="day" data-day="' + this.collection.at(i).get('title') + '" style="margin-top:' + x + 'px;margin-left:' + y + 'px">' + date.getDate() + '</li>');
+            if ((todaysDate < date)) {
+                disabled = ' disabled';
+            }
+            this.$el.find('ul').append('<li class="day' + disabled + '" data-day="' + this.collection.at(i).get('title') + '" data-angle="' + (step * i) + '" style="margin-top:' + x + 'px;margin-left:' + y + 'px">' + date.getDate() + '</li>');
+            disabled = '';
         }
     },
 
@@ -805,6 +812,8 @@ var HomeView = Backbone.View.extend({
             });
 
             var self = this;
+            var $firstDisabledAngle = $('.day.disabled').first().attr('data-angle');
+            var $lastDisabledAngle = $('.day.disabled').last().attr('data-angle');
 
             $(document).on('touchend mouseup', function(e) {
                 e.stopPropagation();
@@ -816,12 +825,21 @@ var HomeView = Backbone.View.extend({
                         if (self.checkForOverlap($target.find('.select'), $(value))) {
                             var radians = self.calculateRadians(offset, $target, $(value).offset().left + $(value).width() / 2, $(value).offset().top + $(value).height() / 2);
                             var degree = (radians * (180 / Math.PI) * -1) + 90;
+                            console.log($firstDisabledAngle, $lastDisabledAngle, degree, (degree + 90));
+                            var transformDegree = degree + 90;
+                            if (transformDegree > $firstDisabledAngle && transformDegree < $lastDisabledAngle) {
+                                value = $('.day:not(.disabled)').last();
+                                radians = self.calculateRadians(offset, $target, $(value).offset().left + $(value).width() / 2, $(value).offset().top + $(value).height() / 2);
+                            }
+                            degree = (radians * (180 / Math.PI) * -1) + 90;
                             self.trigger('day_selected', $(value).attr('data-day'));
                             $target.find('.month').css('transform', 'rotate(' + (degree * -1) + 'deg)');
                             $target.css('transform', 'rotate(' + degree + 'deg)');
                             // TODO: animate ^ (via step)
                             // $('.tree').addClass('goInsideBitch');
                             return false;
+                        } else {
+                            console.log('ok');
                         }
                     });
                 }
@@ -830,7 +848,6 @@ var HomeView = Backbone.View.extend({
             var step = 360 / this.collection.length;
             var toctocAudio = document.getElementById('toctoc');
             var selectedDay;
-            var $outerDays;
 
             $(document).on('touchmove mousemove', function(e) {
                 e.stopPropagation();
@@ -838,10 +855,15 @@ var HomeView = Backbone.View.extend({
                 if (dragging) {
                     var radians = self.calculateRadians(offset, $target, e.pageX, e.pageY);
                     var degree = (radians * (180 / Math.PI) * -1) - 90; // convert degree for reversal
+                    var transformDegree = degree - 90;
+                    if (transformDegree > $firstDisabledAngle && transformDegree < $lastDisabledAngle) {
+                        var value = $('.day:not(.disabled)').last();
+                        radians = self.calculateRadians(offset, $target, $(value).offset().left + $(value).width() / 2, $(value).offset().top + $(value).height() / 2);
+                    }
+                    degree = (radians * (180 / Math.PI) * -1) - 90;
                     $target.css('transform', 'rotate(' + degree + 'deg)');
                     $target.find('.month').css('transform', 'rotate(' + (degree * -1) + 'deg)');
                     $.each($('.day'), function(key, value) {
-                        $outerDays = $('.day:nth-child(' + (key) + '), .day:nth-child(' + (key + 2) + ')');
                         if (self.checkForOverlap($target.find('.select'), $(value))) {
                             if (selectedDay !== value) {
                                 var date = moment($(value).attr('data-day'));

@@ -143,10 +143,19 @@ body {
 }
 
 #toggleAudio {
+  background-image: url('../images/audio_button.svg');
+  background-size: 36px 72px;
+  width: 36px;
+  height: 36px;
   top: 20px;
   right: 20px;
   position: absolute;
   z-index: 9998;
+  display: block;
+
+  &.play {
+    background-position: 0 36px;
+  }
 }
 
 #scalable {
