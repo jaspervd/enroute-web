@@ -7,6 +7,7 @@ var ContactView = Backbone.View.extend({
     id: 'contact',
     tagName: 'section',
     template: tpl.contact,
+    maxLength: 160,
 
     initialize: function() {
         _.bindAll.apply(_, [this].concat(_.functions(this)));
@@ -17,9 +18,19 @@ var ContactView = Backbone.View.extend({
         'blur #txtName': 'validateName',
         'keyup #txtName': 'validateName',
         'blur #txtEmail': 'validateEmail',
-        'keyup #txtEmail': 'validateEmail',
-        'blur #txtMessage': 'validateMessage',
-        'keyup #txtMessage': 'validateMessage'
+        'keyup #txtEmail': 'validateEmail'
+    },
+
+    checkCharsHandler: function(e) {
+        var charsLength = $(e.currentTarget).val().length;
+        $('.length').find('span').html(charsLength);
+        for (var i = 1; i <= (this.maxLength / 20); i++) {
+            if (charsLength >= i * 20) {
+                $('#length').find('div').index(i).toggleClass('building');
+            }
+            console.log(i, i*20, (charsLength >= i * 20));
+        }
+        this.controlSubmitButton((charsLength <= this.maxLength && charsLength > 0));
     },
 
     sendContact: function(e) {
@@ -65,20 +76,37 @@ var ContactView = Backbone.View.extend({
         }
     },
 
+    controlSubmitButton: function(enable) {
+        if (this.validateName) {
+            if (enable) {
+                $('#btnSubmitContact').removeAttr('disabled');
+            } else {
+                $('#btnSubmitContact').attr('disabled', 'disabled');
+            }
+        }
+    },
+
     validateName: function(e) {
-        Validate.fullName(e.currentTarget);
+        var validate = Validate.fullName(e.currentTarget);
+        this.controlSubmitButton(validate);
+        return validate;
     },
 
     validateEmail: function(e) {
-        Validate.email(e.currentTarget);
+        var validate = Validate.email(e.currentTarget);
+        this.controlSubmitButton(validate);
+        return validate;
     },
 
     validateMessage: function(e) {
-        Validate.message(e.currentTarget);
+        var validate = Validate.message(e.currentTarget);
+        this.controlSubmitButton(validate);
+        return validate;
     },
 
     render: function() {
         this.$el.html(this.template());
+        this.$el.find('#txtMessage').on('keypress change paste focus textInput input', this.checkCharsHandler);
         return this;
     }
 });

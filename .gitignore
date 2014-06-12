@@ -37,3 +37,4 @@ node_modules
 .idea
 .sass-cache
 result/
+uploads/

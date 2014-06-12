@@ -32,7 +32,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   
 
 
-  return "<header>\n	<h1>Contact</h1>\n</header>\n<form method=\"post\" action=\"\">\n	<div>\n		<label for=\"txtName\">Naam:</label>\n		<input type=\"text\" required name=\"txtName\" id=\"txtName\" placeholder=\"Joske Vermeulen\"/>\n	</div>\n\n	<div>\n		<label for=\"txtEmail\">E-mailadres:</label>\n		<input type=\"email\" required name=\"txtEmail\" id=\"txtEmail\" placeholder=\"joske.vermeulen@trammezand.lei\" />\n	</div>\n\n	<div>\n		<label for=\"txtMessage\">Bericht:</label>\n		<textarea name=\"txtMessage\" required id=\"txtMessage\" cols=\"30\" rows=\"10\"></textarea>\n	</div>\n\n	<div>\n		<input type=\"submit\" name=\"btnSubmit\" id=\"btnSubmitContact\" value=\"Versturen\"/>\n	</div>\n</form>";
+  return "<header>\n	<h1>Contact</h1>\n</header>\n<form method=\"post\" action=\"\">\n	<div>\n		<label for=\"txtName\">Naam:</label>\n		<input type=\"text\" required name=\"txtName\" id=\"txtName\" placeholder=\"Joske Vermeulen\"/>\n	</div>\n\n	<div>\n		<label for=\"txtEmail\">E-mailadres:</label>\n		<input type=\"email\" required name=\"txtEmail\" id=\"txtEmail\" placeholder=\"joske.vermeulen@trammezand.lei\" />\n	</div>\n\n	<div>\n		<label for=\"txtMessage\">Bericht: <span class=\"length\"><span>0</span>/160</span></label>\n		<textarea name=\"txtMessage\" required id=\"txtMessage\" maxlength=\"160\" cols=\"30\" rows=\"10\"></textarea>\n	</div>\n\n	<div>\n		<input type=\"submit\" name=\"btnSubmit\" id=\"btnSubmitContact\" value=\"Versturen\"/>\n	</div>\n</form>\n<div id=\"length\">\n	<div class=\"building\"></div>\n	<div class=\"building\"></div>\n	<div class=\"building\"></div>\n	<div class=\"building\"></div>\n	<div class=\"building\"></div>\n	<div class=\"building\"></div>\n	<div class=\"building\"></div>\n	<div class=\"building\"></div>\n</div>";
   }));
 
 Handlebars.registerPartial("error", this["tpl"]["error"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
@@ -780,8 +780,8 @@ var HomeView = Backbone.View.extend({
 
     createDays: function() {
         var step = 360 / this.collection.length;
-        var radius = $('#durbuy').width() / 2 + 95;
-        var x, y, angle, date;
+        var radius = $('#durbuy').width() / 2 + 90;
+        var x, y, angle, date, textAlignment;
         var disabled = '';
         var todaysDate = new Date();
         for (var i = 0; i < this.collection.length; i++) {
@@ -789,10 +789,18 @@ var HomeView = Backbone.View.extend({
             angle = -((step * (i + 1)) * (Math.PI / 180) + 160);
             x = Math.cos(angle) * radius - 10;
             y = Math.sin(angle) * radius;
-            if ((todaysDate < date)) {
+            if ((todaysDate <= date)) {
                 disabled = ' disabled';
             }
-            this.$el.find('ul').append('<li class="day' + disabled + '" data-day="' + this.collection.at(i).get('title') + '" data-angle="' + (step * i) + '" style="margin-top:' + x + 'px;margin-left:' + y + 'px">' + date.getDate() + '</li>');
+
+            if (i === 0 || i === (this.collection.length / 2)) {
+                textAlignment = 'center';
+            } else if (i < (this.collection.length / 2)) {
+                textAlignment = 'right';
+            } else {
+                textAlignment = 'left';
+            }
+            this.$el.find('ul').append('<li class="day' + disabled + '" data-day="' + this.collection.at(i).get('title') + '" data-angle="' + (step * i) + '" style="text-align:' + textAlignment + ';margin-top:' + x + 'px;margin-left:' + y + 'px">' + date.getDate() + '</li>');
             disabled = '';
         }
     },
@@ -825,21 +833,27 @@ var HomeView = Backbone.View.extend({
                         if (self.checkForOverlap($target.find('.select'), $(value))) {
                             var radians = self.calculateRadians(offset, $target, $(value).offset().left + $(value).width() / 2, $(value).offset().top + $(value).height() / 2);
                             var degree = (radians * (180 / Math.PI) * -1) + 90;
-                            console.log($firstDisabledAngle, $lastDisabledAngle, degree, (degree + 90));
                             var transformDegree = degree + 90;
                             if (transformDegree > $firstDisabledAngle && transformDegree < $lastDisabledAngle) {
-                                value = $('.day:not(.disabled)').last();
+                                console.log(($('.day.disabled').length / 2 + $('.day:not(.disabled)').length), $(value).index());
+                                if (($('.day.disabled').length / 2 + $('.day:not(.disabled)').length) > $(value).index()) {
+                                    value = $('.day:not(.disabled)').last();
+                                } else {
+                                    value = $('.day:not(.disabled)').first();
+                                }
                                 radians = self.calculateRadians(offset, $target, $(value).offset().left + $(value).width() / 2, $(value).offset().top + $(value).height() / 2);
                             }
                             degree = (radians * (180 / Math.PI) * -1) + 90;
                             self.trigger('day_selected', $(value).attr('data-day'));
                             $target.find('.month').css('transform', 'rotate(' + (degree * -1) + 'deg)');
                             $target.css('transform', 'rotate(' + degree + 'deg)');
+                            var date = moment($(value).attr('data-day'));
+                            selectedDay = value;
+                            $target.find('.month span').html(date.format('MMMM'));
+                            $(value).removeClass('almostFocus').addClass('focus');
                             // TODO: animate ^ (via step)
                             // $('.tree').addClass('goInsideBitch');
                             return false;
-                        } else {
-                            console.log('ok');
                         }
                     });
                 }
@@ -855,7 +869,8 @@ var HomeView = Backbone.View.extend({
                 if (dragging) {
                     var radians = self.calculateRadians(offset, $target, e.pageX, e.pageY);
                     var degree = (radians * (180 / Math.PI) * -1) - 90; // convert degree for reversal
-                    var transformDegree = degree - 90;
+                    var transformDegree = degree + 180;
+                    console.log($firstDisabledAngle, $lastDisabledAngle, degree, transformDegree);
                     if (transformDegree > $firstDisabledAngle && transformDegree < $lastDisabledAngle) {
                         var value = $('.day:not(.disabled)').last();
                         radians = self.calculateRadians(offset, $target, $(value).offset().left + $(value).width() / 2, $(value).offset().top + $(value).height() / 2);
@@ -864,7 +879,7 @@ var HomeView = Backbone.View.extend({
                     $target.css('transform', 'rotate(' + degree + 'deg)');
                     $target.find('.month').css('transform', 'rotate(' + (degree * -1) + 'deg)');
                     $.each($('.day'), function(key, value) {
-                        if (self.checkForOverlap($target.find('.select'), $(value))) {
+                        if (!$(value).hasClass('disabled') && self.checkForOverlap($target.find('.select'), $(value))) {
                             if (selectedDay !== value) {
                                 var date = moment($(value).attr('data-day'));
                                 selectedDay = value;
@@ -934,6 +949,7 @@ var ContactView = Backbone.View.extend({
     id: 'contact',
     tagName: 'section',
     template: tpl.contact,
+    maxLength: 160,
 
     initialize: function() {
         _.bindAll.apply(_, [this].concat(_.functions(this)));
@@ -944,9 +960,19 @@ var ContactView = Backbone.View.extend({
         'blur #txtName': 'validateName',
         'keyup #txtName': 'validateName',
         'blur #txtEmail': 'validateEmail',
-        'keyup #txtEmail': 'validateEmail',
-        'blur #txtMessage': 'validateMessage',
-        'keyup #txtMessage': 'validateMessage'
+        'keyup #txtEmail': 'validateEmail'
+    },
+
+    checkCharsHandler: function(e) {
+        var charsLength = $(e.currentTarget).val().length;
+        $('.length').find('span').html(charsLength);
+        for (var i = 1; i <= (this.maxLength / 20); i++) {
+            if (charsLength >= i * 20) {
+                $('#length').find('div').index(i).toggleClass('building');
+            }
+            console.log(i, i*20, (charsLength >= i * 20));
+        }
+        this.controlSubmitButton((charsLength <= this.maxLength && charsLength > 0));
     },
 
     sendContact: function(e) {
@@ -992,20 +1018,37 @@ var ContactView = Backbone.View.extend({
         }
     },
 
+    controlSubmitButton: function(enable) {
+        if (this.validateName) {
+            if (enable) {
+                $('#btnSubmitContact').removeAttr('disabled');
+            } else {
+                $('#btnSubmitContact').attr('disabled', 'disabled');
+            }
+        }
+    },
+
     validateName: function(e) {
-        Validate.fullName(e.currentTarget);
+        var validate = Validate.fullName(e.currentTarget);
+        this.controlSubmitButton(validate);
+        return validate;
     },
 
     validateEmail: function(e) {
-        Validate.email(e.currentTarget);
+        var validate = Validate.email(e.currentTarget);
+        this.controlSubmitButton(validate);
+        return validate;
     },
 
     validateMessage: function(e) {
-        Validate.message(e.currentTarget);
+        var validate = Validate.message(e.currentTarget);
+        this.controlSubmitButton(validate);
+        return validate;
     },
 
     render: function() {
         this.$el.html(this.template());
+        this.$el.find('#txtMessage').on('keypress change paste focus textInput input', this.checkCharsHandler);
         return this;
     }
 });

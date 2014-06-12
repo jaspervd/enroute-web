@@ -81,8 +81,8 @@ var HomeView = Backbone.View.extend({
 
     createDays: function() {
         var step = 360 / this.collection.length;
-        var radius = $('#durbuy').width() / 2 + 95;
-        var x, y, angle, date;
+        var radius = $('#durbuy').width() / 2 + 90;
+        var x, y, angle, date, textAlignment;
         var disabled = '';
         var todaysDate = new Date();
         for (var i = 0; i < this.collection.length; i++) {
@@ -90,10 +90,18 @@ var HomeView = Backbone.View.extend({
             angle = -((step * (i + 1)) * (Math.PI / 180) + 160);
             x = Math.cos(angle) * radius - 10;
             y = Math.sin(angle) * radius;
-            if ((todaysDate < date)) {
+            if ((todaysDate <= date)) {
                 disabled = ' disabled';
             }
-            this.$el.find('ul').append('<li class="day' + disabled + '" data-day="' + this.collection.at(i).get('title') + '" data-angle="' + (step * i) + '" style="margin-top:' + x + 'px;margin-left:' + y + 'px">' + date.getDate() + '</li>');
+
+            if (i === 0 || i === (this.collection.length / 2)) {
+                textAlignment = 'center';
+            } else if (i < (this.collection.length / 2)) {
+                textAlignment = 'right';
+            } else {
+                textAlignment = 'left';
+            }
+            this.$el.find('ul').append('<li class="day' + disabled + '" data-day="' + this.collection.at(i).get('title') + '" data-angle="' + (step * i) + '" style="text-align:' + textAlignment + ';margin-top:' + x + 'px;margin-left:' + y + 'px">' + date.getDate() + '</li>');
             disabled = '';
         }
     },
@@ -126,21 +134,27 @@ var HomeView = Backbone.View.extend({
                         if (self.checkForOverlap($target.find('.select'), $(value))) {
                             var radians = self.calculateRadians(offset, $target, $(value).offset().left + $(value).width() / 2, $(value).offset().top + $(value).height() / 2);
                             var degree = (radians * (180 / Math.PI) * -1) + 90;
-                            console.log($firstDisabledAngle, $lastDisabledAngle, degree, (degree + 90));
                             var transformDegree = degree + 90;
                             if (transformDegree > $firstDisabledAngle && transformDegree < $lastDisabledAngle) {
-                                value = $('.day:not(.disabled)').last();
+                                console.log(($('.day.disabled').length / 2 + $('.day:not(.disabled)').length), $(value).index());
+                                if (($('.day.disabled').length / 2 + $('.day:not(.disabled)').length) > $(value).index()) {
+                                    value = $('.day:not(.disabled)').last();
+                                } else {
+                                    value = $('.day:not(.disabled)').first();
+                                }
                                 radians = self.calculateRadians(offset, $target, $(value).offset().left + $(value).width() / 2, $(value).offset().top + $(value).height() / 2);
                             }
                             degree = (radians * (180 / Math.PI) * -1) + 90;
                             self.trigger('day_selected', $(value).attr('data-day'));
                             $target.find('.month').css('transform', 'rotate(' + (degree * -1) + 'deg)');
                             $target.css('transform', 'rotate(' + degree + 'deg)');
+                            var date = moment($(value).attr('data-day'));
+                            selectedDay = value;
+                            $target.find('.month span').html(date.format('MMMM'));
+                            $(value).removeClass('almostFocus').addClass('focus');
                             // TODO: animate ^ (via step)
                             // $('.tree').addClass('goInsideBitch');
                             return false;
-                        } else {
-                            console.log('ok');
                         }
                     });
                 }
@@ -156,7 +170,8 @@ var HomeView = Backbone.View.extend({
                 if (dragging) {
                     var radians = self.calculateRadians(offset, $target, e.pageX, e.pageY);
                     var degree = (radians * (180 / Math.PI) * -1) - 90; // convert degree for reversal
-                    var transformDegree = degree - 90;
+                    var transformDegree = degree + 180;
+                    console.log($firstDisabledAngle, $lastDisabledAngle, degree, transformDegree);
                     if (transformDegree > $firstDisabledAngle && transformDegree < $lastDisabledAngle) {
                         var value = $('.day:not(.disabled)').last();
                         radians = self.calculateRadians(offset, $target, $(value).offset().left + $(value).width() / 2, $(value).offset().top + $(value).height() / 2);
@@ -165,7 +180,7 @@ var HomeView = Backbone.View.extend({
                     $target.css('transform', 'rotate(' + degree + 'deg)');
                     $target.find('.month').css('transform', 'rotate(' + (degree * -1) + 'deg)');
                     $.each($('.day'), function(key, value) {
-                        if (self.checkForOverlap($target.find('.select'), $(value))) {
+                        if (!$(value).hasClass('disabled') && self.checkForOverlap($target.find('.select'), $(value))) {
                             if (selectedDay !== value) {
                                 var date = moment($(value).attr('data-day'));
                                 selectedDay = value;

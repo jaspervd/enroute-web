@@ -2,7 +2,7 @@
 require_once '../classes' . DIRECTORY_SEPARATOR . 'DatabasePDO.php';
 require_once 'DaysDAO.php';
 
-class ContentDAO {
+class BiggieSmallsDAO {
     public $pdo;
     private $daysDAO;
 
@@ -11,16 +11,16 @@ class ContentDAO {
         $this->daysDAO = new DaysDAO();
     }
 
-    public function getContent() {
-        $sql = "SELECT * FROM `enroute_content` ORDER BY `day_id` ASC";
+    public function getBiggieSmalls() {
+        $sql = "SELECT * FROM `enroute_biggiesmalls` ORDER BY `day_id` ASC";
         $stmt = $this->pdo->prepare($sql);
         if ($stmt->execute()) {
-            $content = $stmt->fetchAll(PDO::FETCH_ASSOC);
-            if(!empty($content)){
+            $biggieSmalls = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            if(!empty($biggieSmalls)){
                 $arr = array();
-                foreach($content as $contentItem){
-                    $contentItem['day'] = $this->daysDAO->getDayById($contentItem['day_id']);
-                    $arr[] = $contentItem;
+                foreach($biggieSmalls as $biggieSmalls){
+                    $biggieSmalls['day'] = $this->daysDAO->getDayById($biggieSmalls['day_id']);
+                    $arr[] = $biggieSmalls;
                 }
                 return $arr;
             }
@@ -29,8 +29,8 @@ class ContentDAO {
         return array();
     }
 
-    public function getContentById($id) {
-        $sql = "SELECT * FROM `enroute_content` WHERE `id` = :id";
+    public function getBiggieSmallsById($id) {
+        $sql = "SELECT * FROM `enroute_biggiesmalls` WHERE `id` = :id";
         $stmt = $this->pdo->prepare($sql);
         $stmt->bindValue('id', $id);
         if ($stmt->execute()) {
@@ -39,8 +39,8 @@ class ContentDAO {
         return array();
     }
 
-    public function getContentByDay($day_id) {
-        $sql = "SELECT * FROM `enroute_content` WHERE `day_id` = :day_id";
+    public function getBiggieSmallsByDay($day_id) {
+        $sql = "SELECT * FROM `enroute_biggiesmalls` WHERE `day_id` = :day_id";
         $stmt = $this->pdo->prepare($sql);
         $stmt->bindValue('day_id', $day_id);
         if ($stmt->execute()) {
@@ -49,34 +49,35 @@ class ContentDAO {
         return array();
     }
 
-    public function insertContent($day_id, $url, $type) {
-        $sql = "INSERT INTO `enroute_content` (`day_id`, `url`, `type`) VALUES (:day_id, :url, :type)";
+    public function insertBiggieSmalls($day_id, $url, $latitude, $longitude) {
+        $sql = "INSERT INTO `enroute_biggiesmalls` (`day_id`, `url`, `latitude`, `longitude`) VALUES (:day_id, :url, :latitude, :longitude)";
         $stmt = $this->pdo->prepare($sql);
         $stmt->bindValue('day_id', $day_id);
         $stmt->bindValue('url', $url);
-        $stmt->bindValue('type', $type);
+        $stmt->bindValue('latitude', $latitude);
+        $stmt->bindValue('longitude', $longitude);
         if ($stmt->execute()) {
-            return $this->getContentById($this->pdo->lastInsertId());
+            return $this->getBiggieSmallsById($this->pdo->lastInsertId());
         }
         return false;
     }
 
-    public function deleteContent($id) {
-        $sql = "DELETE FROM `enroute_content` WHERE `id` = :id";
+    public function deleteBiggieSmalls($id) {
+        $sql = "DELETE FROM `enroute_biggiesmalls` WHERE `id` = :id";
         $stmt = $this->pdo->prepare($sql);
         $stmt->bindValue(':id', $id);
         return $stmt->execute();
     }
 
-    public function updateContent($id, $approved) {
-        $sql = 'UPDATE `enroute_content` SET `approved` = :approved WHERE `id` = :id';
+    public function updateBiggieSmalls($id, $approved) {
+        $sql = 'UPDATE `enroute_biggiesmalls` SET `approved` = :approved WHERE `id` = :id';
         $stmt = $this->pdo->prepare($sql);
         $stmt->bindValue(':id', $id);
         $stmt->bindValue(':approved', $approved);
         if ($stmt->execute()) {
-            $content = $this->getContentById($id);
-            if (!empty($content)) {
-                return $content;
+            $biggieSmalls = $this->getBiggieSmallsById($id);
+            if (!empty($biggieSmalls)) {
+                return $biggieSmalls;
             }
         }
         return false;
