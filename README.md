@@ -10,8 +10,9 @@ Task one - Building
 ---------
 The "building" should be sent to "**api/buildings/**" with two arrays of files (**video** and **audio**). They need to be of equal length or an error message will occur.
 
-Task two - Biggie Smalls (because we couldn't find another name for it)
+Task two - Biggie Smalls
 ---------
+### (because we couldn't find another name for it) ###
 The photo should be sent with name **photo**, along with the photo the **latitude** and **longitude** coordinates should be sent s well.
 
 *******************************
