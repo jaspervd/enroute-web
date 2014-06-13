@@ -504,7 +504,7 @@ body {
 /* line 290, ../_scss/screen.scss */
 #contact #length .row {
   position: absolute;
-  width: 10%;
+  width: 100%;
   overflow: hidden;
   bottom: 0;
 }
