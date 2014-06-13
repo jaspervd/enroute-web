@@ -15,12 +15,19 @@ var TicketsView = Backbone.View.extend({
     },
 
     events: {
-        'click a': 'selectTicket',
+        'click .day': 'selectTicket',
         'submit form': 'orderTicket',
         'blur #xtName': 'validateName',
         'keyup #txtName': 'validateName',
         'blur #txtEmail': 'validateEmail',
-        'keyup #txtEmail': 'validateEmail'
+        'keyup #txtEmail': 'validateEmail',
+        'change #rngTickets': 'updateTickets'
+    },
+
+    updateTickets: function(e) {
+        var $range = $(e.currentTarget);
+        this.$el.find('.amount span').html($range);
+        this.$el.find('.amount').css({left: $range.val() * $range.attr('max')});
     },
 
     selectTicket: function(e) {
@@ -52,7 +59,7 @@ var TicketsView = Backbone.View.extend({
             ticket.save({}, {
                 success: function (model, response) {
                     var successView = new SuccessView({model: 'Dag '+ response.name +', je hebt succesvol '+ response.tickets +' tickets besteld voor de workshop op '+ response.tickets.title +'!'});
-                    self.$el.find('.txtName, .txtEmail').val('');
+                    self.$el.find('#txtName, #txtEmail').val('');
                     self.$el.append(successView.render().$el);
                 },
                 error: function (model, response) {

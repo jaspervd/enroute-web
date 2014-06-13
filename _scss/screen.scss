@@ -185,7 +185,7 @@ body {
   height: 100%;
 
   .border_shadow {
-    font-size: 1.4em;
+    font-size: 1.6em;
     margin: 30px;
     position: relative;
     float: left;
@@ -210,14 +210,15 @@ body {
 #tickets {
  width: 100%;
  height: 100%;
+ overflow: hidden;
 
  .info_wrapper {
   background-color: #91ddc6;
+  padding: 30px 30px 40px;
 }
 
 .border_shadow {
   font-size: 1.6em;
-  margin: 30px;
   position: relative;
 }
 
@@ -229,10 +230,26 @@ p {
 
 ul {
   background-color: #b2463f;
+  height: 90px;
+  padding: 10px;
+  width: 1000%;
 
   li {
+    background-image: url('../images/calendar_item.svg');
+    width: 65px;
+    height: 90px;
     display: inline-block;
+
+    a {
+      font-family: Sahara, sans-serif;
+      font-size: 55px;
+      color: #39b54a;
+      text-decoration: none;
+      padding: 20px 2px;
+      text-align: center;
+      display: block;
   }
+}
 }
 
 form {
