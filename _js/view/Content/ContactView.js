@@ -24,7 +24,6 @@ var ContactView = Backbone.View.extend({
 
     checkCharsHandler: function(e) {
         var charsLength = $(e.currentTarget).val().length;
-        $('.length').find('span').html(charsLength);
         console.log(this.maxLength / this.everyCharacters, this.maxLength, this.everyCharacters);
         for (var i = 1; i <= (this.maxLength / this.everyCharacters); i++) {
             var thisDiv = $('#length').find('.building').eq((i - 1));

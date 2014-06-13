@@ -110,7 +110,7 @@ body {
   position: absolute;
   z-index: 8888;
   color: #333;
-  //left: -25%;
+  left: -25%;
   margin-left: -40px;
   border-right: 20px solid #bec392;
   @include box-shadow(40px 0 100px 0 rgba(50, 50, 50, 0.5));
@@ -202,6 +202,15 @@ body {
   width: 100%;
   height: 100%;
 
+  form {
+    margin: 30px;
+    float: left;
+
+    > div {
+      margin-bottom: 10px;
+    }
+  }
+
   #length {
     width: 100%;
     height: 400px;
@@ -251,6 +260,41 @@ body {
       }
     }
   }
+}
+
+form input[type="text"], form input[type="email"] {
+  background: url('../images/form_input.svg');
+  background-size: 100%;
+  width: 342px;
+  height: 70px;
+  border: none;
+  box-sizing: border-box;
+  padding: 14px 22px 22px;
+  font-size: 1.2em;
+}
+
+form textarea {
+  background: url('../images/form_textarea.svg');
+  background-size: 100%;
+  width: 342px;
+  height: 189px;
+  border: none;
+  box-sizing: border-box;
+  padding: 14px 22px 22px;
+  font-size: 1.2em;
+}
+
+form input[type="submit"] {
+  background-image: url('../images/form_submit.svg');
+  background-size: 100%;
+  width: 106px;
+  height: 38px;
+  border: none;
+  color: #f1f5cf;
+  font-size: 1.2em;
+  float: right;
+  text-transform: uppercase;
+  cursor: pointer;
 }
 
 // Home

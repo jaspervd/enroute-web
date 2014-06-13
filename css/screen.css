@@ -303,6 +303,7 @@ body {
   position: absolute;
   z-index: 8888;
   color: #333;
+  left: -25%;
   margin-left: -40px;
   border-right: 20px solid #bec392;
   -webkit-box-shadow: 40px 0 100px 0 rgba(50, 50, 50, 0.5);
@@ -402,6 +403,15 @@ body {
   height: 100%;
 }
 /* line 205, ../_scss/screen.scss */
+#contact form {
+  margin: 30px;
+  float: left;
+}
+/* line 209, ../_scss/screen.scss */
+#contact form > div {
+  margin-bottom: 10px;
+}
+/* line 214, ../_scss/screen.scss */
 #contact #length {
   width: 100%;
   height: 400px;
@@ -409,22 +419,22 @@ body {
   position: absolute;
   bottom: 0;
 }
-/* line 212, ../_scss/screen.scss */
+/* line 221, ../_scss/screen.scss */
 #contact #length .row1 {
   position: absolute;
   bottom: 0;
 }
-/* line 217, ../_scss/screen.scss */
+/* line 226, ../_scss/screen.scss */
 #contact #length .row2 {
   position: absolute;
   bottom: 80px;
 }
-/* line 222, ../_scss/screen.scss */
+/* line 231, ../_scss/screen.scss */
 #contact #length .row3 {
   position: absolute;
   bottom: 120px;
 }
-/* line 227, ../_scss/screen.scss */
+/* line 236, ../_scss/screen.scss */
 #contact #length .building {
   background-size: 100%;
   height: 200px;
@@ -435,27 +445,65 @@ body {
   -o-transition: margin 0.6s ease-out;
   transition: margin 0.6s ease-out;
 }
-/* line 234, ../_scss/screen.scss */
+/* line 243, ../_scss/screen.scss */
 #contact #length .building.hide {
   margin-bottom: -500px;
 }
-/* line 238, ../_scss/screen.scss */
+/* line 247, ../_scss/screen.scss */
 #contact #length .building.type1 {
   background-image: url("../images/building_1.svg");
   width: 128px;
 }
-/* line 243, ../_scss/screen.scss */
+/* line 252, ../_scss/screen.scss */
 #contact #length .building.type2 {
   background-image: url("../images/building_2.svg");
   width: 70px;
 }
-/* line 248, ../_scss/screen.scss */
+/* line 257, ../_scss/screen.scss */
 #contact #length .building.type3 {
   background-image: url("../images/building_3.svg");
   width: 60px;
 }
 
-/* line 262, ../_scss/screen.scss */
+/* line 265, ../_scss/screen.scss */
+form input[type="text"], form input[type="email"] {
+  background: url("../images/form_input.svg");
+  background-size: 100%;
+  width: 342px;
+  height: 70px;
+  border: none;
+  box-sizing: border-box;
+  padding: 14px 22px 22px;
+  font-size: 1.2em;
+}
+
+/* line 276, ../_scss/screen.scss */
+form textarea {
+  background: url("../images/form_textarea.svg");
+  background-size: 100%;
+  width: 342px;
+  height: 189px;
+  border: none;
+  box-sizing: border-box;
+  padding: 14px 22px 22px;
+  font-size: 1.2em;
+}
+
+/* line 287, ../_scss/screen.scss */
+form input[type="submit"] {
+  background-image: url("../images/form_submit.svg");
+  background-size: 100%;
+  width: 106px;
+  height: 38px;
+  border: none;
+  color: #f1f5cf;
+  font-size: 1.2em;
+  float: right;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+/* line 306, ../_scss/screen.scss */
 #toggleAudio {
   background-image: url("../images/audio_button.svg");
   background-size: 36px 72px;
@@ -467,19 +515,19 @@ body {
   z-index: 9998;
   display: block;
 }
-/* line 273, ../_scss/screen.scss */
+/* line 317, ../_scss/screen.scss */
 #toggleAudio.play {
   background-position: 0 36px;
 }
 
-/* line 278, ../_scss/screen.scss */
+/* line 322, ../_scss/screen.scss */
 #scalable {
   position: absolute;
   left: 50%;
   top: 50%;
 }
 
-/* line 284, ../_scss/screen.scss */
+/* line 328, ../_scss/screen.scss */
 #text_city {
   background-image: url("../images/text_city.png");
   background-size: 198px 42px;
@@ -491,7 +539,7 @@ body {
   position: absolute;
 }
 
-/* line 297, ../_scss/screen.scss */
+/* line 341, ../_scss/screen.scss */
 #durbuy {
   background-image: url("../images/logo.png");
   background-size: 241px 249px;
@@ -503,7 +551,7 @@ body {
   top: 50%;
   z-index: 7777;
 }
-/* line 308, ../_scss/screen.scss */
+/* line 352, ../_scss/screen.scss */
 #durbuy #days {
   position: absolute;
   top: 0;
@@ -513,7 +561,7 @@ body {
   margin-left: 50%;
   margin-top: 50%;
 }
-/* line 318, ../_scss/screen.scss */
+/* line 362, ../_scss/screen.scss */
 #durbuy .day {
   width: 50px;
   height: 50px;
@@ -529,18 +577,18 @@ body {
   -o-transition: opacity 0.3s;
   transition: opacity 0.3s;
 }
-/* line 330, ../_scss/screen.scss */
+/* line 374, ../_scss/screen.scss */
 #durbuy .day.focus {
   opacity: 1;
   z-index: 5555;
 }
-/* line 335, ../_scss/screen.scss */
+/* line 379, ../_scss/screen.scss */
 #durbuy .day.almostFocus {
   opacity: .6;
   z-index: 5555;
 }
 
-/* line 342, ../_scss/screen.scss */
+/* line 386, ../_scss/screen.scss */
 #daySelector {
   background-image: url("../images/day_selector.svg");
   background-size: 514px 268px;
@@ -555,7 +603,7 @@ body {
   top: 50%;
   -webkit-overflow-scrolling: touch;
 }
-/* line 357, ../_scss/screen.scss */
+/* line 401, ../_scss/screen.scss */
 #daySelector .handle {
   width: 54px;
   height: 54px;
@@ -565,7 +613,7 @@ body {
   color: #FFF;
   text-decoration: none;
 }
-/* line 367, ../_scss/screen.scss */
+/* line 411, ../_scss/screen.scss */
 #daySelector .select {
   width: 90px;
   height: 90px;
@@ -573,7 +621,7 @@ body {
   right: -10px;
   top: 95px;
 }
-/* line 375, ../_scss/screen.scss */
+/* line 419, ../_scss/screen.scss */
 #daySelector .month {
   width: 74px;
   height: 74px;
@@ -581,7 +629,7 @@ body {
   right: 0;
   position: absolute;
 }
-/* line 382, ../_scss/screen.scss */
+/* line 426, ../_scss/screen.scss */
 #daySelector .month span {
   background-color: #f4c747;
   -webkit-border-radius: 6px;
@@ -599,14 +647,14 @@ body {
   font-size: 1.2em;
 }
 
-/* line 399, ../_scss/screen.scss */
+/* line 443, ../_scss/screen.scss */
 #day {
   top: 50%;
   left: 50%;
   position: absolute;
   z-index: 4444;
 }
-/* line 405, ../_scss/screen.scss */
+/* line 449, ../_scss/screen.scss */
 #day .building {
   background-color: #b2463f;
   width: 80px;
@@ -624,7 +672,7 @@ body {
   -o-transform-origin: 50% 100px;
   transform-origin: 50% 100px;
 }
-/* line 415, ../_scss/screen.scss */
+/* line 459, ../_scss/screen.scss */
 #day .building.show {
   margin-top: -320px !important;
   -webkit-transform-origin: 50% 320px;
@@ -634,7 +682,7 @@ body {
   transform-origin: 50% 320px;
 }
 
-/* line 424, ../_scss/screen.scss */
+/* line 468, ../_scss/screen.scss */
 #river {
   background-image: url("../images/river.png");
   width: 370px;
@@ -650,14 +698,14 @@ body {
   animation: rotateCircle 340s infinite;
 }
 
-/* line 441, ../_scss/screen.scss */
+/* line 485, ../_scss/screen.scss */
 #forest {
   width: 70%;
   position: absolute;
   left: 50%;
   top: 50%;
 }
-/* line 447, ../_scss/screen.scss */
+/* line 491, ../_scss/screen.scss */
 #forest .rocks {
   background: url("../images/rocks.svg") no-repeat;
   background-size: 195px 154px;
@@ -665,7 +713,7 @@ body {
   height: 154px;
   position: absolute;
 }
-/* line 455, ../_scss/screen.scss */
+/* line 499, ../_scss/screen.scss */
 #forest .tree {
   background: no-repeat;
   background-size: 100%;
@@ -676,32 +724,32 @@ body {
   -o-transition: margin 1s ease;
   transition: margin 1s ease;
 }
-/* line 462, ../_scss/screen.scss */
+/* line 506, ../_scss/screen.scss */
 #forest .tree.goInsideBitch {
   margin: 0 !important;
 }
-/* line 466, ../_scss/screen.scss */
+/* line 510, ../_scss/screen.scss */
 #forest .tree.type1 {
   background-image: url("../images/tree_1.svg");
   height: 75px;
 }
-/* line 471, ../_scss/screen.scss */
+/* line 515, ../_scss/screen.scss */
 #forest .tree.type2 {
   background-image: url("../images/tree_2.svg");
   height: 93px;
 }
-/* line 476, ../_scss/screen.scss */
+/* line 520, ../_scss/screen.scss */
 #forest .tree.type3 {
   background-image: url("../images/tree_3.svg");
   height: 87px;
 }
-/* line 481, ../_scss/screen.scss */
+/* line 525, ../_scss/screen.scss */
 #forest .tree.type4 {
   background-image: url("../images/tree_4.svg");
   height: 87px;
 }
 
-/* line 490, ../_scss/screen.scss */
+/* line 534, ../_scss/screen.scss */
 #city {
   background: url("../images/city.svg") no-repeat;
   background-size: 100% 100%;
@@ -711,7 +759,7 @@ body {
   left: 50%;
   top: 50%;
 }
-/* line 499, ../_scss/screen.scss */
+/* line 543, ../_scss/screen.scss */
 #city:before {
   content: "";
   display: block;
