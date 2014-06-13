@@ -1,4 +1,4 @@
-@media only screen and (max-width: 640px) {
+@media only screen and (max-width: 800px) {
   /* line 6, ../_scss/responsive.scss */
   #content {
     width: 100% !important;
@@ -12,53 +12,65 @@
     box-shadow: none !important;
   }
   /* line 15, ../_scss/responsive.scss */
-  #content > a {
-    top: 60px !important;
+  #content a.close {
+    top: 80px !important;
+    right: 65px !important;
   }
-  /* line 19, ../_scss/responsive.scss */
+  /* line 20, ../_scss/responsive.scss */
   #content.slideOut {
     top: -60px !important;
     margin-left: 0 !important;
   }
-  /* line 24, ../_scss/responsive.scss */
+  /* line 25, ../_scss/responsive.scss */
   #content nav {
-    width: 350px !important;
+    background-color: #f1f5cf;
+    width: 100% !important;
+    height: 50px;
     top: auto !important;
     right: auto !important;
-    left: 50%;
     bottom: 0;
+    position: absolute;
+    z-index: 5;
+    padding-top: 10px;
+  }
+  /* line 36, ../_scss/responsive.scss */
+  #content nav ul {
+    width: 350px;
+    left: 50%;
     margin-left: -175px;
     position: absolute;
+    bottom: 0;
+    margin-top: 5px;
   }
-  /* line 33, ../_scss/responsive.scss */
+  /* line 45, ../_scss/responsive.scss */
   #content nav li {
     float: left;
     margin-left: 10px;
   }
-  /* line 37, ../_scss/responsive.scss */
+  /* line 49, ../_scss/responsive.scss */
   #content nav li:first-child {
     margin-left: 0;
   }
 
-  /* line 44, ../_scss/responsive.scss */
+  /* line 56, ../_scss/responsive.scss */
   #city {
     width: 180% !important;
     margin: -90% 0 0 -90% !important;
   }
 
-  /* line 49, ../_scss/responsive.scss */
+  /* line 61, ../_scss/responsive.scss */
   #forest {
     width: 100% !important;
   }
 }
 @media only screen and (max-width: 1099px) {
-  /* line 55, ../_scss/responsive.scss */
+  /* line 67, ../_scss/responsive.scss */
   #forest {
     width: 80% !important;
   }
 }
 @media only screen and (max-width: 999px) {
-  /* line 61, ../_scss/responsive.scss */
+  /* line 73, ../_scss/responsive.scss */
   #scalable {
     -webkit-transform: scale(0.9) !important;
     -moz-transform: scale(0.9) !important;
@@ -67,13 +79,13 @@
     transform: scale(0.9) !important;
   }
 
-  /* line 65, ../_scss/responsive.scss */
+  /* line 77, ../_scss/responsive.scss */
   #forest {
     width: 79%;
   }
 }
 @media only screen and (max-width: 580px) {
-  /* line 71, ../_scss/responsive.scss */
+  /* line 83, ../_scss/responsive.scss */
   #scalable {
     -webkit-transform: scale(0.7) !important;
     -moz-transform: scale(0.7) !important;
@@ -82,13 +94,13 @@
     transform: scale(0.7) !important;
   }
 
-  /* line 75, ../_scss/responsive.scss */
+  /* line 87, ../_scss/responsive.scss */
   #forest {
     width: 110% !important;
   }
 }
 @media only screen and (max-width: 480px) {
-  /* line 81, ../_scss/responsive.scss */
+  /* line 93, ../_scss/responsive.scss */
   #scalable {
     -webkit-transform: scale(0.6) !important;
     -moz-transform: scale(0.6) !important;
@@ -97,8 +109,8 @@
     transform: scale(0.6) !important;
   }
 
-  /* line 85, ../_scss/responsive.scss */
-  #content nav {
+  /* line 97, ../_scss/responsive.scss */
+  #content nav ul {
     -webkit-transform: scale(0.8);
     -moz-transform: scale(0.8);
     -ms-transform: scale(0.8);

@@ -32,7 +32,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   
 
 
-  return "<header>\n	<h1>Contact</h1>\n</header>\n<form method=\"post\" action=\"\">\n	<div>\n		<label for=\"txtName\">Naam:</label>\n		<input type=\"text\" required name=\"txtName\" id=\"txtName\" placeholder=\"Joske Vermeulen\"/>\n	</div>\n\n	<div>\n		<label for=\"txtEmail\">E-mailadres:</label>\n		<input type=\"email\" required name=\"txtEmail\" id=\"txtEmail\" placeholder=\"joske.vermeulen@trammezand.lei\" />\n	</div>\n\n	<div>\n		<label for=\"txtMessage\">Bericht:</label>\n		<textarea name=\"txtMessage\" required id=\"txtMessage\" maxlength=\"260\" cols=\"30\" rows=\"10\"></textarea>\n	</div>\n\n	<div>\n		<input type=\"submit\" name=\"btnSubmit\" id=\"btnSubmitContact\" value=\"Stuur\"/>\n	</div>\n</form>\n<div id=\"length\">\n		<div class=\"row3\">\n		<div class=\"building type3\"></div>\n		<div class=\"building type2\"></div>\n		<div class=\"building type2\"></div>\n		<div class=\"building type2\"></div>\n		<div class=\"building type3\"></div>\n	</div>\n	<div class=\"row2\">\n		<div class=\"building type2\"></div>\n		<div class=\"building type3\"></div>\n		<div class=\"building type3\"></div>\n	</div>\n	<div class=\"row1\">\n		<div class=\"building type1\"></div>\n		<div class=\"building type3\"></div>\n		<div class=\"building type2\"></div>\n		<div class=\"building type3\"></div>\n		<div class=\"building type2\"></div>\n	</div>\n	<div class=\"clear\"></div>\n</div>";
+  return "<header>\n	<h1>Contact</h1>\n</header>\n<form method=\"post\" action=\"\">\n	<div>\n		<label for=\"txtName\">Naam:</label>\n		<input type=\"text\" required name=\"txtName\" id=\"txtName\" placeholder=\"Joske Vermeulen\"/>\n	</div>\n\n	<div>\n		<label for=\"txtEmail\">E-mailadres:</label>\n		<input type=\"email\" required name=\"txtEmail\" id=\"txtEmail\" placeholder=\"joske.vermeulen@trammezand.lei\" />\n	</div>\n\n	<div>\n		<label for=\"txtMessage\">Bericht:</label>\n		<textarea name=\"txtMessage\" required id=\"txtMessage\" cols=\"30\" rows=\"10\" placeholder=\"Ik heb een vraag omtrent En Route...\"></textarea>\n	</div>\n\n	<div>\n		<input type=\"submit\" name=\"btnSubmit\" id=\"btnSubmitContact\" value=\"Stuur\"/>\n	</div>\n</form>\n<div id=\"length\">\n		<div class=\"row top\">\n		<div class=\"building type3\"></div>\n		<div class=\"building type2\"></div>\n		<div class=\"building type2\"></div>\n		<div class=\"building type2\"></div>\n		<div class=\"building type3\"></div>\n		<div class=\"clear\"></div>\n	</div>\n	<div class=\"row middle\">\n		<div class=\"building type2\"></div>\n		<div class=\"building type3\"></div>\n		<div class=\"building type3\"></div>\n		<div class=\"clear\"></div>\n	</div>\n	<div class=\"row bottom\">\n		<div class=\"building type1\"></div>\n		<div class=\"building type3\"></div>\n		<div class=\"building type2\"></div>\n		<div class=\"building type3\"></div>\n		<div class=\"building type2\"></div>\n		<div class=\"clear\"></div>\n	</div>\n	<div class=\"clear\"></div>\n</div>";
   }));
 
 Handlebars.registerPartial("error", this["tpl"]["error"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
@@ -157,7 +157,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   
 
 
-  return "<header>\n	<h1>Content</h1>\n</header>\n<a href=\"\" class=\"close\">close</a>\n<nav>\n	<header>\n		<h1>Navigatie</h1>\n	</header>\n	<ul>\n		<li><a href=\"\" data-content=\"info\">En Route</a></li>\n		<li><a href=\"\" data-content=\"tickets\">Tickets</a></li>\n		<li><a href=\"\" data-content=\"contact\">Contact</a></li>\n	</ul>\n</nav>\n<div class=\"clear\"></div>";
+  return "<header>\n	<h1>Content</h1>\n</header>\n<a href=\"\" class=\"close\"></a>\n<nav>\n	<header>\n		<h1>Navigatie</h1>\n	</header>\n	<ul>\n		<li><a href=\"\" data-content=\"info\">En Route</a></li>\n		<li><a href=\"\" data-content=\"tickets\">Tickets</a></li>\n		<li><a href=\"\" data-content=\"contact\">Contact</a></li>\n	</ul>\n</nav>\n<div class=\"clear\"></div>";
   });
 
 this["tpl"]["day"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
@@ -189,7 +189,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   
 
 
-  return "<div id=\"city\"></div>\n<div id=\"forest\"></div>\n<div id=\"scalable\">\n	<div id=\"text_city\"></div>\n	<div id=\"river\"></div>\n	<div id=\"daySelector\">\n		<span class=\"handle\"></span>\n		<span class=\"select\"></span>\n		<span class=\"month\">\n			<span>juni</span>\n		</span>\n	</div>\n	<div id=\"durbuy\">\n		<nav id=\"days\">\n			<header>\n				<h1>Dagen</h1>\n			</header>\n			<ul></ul>\n		</nav>\n		<audio id=\"toctoc\">\n			<source src=\"assets/toctoc.mp3\" type=\"audio/mpeg; codecs='mp3'\">\n			<source src=\"assets/toctoc.ogg\" type=\"audio/ogg; codecs='vorbis'\">\n		</audio>\n	</div>\n</div>\n<a href=\"\" id=\"toggleAudio\" class=\"play\"></a>\n<audio id=\"ambient_birds\"<!-- autoplay loop>-->>\n	<source src=\"assets/ambient_birds.mp3\" type=\"audio/mpeg; codecs='mp3'\">\n	<source src=\"assets/ambient_birds.ogg\" type=\"audio/ogg; codecs='vorbis'\">\n</audio>";
+  return "<div id=\"city\"></div>\n<div id=\"forest\"></div>\n<div id=\"scalable\">\n	<div id=\"text_city\"></div>\n	<div id=\"river\"></div>\n	<div id=\"daySelector\">\n		<span class=\"handle\"></span>\n		<span class=\"select\"></span>\n		<span class=\"month\">\n			<span>juni</span>\n		</span>\n	</div>\n	<div id=\"durbuy\">\n		<nav id=\"days\">\n			<header>\n				<h1>Dagen</h1>\n			</header>\n			<ul></ul>\n		</nav>\n		<audio id=\"toctoc\">\n			<source src=\"assets/toctoc.mp3\" type=\"audio/mpeg; codecs='mp3'\">\n			<source src=\"assets/toctoc.ogg\" type=\"audio/ogg; codecs='vorbis'\">\n		</audio>\n	</div>\n</div>\n<a href=\"\" id=\"toggleAudio\" class=\"play\"></a>\n<audio id=\"ambient_birds\"> <!-- autoplay loop -->\n	<source src=\"assets/ambient_birds.mp3\" type=\"audio/mpeg; codecs='mp3'\">\n	<source src=\"assets/ambient_birds.ogg\" type=\"audio/ogg; codecs='vorbis'\">\n</audio>";
   });
 
 Handlebars.registerHelper('formatDate', function (date) {
@@ -949,8 +949,7 @@ var ContactView = Backbone.View.extend({
     id: 'contact',
     tagName: 'section',
     template: tpl.contact,
-    maxLength: 260,
-    everyCharacters: 0,
+    everyStep: 20,
 
     initialize: function() {
         _.bindAll.apply(_, [this].concat(_.functions(this)));
@@ -966,16 +965,15 @@ var ContactView = Backbone.View.extend({
 
     checkCharsHandler: function(e) {
         var charsLength = $(e.currentTarget).val().length;
-        console.log(this.maxLength / this.everyCharacters, this.maxLength, this.everyCharacters);
-        for (var i = 1; i <= (this.maxLength / this.everyCharacters); i++) {
+        for (var i = 1; i <= this.everyStep; i++) {
             var thisDiv = $('#length').find('.building').eq((i - 1));
-            if (charsLength >= i * this.everyCharacters) {
+            if (charsLength >= i * this.everyStep) {
                 thisDiv.addClass('hide');
             } else {
                 thisDiv.removeClass('hide');
             }
         }
-        this.controlSubmitButton((charsLength <= this.maxLength && charsLength > 0));
+        this.validateMessage(e);
     },
 
     sendContact: function(e) {

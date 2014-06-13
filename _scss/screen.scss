@@ -111,7 +111,7 @@ body {
   z-index: 8888;
   color: #333;
   left: -25%;
-  margin-left: -40px;
+  margin-left: -72px;
   border-right: 20px solid #bec392;
   @include box-shadow(40px 0 100px 0 rgba(50, 50, 50, 0.5));
   @include transition(all 1s);
@@ -125,10 +125,20 @@ body {
     display: none;
   }
 
-  > a {
+  a.close {
+    background-image: url('../images/close_button.svg');
+    background-size: 36px 72px;
+    width: 36px;
+    height: 36px;
     right: 10px;
     top: 10px;
     position: absolute;
+    z-index: 6;
+    display: block;
+
+    &:active {
+      background-position: 0 36px;
+    }
   }
 
   nav {
@@ -204,7 +214,8 @@ body {
 
   form {
     margin: 30px;
-    float: left;
+    position: absolute;
+    z-index: 1;
 
     > div {
       margin-bottom: 10px;
@@ -213,50 +224,68 @@ body {
 
   #length {
     width: 100%;
-    height: 400px;
+    height: 100%;
     overflow: hidden;
     position: absolute;
     bottom: 0;
+    font-size: 0;
 
-    .row1 {
+    .row {
       position: absolute;
+      width: 10%;
+      overflow: hidden;
       bottom: 0;
-    }
 
-    .row2 {
-      position: absolute;
-      bottom: 80px;
-    }
+      &.bottom {
+        height: 30%;
 
-    .row3 {
-      position: absolute;
-      bottom: 120px;
+        .building {
+          width: 28%;
+        }
+      }
+
+      &.middle {
+        height: 40%;
+
+        .building {
+          width: 20%;
+        }
+      }
+
+      &.top {
+        height: 50%;
+
+        .building {
+          width: 28%;
+        }
+      }
     }
 
     .building {
+      background-repeat: no-repeat;
       background-size: 100%;
-      height: 200px;
-      margin-bottom: 0;
-      float: left;
-      @include transition(margin 0.6s ease-out);
+      height: 100%;
+      margin: 0 0 auto -3%;
+      display: inline-block;
+      @include transition(margin-bottom 1s ease-in-out);
 
       &.hide {
-        margin-bottom: -500px;
+        margin-bottom: -1000px !important;
       }
 
       &.type1 {
         background-image: url('../images/building_1.svg');
-        width: 128px;
+        margin-bottom: -5%;
       }
 
       &.type2 {
         background-image: url('../images/building_2.svg');
-        width: 70px;
+        margin-bottom: -15%;
       }
 
       &.type3 {
         background-image: url('../images/building_3.svg');
-        width: 60px;
+        margin-bottom: -10%;
       }
     }
   }
@@ -271,6 +300,7 @@ form input[type="text"], form input[type="email"] {
   box-sizing: border-box;
   padding: 14px 22px 22px;
   font-size: 1.2em;
+  outline: none;
 }
 
 form textarea {
@@ -278,14 +308,17 @@ form textarea {
   background-size: 100%;
   width: 342px;
   height: 189px;
+  max-width: 342px;
+  max-height: 189px;
   border: none;
   box-sizing: border-box;
   padding: 14px 22px 22px;
   font-size: 1.2em;
+  outline: none;
 }
 
 form input[type="submit"] {
-  background-image: url('../images/form_submit.svg');
+  background: url('../images/form_submit.svg');
   background-size: 100%;
   width: 106px;
   height: 38px;
@@ -297,6 +330,13 @@ form input[type="submit"] {
   cursor: pointer;
 }
 
+form input[type="range"] {
+  -webkit-appearance: none;
+  background-color: #63201c;
+  height: 2px;
+  vertical-align: middle;
+}
+
 // Home
 
 #home {
@@ -305,7 +345,7 @@ form input[type="submit"] {
 
 #toggleAudio {
   background-image: url('../images/audio_button.svg');
-  background-size: 36px 72px;
+  background-size: 72px 72px;
   width: 36px;
   height: 36px;
   top: 20px;
@@ -314,8 +354,16 @@ form input[type="submit"] {
   z-index: 9998;
   display: block;
 
+  &:active {
+    background-position: 36px 0;
+  }
+
   &.play {
     background-position: 0 36px;
+
+    &:active {
+      background-position: 36px 36px;
+    }
   }
 }
 

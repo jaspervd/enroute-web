@@ -7,8 +7,7 @@ var ContactView = Backbone.View.extend({
     id: 'contact',
     tagName: 'section',
     template: tpl.contact,
-    maxLength: 260,
-    everyCharacters: 0,
+    everyStep: 20,
 
     initialize: function() {
         _.bindAll.apply(_, [this].concat(_.functions(this)));
@@ -24,16 +23,15 @@ var ContactView = Backbone.View.extend({
 
     checkCharsHandler: function(e) {
         var charsLength = $(e.currentTarget).val().length;
-        console.log(this.maxLength / this.everyCharacters, this.maxLength, this.everyCharacters);
-        for (var i = 1; i <= (this.maxLength / this.everyCharacters); i++) {
+        for (var i = 1; i <= this.everyStep; i++) {
             var thisDiv = $('#length').find('.building').eq((i - 1));
-            if (charsLength >= i * this.everyCharacters) {
+            if (charsLength >= i * this.everyStep) {
                 thisDiv.addClass('hide');
             } else {
                 thisDiv.removeClass('hide');
             }
         }
-        this.controlSubmitButton((charsLength <= this.maxLength && charsLength > 0));
+        this.validateMessage(e);
     },
 
     sendContact: function(e) {
