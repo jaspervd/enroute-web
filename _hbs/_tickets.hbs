@@ -1,6 +1,25 @@
     <header>
     	<h1>Ticket bestellen</h1>
     </header>
+    <div class="info_wrapper">
+        <div class="border_shadow">
+            <p>
+                En Route daagt je uit om gedurende één dag de stad anders te bekijken en te beleven. Samen met een kunstdocent ga je op ontdekkingsreis door de pittoreske straatjes van Durbuy.
+            </p>
+            <div class="border_right"></div>
+            <div class="border_bottom"></div>
+            <div class="border_connection"></div>
+            <div class="speech"></div>
+        </div>
+    </div>
+    {{#if days}}
+    <ul>
+        {{#each days}}
+        <li><a href="" data-date="{{title}}">{{formatDate title}}</a></li>
+        {{/each}}
+    </ul>
+    <div class="clear"></div>
+    {{/if}}
     <form method="post" action="">
     	{{#ifTypeIsPublic ticket.type}}
     	<div>
@@ -13,9 +32,10 @@
     		<input type="email" required name="txtEmail" id="txtEmail" placeholder="joske.vermeulen@trammezand.lei" />
     	</div>
 
-    	<div>
+    	<div class="range">
+            <div class="amount"><span>1</span> tickets</div>
     		<label for="rngTickets">Aantal tickets:</label>
-    		<input type="range" required name="rngTickets" id="rngTickets" min="1" max="{{ticket.tickets_available}}" />
+    		<input type="range" required name="rngTickets" id="rngTickets" min="1" max="{{ticket.tickets_available}}" value="1" />
     	</div>
     	{{/ifTypeIsPublic}}
     	{{#ifTypeIsSchool ticket.type}}
@@ -30,15 +50,7 @@
     	</div>
     	{{/ifTypeIsSchool}}
 
-    	{{#if days}}
-    	<ul>
-    		{{#each days}}
-    		<li><a href="" data-date="{{title}}">{{formatDate title}}</a></li>
-    		{{/each}}
-    	</ul>
-    	{{/if}}
-
     	<div>
-    		<input type="submit" name="btnSubmit" value="Verder naar bestellen"/>
+    		<input type="submit" name="btnSubmit" value="Bestel"/>
     	</div>
     </form>

@@ -50,7 +50,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   
 
 
-  return "<header>\n	<h1>En Route</h1>\n</header>\n<div class=\"border_shadow\">\n<p>\n	En Route daagt je uit om gedurende één dag de stad anders te bekijken en te beleven. Samen met een kunstdocent ga je op ontdekkingsreis door de pittoreske straatjes van Durbuy.\n</p>\n<div class=\"border_right\"></div>\n<div class=\"border_bottom\"></div>\n<div class=\"border_connection\"></div>\n<div class=\"speech\"></div>\n</div>";
+  return "<header>\n	<h1>En Route</h1>\n</header>\n<div class=\"border_shadow\">\n	<p>\n		En Route daagt je uit om gedurende één dag de stad anders te bekijken en te beleven. Samen met een kunstdocent ga je op ontdekkingsreis door de pittoreske straatjes van Durbuy.\n	</p>\n	<div class=\"border_right\"></div>\n	<div class=\"border_bottom\"></div>\n	<div class=\"border_connection\"></div>\n	<div class=\"speech\"></div>\n</div>";
   }));
 
 Handlebars.registerPartial("success", this["tpl"]["success"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
@@ -70,50 +70,50 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 function program1(depth0,data) {
   
   var buffer = "", stack1;
-  buffer += "\n    	<div>\n    		<label for=\"txtName\">Naam:</label>\n    		<input type=\"text\" required name=\"txtName\" id=\"txtName\" placeholder=\"Joske Vermeulen\"/>\n    	</div>\n\n    	<div>\n    		<label for=\"txtEmail\">E-mailadres:</label>\n    		<input type=\"email\" required name=\"txtEmail\" id=\"txtEmail\" placeholder=\"joske.vermeulen@trammezand.lei\" />\n    	</div>\n\n    	<div>\n    		<label for=\"rngTickets\">Aantal tickets:</label>\n    		<input type=\"range\" required name=\"rngTickets\" id=\"rngTickets\" min=\"1\" max=\""
-    + escapeExpression(((stack1 = ((stack1 = (depth0 && depth0.ticket)),stack1 == null || stack1 === false ? stack1 : stack1.tickets_available)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "\" />\n    	</div>\n    	";
-  return buffer;
-  }
-
-function program3(depth0,data) {
-  
-  
-  return "\n    	<div>\n    		<label for=\"txtName\">Schoolnaam:</label>\n    		<input type=\"text\" required name=\"txtName\" id=\"txtName\" placeholder=\"Volledige schoolnaam\"/>\n    	</div>\n\n    	<div>\n    		<label for=\"txtEmail\">E-mailadres:</label>\n    		<input type=\"email\" required name=\"txtEmail\" id=\"txtEmail\" placeholder=\"joske.vermeulen@trammezand.lei\"/>\n    	</div>\n    	";
-  }
-
-function program5(depth0,data) {
-  
-  var buffer = "", stack1;
-  buffer += "\n    	<ul>\n    		";
-  stack1 = helpers.each.call(depth0, (depth0 && depth0.days), {hash:{},inverse:self.noop,fn:self.program(6, program6, data),data:data});
+  buffer += "\n    <ul>\n        ";
+  stack1 = helpers.each.call(depth0, (depth0 && depth0.days), {hash:{},inverse:self.noop,fn:self.program(2, program2, data),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "\n    	</ul>\n    	";
+  buffer += "\n    </ul>\n    <div class=\"clear\"></div>\n    ";
   return buffer;
   }
-function program6(depth0,data) {
+function program2(depth0,data) {
   
   var buffer = "", stack1, helper, options;
-  buffer += "\n    		<li><a href=\"\" data-date=\"";
+  buffer += "\n        <li><a href=\"\" data-date=\"";
   if (helper = helpers.title) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.title); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
     + "\">"
     + escapeExpression((helper = helpers.formatDate || (depth0 && depth0.formatDate),options={hash:{},data:data},helper ? helper.call(depth0, (depth0 && depth0.title), options) : helperMissing.call(depth0, "formatDate", (depth0 && depth0.title), options)))
-    + "</a></li>\n    		";
+    + "</a></li>\n        ";
   return buffer;
   }
 
-  buffer += "    <header>\n    	<h1>Ticket bestellen</h1>\n    </header>\n    <form method=\"post\" action=\"\">\n    	";
-  stack1 = (helper = helpers.ifTypeIsPublic || (depth0 && depth0.ifTypeIsPublic),options={hash:{},inverse:self.noop,fn:self.program(1, program1, data),data:data},helper ? helper.call(depth0, ((stack1 = (depth0 && depth0.ticket)),stack1 == null || stack1 === false ? stack1 : stack1.type), options) : helperMissing.call(depth0, "ifTypeIsPublic", ((stack1 = (depth0 && depth0.ticket)),stack1 == null || stack1 === false ? stack1 : stack1.type), options));
+function program4(depth0,data) {
+  
+  var buffer = "", stack1;
+  buffer += "\n    	<div>\n    		<label for=\"txtName\">Naam:</label>\n    		<input type=\"text\" required name=\"txtName\" id=\"txtName\" placeholder=\"Joske Vermeulen\"/>\n    	</div>\n\n    	<div>\n    		<label for=\"txtEmail\">E-mailadres:</label>\n    		<input type=\"email\" required name=\"txtEmail\" id=\"txtEmail\" placeholder=\"joske.vermeulen@trammezand.lei\" />\n    	</div>\n\n    	<div class=\"range\">\n            <div class=\"amount\"><span>1</span> tickets</div>\n    		<label for=\"rngTickets\">Aantal tickets:</label>\n    		<input type=\"range\" required name=\"rngTickets\" id=\"rngTickets\" min=\"1\" max=\""
+    + escapeExpression(((stack1 = ((stack1 = (depth0 && depth0.ticket)),stack1 == null || stack1 === false ? stack1 : stack1.tickets_available)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "\" value=\"1\" />\n    	</div>\n    	";
+  return buffer;
+  }
+
+function program6(depth0,data) {
+  
+  
+  return "\n    	<div>\n    		<label for=\"txtName\">Schoolnaam:</label>\n    		<input type=\"text\" required name=\"txtName\" id=\"txtName\" placeholder=\"Volledige schoolnaam\"/>\n    	</div>\n\n    	<div>\n    		<label for=\"txtEmail\">E-mailadres:</label>\n    		<input type=\"email\" required name=\"txtEmail\" id=\"txtEmail\" placeholder=\"joske.vermeulen@trammezand.lei\"/>\n    	</div>\n    	";
+  }
+
+  buffer += "    <header>\n    	<h1>Ticket bestellen</h1>\n    </header>\n    <div class=\"info_wrapper\">\n        <div class=\"border_shadow\">\n            <p>\n                En Route daagt je uit om gedurende één dag de stad anders te bekijken en te beleven. Samen met een kunstdocent ga je op ontdekkingsreis door de pittoreske straatjes van Durbuy.\n            </p>\n            <div class=\"border_right\"></div>\n            <div class=\"border_bottom\"></div>\n            <div class=\"border_connection\"></div>\n            <div class=\"speech\"></div>\n        </div>\n    </div>\n    ";
+  stack1 = helpers['if'].call(depth0, (depth0 && depth0.days), {hash:{},inverse:self.noop,fn:self.program(1, program1, data),data:data});
+  if(stack1 || stack1 === 0) { buffer += stack1; }
+  buffer += "\n    <form method=\"post\" action=\"\">\n    	";
+  stack1 = (helper = helpers.ifTypeIsPublic || (depth0 && depth0.ifTypeIsPublic),options={hash:{},inverse:self.noop,fn:self.program(4, program4, data),data:data},helper ? helper.call(depth0, ((stack1 = (depth0 && depth0.ticket)),stack1 == null || stack1 === false ? stack1 : stack1.type), options) : helperMissing.call(depth0, "ifTypeIsPublic", ((stack1 = (depth0 && depth0.ticket)),stack1 == null || stack1 === false ? stack1 : stack1.type), options));
   if(stack1 || stack1 === 0) { buffer += stack1; }
   buffer += "\n    	";
-  stack1 = (helper = helpers.ifTypeIsSchool || (depth0 && depth0.ifTypeIsSchool),options={hash:{},inverse:self.noop,fn:self.program(3, program3, data),data:data},helper ? helper.call(depth0, ((stack1 = (depth0 && depth0.ticket)),stack1 == null || stack1 === false ? stack1 : stack1.type), options) : helperMissing.call(depth0, "ifTypeIsSchool", ((stack1 = (depth0 && depth0.ticket)),stack1 == null || stack1 === false ? stack1 : stack1.type), options));
+  stack1 = (helper = helpers.ifTypeIsSchool || (depth0 && depth0.ifTypeIsSchool),options={hash:{},inverse:self.noop,fn:self.program(6, program6, data),data:data},helper ? helper.call(depth0, ((stack1 = (depth0 && depth0.ticket)),stack1 == null || stack1 === false ? stack1 : stack1.type), options) : helperMissing.call(depth0, "ifTypeIsSchool", ((stack1 = (depth0 && depth0.ticket)),stack1 == null || stack1 === false ? stack1 : stack1.type), options));
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "\n\n    	";
-  stack1 = helpers['if'].call(depth0, (depth0 && depth0.days), {hash:{},inverse:self.noop,fn:self.program(5, program5, data),data:data});
-  if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "\n\n    	<div>\n    		<input type=\"submit\" name=\"btnSubmit\" value=\"Verder naar bestellen\"/>\n    	</div>\n    </form>";
+  buffer += "\n\n    	<div>\n    		<input type=\"submit\" name=\"btnSubmit\" value=\"Bestel\"/>\n    	</div>\n    </form>";
   return buffer;
   }));
 

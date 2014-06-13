@@ -203,7 +203,47 @@ body {
   p {
     background-color: #f1f5cf;
     padding: 20px;
+    color: #b2463f;
   }
+}
+
+#tickets {
+ width: 100%;
+ height: 100%;
+
+ .info_wrapper {
+  background-color: #91ddc6;
+}
+
+.border_shadow {
+  font-size: 1.6em;
+  margin: 30px;
+  position: relative;
+}
+
+p {
+  background-color: #f1f5cf;
+  padding: 20px;
+  color: #b2463f;
+}
+
+ul {
+  background-color: #b2463f;
+
+  li {
+    display: inline-block;
+  }
+}
+
+form {
+  margin: 30px;
+  position: absolute;
+  z-index: 1;
+
+  > div {
+    margin-bottom: 10px;
+  }
+}
 }
 
 #contact {
@@ -330,11 +370,45 @@ form input[type="submit"] {
   cursor: pointer;
 }
 
-form input[type="range"] {
-  -webkit-appearance: none;
-  background-color: #63201c;
-  height: 2px;
-  vertical-align: middle;
+form input, form textarea {
+  color: #ad463f;
+}
+
+form .range {
+  background: url('../images/form_range.svg') no-repeat;
+  width: 100%;
+  height: 38px;
+  padding: 12px 22px 12px 12px;
+  box-sizing: border-box;
+  position: relative;
+  margin-top: 42px;
+
+  .amount {
+    background: url("../images/form_range_amount.svg") no-repeat;
+    height: 36px;
+    top: -36px;
+    left: 0;
+    position: absolute;
+    box-sizing: border-box;
+    padding: 7px 14px;
+    font-size: 1.5em;
+    color: #ad463f;
+    text-transform: uppercase;
+
+    span {
+      color: #63201c;
+      margin-right: 20px;
+      font-size: 1.3em;
+    }
+  }
+
+  input {
+    -webkit-appearance: none;
+    background-color: #63201c;
+    width: 100%;
+    height: 2px;
+    vertical-align: middle;
+  }
 }
 
 // Home
