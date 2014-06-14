@@ -70,7 +70,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 function program1(depth0,data) {
   
   var buffer = "", stack1;
-  buffer += "\n    <ul>\n        ";
+  buffer += "\n    <ul id=\"selectTicket\">\n        ";
   stack1 = helpers.each.call(depth0, (depth0 && depth0.days), {hash:{},inverse:self.noop,fn:self.program(2, program2, data),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
   buffer += "\n    </ul>\n    <div class=\"clear\"></div>\n    ";
@@ -1087,7 +1087,9 @@ var TicketsView = Backbone.View.extend({
 
     initialize: function() {
         _.bindAll.apply(_, [this].concat(_.functions(this)));
-        this.currentTicket = this.collection.findWhere({'title': '2014-06-13'}); //moment().format('YYYY-MM-DD')
+        this.currentTicket = this.collection.findWhere({
+            'title': '2014-06-13'
+        }); //moment().format('YYYY-MM-DD')
     },
 
     events: {
@@ -1103,21 +1105,25 @@ var TicketsView = Backbone.View.extend({
     updateTickets: function(e) {
         var $range = $(e.currentTarget);
         this.$el.find('.amount span').html($range);
-        this.$el.find('.amount').css({left: $range.val() * $range.attr('max')});
+        this.$el.find('.amount').css({
+            left: $range.val() * $range.attr('max')
+        });
     },
 
     selectTicket: function(e) {
         console.log('[TicketsView]', $(e.currentTarget).attr('data-date'));
         e.preventDefault();
         var date = $(e.currentTarget).attr('data-date');
-        var newTicket = this.collection.findWhere({'title': date});
-        if(this.currentTicket !== newTicket) {
+        var newTicket = this.collection.findWhere({
+            'title': date
+        });
+        if (this.currentTicket !== newTicket) {
             this.currentTicket = newTicket;
             this.render();
         }
     },
 
-    orderTicket: function (e) {
+    orderTicket: function(e) {
         console.log('[TicketsView] orderTicket()');
         e.preventDefault();
         this.clean();
@@ -1133,16 +1139,20 @@ var TicketsView = Backbone.View.extend({
         }
         if (Validate.fullName(this.$el.find('#txtName')) && Validate.email(this.$el.find('#txtEmail'))) {
             ticket.save({}, {
-                success: function (model, response) {
-                    var successView = new SuccessView({model: 'Dag '+ response.name +', je hebt succesvol '+ response.tickets +' tickets besteld voor de workshop op '+ response.tickets.title +'!'});
+                success: function(model, response) {
+                    var successView = new SuccessView({
+                        model: 'Dag ' + response.name + ', je hebt succesvol ' + response.tickets + ' tickets besteld voor de workshop op ' + response.tickets.title + '!'
+                    });
                     self.$el.find('#txtName, #txtEmail').val('');
                     self.$el.append(successView.render().$el);
                 },
-                error: function (model, response) {
+                error: function(model, response) {
                     console.log('[TicketView] generated 500 error code');
-                    _.each(response.responseJSON.errors, function (error, key) {
+                    _.each(response.responseJSON.errors, function(error, key) {
                         console.log('[' + key + ']', error);
-                        var errorView = new ErrorView({model: error});
+                        var errorView = new ErrorView({
+                            model: error
+                        });
                         var $elToInsertAfter;
                         if (key === 'name') {
                             $elToInsertAfter = '#txtName';
@@ -1161,27 +1171,40 @@ var TicketsView = Backbone.View.extend({
                             self.$el.find($elToInsertAfter).after(errorView.render().$el);
                         }
                     });
-                }
-            });
-        }
-    },
+}
+});
+}
+},
 
-    validateName: function(e) {
-        Validate.fullName(e.currentTarget);
-    },
+validateName: function(e) {
+    Validate.fullName(e.currentTarget);
+},
 
-    validateEmail: function(e) {
-        Validate.email(e.currentTarget);
-    },
+validateEmail: function(e) {
+    Validate.email(e.currentTarget);
+},
 
-    clean: function () {
-        $('.success').remove();
-        $('.error').remove();
-    },
+clean: function() {
+    $('.success').remove();
+    $('.error').remove();
+},
 
-    render: function() {
+render: function() {
         //collection only contains possible available days (i.e. not past days)
-        this.$el.html(this.template({days: this.collection.toJSON(), ticket: this.currentTicket.toJSON()}));
+        this.$el.html(this.template({
+            days: this.collection.toJSON(),
+            ticket: this.currentTicket.toJSON()
+        }));
+
+        var selectTicket = this.$el.find('#selectTicket');
+        var self = this;
+        selectTicket.on('mousemove', function(e) {
+            selectTicket.css({'width': self.collection.length * self.$el.find('.day').width()});
+            var x = -(((e.pageX - $('#selectTicket').position().left) / $("#tickets").width()) * ($("#selectTicket").width() + parseInt($("#selectTicket").css('paddingLeft')) + parseInt($("#selectTicket").css('paddingRight')) - $("#tickets").width()));
+            $("#selectTicket").css({
+                'marginLeft': x + 'px'
+            });
+        });
         return this;
     }
 });
