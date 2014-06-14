@@ -239,15 +239,20 @@ ul {
     width: 65px;
     height: 90px;
     display: inline-block;
+    margin-right: 10px;
 
     a {
       font-family: Sahara, sans-serif;
+      color: #b2463f;
       font-size: 55px;
-      color: #39b54a;
       text-decoration: none;
       padding: 20px 2px;
       text-align: center;
       display: block;
+
+      &.available {
+        color: #39b54a;
+      }
     }
   }
 }
@@ -642,10 +647,6 @@ form .range {
     width: 45px;
     @include transition(margin 1s ease);
 
-    &.goInsideBitch {
-      margin: 0!important;
-    }
-
     &.type1 {
       background-image: url('../images/tree_1.svg');
       height: 75px;
@@ -683,5 +684,63 @@ form .range {
     content: "";
     display: block;
     padding-top: 100%;
+  }
+
+  .rotate {
+    -webkit-animation: rotateCircle 20s infinite linear;
+    -moz-animation:    rotateCircle 20s infinite linear;
+    -o-animation:      rotateCircle 20s infinite linear;
+    animation:         rotateCircle 20s infinite linear;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+
+    &.forwards {
+      -webkit-animation: rotateCircle reverse 24s infinite linear;
+      -moz-animation:    rotateCircle reverse 24s infinite linear;
+      -o-animation:      rotateCircle reverse 24s infinite linear;
+      animation:         rotateCircle reverse 24s infinite linear;
+      width: 75%;
+      margin-left: -38%;
+    }
+
+    &.reverse {
+      width: 68%;
+      margin-left: -34%;
+    }
+  }
+
+  .car {
+    background-repeat: no-repeat;
+    width: 100px;
+    height: 61px;
+    background-size: 100px 61px;
+    position: absolute;
+
+    &.red {
+      background-image: url('../images/car_red.svg');
+      left: 0;
+      @include transform(rotate(90deg));
+    }
+
+    &.yellow {
+      background-image: url('../images/car_yellow.svg');
+      right: 0;
+      @include transform(rotate(-90deg));
+    }
+
+    &.white {
+      background-image: url('../images/car_white.svg');
+      top: 0;
+      @include transform(rotate(270deg));
+    }
+  }
+
+  #city_top {
+    background: url('../images/city_top.svg') no-repeat;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    bottom: 0;
   }
 }

@@ -3,13 +3,11 @@ Handlebars.registerHelper('formatDate', function (date) {
     return moment(date).format('D');
 });
 
-Handlebars.registerHelper('formatAvailability', function (date, tickets) {
+Handlebars.registerHelper('returnAvailability', function (date) {
     if (new Date(date) <= new Date()) {
-        return '<span class="done">voorbij</span>';
-    } else if (parseInt(tickets) === 0) {
-        return '<span class="soldout">uitverkocht</span>';
+        return ' class="past"';
     } else {
-        return '<a href="" class="available">nog ' + tickets + ' tickets</a>';
+        return ' class="available"';
     }
 });
 

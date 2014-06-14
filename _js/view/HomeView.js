@@ -45,7 +45,7 @@ var HomeView = Backbone.View.extend({
     },
 
     createForest: function() {
-        var step = 360 / 50;
+        var step = 360 / 60;
         var x, y, z, angle, zoom;
         var treeRows = parseInt($('body').width() / 100) / 2;
         var fixRows = 30;
@@ -57,7 +57,7 @@ var HomeView = Backbone.View.extend({
             for (var n = 1; n < treeRows; n++) {
                 var radius = $('#forest').width() / 2 - (fixRows * n) - 30;
                 var rockI = _.random(0, 49); // no pun intended
-                for (var i = 0; i <= 50; i++) {
+                for (var i = 0; i <= 64; i++) {
                     angle = (step * (i + 1)) * (Math.PI / 180);
                     x = Math.cos(angle) * (radius - 30) - fixRows * 2;
                     y = Math.sin(angle) * (radius - 15) - fixRows;
@@ -152,6 +152,11 @@ var HomeView = Backbone.View.extend({
                             selectedDay = value;
                             $target.find('.month span').html(date.format('MMMM'));
                             $(value).removeClass('almostFocus').addClass('focus');
+                            $target.animate({
+                                step: function(i) {
+                                    console.log(i);
+                                }
+                            }, 500);
                             // TODO: animate ^ (via step)
                             // $('.tree').addClass('goInsideBitch');
                             return false;
@@ -171,11 +176,10 @@ var HomeView = Backbone.View.extend({
                     var radians = self.calculateRadians(offset, $target, e.pageX, e.pageY);
                     var degree = (radians * (180 / Math.PI) * -1) - 90; // convert degree for reversal
                     var transformDegree = degree + 180;
-                    console.log($firstDisabledAngle, $lastDisabledAngle, degree, transformDegree);
-                    if (transformDegree > $firstDisabledAngle && transformDegree < $lastDisabledAngle) {
+                    /*if (transformDegree > $firstDisabledAngle && transformDegree < $lastDisabledAngle) {
                         var value = $('.day:not(.disabled)').last();
                         radians = self.calculateRadians(offset, $target, $(value).offset().left + $(value).width() / 2, $(value).offset().top + $(value).height() / 2);
-                    }
+                    }*/
                     degree = (radians * (180 / Math.PI) * -1) - 90;
                     $target.css('transform', 'rotate(' + degree + 'deg)');
                     $target.find('.month').css('transform', 'rotate(' + (degree * -1) + 'deg)');

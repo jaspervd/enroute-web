@@ -11,7 +11,7 @@ var TicketsView = Backbone.View.extend({
 
     initialize: function() {
         _.bindAll.apply(_, [this].concat(_.functions(this)));
-        this.currentTicket = this.collection.findWhere({'title': moment().format('YYYY-MM-DD')});
+        this.currentTicket = this.collection.findWhere({'title': '2014-06-13'}); //moment().format('YYYY-MM-DD')
     },
 
     events: {
@@ -104,6 +104,7 @@ var TicketsView = Backbone.View.extend({
     },
 
     render: function() {
+        //collection only contains possible available days (i.e. not past days)
         this.$el.html(this.template({days: this.collection.toJSON(), ticket: this.currentTicket.toJSON()}));
         return this;
     }

@@ -83,7 +83,9 @@ function program2(depth0,data) {
   if (helper = helpers.title) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.title); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
-    + "\">"
+    + "\""
+    + escapeExpression((helper = helpers.returnAvailability || (depth0 && depth0.returnAvailability),options={hash:{},data:data},helper ? helper.call(depth0, (depth0 && depth0.title), options) : helperMissing.call(depth0, "returnAvailability", (depth0 && depth0.title), options)))
+    + ">"
     + escapeExpression((helper = helpers.formatDate || (depth0 && depth0.formatDate),options={hash:{},data:data},helper ? helper.call(depth0, (depth0 && depth0.title), options) : helperMissing.call(depth0, "formatDate", (depth0 && depth0.title), options)))
     + "</a></li>\n        ";
   return buffer;
@@ -189,7 +191,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   
 
 
-  return "<div id=\"city\"></div>\n<div id=\"forest\"></div>\n<div id=\"scalable\">\n	<div id=\"text_city\"></div>\n	<div id=\"river\"></div>\n	<div id=\"daySelector\">\n		<span class=\"handle\"></span>\n		<span class=\"select\"></span>\n		<span class=\"month\">\n			<span>juni</span>\n		</span>\n	</div>\n	<div id=\"durbuy\">\n		<nav id=\"days\">\n			<header>\n				<h1>Dagen</h1>\n			</header>\n			<ul></ul>\n		</nav>\n		<audio id=\"toctoc\">\n			<source src=\"assets/toctoc.mp3\" type=\"audio/mpeg; codecs='mp3'\">\n			<source src=\"assets/toctoc.ogg\" type=\"audio/ogg; codecs='vorbis'\">\n		</audio>\n	</div>\n</div>\n<a href=\"\" id=\"toggleAudio\" class=\"play\"></a>\n<audio id=\"ambient_birds\"> <!-- autoplay loop -->\n	<source src=\"assets/ambient_birds.mp3\" type=\"audio/mpeg; codecs='mp3'\">\n	<source src=\"assets/ambient_birds.ogg\" type=\"audio/ogg; codecs='vorbis'\">\n</audio>";
+  return "<div id=\"city\">\n	<div class=\"rotate forwards\">\n	<div class=\"red car\"></div>\n	<div class=\"yellow car\"></div>\n</div>\n<div class=\"rotate reverse\">\n	<div class=\"white car\"></div>\n</div>\n	<div id=\"city_top\"></div>\n</div>\n<div id=\"forest\"></div>\n<div id=\"scalable\">\n	<div id=\"text_city\"></div>\n	<div id=\"river\"></div>\n	<div id=\"daySelector\">\n		<span class=\"handle\"></span>\n		<span class=\"select\"></span>\n		<span class=\"month\">\n			<span>juni</span>\n		</span>\n	</div>\n	<div id=\"durbuy\">\n		<nav id=\"days\">\n			<header>\n				<h1>Dagen</h1>\n			</header>\n			<ul></ul>\n		</nav>\n		<audio id=\"toctoc\">\n			<source src=\"assets/toctoc.mp3\" type=\"audio/mpeg; codecs='mp3'\">\n			<source src=\"assets/toctoc.ogg\" type=\"audio/ogg; codecs='vorbis'\">\n		</audio>\n	</div>\n</div>\n<a href=\"\" id=\"toggleAudio\" class=\"play\"></a>\n<audio id=\"ambient_birds\"> <!-- autoplay loop -->\n	<source src=\"assets/ambient_birds.mp3\" type=\"audio/mpeg; codecs='mp3'\">\n	<source src=\"assets/ambient_birds.ogg\" type=\"audio/ogg; codecs='vorbis'\">\n</audio>";
   });
 
 Handlebars.registerHelper('formatDate', function (date) {
@@ -197,13 +199,11 @@ Handlebars.registerHelper('formatDate', function (date) {
     return moment(date).format('D');
 });
 
-Handlebars.registerHelper('formatAvailability', function (date, tickets) {
+Handlebars.registerHelper('returnAvailability', function (date) {
     if (new Date(date) <= new Date()) {
-        return '<span class="done">voorbij</span>';
-    } else if (parseInt(tickets) === 0) {
-        return '<span class="soldout">uitverkocht</span>';
+        return ' class="past"';
     } else {
-        return '<a href="" class="available">nog ' + tickets + ' tickets</a>';
+        return ' class="available"';
     }
 });
 
@@ -744,7 +744,7 @@ var HomeView = Backbone.View.extend({
     },
 
     createForest: function() {
-        var step = 360 / 50;
+        var step = 360 / 60;
         var x, y, z, angle, zoom;
         var treeRows = parseInt($('body').width() / 100) / 2;
         var fixRows = 30;
@@ -756,7 +756,7 @@ var HomeView = Backbone.View.extend({
             for (var n = 1; n < treeRows; n++) {
                 var radius = $('#forest').width() / 2 - (fixRows * n) - 30;
                 var rockI = _.random(0, 49); // no pun intended
-                for (var i = 0; i <= 50; i++) {
+                for (var i = 0; i <= 64; i++) {
                     angle = (step * (i + 1)) * (Math.PI / 180);
                     x = Math.cos(angle) * (radius - 30) - fixRows * 2;
                     y = Math.sin(angle) * (radius - 15) - fixRows;
@@ -851,6 +851,11 @@ var HomeView = Backbone.View.extend({
                             selectedDay = value;
                             $target.find('.month span').html(date.format('MMMM'));
                             $(value).removeClass('almostFocus').addClass('focus');
+                            $target.animate({
+                                step: function(i) {
+                                    console.log(i);
+                                }
+                            }, 500);
                             // TODO: animate ^ (via step)
                             // $('.tree').addClass('goInsideBitch');
                             return false;
@@ -870,11 +875,10 @@ var HomeView = Backbone.View.extend({
                     var radians = self.calculateRadians(offset, $target, e.pageX, e.pageY);
                     var degree = (radians * (180 / Math.PI) * -1) - 90; // convert degree for reversal
                     var transformDegree = degree + 180;
-                    console.log($firstDisabledAngle, $lastDisabledAngle, degree, transformDegree);
-                    if (transformDegree > $firstDisabledAngle && transformDegree < $lastDisabledAngle) {
+                    /*if (transformDegree > $firstDisabledAngle && transformDegree < $lastDisabledAngle) {
                         var value = $('.day:not(.disabled)').last();
                         radians = self.calculateRadians(offset, $target, $(value).offset().left + $(value).width() / 2, $(value).offset().top + $(value).height() / 2);
-                    }
+                    }*/
                     degree = (radians * (180 / Math.PI) * -1) - 90;
                     $target.css('transform', 'rotate(' + degree + 'deg)');
                     $target.find('.month').css('transform', 'rotate(' + (degree * -1) + 'deg)');
@@ -1083,7 +1087,7 @@ var TicketsView = Backbone.View.extend({
 
     initialize: function() {
         _.bindAll.apply(_, [this].concat(_.functions(this)));
-        this.currentTicket = this.collection.findWhere({'title': moment().format('YYYY-MM-DD')});
+        this.currentTicket = this.collection.findWhere({'title': '2014-06-13'}); //moment().format('YYYY-MM-DD')
     },
 
     events: {
@@ -1176,6 +1180,7 @@ var TicketsView = Backbone.View.extend({
     },
 
     render: function() {
+        //collection only contains possible available days (i.e. not past days)
         this.$el.html(this.template({days: this.collection.toJSON(), ticket: this.currentTicket.toJSON()}));
         return this;
     }
