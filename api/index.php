@@ -106,7 +106,7 @@ $app->post('/buildings/?', function () use ($app, $buildingsDAO, $daysDAO) {
                 $process->upload(WWW_ROOT . 'uploads' . DIRECTORY_SEPARATOR . basename($uploadedAudio), 'ogg');
             }
 
-            echo json_encode($buildingsDAO->insertBuilding($currentDay['id'], json_encode($urlsVideo), json_encode($urlsAudio)));
+            echo json_encode($buildingsDAO->insertBuilding($currentDay['id'], json_encode($urlsVideo), json_encode($urlsAudio), count($urlsVideo)));
         } else {
             header('HTTP/1.1 500 Internal Server Error');
             echo json_encode('Can\'t upload when arrays are not of equal length.');
@@ -123,7 +123,7 @@ $app->get('/buildings/?', function () use ($buildingsDAO) {
 
 $app->delete('/buildings/:id/?', function ($id) use ($buildingsDAO) {
     header('Content-Type: application/json');
-    echo json_encode($buildngsDAO->deleteBuilding($id));
+    echo json_encode($buildingsDAO->deleteBuilding($id));
     exit();
 });
 

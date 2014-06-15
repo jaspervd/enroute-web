@@ -26,6 +26,41 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   return buffer;
   }));
 
+Handlebars.registerPartial("building", this["tpl"]["building"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+  this.compilerInfo = [4,'>= 1.0.0'];
+helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
+  var buffer = "", stack1, functionType="function", escapeExpression=this.escapeExpression, self=this;
+
+function program1(depth0,data) {
+  
+  var buffer = "";
+  buffer += "\n<video controls loop>\n  <source src=\"uploads/"
+    + escapeExpression((typeof depth0 === functionType ? depth0.apply(depth0) : depth0))
+    + ".mp4\" type=\"video/mp4; codecs='avc1.42E01E, mp4a.40.2'\">\n  <source src=\"uploads/"
+    + escapeExpression((typeof depth0 === functionType ? depth0.apply(depth0) : depth0))
+    + ".ogg\" type=\"video/webm;codecs='vp8, vorbis'\">\n</video>\n";
+  return buffer;
+  }
+
+function program3(depth0,data) {
+  
+  var buffer = "";
+  buffer += "\n<audio controls loop>\n	<source src=\"uploads/"
+    + escapeExpression((typeof depth0 === functionType ? depth0.apply(depth0) : depth0))
+    + ".mp3\" type=\"audio/mpeg; codecs='mp3'\">\n	<source src=\"uploads/"
+    + escapeExpression((typeof depth0 === functionType ? depth0.apply(depth0) : depth0))
+    + ".ogg\" type=\"audio/ogg; codecs='vorbis'\">\n</audio>\n";
+  return buffer;
+  }
+
+  stack1 = helpers.each.call(depth0, (depth0 && depth0.video_urls), {hash:{},inverse:self.noop,fn:self.program(1, program1, data),data:data});
+  if(stack1 || stack1 === 0) { buffer += stack1; }
+  buffer += "\n";
+  stack1 = helpers.each.call(depth0, (depth0 && depth0.audio_urls), {hash:{},inverse:self.noop,fn:self.program(3, program3, data),data:data});
+  if(stack1 || stack1 === 0) { buffer += stack1; }
+  return buffer;
+  }));
+
 Handlebars.registerPartial("contact", this["tpl"]["contact"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
@@ -288,6 +323,23 @@ var Validate = (function() {
 
 /* globals Settings:true */
 
+var Building = Backbone.Model.extend({
+    defaults:{
+        id: null,
+        day_id: null,
+        video_urls: undefined,
+        audio_urls: undefined,
+        height: null,
+        approved: 0,
+        uploaded_date: undefined
+    },
+
+    urlRoot: Settings.API + '/buildings'
+});
+
+
+/* globals Settings:true */
+
 var Contact = Backbone.Model.extend({
     defaults:{
         name: undefined,
@@ -296,21 +348,6 @@ var Contact = Backbone.Model.extend({
     },
 
     urlRoot: Settings.API + '/contact'
-});
-
-/* globals Settings:true */
-
-var Content = Backbone.Model.extend({
-    defaults:{
-        id: null,
-        day_id: null,
-        url: undefined,
-        type: undefined,
-        approved: 0,
-        uploaded_date: undefined
-    },
-
-    urlRoot: Settings.API + '/content'
 });
 
 var Day = Backbone.Model.extend({
@@ -380,17 +417,11 @@ var AppRouter = Backbone.Router.extend({
 
 
 /* globals Settings:true */
-/* globals Content:true */
+/* globals Building:true */
 
-var Contents = Backbone.Collection.extend({
-    model: Content,
-    url: Settings.API + "/content",
-
-    byDayID: function (day) {
-        return this.filter(function (content) {
-            return parseInt(content.get('day_id')) === parseInt(day);
-        });
-    }
+var Buildings = Backbone.Collection.extend({
+    model: Building,
+    url: Settings.API + "/buildings"
 });
 
 /* globals Day:true */
@@ -539,6 +570,21 @@ var AdminContentView = Backbone.View.extend({
     }
 });
 
+var BuildingView = Backbone.View.extend({
+    className: 'building',
+    tagName: 'div',
+    template: tpl.building,
+
+    initialize: function () {
+        _.bindAll.apply(_, [this].concat(_.functions(this)));
+    },
+
+    render: function () {
+        this.$el.html(this.template(this.model.toJSON()));
+        return this;
+    }
+});
+
 /* globals InfoView:true */
 /* globals TicketsView:true */
 /* globals ContactView:true */
@@ -609,23 +655,32 @@ var ContentView = Backbone.View.extend({
     }
 });
 
+/* globals BuildingView:true */
+/* globals Buildings:true */
+
 var DayView = Backbone.View.extend({
     id: 'day',
     tagName: 'section',
     template: tpl.day,
+    buildings: undefined,
 
     initialize: function() {
         _.bindAll.apply(_, [this].concat(_.functions(this)));
+
+        this.buildings = new Buildings();
+        this.buildings.url = this.buildings.url + '/day/' + this.model.get('id');
+        this.buildings.fetch();
+        this.buildings.on('sync reset', this.render);
     },
 
     render: function() {
-        this.$el.html(this.template());
-        var buildings = 12;
-        var step = 360 / buildings;
+        this.$el.html(this.template(this.model.toJSON()));
+        var step = 360 / this.buildings.length;
         var degree;
-
-        for (var i = 0; i < buildings; i++) {
-            this.$el.append('<div class="building"></div>');
+        for (var i = 0; i < this.buildings.length; i++) {
+            var buildingView = new BuildingView({model: this.buildings.at(i)});
+            console.log(this.buildings.at(i));
+            this.$el.append(buildingView.render().$el);
             this.$el.find('.building:last').css('transform', 'rotate(' + (step * i) + 'deg)');
         }
 

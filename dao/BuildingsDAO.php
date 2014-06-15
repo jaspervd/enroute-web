@@ -19,8 +19,8 @@ class BuildingsDAO {
             if(!empty($buildings)){
                 $arr = array();
                 foreach($buildings as $building){
-                    $building['video_urls'] = stripslashes($building['video_urls']);
-                    $building['audio_urls'] = stripslashes($building['audio_urls']);
+                    $building['video_urls'] = json_decode(stripslashes($building['video_urls']));
+                    $building['audio_urls'] = json_decode(stripslashes($building['audio_urls']));
                     $building['day'] = $this->daysDAO->getDayById($building['day_id']);
                     $arr[] = $building;
                 }
@@ -46,17 +46,27 @@ class BuildingsDAO {
         $stmt = $this->pdo->prepare($sql);
         $stmt->bindValue('day_id', $day_id);
         if ($stmt->execute()) {
-            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+            $buildings = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            if(!empty($buildings)){
+                $arr = array();
+                foreach($buildings as $building){
+                    $building['video_urls'] = json_decode(stripslashes($building['video_urls']));
+                    $building['audio_urls'] = json_decode(stripslashes($building['audio_urls']));
+                    $arr[] = $building;
+                }
+                return $arr;
+            }
         }
         return array();
     }
 
-    public function insertBuilding($day_id, $videoUrls, $audioUrls) {
-        $sql = "INSERT INTO `enroute_buildings` (`day_id`, `video_urls`, `audio_urls`) VALUES (:day_id, :video_urls, :audio_urls)";
+    public function insertBuilding($day_id, $videoUrls, $audioUrls, $height) {
+        $sql = "INSERT INTO `enroute_buildings` (`day_id`, `video_urls`, `audio_urls`, `height`) VALUES (:day_id, :video_urls, :audio_urls, :height)";
         $stmt = $this->pdo->prepare($sql);
         $stmt->bindValue('day_id', $day_id);
         $stmt->bindValue('video_urls', $videoUrls);
         $stmt->bindValue('audio_urls', $audioUrls);
+        $stmt->bindValue('height', $height);
         if ($stmt->execute()) {
             return $this->getBuildingById($this->pdo->lastInsertId());
         }
