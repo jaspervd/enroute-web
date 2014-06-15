@@ -7,29 +7,14 @@ if (!empty($_REQUEST['callback'])) {
 	$process = CloudConvert::useProcess($_REQUEST['url']);
 	$status = $process->status();
 
-	$log = 'log.txt';
-	$fh = fopen($log, 'w');
-	fwrite($fh, 'ja ma ik kom er wel in ze, in de callback hier wa info: '. implode(' ', $status));
-	fclose($fh);
-
 	if ($status->step == 'finished') {
 		$process->download($_GET['filename']);
-		unlink(pathinfo($_GET['filename'] .'.'. $_GET['original'], PATHINFO_FILENAME));
-		$log = 'log.txt';
-		$fh = fopen($log, 'w');
-		fwrite($fh, implode(' ', $process));
-		fclose($fh);
+		unlink(WWW_ROOT . 'uploads'. DIRECTORY_SEPARATOR . pathinfo($_GET['filename'], PATHINFO_FILENAME) .'.'. $_GET['original']);
 	} else {
 		$log = 'log.txt';
 		$fh = fopen($log, 'w');
-		fwrite($fh, implode(' ', $status));
+		fwrite($fh, $status->message);
 		fclose($fh);
 	}
-
-	//$process->delete();
-} else {
-	$log = 'log.txt';
-	$fh = fopen($log, 'w');
-	fwrite($fh, 'nee man srry geen callback naart schijnt');
-	fclose($fh);
+	$process->delete();
 }

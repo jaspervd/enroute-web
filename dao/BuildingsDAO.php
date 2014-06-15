@@ -12,7 +12,7 @@ class BuildingsDAO {
     }
 
     public function getBuildings() {
-        $sql = "SELECT * FROM `enroute_building` ORDER BY `day_id` ASC";
+        $sql = "SELECT * FROM `enroute_buildings` ORDER BY `day_id` ASC";
         $stmt = $this->pdo->prepare($sql);
         if ($stmt->execute()) {
             $buildings = $stmt->fetchAll(PDO::FETCH_ASSOC);

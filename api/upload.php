@@ -26,30 +26,30 @@ if(!empty($_POST['submit'])) {
         $audio = Upload::reArrange($_FILES['audio']);
         if(count($video) === count($audio)) {
             $urlsVideo = $urlsAudio = array();
-            foreach ($video as $videoFile) {
-                $uploadedMov = Upload::file($videoFile, array('building', $currentDay['id']));
-                $urlsVideo[] = pathinfo($uploadedMov, PATHINFO_FILENAME);
+            foreach ($video as $key => $videoFile) {
+                $uploadedMov = Upload::file($videoFile, array('building', $key, $currentDay['id']));
+                $urlsVideo[$key] = pathinfo($uploadedMov, PATHINFO_FILENAME);
 
                 $process = CloudConvert::createProcess('mov', 'mp4', Config::CC_APIKEY);
-                $process->setOption('callback', Config::CC_CALLBACKURL .'?callback=true&filename=' . pathinfo($uploadedMov, PATHINFO_FILENAME) . '.mp4&original=mov');
-                $process->uploadByUrl(Config::ONLINE_URL .'uploads/', basename($uploadedMov), 'mp4');
+                $process->setOption('callback', Config::CC_CALLBACKURL . '?callback=true&filename=' . $urlsVideo[$key] . '.mp4&original=mov');
+                $process->upload(WWW_ROOT . 'uploads' . DIRECTORY_SEPARATOR . basename($uploadedMov), 'mp4');
 
                 $process = CloudConvert::createProcess('mov', 'webm', Config::CC_APIKEY);
-                $process->setOption('callback', Config::CC_CALLBACKURL .'?callback=true&filename=' . pathinfo($uploadedMov, PATHINFO_FILENAME) . '.webm&original=mov');
-                $process->uploadByUrl(Config::ONLINE_URL .'uploads/', basename($uploadedMov), 'webm');
+                $process->setOption('callback', Config::CC_CALLBACKURL . '?callback=true&filename=' . $urlsVideo[$key] . '.webm&original=mov');
+                $process->upload(WWW_ROOT . 'uploads' . DIRECTORY_SEPARATOR . basename($uploadedMov), 'webm');
             }
 
-            foreach ($audio as $audioFile) {
-                $uploadedAudio = Upload::file($audioFile, array('building', $currentDay['id']));
-                $urlsAudio[] = pathinfo($uploadedAudio, PATHINFO_FILENAME);
+            foreach ($audio as $key => $audioFile) {
+                $uploadedAudio = Upload::file($audioFile, array('building', $key, $currentDay['id']));
+                $urlsAudio[$key] = pathinfo($uploadedAudio, PATHINFO_FILENAME);
 
                 $process = CloudConvert::createProcess('m4a', 'mp3', Config::CC_APIKEY);
-                $process->setOption('callback', Config::CC_CALLBACKURL .'?callback=true&filename=' . pathinfo($uploadedAudio, PATHINFO_FILENAME) . '.mp3&original=m4a');
-                $process->uploadByUrl(Config::ONLINE_URL .'uploads/', basename($uploadedAudio), 'mp3');
+                $process->setOption('callback', Config::CC_CALLBACKURL . '?callback=true&filename=' . $urlsAudio[$key] . '.mp3&original=m4a');
+                $process->upload(WWW_ROOT . 'uploads' . DIRECTORY_SEPARATOR . basename($uploadedAudio), 'mp3');
 
                 $process = CloudConvert::createProcess('m4a', 'ogg', Config::CC_APIKEY);
-                $process->setOption('callback', Config::CC_CALLBACKURL .'?callback=true&filename=' . pathinfo($uploadedAudio, PATHINFO_FILENAME) . '.ogg&original=m4a');
-                $process->uploadByUrl(Config::ONLINE_URL .'uploads/', basename($uploadedAudio), 'ogg');
+                $process->setOption('callback', Config::CC_CALLBACKURL . '?callback=true&filename=' . $urlsAudio[$key] . '.ogg&original=m4a');
+                $process->upload(WWW_ROOT . 'uploads' . DIRECTORY_SEPARATOR . basename($uploadedAudio), 'ogg');
             }
 
             echo json_encode($buildingsDAO->insertBuilding($currentDay['id'], json_encode($urlsVideo), json_encode($urlsAudio)));
@@ -59,8 +59,6 @@ if(!empty($_POST['submit'])) {
         }
     }
 } else {
-    echo Config::ONLINE_URL .'uploads/', basename('salvaiseenja.net');
-    echo Config::CC_CALLBACKURL .'?callback=true&filename=' . basename('uploads/lolziefile.m4a') .'.mp3&original=m4a';
     ?>
 
     <form method="post" enctype="multipart/form-data">

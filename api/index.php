@@ -82,28 +82,28 @@ $app->post('/buildings/?', function () use ($app, $buildingsDAO, $daysDAO) {
             $urlsVideo = $urlsAudio = array();
             foreach ($video as $key => $videoFile) {
                 $uploadedMov = Upload::file($videoFile, array('building', $key, $currentDay['id']));
-                $urlsVideo[] = pathinfo($uploadedMov, PATHINFO_FILENAME);
+                $urlsVideo[$key] = pathinfo($uploadedMov, PATHINFO_FILENAME);
 
-                $mp4Process = CloudConvert::createProcess('mov', 'mp4', Config::CC_APIKEY);
-                $mp4Process->setOption('callback', Config::CC_CALLBACKURL .'?callback=true&filename=' . pathinfo($uploadedMov, PATHINFO_FILENAME) . '.mp4&original=mov');
-                $mp4Process->uploadByUrl(Config::ONLINE_URL .'uploads/', basename($uploadedMov), 'mp4');
+                $process = CloudConvert::createProcess('mov', 'mp4', Config::CC_APIKEY);
+                $process->setOption('callback', Config::CC_CALLBACKURL . '?callback=true&filename=' . $urlsVideo[$key] . '.mp4&original=mov');
+                $process->upload(WWW_ROOT . 'uploads' . DIRECTORY_SEPARATOR . basename($uploadedMov), 'mp4');
 
-                $webmProcess = CloudConvert::createProcess('mov', 'webm', Config::CC_APIKEY);
-                $webmProcess->setOption('callback', Config::CC_CALLBACKURL .'?callback=true&filename=' . pathinfo($uploadedMov, PATHINFO_FILENAME) . '.webm&original=mov');
-                $webmProcess->uploadByUrl(Config::ONLINE_URL .'uploads/', basename($uploadedMov), 'webm');
+                $process = CloudConvert::createProcess('mov', 'webm', Config::CC_APIKEY);
+                $process->setOption('callback', Config::CC_CALLBACKURL . '?callback=true&filename=' . $urlsVideo[$key] . '.webm&original=mov');
+                $process->upload(WWW_ROOT . 'uploads' . DIRECTORY_SEPARATOR . basename($uploadedMov), 'webm');
             }
 
             foreach ($audio as $key => $audioFile) {
                 $uploadedAudio = Upload::file($audioFile, array('building', $key, $currentDay['id']));
-                $urlsAudio[] = pathinfo($uploadedAudio, PATHINFO_FILENAME);
+                $urlsAudio[$key] = pathinfo($uploadedAudio, PATHINFO_FILENAME);
 
-                $mp3Process = CloudConvert::createProcess('m4a', 'mp3', Config::CC_APIKEY);
-                $mp3Process->setOption('callback', Config::CC_CALLBACKURL .'?callback=true&filename=' . pathinfo($uploadedAudio, PATHINFO_FILENAME) . '.mp3&original=m4a');
-                $mp3Process->uploadByUrl(Config::ONLINE_URL .'uploads/', basename($uploadedAudio), 'mp3');
+                $process = CloudConvert::createProcess('m4a', 'mp3', Config::CC_APIKEY);
+                $process->setOption('callback', Config::CC_CALLBACKURL . '?callback=true&filename=' . $urlsAudio[$key] . '.mp3&original=m4a');
+                $process->upload(WWW_ROOT . 'uploads' . DIRECTORY_SEPARATOR . basename($uploadedAudio), 'mp3');
 
-                $oggProcess = CloudConvert::createProcess('m4a', 'ogg', Config::CC_APIKEY);
-                $oggProcess->setOption('callback', Config::CC_CALLBACKURL .'?callback=true&filename=' . pathinfo($uploadedAudio, PATHINFO_FILENAME) . '.ogg&original=m4a');
-                $oggProcess->uploadByUrl(Config::ONLINE_URL .'uploads/', basename($uploadedAudio), 'ogg');
+                $process = CloudConvert::createProcess('m4a', 'ogg', Config::CC_APIKEY);
+                $process->setOption('callback', Config::CC_CALLBACKURL . '?callback=true&filename=' . $urlsAudio[$key] . '.ogg&original=m4a');
+                $process->upload(WWW_ROOT . 'uploads' . DIRECTORY_SEPARATOR . basename($uploadedAudio), 'ogg');
             }
 
             echo json_encode($buildingsDAO->insertBuilding($currentDay['id'], json_encode($urlsVideo), json_encode($urlsAudio)));
@@ -142,10 +142,10 @@ $app->put('/buildings/:id/?', function ($id) use ($app, $buildingsDAO) {
 $app->get('/biggiesmalls/day/?', function () use ($biggieSmallsDAO, $daysDAO) {
     header('Content-Type: application/json');
     $currentDay = $daysDAO->getDayByDate(date('Y-m-d'));
-    if(empty($currentDay)) {
+    if (empty($currentDay)) {
         $currentDay['id'] = 11;
     }
-    echo json_encode($biggieSmallsDAO->getBiggieSmallsByDay($currentDay['id']));
+    echo json_encode($biggieSmallsDAO->getBiggieSmallsByDay(11));
     exit();
 });
 

@@ -40,3 +40,7 @@ result/
 uploads/*.mov
 uploads/*.m4a
 uploads/*.JPG
+uploads/*.webm
+uploads/*.mp4
+uploads/*.ogg
+uploads/*.mp3
