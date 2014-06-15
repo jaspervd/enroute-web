@@ -15,7 +15,7 @@
     {{#if days}}
     <ul id="selectTicket">
         {{#each days}}
-        <li><a href="" class="day" data-date="{{title}}"{{returnAvailability title}}>{{formatDate title}}</a></li>
+        <li><a href="" class="day{{returnAvailability title tickets_available}}" data-date="{{title}}">{{formatDate title}}</a></li>
         {{/each}}
     </ul>
     <div class="clear"></div>

@@ -123,7 +123,7 @@ render: function() {
         var selectTicket = this.$el.find('#selectTicket');
         var self = this;
         selectTicket.on('mousemove', function(e) {
-            selectTicket.css({'width': self.collection.length * self.$el.find('.day').width()});
+            selectTicket.css({'width': self.collection.length * (self.$el.find('.day').parent().width() + 10) + 100});
             var x = -(((e.pageX - $('#selectTicket').position().left) / $("#tickets").width()) * ($("#selectTicket").width() + parseInt($("#selectTicket").css('paddingLeft')) + parseInt($("#selectTicket").css('paddingRight')) - $("#tickets").width()));
             $("#selectTicket").css({
                 'marginLeft': x + 'px'

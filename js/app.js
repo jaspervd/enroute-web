@@ -65,7 +65,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 Handlebars.registerPartial("tickets", this["tpl"]["tickets"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
-  var buffer = "", stack1, helper, options, functionType="function", escapeExpression=this.escapeExpression, helperMissing=helpers.helperMissing, self=this;
+  var buffer = "", stack1, helper, options, helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression, functionType="function", self=this;
 
 function program1(depth0,data) {
   
@@ -79,13 +79,13 @@ function program1(depth0,data) {
 function program2(depth0,data) {
   
   var buffer = "", stack1, helper, options;
-  buffer += "\n        <li><a href=\"\" class=\"day\" data-date=\"";
+  buffer += "\n        <li><a href=\"\" class=\"day"
+    + escapeExpression((helper = helpers.returnAvailability || (depth0 && depth0.returnAvailability),options={hash:{},data:data},helper ? helper.call(depth0, (depth0 && depth0.title), (depth0 && depth0.tickets_available), options) : helperMissing.call(depth0, "returnAvailability", (depth0 && depth0.title), (depth0 && depth0.tickets_available), options)))
+    + "\" data-date=\"";
   if (helper = helpers.title) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.title); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
-    + "\""
-    + escapeExpression((helper = helpers.returnAvailability || (depth0 && depth0.returnAvailability),options={hash:{},data:data},helper ? helper.call(depth0, (depth0 && depth0.title), options) : helperMissing.call(depth0, "returnAvailability", (depth0 && depth0.title), options)))
-    + ">"
+    + "\">"
     + escapeExpression((helper = helpers.formatDate || (depth0 && depth0.formatDate),options={hash:{},data:data},helper ? helper.call(depth0, (depth0 && depth0.title), options) : helperMissing.call(depth0, "formatDate", (depth0 && depth0.title), options)))
     + "</a></li>\n        ";
   return buffer;
@@ -199,11 +199,14 @@ Handlebars.registerHelper('formatDate', function (date) {
     return moment(date).format('D');
 });
 
-Handlebars.registerHelper('returnAvailability', function (date) {
+Handlebars.registerHelper('returnAvailability', function (date, tickets) {
+    console.log(new Date(date), tickets);
     if (new Date(date) <= new Date()) {
-        return ' class="past"';
+        return ' past';
+    } else if(tickets === 0) {
+        return ' soldout';
     } else {
-        return ' class="available"';
+        return ' available';
     }
 });
 
@@ -1199,7 +1202,7 @@ render: function() {
         var selectTicket = this.$el.find('#selectTicket');
         var self = this;
         selectTicket.on('mousemove', function(e) {
-            selectTicket.css({'width': self.collection.length * self.$el.find('.day').width()});
+            selectTicket.css({'width': self.collection.length * (self.$el.find('.day').parent().width() + 10) + 100});
             var x = -(((e.pageX - $('#selectTicket').position().left) / $("#tickets").width()) * ($("#selectTicket").width() + parseInt($("#selectTicket").css('paddingLeft')) + parseInt($("#selectTicket").css('paddingRight')) - $("#tickets").width()));
             $("#selectTicket").css({
                 'marginLeft': x + 'px'

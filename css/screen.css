@@ -467,7 +467,7 @@ body {
 }
 /* line 253, ../_scss/screen.scss */
 #tickets ul li a.available {
-  color: #39b54a;
+  color: #39b54a !important;
 }
 /* line 260, ../_scss/screen.scss */
 #tickets form {

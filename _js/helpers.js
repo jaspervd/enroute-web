@@ -3,11 +3,14 @@ Handlebars.registerHelper('formatDate', function (date) {
     return moment(date).format('D');
 });
 
-Handlebars.registerHelper('returnAvailability', function (date) {
+Handlebars.registerHelper('returnAvailability', function (date, tickets) {
+    console.log(new Date(date), tickets);
     if (new Date(date) <= new Date()) {
-        return ' class="past"';
+        return ' past';
+    } else if(tickets === 0) {
+        return ' soldout';
     } else {
-        return ' class="available"';
+        return ' available';
     }
 });
 
