@@ -137,7 +137,6 @@ var HomeView = Backbone.View.extend({
                             var radians = self.calculateRadians(offset, $target, $(value).offset().left + $(value).width() / 2, $(value).offset().top + $(value).height() / 2);
                             var degree = (radians * (180 / Math.PI) * -1) + 90;
                             var transformDegree = degree + 90;
-                            console.log(transformDegree, currentAngle);
                             if (transformDegree > $firstDisabledAngle && transformDegree < $lastDisabledAngle) {
                                 console.log(($('.day.disabled').length / 2 + $('.day:not(.disabled)').length), $(value).index());
                                 if (($('.day.disabled').length / 2 + $('.day:not(.disabled)').length) > $(value).index()) {
@@ -155,11 +154,10 @@ var HomeView = Backbone.View.extend({
                             selectedDay = value;
                             $target.find('.month span').html(date.format('MMMM'));
                             $(value).removeClass('almostFocus').addClass('focus');
-                            $target.animate({settingToFixRotationAnimation: (currentAngle - degree - 90)}, {
+                            $target.animate({settingToAnimateRotation: Math.abs(currentAngle - degree - 90)}, {
                                 step: function(angle, fx) {
-                                    $target.find('.month').css('transform', 'rotate(' + ((currentAngle + angle - 90) * -1) + 'deg)');
-                                    $target.css('transform', 'rotate('+ (currentAngle + angle - 90) +'deg)');
-                                    console.log(currentAngle + angle, currentAngle, degree);
+                                    $target.find('.month').css('transform', 'rotate(' + ((degree - angle) * -1) + 'deg)');
+                                    $target.css('transform', 'rotate('+ (degree - angle) +'deg)');
                                 }, duration: 300
                             }, 'linear');
                             return false;
