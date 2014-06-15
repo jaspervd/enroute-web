@@ -922,20 +922,20 @@ form .range input {
 }
 /* line 689, ../_scss/screen.scss */
 #city .rotate {
-  -webkit-animation: rotateCircle 20s infinite linear;
-  -moz-animation: rotateCircle 20s infinite linear;
-  -o-animation: rotateCircle 20s infinite linear;
-  animation: rotateCircle 20s infinite linear;
+  -webkit-animation: rotateCircle 35s infinite linear;
+  -moz-animation: rotateCircle 35s infinite linear;
+  -o-animation: rotateCircle 35s infinite linear;
+  animation: rotateCircle 35s infinite linear;
   position: absolute;
   top: 50%;
   left: 50%;
 }
 /* line 698, ../_scss/screen.scss */
 #city .rotate.forwards {
-  -webkit-animation: rotateCircle reverse 24s infinite linear;
-  -moz-animation: rotateCircle reverse 24s infinite linear;
-  -o-animation: rotateCircle reverse 24s infinite linear;
-  animation: rotateCircle reverse 24s infinite linear;
+  -webkit-animation: rotateCircle reverse 49s infinite linear;
+  -moz-animation: rotateCircle reverse 49s infinite linear;
+  -o-animation: rotateCircle reverse 49s infinite linear;
+  animation: rotateCircle reverse 49s infinite linear;
   width: 75%;
   margin-left: -38%;
 }

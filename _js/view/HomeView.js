@@ -132,9 +132,12 @@ var HomeView = Backbone.View.extend({
                     $('*').enableSelection();
                     $.each($('.day'), function(key, value) {
                         if (self.checkForOverlap($target.find('.select'), $(value))) {
+                            var currentAngleMatrix = self.getMatrix($target.css('transform'));
+                            var currentAngle = (Math.atan2(currentAngleMatrix.b, currentAngleMatrix.a) * (180 / Math.PI)) + 90;
                             var radians = self.calculateRadians(offset, $target, $(value).offset().left + $(value).width() / 2, $(value).offset().top + $(value).height() / 2);
                             var degree = (radians * (180 / Math.PI) * -1) + 90;
                             var transformDegree = degree + 90;
+                            console.log(transformDegree, currentAngle);
                             if (transformDegree > $firstDisabledAngle && transformDegree < $lastDisabledAngle) {
                                 console.log(($('.day.disabled').length / 2 + $('.day:not(.disabled)').length), $(value).index());
                                 if (($('.day.disabled').length / 2 + $('.day:not(.disabled)').length) > $(value).index()) {
@@ -146,19 +149,19 @@ var HomeView = Backbone.View.extend({
                             }
                             degree = (radians * (180 / Math.PI) * -1) + 90;
                             self.trigger('day_selected', $(value).attr('data-day'));
-                            $target.find('.month').css('transform', 'rotate(' + (degree * -1) + 'deg)');
-                            $target.css('transform', 'rotate(' + degree + 'deg)');
+                            /*$target.find('.month').css('transform', 'rotate(' + (degree * -1) + 'deg)');
+                            $target.css('transform', 'rotate(' + degree + 'deg)');*/
                             var date = moment($(value).attr('data-day'));
                             selectedDay = value;
                             $target.find('.month span').html(date.format('MMMM'));
                             $(value).removeClass('almostFocus').addClass('focus');
-                            $target.animate({
-                                step: function(i) {
-                                    console.log(i);
-                                }
-                            }, 500);
-                            // TODO: animate ^ (via step)
-                            // $('.tree').addClass('goInsideBitch');
+                            $target.animate({settingToFixRotationAnimation: (currentAngle - degree - 90)}, {
+                                step: function(angle, fx) {
+                                    $target.find('.month').css('transform', 'rotate(' + ((currentAngle + angle - 90) * -1) + 'deg)');
+                                    $target.css('transform', 'rotate('+ (currentAngle + angle - 90) +'deg)');
+                                    console.log(currentAngle + angle, currentAngle, degree);
+                                }, duration: 300
+                            }, 'linear');
                             return false;
                         }
                     });
@@ -203,6 +206,13 @@ var HomeView = Backbone.View.extend({
                 }
             });
         }
+    },
+
+    getMatrix: function(matrix) {
+        var returnMatrix = matrix.split('(')[1];
+            returnMatrix = returnMatrix.split(')')[0];
+            returnMatrix = returnMatrix.split(',');
+            return {a: returnMatrix[0], b: returnMatrix[1], c: returnMatrix[2], d: returnMatrix[3]};
     },
 
     calculateRadians: function(offset, $target, object_x, object_y) {
