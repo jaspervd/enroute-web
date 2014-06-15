@@ -1087,12 +1087,18 @@ var TicketsView = Backbone.View.extend({
     tagName: 'section',
     template: tpl.tickets,
     currentTicket: undefined,
+    filteredCollection: undefined,
 
     initialize: function() {
         _.bindAll.apply(_, [this].concat(_.functions(this)));
         this.currentTicket = this.collection.findWhere({
             'title': '2014-06-13'
         }); //moment().format('YYYY-MM-DD')
+        console.log(this.collection);
+        this.filteredCollection = this.collection.filter(function(day) {
+            return new Date(day.get('title')) >= new Date();
+        });
+        this.collection.reset(this.filteredCollection);
     },
 
     events: {
@@ -1193,7 +1199,6 @@ clean: function() {
 },
 
 render: function() {
-        //collection only contains possible available days (i.e. not past days)
         this.$el.html(this.template({
             days: this.collection.toJSON(),
             ticket: this.currentTicket.toJSON()
