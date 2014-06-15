@@ -38,4 +38,5 @@ node_modules
 .sass-cache
 result/
 uploads/*.mov
+uploads/*.m4a
 uploads/*.JPG
