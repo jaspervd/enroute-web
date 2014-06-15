@@ -10,6 +10,7 @@ require_once WWW_ROOT . 'dao' . DIRECTORY_SEPARATOR . 'BiggieSmallsDAO.php';
 require_once WWW_ROOT . 'dao' . DIRECTORY_SEPARATOR . 'BuildingsDAO.php';
 require_once WWW_ROOT . 'includes' . DIRECTORY_SEPARATOR . 'Validate.php';
 require_once WWW_ROOT . 'includes' . DIRECTORY_SEPARATOR . 'Upload.php';
+require_once WWW_ROOT . 'includes' . DIRECTORY_SEPARATOR . 'CloudConvert.php';
 require_once WWW_ROOT . 'api' . DIRECTORY_SEPARATOR . 'Slim' . DIRECTORY_SEPARATOR . 'Slim.php';
 
 \Slim\Slim::registerAutoloader();
@@ -70,21 +71,39 @@ $app->get('/buildings/day/:day_id/?', function ($day_id) use ($buildingsDAO) {
 
 $app->post('/buildings/?', function () use ($app, $buildingsDAO, $daysDAO) {
     header('Content-Type: application/json');
-    $currentDay = $daysDAO->getDayByDate(date('Y-m-d'));
-    if(empty($currentDay)) {
+    $currentDay = $daysDAO->getDayByDate('2014-06-16');
+    if (empty($currentDay)) {
         header('HTTP/1.1 500 Internal Server Error');
         echo json_encode('Can\'t upload on an invalid date.');
     } else {
         $video = Upload::reArrange($_FILES['video']);
         $audio = Upload::reArrange($_FILES['audio']);
-        if(count($video) === count($audio)) {
+        if (count($video) === count($audio)) {
             $urlsVideo = $urlsAudio = array();
-            foreach ($video as $videoFile) {
-                $urlsVideo[] = Upload::file($videoFile, array('building', $currentDay['id']));
+            foreach ($video as $key => $videoFile) {
+                $uploadedMov = Upload::file($videoFile, array('building', $key, $currentDay['id']));
+                $urlsVideo[] = pathinfo($uploadedMov, PATHINFO_FILENAME);
+
+                $mp4Process = CloudConvert::createProcess('mov', 'mp4', Config::CC_APIKEY);
+                $mp4Process->setOption('callback', Config::CC_CALLBACKURL .'?callback=true&filename=' . pathinfo($uploadedMov, PATHINFO_FILENAME) . '.mp4&original=mov');
+                $mp4Process->uploadByUrl(Config::ONLINE_URL .'uploads/', basename($uploadedMov), 'mp4');
+
+                $webmProcess = CloudConvert::createProcess('mov', 'webm', Config::CC_APIKEY);
+                $webmProcess->setOption('callback', Config::CC_CALLBACKURL .'?callback=true&filename=' . pathinfo($uploadedMov, PATHINFO_FILENAME) . '.webm&original=mov');
+                $webmProcess->uploadByUrl(Config::ONLINE_URL .'uploads/', basename($uploadedMov), 'webm');
             }
 
-            foreach ($audio as $audioFile) {
-                $urlsAudio[] = Upload::file($audioFile, array('building', $currentDay['id']));
+            foreach ($audio as $key => $audioFile) {
+                $uploadedAudio = Upload::file($audioFile, array('building', $key, $currentDay['id']));
+                $urlsAudio[] = pathinfo($uploadedAudio, PATHINFO_FILENAME);
+
+                $mp3Process = CloudConvert::createProcess('m4a', 'mp3', Config::CC_APIKEY);
+                $mp3Process->setOption('callback', Config::CC_CALLBACKURL .'?callback=true&filename=' . pathinfo($uploadedAudio, PATHINFO_FILENAME) . '.mp3&original=m4a');
+                $mp3Process->uploadByUrl(Config::ONLINE_URL .'uploads/', basename($uploadedAudio), 'mp3');
+
+                $oggProcess = CloudConvert::createProcess('m4a', 'ogg', Config::CC_APIKEY);
+                $oggProcess->setOption('callback', Config::CC_CALLBACKURL .'?callback=true&filename=' . pathinfo($uploadedAudio, PATHINFO_FILENAME) . '.ogg&original=m4a');
+                $oggProcess->uploadByUrl(Config::ONLINE_URL .'uploads/', basename($uploadedAudio), 'ogg');
             }
 
             echo json_encode($buildingsDAO->insertBuilding($currentDay['id'], json_encode($urlsVideo), json_encode($urlsAudio)));
@@ -120,9 +139,13 @@ $app->put('/buildings/:id/?', function ($id) use ($app, $buildingsDAO) {
 
 // BiggieSmalls
 
-$app->get('/biggiesmalls/:id/?', function ($id) use ($biggieSmallsDAO) {
+$app->get('/biggiesmalls/day/?', function () use ($biggieSmallsDAO, $daysDAO) {
     header('Content-Type: application/json');
-    echo json_encode($biggieSmallsDAO->getBiggieSmallsById($id));
+    $currentDay = $daysDAO->getDayByDate(date('Y-m-d'));
+    if(empty($currentDay)) {
+        $currentDay['id'] = 11;
+    }
+    echo json_encode($biggieSmallsDAO->getBiggieSmallsByDay($currentDay['id']));
     exit();
 });
 
@@ -132,10 +155,16 @@ $app->get('/biggiesmalls/day/:day_id/?', function ($day_id) use ($biggieSmallsDA
     exit();
 });
 
+$app->get('/biggiesmalls/:id/?', function ($id) use ($biggieSmallsDAO) {
+    header('Content-Type: application/json');
+    echo json_encode($biggieSmallsDAO->getBiggieSmallsById($id));
+    exit();
+});
+
 $app->post('/biggiesmalls/?', function () use ($app, $biggieSmallsDAO, $daysDAO) {
     header('Content-Type: application/json');
-    $currentDay = $daysDAO->getDayByDate(date('Y-m-d'));
-    if(empty($currentDay)) {
+    $currentDay = $daysDAO->getDayByDate('2014-06-16');
+    if (empty($currentDay)) {
         header('HTTP/1.1 500 Internal Server Error');
         echo json_encode('Can\'t upload on an invalid date.');
     } else {
@@ -146,7 +175,7 @@ $app->post('/biggiesmalls/?', function () use ($app, $biggieSmallsDAO, $daysDAO)
         }
 
         $photo = Upload::reArrange($_FILES['photo']);
-        $urlPhoto = Upload::file($photo[0], array('biggiesmalls', $currentDay['id']));
+        $urlPhoto = (Config::PRODUCTION === true ? Config::ONLINE_URL : '') . Upload::file($photo[0], array('biggiesmalls', $currentDay['id']));
 
         echo json_encode($biggieSmallsDAO->insertBiggieSmalls($currentDay['id'], $urlPhoto, $post['latitude'], $post['longitude']));
     }
@@ -155,7 +184,7 @@ $app->post('/biggiesmalls/?', function () use ($app, $biggieSmallsDAO, $daysDAO)
 
 $app->get('/biggiesmalls/?', function () use ($biggieSmallsDAO) {
     header('Content-Type: application/json');
-    echo json_encode($biggieSmallsDAO->$getBiggieSmalls());
+    echo json_encode($biggieSmallsDAO->getBiggieSmalls());
     exit();
 });
 

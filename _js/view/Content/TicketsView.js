@@ -12,14 +12,13 @@ var TicketsView = Backbone.View.extend({
 
     initialize: function() {
         _.bindAll.apply(_, [this].concat(_.functions(this)));
-        this.currentTicket = this.collection.findWhere({
-            'title': '2014-06-13'
-        }); //moment().format('YYYY-MM-DD')
-        console.log(this.collection);
         this.filteredCollection = this.collection.filter(function(day) {
             return new Date(day.get('title')) >= new Date();
         });
         this.collection.reset(this.filteredCollection);
+        if(!this.currentTicket) {
+            this.currentTicket = this.collection.first();
+        }
     },
 
     events: {

@@ -40,7 +40,7 @@ class BiggieSmallsDAO {
     }
 
     public function getBiggieSmallsByDay($day_id) {
-        $sql = "SELECT * FROM `enroute_biggiesmalls` WHERE `day_id` = :day_id";
+        $sql = "SELECT * FROM `enroute_biggiesmalls` WHERE `day_id` = :day_id AND `approved` = 1";
         $stmt = $this->pdo->prepare($sql);
         $stmt->bindValue('day_id', $day_id);
         if ($stmt->execute()) {

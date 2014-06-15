@@ -4,7 +4,6 @@ Handlebars.registerHelper('formatDate', function (date) {
 });
 
 Handlebars.registerHelper('returnAvailability', function (date, tickets) {
-    console.log(new Date(date), tickets);
     if (new Date(date) <= new Date()) {
         return ' past';
     } else if(tickets === 0) {
