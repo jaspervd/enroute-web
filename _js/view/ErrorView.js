@@ -8,7 +8,7 @@ var ErrorView = Backbone.View.extend({
     },
 
     render: function () {
-        this.$el.append(this.template(this.model));
+        this.$el.html(this.template(this.model));
         return this;
     }
 });

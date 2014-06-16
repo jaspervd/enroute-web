@@ -5,24 +5,79 @@ this["tpl"] = this["tpl"] || {};
 Handlebars.registerPartial("admincontentitem", this["tpl"]["admincontentitem"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
-  var buffer = "", stack1, helper, functionType="function", escapeExpression=this.escapeExpression;
+  var buffer = "", stack1, helper, options, functionType="function", escapeExpression=this.escapeExpression, self=this, helperMissing=helpers.helperMissing;
 
-
-  buffer += "<div class=\"border_shadow\">\n	<p class=\"content_item\">\n		<span class=\"item\"><strong>"
-    + escapeExpression(((stack1 = ((stack1 = (depth0 && depth0.day)),stack1 == null || stack1 === false ? stack1 : stack1.title)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + ": </strong>&laquo; ";
+function program1(depth0,data) {
+  
+  var buffer = "", stack1, helper;
+  buffer += "\n			<img src=\"";
   if (helper = helpers.url) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.url); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
-    + " &raquo; ";
-  if (helper = helpers.approved) { stack1 = helper.call(depth0, {hash:{},data:data}); }
-  else { helper = (depth0 && depth0.approved); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
+    + "\" alt=\"\" />\n		";
+  return buffer;
+  }
+
+function program3(depth0,data) {
+  
+  var buffer = "", stack1;
+  buffer += "\n			<strong>Video</strong>\n			<ul>\n				";
+  stack1 = helpers.each.call(depth0, depth0, {hash:{},inverse:self.noop,fn:self.program(4, program4, data),data:data});
+  if(stack1 || stack1 === 0) { buffer += stack1; }
+  buffer += "\n			</ul>\n		";
+  return buffer;
+  }
+function program4(depth0,data) {
+  
+  var buffer = "";
+  buffer += "\n					<li>\n						<video controls loop>\n		  					<source src=\"uploads/"
+    + escapeExpression((typeof depth0 === functionType ? depth0.apply(depth0) : depth0))
+    + ".mp4\" type=\"video/mp4; codecs='avc1.42E01E, mp4a.40.2'\">\n		  					<source src=\"uploads/"
+    + escapeExpression((typeof depth0 === functionType ? depth0.apply(depth0) : depth0))
+    + ".ogg\" type=\"video/webm; codecs='vp8, vorbis'\">\n						</video>\n					</li>\n				";
+  return buffer;
+  }
+
+function program6(depth0,data) {
+  
+  var buffer = "", stack1;
+  buffer += "\n			<strong>Audio</strong>\n			<ul>\n				";
+  stack1 = helpers.each.call(depth0, depth0, {hash:{},inverse:self.noop,fn:self.program(7, program7, data),data:data});
+  if(stack1 || stack1 === 0) { buffer += stack1; }
+  buffer += "\n			</ul>\n		";
+  return buffer;
+  }
+function program7(depth0,data) {
+  
+  var buffer = "";
+  buffer += "\n					<li>\n						<audio controls loop>\n							<source src=\"uploads/"
+    + escapeExpression((typeof depth0 === functionType ? depth0.apply(depth0) : depth0))
+    + ".mp3\" type=\"audio/mpeg; codecs='mp3'\">\n							<source src=\"uploads/"
+    + escapeExpression((typeof depth0 === functionType ? depth0.apply(depth0) : depth0))
+    + ".ogg\" type=\"audio/ogg; codecs='vorbis'\">\n						</audio>\n					</li>\n				";
+  return buffer;
+  }
+
+  buffer += "<div class=\"border_shadow\">\n	<div class=\"content_item "
+    + escapeExpression((helper = helpers.ifApproved || (depth0 && depth0.ifApproved),options={hash:{},data:data},helper ? helper.call(depth0, (depth0 && depth0.approved), options) : helperMissing.call(depth0, "ifApproved", (depth0 && depth0.approved), options)))
+    + "\">\n		<span class=\"id\"><strong>#";
+  if (helper = helpers.id) { stack1 = helper.call(depth0, {hash:{},data:data}); }
+  else { helper = (depth0 && depth0.id); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
-    + "</span><br/>\n		<a class=\"approve\" href=\"\">approve</a>\n		<a class=\"deny\" href=\"\">deny</a>\n		<a class=\"delete\" href=\"\">delete</a><br/>\n		<span class=\"meta\">added on ";
+    + ": </strong></span>\n		<a class=\"approve\" href=\"\">approve</a> //\n		<a class=\"deny\" href=\"\">deny</a> //\n		<a class=\"delete\" href=\"\">delete</a><br/>\n		<span class=\"meta\">uploaded on ";
   if (helper = helpers.uploaded_date) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.uploaded_date); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
-    + "</span>\n	</p>\n	<div class=\"border_right\"></div>\n	<div class=\"border_bottom\"></div>\n	<div class=\"border_connection\"></div>\n</div>";
+    + "</span>\n		";
+  stack1 = helpers['with'].call(depth0, (depth0 && depth0.url), {hash:{},inverse:self.noop,fn:self.program(1, program1, data),data:data});
+  if(stack1 || stack1 === 0) { buffer += stack1; }
+  buffer += "\n		";
+  stack1 = helpers['with'].call(depth0, (depth0 && depth0.video_urls), {hash:{},inverse:self.noop,fn:self.program(3, program3, data),data:data});
+  if(stack1 || stack1 === 0) { buffer += stack1; }
+  buffer += "\n		";
+  stack1 = helpers['with'].call(depth0, (depth0 && depth0.audio_urls), {hash:{},inverse:self.noop,fn:self.program(6, program6, data),data:data});
+  if(stack1 || stack1 === 0) { buffer += stack1; }
+  buffer += "\n	</div>\n	<div class=\"border_right\"></div>\n	<div class=\"border_bottom\"></div>\n	<div class=\"border_connection\"></div>\n</div>";
   return buffer;
   }));
 
@@ -164,20 +219,20 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 function program1(depth0,data) {
   
   var buffer = "", stack1, helper, options;
-  buffer += "\n        <li><a href=\"\" class=\"day\" data-day-id=\"";
+  buffer += "\n		<li><a href=\"\" class=\"day\" data-day-id=\"";
   if (helper = helpers.id) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.id); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
     + "\">"
     + escapeExpression((helper = helpers.formatDate || (depth0 && depth0.formatDate),options={hash:{},data:data},helper ? helper.call(depth0, (depth0 && depth0.title), options) : helperMissing.call(depth0, "formatDate", (depth0 && depth0.title), options)))
-    + "</a></li>\n    ";
+    + "</a></li>\n		";
   return buffer;
   }
 
-  buffer += "<header>\n    <h1>Admin</h1>\n</header>\n<ul id=\"contentTypes\">\n    <li><a href=\"\" class=\"contentType\" data-content-type=\"buildings\">Gebouwen</a></li>\n    <li><a href=\"\" class=\"contentType\" data-content-type=\"biggiesmalls\">Foto's</a></li>\n</ul>\n<nav>\n<header>\n    <h1>Dagen</h1>\n</header>\n<ul id=\"selectDay\">\n    ";
+  buffer += "<header>\n	<h1>Admin</h1>\n</header>\n<nav>\n	<header>\n		<h1>Dagen</h1>\n	</header>\n	<ul id=\"selectDay\">\n		";
   stack1 = helpers.each.call(depth0, (depth0 && depth0.days), {hash:{},inverse:self.noop,fn:self.program(1, program1, data),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "\n</ul>\n</nav>";
+  buffer += "\n	</ul>\n</nav>\n<ul id=\"contentTypes\">\n	<li><a href=\"\" class=\"contentType\" data-content-type=\"buildings\">Gebouwen</a></li>\n	<li><a href=\"\" class=\"contentType\" data-content-type=\"biggiesmalls\">Foto's</a></li>\n</ul>";
   return buffer;
   });
 
@@ -187,7 +242,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   
 
 
-  return "    <header>\n        <h1>Beheer content</h1>\n    </header>\n    <ul></ul>";
+  return "    <header>\n        <h1>Beheer content</h1>\n    </header>\n    <ul id=\"list_content\"></ul>";
   });
 
 this["tpl"]["content"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
@@ -255,6 +310,12 @@ Handlebars.registerHelper('ifTypeIsPublic', function (type, options) {
 Handlebars.registerHelper('ifTypeIsSchool', function (type, options) {
     if (type === 'scholen') {
         return options.fn(this);
+    }
+});
+
+Handlebars.registerHelper('ifApproved', function (approved) {
+    if(parseInt(approved) === 1) {
+        return 'approved';
     }
 });
 
@@ -579,34 +640,38 @@ var AdminBiggieSmallsView = Backbone.View.extend({
     currentDay: 0,
     biggiesmalls: undefined,
 
-    initialize: function () {
+    initialize: function() {
         _.bindAll.apply(_, [this].concat(_.functions(this)));
         this.collection.on("sync reset destroy", this.render);
         this.biggiesmalls = this.collection;
     },
 
-    renderBiggieSmalls: function (content) {
-        var adminContentItemView = new AdminContentItemView({model: content});
+    renderBiggieSmalls: function(content) {
+        var adminContentItemView = new AdminContentItemView({
+            model: content
+        });
         this.$el.find('ul').append(adminContentItemView.render().$el);
     },
 
-    updateToDay: function (day) {
+    updateToDay: function(day) {
         console.log('[AdminBiggieSmallsView] updateToDay()', day);
         this.currentDay = day;
         this.collection = this.biggiesmalls;
-        this.collection = new BiggieSmalls(this.collection.where({day_id: this.currentDay}));
+        this.collection = new BiggieSmalls(this.collection.where({
+            day_id: this.currentDay
+        }));
         this.render();
     },
 
-    render: function () {
+    render: function() {
         this.$el.html(this.template());
         if (this.collection.length > 0) {
-            this.collection.each(function (building, index) {
+            this.collection.each(function(building, index) {
                 this.renderBiggieSmalls(building);
             }, this);
         } else {
             this.$el.find('ul').remove();
-            this.$el.append('<p>Er zijn nog geen foto\'s beschikbaar voor deze dag.</p>');
+            this.$el.append('<div class="border_shadow"><p class="content_item">Er zijn nog geen foto\'s beschikbaar voor deze dag.</p><div class="border_right"></div><div class="border_bottom"></div><div class="border_connection"></div></div>');
         }
         return this;
     }
@@ -632,7 +697,7 @@ var AdminBuildingsView = Backbone.View.extend({
 
     renderBuildings: function (content) {
         var adminContentItemView = new AdminContentItemView({model: content});
-        this.$el.find('ul').append(adminContentItemView.render().$el);
+        this.$el.find('#list_content').append(adminContentItemView.render().$el);
     },
 
     updateToDay: function (day) {
@@ -650,8 +715,8 @@ var AdminBuildingsView = Backbone.View.extend({
                 this.renderBuildings(building);
             }, this);
         } else {
-            this.$el.find('ul').remove();
-            this.$el.append('<p>Er zijn nog geen gebouwen beschikbaar voor deze dag.</p>');
+            this.$el.find('#list_content').remove();
+            this.$el.append('<div class="border_shadow"><p class="content_item">Er zijn nog geen gebouwen beschikbaar voor deze dag.</p><div class="border_right"></div><div class="border_bottom"></div><div class="border_connection"></div></div>');
         }
         return this;
     }
@@ -660,7 +725,7 @@ var AdminBuildingsView = Backbone.View.extend({
 var AdminContentItemView = Backbone.View.extend({
     template: tpl.admincontentitem,
 
-    initialize: function () {
+    initialize: function() {
         _.bindAll.apply(_, [this].concat(_.functions(this)));
     },
 
@@ -670,7 +735,7 @@ var AdminContentItemView = Backbone.View.extend({
         "click .delete": "deleteContent"
     },
 
-    approveContent: function (e) {
+    approveContent: function(e) {
         console.log('[AdminContentItemView] approveContent()');
         e.preventDefault();
         this.model.set('approved', 1);
@@ -678,7 +743,7 @@ var AdminContentItemView = Backbone.View.extend({
         this.model.save();
     },
 
-    denyContent: function (e) {
+    denyContent: function(e) {
         console.log('[AdminContentItemView] denyContent()');
         e.preventDefault();
         this.model.set('approved', 0);
@@ -686,15 +751,19 @@ var AdminContentItemView = Backbone.View.extend({
         this.model.save();
     },
 
-    deleteContent: function (e) {
+    deleteContent: function(e) {
         console.log('[AdminContentItemView] deleteContent()');
         e.preventDefault();
         this.model.url = this.model.urlRoot + "/" + this.model.id;
         this.model.destroy();
     },
 
-    render: function () {
-        this.$el.html(this.template(this.model.toJSON()));
+    render: function() {
+        var html = this.template(this.model.toJSON());
+        var newElement = $(html);
+        this.$el.replaceWith(newElement);
+        this.setElement(newElement);
+        console.log('[AdminContentItemView]', this.model.toJSON());
         return this;
     }
 });
@@ -944,7 +1013,7 @@ var ErrorView = Backbone.View.extend({
     },
 
     render: function () {
-        this.$el.append(this.template(this.model));
+        this.$el.html(this.template(this.model));
         return this;
     }
 });
@@ -1200,7 +1269,7 @@ var SuccessView = Backbone.View.extend({
     },
 
     render: function () {
-        this.$el.append(this.template(this.model));
+        this.$el.html(this.template(this.model));
         return this;
     }
 });

@@ -24,3 +24,9 @@ Handlebars.registerHelper('ifTypeIsSchool', function (type, options) {
         return options.fn(this);
     }
 });
+
+Handlebars.registerHelper('ifApproved', function (approved) {
+    if(parseInt(approved) === 1) {
+        return 'approved';
+    }
+});

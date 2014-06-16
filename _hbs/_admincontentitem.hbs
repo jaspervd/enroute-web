@@ -1,11 +1,40 @@
 <div class="border_shadow">
-	<p class="content_item">
-		<span class="item"><strong>{{day.title}}: </strong>&laquo; {{url}} &raquo; {{approved}}</span><br/>
-		<a class="approve" href="">approve</a>
-		<a class="deny" href="">deny</a>
+	<div class="content_item {{ifApproved approved}}">
+		<span class="id"><strong>#{{id}}: </strong></span>
+		<a class="approve" href="">approve</a> //
+		<a class="deny" href="">deny</a> //
 		<a class="delete" href="">delete</a><br/>
-		<span class="meta">added on {{uploaded_date}}</span>
-	</p>
+		<span class="meta">uploaded on {{uploaded_date}}</span>
+		{{#with url}}
+			<img src="{{url}}" alt="" />
+		{{/with}}
+		{{#with video_urls}}
+			<strong>Video</strong>
+			<ul>
+				{{#each .}}
+					<li>
+						<video controls loop>
+		  					<source src="uploads/{{this}}.mp4" type="video/mp4; codecs='avc1.42E01E, mp4a.40.2'">
+		  					<source src="uploads/{{this}}.ogg" type="video/webm; codecs='vp8, vorbis'">
+						</video>
+					</li>
+				{{/each}}
+			</ul>
+		{{/with}}
+		{{#with audio_urls}}
+			<strong>Audio</strong>
+			<ul>
+				{{#each .}}
+					<li>
+						<audio controls loop>
+							<source src="uploads/{{this}}.mp3" type="audio/mpeg; codecs='mp3'">
+							<source src="uploads/{{this}}.ogg" type="audio/ogg; codecs='vorbis'">
+						</audio>
+					</li>
+				{{/each}}
+			</ul>
+		{{/with}}
+	</div>
 	<div class="border_right"></div>
 	<div class="border_bottom"></div>
 	<div class="border_connection"></div>
