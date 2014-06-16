@@ -268,7 +268,6 @@ ul {
 }
 
 form {
-  margin: 30px;
   position: absolute;
   z-index: 1;
 
@@ -285,7 +284,6 @@ form {
   height: 100%;
 
   form {
-    margin: 30px;
     position: absolute;
     z-index: 1;
 
@@ -309,7 +307,7 @@ form {
       bottom: 0;
 
       &.bottom {
-        height: 30%;
+        height: 25.5%;
 
         .building {
           width: 28%;
@@ -363,7 +361,13 @@ form {
   }
 }
 
-form input[type="text"], form input[type="email"] {
+form {
+  padding: 30px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+form input[type="text"], form input[type="email"], form input[type="number"] {
   background: url('../images/form_input.svg');
   background-size: 100%;
   width: 342px;

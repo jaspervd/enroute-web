@@ -134,7 +134,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
     width: 80% !important;
   }
 }
-@media only screen and (min-width: 999px) and (max-width: 1098px) {
+@media only screen and (min-width: 800px) and (max-width: 1098px) {
   /* line 73, ../_scss/responsive.scss */
   #scalable {
     -webkit-transform: scale(0.9) !important;
@@ -148,18 +148,48 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
   #forest {
     width: 79% !important;
   }
+
+  /* line 81, ../_scss/responsive.scss */
+  #content {
+    width: 35% !important;
+    left: -28% !important;
+  }
+  /* line 85, ../_scss/responsive.scss */
+  #content.slideOut {
+    left: 0 !important;
+  }
+
+  /* line 90, ../_scss/responsive.scss */
+  form {
+    padding: 10px 0 !important;
+    -webkit-transform: scale(0.9) !important;
+    -moz-transform: scale(0.9) !important;
+    -ms-transform: scale(0.9) !important;
+    -o-transform: scale(0.9) !important;
+    transform: scale(0.9) !important;
+  }
 }
 @media only screen and (max-width: 640px) {
-  /* line 83, ../_scss/responsive.scss */
+  /* line 97, ../_scss/responsive.scss */
   #day {
     bottom: -130px !important;
     top: auto !important;
     left: auto !important;
     margin: 0 !important;
   }
+
+  /* line 104, ../_scss/responsive.scss */
+  form {
+    padding: 80px 140px !important;
+    -webkit-transform: scale(1.5) !important;
+    -moz-transform: scale(1.5) !important;
+    -ms-transform: scale(1.5) !important;
+    -o-transform: scale(1.5) !important;
+    transform: scale(1.5) !important;
+  }
 }
 @media only screen and (max-width: 580px) {
-  /* line 92, ../_scss/responsive.scss */
+  /* line 111, ../_scss/responsive.scss */
   #scalable {
     -webkit-transform: scale(0.7) !important;
     -moz-transform: scale(0.7) !important;
@@ -168,19 +198,19 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
     transform: scale(0.7) !important;
   }
 
-  /* line 96, ../_scss/responsive.scss */
+  /* line 115, ../_scss/responsive.scss */
   #forest {
     width: 120% !important;
   }
 
-  /* line 100, ../_scss/responsive.scss */
+  /* line 119, ../_scss/responsive.scss */
   #city {
     width: 180% !important;
     margin: -90% 0 0 -90% !important;
   }
 }
 @media only screen and (max-width: 480px) {
-  /* line 107, ../_scss/responsive.scss */
+  /* line 126, ../_scss/responsive.scss */
   #scalable {
     -webkit-transform: scale(0.6) !important;
     -moz-transform: scale(0.6) !important;
@@ -189,7 +219,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
     transform: scale(0.6) !important;
   }
 
-  /* line 111, ../_scss/responsive.scss */
+  /* line 130, ../_scss/responsive.scss */
   #content nav ul {
     -webkit-transform: scale(0.8);
     -moz-transform: scale(0.8);
@@ -198,10 +228,20 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
     transform: scale(0.8);
   }
 
-  /* line 115, ../_scss/responsive.scss */
+  /* line 134, ../_scss/responsive.scss */
   #city {
     width: 190% !important;
     margin: -95% 0 0 -95% !important;
+  }
+
+  /* line 139, ../_scss/responsive.scss */
+  form {
+    padding: 50px 70px !important;
+    -webkit-transform: scale(1.2) !important;
+    -moz-transform: scale(1.2) !important;
+    -ms-transform: scale(1.2) !important;
+    -o-transform: scale(1.2) !important;
+    transform: scale(1.2) !important;
   }
 }
 @font-face {
@@ -506,33 +546,31 @@ body {
 }
 /* line 270, ../_scss/screen.scss */
 #tickets form {
-  margin: 30px;
   position: absolute;
   z-index: 1;
 }
-/* line 275, ../_scss/screen.scss */
+/* line 274, ../_scss/screen.scss */
 #tickets form > div {
   margin-bottom: 10px;
 }
 
-/* line 281, ../_scss/screen.scss */
+/* line 280, ../_scss/screen.scss */
 #contact {
   background: #91ddc6 url("../images/bg_contact.svg") left bottom no-repeat;
   background-size: 100%;
   width: 100%;
   height: 100%;
 }
-/* line 287, ../_scss/screen.scss */
+/* line 286, ../_scss/screen.scss */
 #contact form {
-  margin: 30px;
   position: absolute;
   z-index: 1;
 }
-/* line 292, ../_scss/screen.scss */
+/* line 290, ../_scss/screen.scss */
 #contact form > div {
   margin-bottom: 10px;
 }
-/* line 297, ../_scss/screen.scss */
+/* line 295, ../_scss/screen.scss */
 #contact #length {
   width: 100%;
   height: 100%;
@@ -541,38 +579,38 @@ body {
   bottom: 0;
   font-size: 0;
 }
-/* line 305, ../_scss/screen.scss */
+/* line 303, ../_scss/screen.scss */
 #contact #length .row {
   position: absolute;
   width: 100%;
   overflow: hidden;
   bottom: 0;
 }
-/* line 311, ../_scss/screen.scss */
+/* line 309, ../_scss/screen.scss */
 #contact #length .row.bottom {
-  height: 30%;
+  height: 25.5%;
 }
-/* line 314, ../_scss/screen.scss */
+/* line 312, ../_scss/screen.scss */
 #contact #length .row.bottom .building {
   width: 28%;
 }
-/* line 319, ../_scss/screen.scss */
+/* line 317, ../_scss/screen.scss */
 #contact #length .row.middle {
   height: 40%;
 }
-/* line 322, ../_scss/screen.scss */
+/* line 320, ../_scss/screen.scss */
 #contact #length .row.middle .building {
   width: 20%;
 }
-/* line 327, ../_scss/screen.scss */
+/* line 325, ../_scss/screen.scss */
 #contact #length .row.top {
   height: 50%;
 }
-/* line 330, ../_scss/screen.scss */
+/* line 328, ../_scss/screen.scss */
 #contact #length .row.top .building {
   width: 28%;
 }
-/* line 336, ../_scss/screen.scss */
+/* line 334, ../_scss/screen.scss */
 #contact #length .building {
   background-repeat: no-repeat;
   background-size: 100%;
@@ -584,28 +622,35 @@ body {
   -o-transition: margin-bottom 1s ease-in-out;
   transition: margin-bottom 1s ease-in-out;
 }
-/* line 344, ../_scss/screen.scss */
+/* line 342, ../_scss/screen.scss */
 #contact #length .building.hide {
   margin-bottom: -1000px !important;
 }
-/* line 348, ../_scss/screen.scss */
+/* line 346, ../_scss/screen.scss */
 #contact #length .building.type1 {
   background-image: url("../images/building_1.svg");
   margin-bottom: -5%;
 }
-/* line 353, ../_scss/screen.scss */
+/* line 351, ../_scss/screen.scss */
 #contact #length .building.type2 {
   background-image: url("../images/building_2.svg");
   margin-bottom: -15%;
 }
-/* line 358, ../_scss/screen.scss */
+/* line 356, ../_scss/screen.scss */
 #contact #length .building.type3 {
   background-image: url("../images/building_3.svg");
   margin-bottom: -10%;
 }
 
-/* line 366, ../_scss/screen.scss */
-form input[type="text"], form input[type="email"] {
+/* line 364, ../_scss/screen.scss */
+form {
+  padding: 30px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* line 370, ../_scss/screen.scss */
+form input[type="text"], form input[type="email"], form input[type="number"] {
   background: url("../images/form_input.svg");
   background-size: 100%;
   width: 342px;
@@ -617,7 +662,7 @@ form input[type="text"], form input[type="email"] {
   outline: none;
 }
 
-/* line 378, ../_scss/screen.scss */
+/* line 382, ../_scss/screen.scss */
 form textarea {
   background: url("../images/form_textarea.svg");
   background-size: 100%;
@@ -632,7 +677,7 @@ form textarea {
   outline: none;
 }
 
-/* line 392, ../_scss/screen.scss */
+/* line 396, ../_scss/screen.scss */
 form input[type="submit"] {
   background: url("../images/form_submit.svg");
   background-size: 100%;
@@ -646,12 +691,12 @@ form input[type="submit"] {
   cursor: pointer;
 }
 
-/* line 405, ../_scss/screen.scss */
+/* line 409, ../_scss/screen.scss */
 form input, form textarea {
   color: #ad463f;
 }
 
-/* line 409, ../_scss/screen.scss */
+/* line 413, ../_scss/screen.scss */
 form .range {
   background: url("../images/form_range.svg") no-repeat;
   width: 100%;
@@ -661,7 +706,7 @@ form .range {
   position: relative;
   margin-top: 42px;
 }
-/* line 418, ../_scss/screen.scss */
+/* line 422, ../_scss/screen.scss */
 form .range .amount {
   background: url("../images/form_range_amount.svg") no-repeat;
   height: 36px;
@@ -674,13 +719,13 @@ form .range .amount {
   color: #ad463f;
   text-transform: uppercase;
 }
-/* line 430, ../_scss/screen.scss */
+/* line 434, ../_scss/screen.scss */
 form .range .amount span {
   color: #63201c;
   margin-right: 20px;
   font-size: 1.3em;
 }
-/* line 437, ../_scss/screen.scss */
+/* line 441, ../_scss/screen.scss */
 form .range input {
   -webkit-appearance: none;
   background-color: #63201c;
@@ -689,7 +734,7 @@ form .range input {
   vertical-align: middle;
 }
 
-/* line 452, ../_scss/screen.scss */
+/* line 456, ../_scss/screen.scss */
 #toggleAudio {
   background-image: url("../images/audio_button.svg");
   background-size: 72px 72px;
@@ -701,27 +746,27 @@ form .range input {
   z-index: 9998;
   display: block;
 }
-/* line 463, ../_scss/screen.scss */
+/* line 467, ../_scss/screen.scss */
 #toggleAudio:active {
   background-position: 36px 0;
 }
-/* line 467, ../_scss/screen.scss */
+/* line 471, ../_scss/screen.scss */
 #toggleAudio.play {
   background-position: 0 36px;
 }
-/* line 470, ../_scss/screen.scss */
+/* line 474, ../_scss/screen.scss */
 #toggleAudio.play:active {
   background-position: 36px 36px;
 }
 
-/* line 476, ../_scss/screen.scss */
+/* line 480, ../_scss/screen.scss */
 #scalable {
   position: absolute;
   left: 50%;
   top: 50%;
 }
 
-/* line 482, ../_scss/screen.scss */
+/* line 486, ../_scss/screen.scss */
 #text_city {
   background-image: url("../images/text_city.png");
   background-size: 198px 42px;
@@ -733,7 +778,7 @@ form .range input {
   position: absolute;
 }
 
-/* line 495, ../_scss/screen.scss */
+/* line 499, ../_scss/screen.scss */
 #durbuy {
   background-image: url("../images/logo.png");
   background-size: 241px 249px;
@@ -745,7 +790,7 @@ form .range input {
   top: 50%;
   z-index: 7777;
 }
-/* line 506, ../_scss/screen.scss */
+/* line 510, ../_scss/screen.scss */
 #durbuy #days {
   position: absolute;
   top: 0;
@@ -755,7 +800,7 @@ form .range input {
   margin-left: 50%;
   margin-top: 50%;
 }
-/* line 516, ../_scss/screen.scss */
+/* line 520, ../_scss/screen.scss */
 #durbuy .day {
   width: 50px;
   height: 50px;
@@ -771,18 +816,18 @@ form .range input {
   -o-transition: opacity 0.3s;
   transition: opacity 0.3s;
 }
-/* line 528, ../_scss/screen.scss */
+/* line 532, ../_scss/screen.scss */
 #durbuy .day.focus {
   opacity: 1;
   z-index: 5555;
 }
-/* line 533, ../_scss/screen.scss */
+/* line 537, ../_scss/screen.scss */
 #durbuy .day.almostFocus {
   opacity: .6;
   z-index: 5555;
 }
 
-/* line 540, ../_scss/screen.scss */
+/* line 544, ../_scss/screen.scss */
 #daySelector {
   background-image: url("../images/day_selector.svg");
   background-size: 514px 268px;
@@ -797,7 +842,7 @@ form .range input {
   top: 50%;
   -webkit-overflow-scrolling: touch;
 }
-/* line 555, ../_scss/screen.scss */
+/* line 559, ../_scss/screen.scss */
 #daySelector .handle {
   width: 54px;
   height: 54px;
@@ -807,7 +852,7 @@ form .range input {
   color: #FFF;
   text-decoration: none;
 }
-/* line 565, ../_scss/screen.scss */
+/* line 569, ../_scss/screen.scss */
 #daySelector .select {
   width: 90px;
   height: 90px;
@@ -815,7 +860,7 @@ form .range input {
   right: -10px;
   top: 95px;
 }
-/* line 573, ../_scss/screen.scss */
+/* line 577, ../_scss/screen.scss */
 #daySelector .month {
   width: 74px;
   height: 74px;
@@ -823,7 +868,7 @@ form .range input {
   right: 0;
   position: absolute;
 }
-/* line 580, ../_scss/screen.scss */
+/* line 584, ../_scss/screen.scss */
 #daySelector .month span {
   background-color: #f4c747;
   -webkit-border-radius: 6px;
@@ -841,7 +886,7 @@ form .range input {
   font-size: 1.2em;
 }
 
-/* line 597, ../_scss/screen.scss */
+/* line 601, ../_scss/screen.scss */
 #day {
   top: 50%;
   left: 50%;
@@ -849,11 +894,11 @@ form .range input {
   z-index: 4444;
   margin-left: 14px;
 }
-/* line 604, ../_scss/screen.scss */
+/* line 608, ../_scss/screen.scss */
 #day header {
   display: none;
 }
-/* line 608, ../_scss/screen.scss */
+/* line 612, ../_scss/screen.scss */
 #day .building {
   width: 80px;
   position: absolute;
@@ -869,14 +914,14 @@ form .range input {
   -o-transform-origin: 50% 100px;
   transform-origin: 50% 100px;
 }
-/* line 617, ../_scss/screen.scss */
+/* line 621, ../_scss/screen.scss */
 #day .wrapper {
   background-color: #fccd47;
   width: 80px;
   position: absolute;
   padding: 5px 5px 30px;
 }
-/* line 623, ../_scss/screen.scss */
+/* line 627, ../_scss/screen.scss */
 #day .wrapper .border_bottom {
   width: 14px;
   height: 100%;
@@ -886,20 +931,20 @@ form .range input {
   bottom: -14px;
   right: -28px;
 }
-/* line 633, ../_scss/screen.scss */
+/* line 637, ../_scss/screen.scss */
 #day .wrapper .layer {
   padding-top: 5px;
 }
-/* line 636, ../_scss/screen.scss */
+/* line 640, ../_scss/screen.scss */
 #day .wrapper .layer:first-child {
   padding-top: 0;
 }
-/* line 641, ../_scss/screen.scss */
+/* line 645, ../_scss/screen.scss */
 #day .wrapper video {
   width: 100%;
 }
 
-/* line 649, ../_scss/screen.scss */
+/* line 653, ../_scss/screen.scss */
 #river {
   background-image: url("../images/river.png");
   width: 370px;
@@ -915,14 +960,14 @@ form .range input {
   animation: rotateCircle 340s infinite;
 }
 
-/* line 666, ../_scss/screen.scss */
+/* line 670, ../_scss/screen.scss */
 #forest {
   width: 70%;
   position: absolute;
   left: 50%;
   top: 50%;
 }
-/* line 672, ../_scss/screen.scss */
+/* line 676, ../_scss/screen.scss */
 #forest .rocks {
   background: url("../images/rocks.svg") no-repeat;
   background-size: 195px 154px;
@@ -930,7 +975,7 @@ form .range input {
   height: 154px;
   position: absolute;
 }
-/* line 680, ../_scss/screen.scss */
+/* line 684, ../_scss/screen.scss */
 #forest .tree {
   background: no-repeat;
   background-size: 100%;
@@ -941,28 +986,28 @@ form .range input {
   -o-transition: margin 1s ease;
   transition: margin 1s ease;
 }
-/* line 687, ../_scss/screen.scss */
+/* line 691, ../_scss/screen.scss */
 #forest .tree.type1 {
   background-image: url("../images/tree_1.svg");
   height: 75px;
 }
-/* line 692, ../_scss/screen.scss */
+/* line 696, ../_scss/screen.scss */
 #forest .tree.type2 {
   background-image: url("../images/tree_2.svg");
   height: 93px;
 }
-/* line 697, ../_scss/screen.scss */
+/* line 701, ../_scss/screen.scss */
 #forest .tree.type3 {
   background-image: url("../images/tree_3.svg");
   height: 87px;
 }
-/* line 702, ../_scss/screen.scss */
+/* line 706, ../_scss/screen.scss */
 #forest .tree.type4 {
   background-image: url("../images/tree_4.svg");
   height: 87px;
 }
 
-/* line 711, ../_scss/screen.scss */
+/* line 715, ../_scss/screen.scss */
 #city {
   background: url("../images/city.svg") no-repeat;
   background-size: 100% 100%;
@@ -972,13 +1017,13 @@ form .range input {
   left: 50%;
   top: 50%;
 }
-/* line 720, ../_scss/screen.scss */
+/* line 724, ../_scss/screen.scss */
 #city:before {
   content: "";
   display: block;
   padding-top: 100%;
 }
-/* line 726, ../_scss/screen.scss */
+/* line 730, ../_scss/screen.scss */
 #city .rotate {
   -webkit-animation: rotateCircle 35s infinite linear;
   -moz-animation: rotateCircle 35s infinite linear;
@@ -988,7 +1033,7 @@ form .range input {
   top: 50%;
   left: 50%;
 }
-/* line 735, ../_scss/screen.scss */
+/* line 739, ../_scss/screen.scss */
 #city .rotate.forwards {
   -webkit-animation: rotateCircle reverse 49s infinite linear;
   -moz-animation: rotateCircle reverse 49s infinite linear;
@@ -997,12 +1042,12 @@ form .range input {
   width: 75%;
   margin-left: -38%;
 }
-/* line 744, ../_scss/screen.scss */
+/* line 748, ../_scss/screen.scss */
 #city .rotate.reverse {
   width: 68%;
   margin-left: -34%;
 }
-/* line 750, ../_scss/screen.scss */
+/* line 754, ../_scss/screen.scss */
 #city .car {
   background-repeat: no-repeat;
   width: 100px;
@@ -1010,7 +1055,7 @@ form .range input {
   background-size: 100px 61px;
   position: absolute;
 }
-/* line 757, ../_scss/screen.scss */
+/* line 761, ../_scss/screen.scss */
 #city .car.red {
   background-image: url("../images/car_red.svg");
   left: 0;
@@ -1020,7 +1065,7 @@ form .range input {
   -o-transform: rotate(90deg);
   transform: rotate(90deg);
 }
-/* line 763, ../_scss/screen.scss */
+/* line 767, ../_scss/screen.scss */
 #city .car.yellow {
   background-image: url("../images/car_yellow.svg");
   right: 0;
@@ -1030,7 +1075,7 @@ form .range input {
   -o-transform: rotate(-90deg);
   transform: rotate(-90deg);
 }
-/* line 769, ../_scss/screen.scss */
+/* line 773, ../_scss/screen.scss */
 #city .car.white {
   background-image: url("../images/car_white.svg");
   top: 0;
@@ -1040,7 +1085,7 @@ form .range input {
   -o-transform: rotate(270deg);
   transform: rotate(270deg);
 }
-/* line 776, ../_scss/screen.scss */
+/* line 780, ../_scss/screen.scss */
 #city #city_top {
   background: url("../images/city_top.svg") no-repeat;
   position: absolute;
@@ -1049,61 +1094,61 @@ form .range input {
   bottom: 0;
 }
 
-/* line 787, ../_scss/screen.scss */
+/* line 791, ../_scss/screen.scss */
 #container.admin {
   background: #91ddc6;
 }
-/* line 790, ../_scss/screen.scss */
+/* line 794, ../_scss/screen.scss */
 #container.admin header h1 {
   font-size: 3em;
   color: #B2463F;
   margin: 0 40px;
 }
-/* line 796, ../_scss/screen.scss */
+/* line 800, ../_scss/screen.scss */
 #container.admin #admin_biggiesmalls, #container.admin #admin_buildings {
   height: 70%;
   overflow-y: scroll;
 }
-/* line 800, ../_scss/screen.scss */
+/* line 804, ../_scss/screen.scss */
 #container.admin #admin_biggiesmalls .border_shadow, #container.admin #admin_buildings .border_shadow {
   font-size: 1.6em;
   position: relative;
   margin: 40px;
 }
-/* line 806, ../_scss/screen.scss */
+/* line 810, ../_scss/screen.scss */
 #container.admin #admin_biggiesmalls div.content_item, #container.admin #admin_buildings div.content_item {
   background-color: #f1f5cf;
   padding: 20px;
   color: #b2463f;
 }
-/* line 811, ../_scss/screen.scss */
+/* line 815, ../_scss/screen.scss */
 #container.admin #admin_biggiesmalls div.content_item a, #container.admin #admin_buildings div.content_item a {
   font-weight: bold;
   text-decoration: none;
   color: inherit;
 }
-/* line 816, ../_scss/screen.scss */
+/* line 820, ../_scss/screen.scss */
 #container.admin #admin_biggiesmalls div.content_item a:hover, #container.admin #admin_buildings div.content_item a:hover {
   text-decoration: underline;
 }
-/* line 821, ../_scss/screen.scss */
+/* line 825, ../_scss/screen.scss */
 #container.admin #admin_biggiesmalls div.content_item ul, #container.admin #admin_buildings div.content_item ul {
   padding: 10px 0;
 }
-/* line 825, ../_scss/screen.scss */
+/* line 829, ../_scss/screen.scss */
 #container.admin #admin_biggiesmalls div.content_item li, #container.admin #admin_buildings div.content_item li {
   display: inline-block;
 }
-/* line 829, ../_scss/screen.scss */
+/* line 833, ../_scss/screen.scss */
 #container.admin #admin_biggiesmalls div.content_item.approved, #container.admin #admin_buildings div.content_item.approved {
   color: #39b54a !important;
 }
-/* line 835, ../_scss/screen.scss */
+/* line 839, ../_scss/screen.scss */
 #container.admin #contentTypes {
   margin: 20px auto;
   width: 250px;
 }
-/* line 839, ../_scss/screen.scss */
+/* line 843, ../_scss/screen.scss */
 #container.admin #contentTypes li {
   background-image: url("../images/nav_button.svg");
   background-size: 110px 90px;
@@ -1112,19 +1157,19 @@ form .range input {
   margin-bottom: 8px;
   display: inline-block;
 }
-/* line 847, ../_scss/screen.scss */
+/* line 851, ../_scss/screen.scss */
 #container.admin #contentTypes li:first-child {
   margin-right: 20px;
 }
-/* line 851, ../_scss/screen.scss */
+/* line 855, ../_scss/screen.scss */
 #container.admin #contentTypes li:hover, #container.admin #contentTypes li.active {
   background-position: 0 -45px;
 }
-/* line 854, ../_scss/screen.scss */
+/* line 858, ../_scss/screen.scss */
 #container.admin #contentTypes li:hover a, #container.admin #contentTypes li.active a {
   color: #b2463f;
 }
-/* line 860, ../_scss/screen.scss */
+/* line 864, ../_scss/screen.scss */
 #container.admin #contentTypes a.contentType {
   width: 98px;
   height: 45px;
@@ -1137,7 +1182,7 @@ form .range input {
   padding-top: 7px;
   padding-left: 5px;
 }
-/* line 874, ../_scss/screen.scss */
+/* line 878, ../_scss/screen.scss */
 #container.admin #selectDay {
   background-color: #b2463f;
   height: 90px;
@@ -1145,7 +1190,7 @@ form .range input {
   width: 1000%;
   border-bottom: 2px solid rgba(0, 0, 0, 0.6);
 }
-/* line 881, ../_scss/screen.scss */
+/* line 885, ../_scss/screen.scss */
 #container.admin #selectDay .month {
   background-color: #f4c747;
   -webkit-border-radius: 6px;
@@ -1157,7 +1202,7 @@ form .range input {
   margin: 0 0 -20px;
   padding: 5px 22px;
 }
-/* line 889, ../_scss/screen.scss */
+/* line 893, ../_scss/screen.scss */
 #container.admin #selectDay li {
   background-image: url("../images/calendar_item.svg");
   width: 65px;
@@ -1165,7 +1210,7 @@ form .range input {
   display: inline-block;
   margin: 0 10px 10px 0;
 }
-/* line 896, ../_scss/screen.scss */
+/* line 900, ../_scss/screen.scss */
 #container.admin #selectDay li a {
   font-family: Sahara, sans-serif;
   color: #b2463f;
@@ -1175,7 +1220,7 @@ form .range input {
   text-align: center;
   display: block;
 }
-/* line 905, ../_scss/screen.scss */
+/* line 909, ../_scss/screen.scss */
 #container.admin #selectDay li a.available {
   color: #39b54a !important;
 }

@@ -69,13 +69,27 @@
 	}
 }
 
-@media only screen and (min-width: 999px) and (max-width: 1098px) {
+@media only screen and (min-width: 800px) and (max-width: 1098px) {
 	#scalable {
 		@include transform(scale(.9) !important);
 	}
 
 	#forest {
 		width: 79% !important;
+	}
+
+	#content {
+		width: 35% !important;
+		left: -28% !important;
+
+		&.slideOut {
+			left: 0 !important;
+		}
+	}
+
+	form {
+		padding: 10px 0 !important;
+		@include transform(scale(.9) !important);
 	}
 }
 
@@ -85,6 +99,11 @@
 		top: auto !important;
 		left: auto !important;
 		margin: 0 !important;
+	}
+
+	form {
+		padding: 80px 140px !important;
+		@include transform(scale(1.5) !important);
 	}
 }
 
@@ -115,5 +134,10 @@
 	#city {
 		width: 190% !important;
 		margin: -95% 0 0 -95% !important;
+	}
+
+	form {
+		padding: 50px 70px !important;
+		@include transform(scale(1.2) !important);
 	}
 }

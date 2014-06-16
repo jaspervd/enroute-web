@@ -188,16 +188,16 @@ function program2(depth0,data) {
 function program4(depth0,data) {
   
   var buffer = "", stack1;
-  buffer += "\n    	<div>\n    		<label for=\"txtName\">Naam:</label>\n    		<input type=\"text\" required name=\"txtName\" id=\"txtName\" placeholder=\"Joske Vermeulen\"/>\n    	</div>\n\n    	<div>\n    		<label for=\"txtEmail\">E-mailadres:</label>\n    		<input type=\"email\" required name=\"txtEmail\" id=\"txtEmail\" placeholder=\"joske.vermeulen@trammezand.lei\" />\n    	</div>\n\n    	<div class=\"range\">\n            <div class=\"amount\"><span>1</span> tickets</div>\n    		<label for=\"rngTickets\">Aantal tickets:</label>\n    		<input type=\"range\" required name=\"rngTickets\" id=\"rngTickets\" min=\"1\" max=\""
+  buffer += "\n    	<div>\n    		<label for=\"txtName\">Naam:</label>\n    		<input type=\"text\" required name=\"txtName\" id=\"txtName\" placeholder=\"Joske Vermeulen\"/>\n    	</div>\n\n    	<div>\n    		<label for=\"txtEmail\">E-mailadres:</label>\n    		<input type=\"email\" required name=\"txtEmail\" id=\"txtEmail\" placeholder=\"joske.vermeulen@trammezand.lei\" />\n    	</div>\n\n        <div>\n            <label for=\"rngTickets\">Tickets:</label>\n            <input type=\"number\" required name=\"rngTickets\" id=\"rngTickets\" min=\"1\" max=\""
     + escapeExpression(((stack1 = ((stack1 = (depth0 && depth0.ticket)),stack1 == null || stack1 === false ? stack1 : stack1.tickets_available)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "\" value=\"1\" />\n    	</div>\n    	";
+    + "\" value=\"1\" />\n        </div>\n        \n\n        ";
   return buffer;
   }
 
 function program6(depth0,data) {
   
   
-  return "\n    	<div>\n    		<label for=\"txtName\">Schoolnaam:</label>\n    		<input type=\"text\" required name=\"txtName\" id=\"txtName\" placeholder=\"Volledige schoolnaam\"/>\n    	</div>\n\n    	<div>\n    		<label for=\"txtEmail\">E-mailadres:</label>\n    		<input type=\"email\" required name=\"txtEmail\" id=\"txtEmail\" placeholder=\"joske.vermeulen@trammezand.lei\"/>\n    	</div>\n    	";
+  return "\n        <div>\n          <label for=\"txtName\">Schoolnaam:</label>\n          <input type=\"text\" required name=\"txtName\" id=\"txtName\" placeholder=\"Volledige schoolnaam\"/>\n      </div>\n\n      <div>\n          <label for=\"txtEmail\">E-mailadres:</label>\n          <input type=\"email\" required name=\"txtEmail\" id=\"txtEmail\" placeholder=\"joske.vermeulen@trammezand.lei\"/>\n      </div>\n      ";
   }
 
   buffer += "    <header>\n    	<h1>Ticket bestellen</h1>\n    </header>\n    <div class=\"info_wrapper\">\n        <div class=\"border_shadow\">\n            <p>\n                En Route daagt je uit om gedurende één dag de stad anders te bekijken en te beleven. Samen met een kunstdocent ga je op ontdekkingsreis door de pittoreske straatjes van Durbuy.\n            </p>\n            <div class=\"border_right\"></div>\n            <div class=\"border_bottom\"></div>\n            <div class=\"border_connection\"></div>\n            <div class=\"speech\"></div>\n        </div>\n    </div>\n    ";
@@ -206,10 +206,10 @@ function program6(depth0,data) {
   buffer += "\n    <form method=\"post\" action=\"\">\n    	";
   stack1 = (helper = helpers.ifTypeIsPublic || (depth0 && depth0.ifTypeIsPublic),options={hash:{},inverse:self.noop,fn:self.program(4, program4, data),data:data},helper ? helper.call(depth0, ((stack1 = (depth0 && depth0.ticket)),stack1 == null || stack1 === false ? stack1 : stack1.type), options) : helperMissing.call(depth0, "ifTypeIsPublic", ((stack1 = (depth0 && depth0.ticket)),stack1 == null || stack1 === false ? stack1 : stack1.type), options));
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "\n    	";
+  buffer += "\n        ";
   stack1 = (helper = helpers.ifTypeIsSchool || (depth0 && depth0.ifTypeIsSchool),options={hash:{},inverse:self.noop,fn:self.program(6, program6, data),data:data},helper ? helper.call(depth0, ((stack1 = (depth0 && depth0.ticket)),stack1 == null || stack1 === false ? stack1 : stack1.type), options) : helperMissing.call(depth0, "ifTypeIsSchool", ((stack1 = (depth0 && depth0.ticket)),stack1 == null || stack1 === false ? stack1 : stack1.type), options));
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "\n\n    	<div>\n    		<input type=\"submit\" name=\"btnSubmit\" value=\"Bestel\"/>\n    	</div>\n    </form>";
+  buffer += "\n\n      <div>\n          <input type=\"submit\" name=\"btnSubmit\" value=\"Bestel\"/>\n      </div>\n  </form>";
   return buffer;
   }));
 

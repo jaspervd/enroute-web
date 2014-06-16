@@ -32,25 +32,32 @@
     		<input type="email" required name="txtEmail" id="txtEmail" placeholder="joske.vermeulen@trammezand.lei" />
     	</div>
 
-    	<div class="range">
+        <div>
+            <label for="rngTickets">Tickets:</label>
+            <input type="number" required name="rngTickets" id="rngTickets" min="1" max="{{ticket.tickets_available}}" value="1" />
+        </div>
+        {{! Slider blocks all clickable things and doesn't work for some reason...
+        <div class="range">
             <div class="amount"><span>1</span> tickets</div>
-    		<label for="rngTickets">Aantal tickets:</label>
-    		<input type="range" required name="rngTickets" id="rngTickets" min="1" max="{{ticket.tickets_available}}" value="1" />
-    	</div>
-    	{{/ifTypeIsPublic}}
-    	{{#ifTypeIsSchool ticket.type}}
-    	<div>
-    		<label for="txtName">Schoolnaam:</label>
-    		<input type="text" required name="txtName" id="txtName" placeholder="Volledige schoolnaam"/>
-    	</div>
+            <label for="rngTickets">Aantal tickets:</label>
+            <input type="number" required name="rngTickets" id="rngTickets" min="1" max="25" value="1" />
+        </div>
+        }}
 
-    	<div>
-    		<label for="txtEmail">E-mailadres:</label>
-    		<input type="email" required name="txtEmail" id="txtEmail" placeholder="joske.vermeulen@trammezand.lei"/>
-    	</div>
-    	{{/ifTypeIsSchool}}
+        {{/ifTypeIsPublic}}
+        {{#ifTypeIsSchool ticket.type}}
+        <div>
+          <label for="txtName">Schoolnaam:</label>
+          <input type="text" required name="txtName" id="txtName" placeholder="Volledige schoolnaam"/>
+      </div>
 
-    	<div>
-    		<input type="submit" name="btnSubmit" value="Bestel"/>
-    	</div>
-    </form>
+      <div>
+          <label for="txtEmail">E-mailadres:</label>
+          <input type="email" required name="txtEmail" id="txtEmail" placeholder="joske.vermeulen@trammezand.lei"/>
+      </div>
+      {{/ifTypeIsSchool}}
+
+      <div>
+          <input type="submit" name="btnSubmit" value="Bestel"/>
+      </div>
+  </form>
