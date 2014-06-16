@@ -1,6 +1,9 @@
 Handlebars.registerHelper('formatDate', function (date) {
-    moment.lang('nl');
     return moment(date).format('D');
+});
+
+Handlebars.registerHelper('getMonth', function (date) {
+    return moment(date).format('MMMM');
 });
 
 Handlebars.registerHelper('returnAvailability', function (date, tickets) {

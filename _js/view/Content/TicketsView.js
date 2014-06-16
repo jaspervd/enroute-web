@@ -122,23 +122,35 @@ var TicketsView = Backbone.View.extend({
         $('.error').remove();
     },
 
-    render: function() {
-        this.$el.html(this.template({
-            days: this.filteredCollection.toJSON(),
-            ticket: this.currentTicket.toJSON()
-        }));
-
+    renderSelectTicket: function() {
         var selectTicket = this.$el.find('#selectTicket');
         var self = this;
         selectTicket.on('mousemove', function(e) {
             selectTicket.css({
                 'width': self.filteredCollection.length * (self.$el.find('.day').parent().width() + 10) + 100
             });
-            var x = -(((e.pageX - $('#selectTicket').position().left) / $("#tickets").width()) * ($("#selectTicket").width() + parseInt($("#selectTicket").css('paddingLeft')) + parseInt($("#selectTicket").css('paddingRight')) - $("#tickets").width()));
-            $("#selectTicket").css({
+            var x = -(((e.pageX - selectTicket.position().left) / $('#tickets').width()) * (selectTicket.width() + parseInt(selectTicket.css('paddingLeft')) + parseInt(selectTicket.css('paddingRight')) - $('#tickets').width()));
+            selectTicket.css({
                 'marginLeft': x + 'px'
             });
         });
+
+        var firstMonth = this.$el.find('.day:first').attr('data-month');
+        var lastMonth = this.$el.find('.day:last').attr('data-month');
+        var firstDayInMonth = this.$el.find('.day[data-month=' + firstMonth + ']:first');
+        var firstDayInOtherMonth = this.$el.find('.day[data-month=' + lastMonth + ']:first');
+        if (firstMonth !== lastMonth) {
+            this.$el.find('#selectTicket').append('<span class="month">' + firstMonth + '</span>');
+        }
+        selectTicket.append('<span class="month" style="margin-left:' + ((this.$el.find('.day').index(firstDayInOtherMonth) * 70) + 15) + 'px">' + lastMonth + '</span>');
+    },
+
+    render: function() {
+        this.$el.html(this.template({
+            days: this.filteredCollection.toJSON(),
+            ticket: this.currentTicket.toJSON()
+        }));
+        this.renderSelectTicket();
         return this;
     }
 });

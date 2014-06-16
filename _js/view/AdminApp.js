@@ -80,11 +80,20 @@ var AdminApp = Backbone.View.extend({
             selectDay.css({
                 'width': self.days.length * (self.$el.find('.day').parent().width() + 10) + 100
             });
-            var x = -(((e.pageX - $('#selectDay').position().left) / $("#selectDay").parent().width()) * ($("#selectDay").width() + parseInt($("#selectDay").css('paddingLeft')) + parseInt($("#selectDay").css('paddingRight')) - $("#selectDay").parent().width()));
+            var x = -(((e.pageX - selectDay.position().left) / selectDay.parent().width()) * (selectDay.width() + parseInt(selectDay.css('paddingLeft')) + parseInt(selectDay.css('paddingRight')) - selectDay.parent().width()));
             selectDay.css({
                 'marginLeft': x + 'px'
             });
         });
+
+        var firstMonth = this.$el.find('.day:first').attr('data-month');
+        var lastMonth = this.$el.find('.day:last').attr('data-month');
+        var firstDayInMonth = this.$el.find('.day[data-month=' + firstMonth + ']:first');
+        var firstDayInOtherMonth = this.$el.find('.day[data-month=' + lastMonth + ']:first');
+        if (firstMonth !== lastMonth) {
+            selectDay.append('<span class="month">' + firstMonth + '</span>');
+        }
+        selectDay.append('<span class="month" style="margin-left:' + (this.$el.find('.day').index(firstDayInOtherMonth) * 75.5) + 'px">' + lastMonth + '</span>');
 
         if (this.currentContentType === 'buildings') {
             this.$el.append(this.adminBuildingsView.render().$el);

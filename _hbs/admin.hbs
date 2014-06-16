@@ -7,7 +7,7 @@
 	</header>
 	<ul id="selectDay">
 		{{#each days}}
-		<li><a href="" class="day" data-day-id="{{id}}">{{formatDate title}}</a></li>
+		<li><a href="" class="day" data-day-id="{{id}}" data-month="{{getMonth title}}">{{formatDate title}}</a></li>
 		{{/each}}
 	</ul>
 </nav>

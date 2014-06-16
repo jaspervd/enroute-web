@@ -177,6 +177,8 @@ function program2(depth0,data) {
   if (helper = helpers.title) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.title); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
+    + "\" data-month=\""
+    + escapeExpression((helper = helpers.getMonth || (depth0 && depth0.getMonth),options={hash:{},data:data},helper ? helper.call(depth0, (depth0 && depth0.title), options) : helperMissing.call(depth0, "getMonth", (depth0 && depth0.title), options)))
     + "\">"
     + escapeExpression((helper = helpers.formatDate || (depth0 && depth0.formatDate),options={hash:{},data:data},helper ? helper.call(depth0, (depth0 && depth0.title), options) : helperMissing.call(depth0, "formatDate", (depth0 && depth0.title), options)))
     + "</a></li>\n        ";
@@ -223,6 +225,8 @@ function program1(depth0,data) {
   if (helper = helpers.id) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.id); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
+    + "\" data-month=\""
+    + escapeExpression((helper = helpers.getMonth || (depth0 && depth0.getMonth),options={hash:{},data:data},helper ? helper.call(depth0, (depth0 && depth0.title), options) : helperMissing.call(depth0, "getMonth", (depth0 && depth0.title), options)))
     + "\">"
     + escapeExpression((helper = helpers.formatDate || (depth0 && depth0.formatDate),options={hash:{},data:data},helper ? helper.call(depth0, (depth0 && depth0.title), options) : helperMissing.call(depth0, "formatDate", (depth0 && depth0.title), options)))
     + "</a></li>\n		";
@@ -287,8 +291,11 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   });
 
 Handlebars.registerHelper('formatDate', function (date) {
-    moment.lang('nl');
     return moment(date).format('D');
+});
+
+Handlebars.registerHelper('getMonth', function (date) {
+    return moment(date).format('MMMM');
 });
 
 Handlebars.registerHelper('returnAvailability', function (date, tickets) {
@@ -609,11 +616,20 @@ var AdminApp = Backbone.View.extend({
             selectDay.css({
                 'width': self.days.length * (self.$el.find('.day').parent().width() + 10) + 100
             });
-            var x = -(((e.pageX - $('#selectDay').position().left) / $("#selectDay").parent().width()) * ($("#selectDay").width() + parseInt($("#selectDay").css('paddingLeft')) + parseInt($("#selectDay").css('paddingRight')) - $("#selectDay").parent().width()));
+            var x = -(((e.pageX - selectDay.position().left) / selectDay.parent().width()) * (selectDay.width() + parseInt(selectDay.css('paddingLeft')) + parseInt(selectDay.css('paddingRight')) - selectDay.parent().width()));
             selectDay.css({
                 'marginLeft': x + 'px'
             });
         });
+
+        var firstMonth = this.$el.find('.day:first').attr('data-month');
+        var lastMonth = this.$el.find('.day:last').attr('data-month');
+        var firstDayInMonth = this.$el.find('.day[data-month=' + firstMonth + ']:first');
+        var firstDayInOtherMonth = this.$el.find('.day[data-month=' + lastMonth + ']:first');
+        if (firstMonth !== lastMonth) {
+            selectDay.append('<span class="month">' + firstMonth + '</span>');
+        }
+        selectDay.append('<span class="month" style="margin-left:' + (this.$el.find('.day').index(firstDayInOtherMonth) * 75.5) + 'px">' + lastMonth + '</span>');
 
         if (this.currentContentType === 'buildings') {
             this.$el.append(this.adminBuildingsView.render().$el);
@@ -650,7 +666,7 @@ var AdminBiggieSmallsView = Backbone.View.extend({
         var adminContentItemView = new AdminContentItemView({
             model: content
         });
-        this.$el.find('ul').append(adminContentItemView.render().$el);
+        this.$el.find('#list_content').append(adminContentItemView.render().$el);
     },
 
     updateToDay: function(day) {
@@ -670,7 +686,7 @@ var AdminBiggieSmallsView = Backbone.View.extend({
                 this.renderBiggieSmalls(building);
             }, this);
         } else {
-            this.$el.find('ul').remove();
+            this.$el.find('#list_content').remove();
             this.$el.append('<div class="border_shadow"><p class="content_item">Er zijn nog geen foto\'s beschikbaar voor deze dag.</p><div class="border_right"></div><div class="border_bottom"></div><div class="border_connection"></div></div>');
         }
         return this;
@@ -997,6 +1013,7 @@ var EnRouteApp = Backbone.View.extend({
     render: function() {
         this.$el.html(this.template());
         this.$el.append('<div id="noise"></div>');
+        this.$el.append('<div id="night"></div>');
         this.$el.append(this.contentView.render().$el);
         this.$el.append(this.homeView.render().$el);
         return this;
@@ -1528,23 +1545,35 @@ var TicketsView = Backbone.View.extend({
         $('.error').remove();
     },
 
-    render: function() {
-        this.$el.html(this.template({
-            days: this.filteredCollection.toJSON(),
-            ticket: this.currentTicket.toJSON()
-        }));
-
+    renderSelectTicket: function() {
         var selectTicket = this.$el.find('#selectTicket');
         var self = this;
         selectTicket.on('mousemove', function(e) {
             selectTicket.css({
                 'width': self.filteredCollection.length * (self.$el.find('.day').parent().width() + 10) + 100
             });
-            var x = -(((e.pageX - $('#selectTicket').position().left) / $("#tickets").width()) * ($("#selectTicket").width() + parseInt($("#selectTicket").css('paddingLeft')) + parseInt($("#selectTicket").css('paddingRight')) - $("#tickets").width()));
-            $("#selectTicket").css({
+            var x = -(((e.pageX - selectTicket.position().left) / $('#tickets').width()) * (selectTicket.width() + parseInt(selectTicket.css('paddingLeft')) + parseInt(selectTicket.css('paddingRight')) - $('#tickets').width()));
+            selectTicket.css({
                 'marginLeft': x + 'px'
             });
         });
+
+        var firstMonth = this.$el.find('.day:first').attr('data-month');
+        var lastMonth = this.$el.find('.day:last').attr('data-month');
+        var firstDayInMonth = this.$el.find('.day[data-month=' + firstMonth + ']:first');
+        var firstDayInOtherMonth = this.$el.find('.day[data-month=' + lastMonth + ']:first');
+        if (firstMonth !== lastMonth) {
+            this.$el.find('#selectTicket').append('<span class="month">' + firstMonth + '</span>');
+        }
+        selectTicket.append('<span class="month" style="margin-left:' + ((this.$el.find('.day').index(firstDayInOtherMonth) * 70) + 15) + 'px">' + lastMonth + '</span>');
+    },
+
+    render: function() {
+        this.$el.html(this.template({
+            days: this.filteredCollection.toJSON(),
+            ticket: this.currentTicket.toJSON()
+        }));
+        this.renderSelectTicket();
         return this;
     }
 });
@@ -1554,5 +1583,33 @@ var TicketsView = Backbone.View.extend({
 moment.lang('nl');
 var router = new AppRouter();
 Backbone.history.start();
+
+// Fix for mobile
+
+function touchHandler(event) {
+    var touch = event.changedTouches[0];
+
+    var simulatedEvent = document.createEvent("MouseEvent");
+        simulatedEvent.initMouseEvent({
+        touchstart: "mousedown",
+        touchmove: "mousemove",
+        touchend: "mouseup"
+    }[event.type], true, true, window, 1,
+        touch.screenX, touch.screenY,
+        touch.clientX, touch.clientY, false,
+        false, false, false, 0, null);
+
+    touch.target.dispatchEvent(simulatedEvent);
+    event.preventDefault();
+}
+
+function init() {
+    document.addEventListener("touchstart", touchHandler, true);
+    document.addEventListener("touchmove", touchHandler, true);
+    document.addEventListener("touchend", touchHandler, true);
+    document.addEventListener("touchcancel", touchHandler, true);
+}
+
+init();
 
 })();

@@ -20,7 +20,7 @@ var AdminBiggieSmallsView = Backbone.View.extend({
         var adminContentItemView = new AdminContentItemView({
             model: content
         });
-        this.$el.find('ul').append(adminContentItemView.render().$el);
+        this.$el.find('#list_content').append(adminContentItemView.render().$el);
     },
 
     updateToDay: function(day) {
@@ -40,7 +40,7 @@ var AdminBiggieSmallsView = Backbone.View.extend({
                 this.renderBiggieSmalls(building);
             }, this);
         } else {
-            this.$el.find('ul').remove();
+            this.$el.find('#list_content').remove();
             this.$el.append('<div class="border_shadow"><p class="content_item">Er zijn nog geen foto\'s beschikbaar voor deze dag.</p><div class="border_right"></div><div class="border_bottom"></div><div class="border_connection"></div></div>');
         }
         return this;

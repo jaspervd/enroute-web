@@ -215,6 +215,7 @@ body {
  .info_wrapper {
   background-color: #91ddc6;
   padding: 30px 30px 40px;
+  border-bottom: 14px solid rgba(0, 0, 0, 0.2);
 }
 
 .border_shadow {
@@ -231,15 +232,24 @@ p {
 ul {
   background-color: #b2463f;
   height: 90px;
-  padding: 10px;
+  padding: 0 10px 30px;
+  border-top: 3px solid rgba(0, 0, 0, .2);
   width: 1000%;
+
+  .month {
+    background-color: #f4c747;
+    @include border-radius(6px);
+    color: #ac443d;
+    margin: 0 10px -20px;
+    padding: 5px 22px;
+  }
 
   li {
     background-image: url('../images/calendar_item.svg');
     width: 65px;
     height: 90px;
     display: inline-block;
-    margin-right: 10px;
+    margin: -8px 0 12px 10px;
 
     a {
       font-family: Sahara, sans-serif;
@@ -864,15 +874,24 @@ form .range {
   #selectDay {
     background-color: #b2463f;
     height: 90px;
-    padding: 10px;
+    padding: 0 10px 30px;
     width: 1000%;
+    border-bottom: 2px solid rgba(0, 0, 0, .6);
+
+    .month {
+      background-color: #f4c747;
+      @include border-radius(6px);
+      color: #ac443d;
+      margin: 0 0 -20px;
+      padding: 5px 22px;
+    }
 
     li {
       background-image: url('../images/calendar_item.svg');
       width: 65px;
       height: 90px;
       display: inline-block;
-      margin-right: 10px;
+      margin: 0 10px 10px 0;
 
       a {
         font-family: Sahara, sans-serif;
