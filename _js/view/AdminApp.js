@@ -1,6 +1,8 @@
-/* globals Contents:true */
+/* globals Buildings:true */
+/* globals BiggieSmalls:true */
 /* globals Days:true */
-/* globals AdminContentView:true */
+/* globals AdminBuildingsView:true */
+/* globals AdminBiggieSmallsView:true */
 
 var AdminApp = Backbone.View.extend({
     id: 'container',
@@ -8,22 +10,41 @@ var AdminApp = Backbone.View.extend({
     template: tpl.admin,
     prevDay: 0,
     currentDay: 0,
+    currentContentType: 0,
 
-    initialize: function () {
+    initialize: function() {
         _.bindAll.apply(_, [this].concat(_.functions(this)));
 
         this.days = new Days();
         this.days.fetch();
         this.days.on('sync reset', this.render);
 
-        this.content = new Contents();
-        this.content.fetch();
+        this.buildings = new Buildings();
+        this.buildings.fetch();
 
-        this.adminContentView = new AdminContentView({collection: this.content});
+        this.biggieSmalls = new BiggieSmalls();
+        this.biggieSmalls.fetch();
+
+        this.adminBuildingsView = new AdminBuildingsView({
+            collection: this.buildings
+        });
+        this.adminBiggieSmallsView = new AdminBiggieSmallsView({
+            collection: this.biggieSmalls
+        });
     },
 
     events: {
-        'click .title': 'showDay'
+        'click .title': 'showDay',
+        'click .contentType': 'setContentType'
+    },
+
+    setContentType: function(e) {
+        e.preventDefault();
+        var newContentType = $(e.currentTarget).attr('data-content-type');
+        if (this.currentContentType !== newContentType) {
+            this.currentContentType = newContentType;
+            this.render();
+        }
     },
 
     showDay: function(e) {
@@ -34,19 +55,32 @@ var AdminApp = Backbone.View.extend({
     },
 
     renderDay: function() {
-        if(this.prevDay !== this.currentDay) {
+        if (this.prevDay !== this.currentDay) {
             this.prevDay = this.currentDay;
-            this.adminContentView.updateToDay(this.currentDay);
+            if (this.currentContentType === 'buildings') {
+                this.adminBuildingsView.updateToDay(this.currentDay);
+            } else {
+                this.adminBiggieSmallsView.updateToDay(this.currentDay);
+            }
+
             this.render();
-            Backbone.history.navigate('admin/'+ this.currentDay);
+            Backbone.history.navigate('admin/' + this.currentDay);
         }
     },
 
-    render: function () {
-        this.$el.html(this.template({days: this.days.toJSON()}));
-        this.$el.append(this.adminContentView.render().$el);
-        if(this.currentDay > 0) {
-            this.content.on('sync reset', this.renderDay);
+    render: function() {
+        this.$el.html(this.template({
+            days: this.days.toJSON()
+        }));
+
+        if (this.currentContentType === 'buildings') {
+            this.$el.append(this.adminBuildingsView.render().$el);
+        } else {
+            this.$el.append(this.adminBiggieSmallsView.render().$el);
+        }
+        if (this.currentDay > 0) {
+            this.buildings.on('sync reset', this.renderDay);
+            this.biggieSmalls.on('sync reset', this.renderDay);
         }
         return this;
     }

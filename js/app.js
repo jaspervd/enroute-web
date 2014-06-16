@@ -174,7 +174,7 @@ function program1(depth0,data) {
   return buffer;
   }
 
-  buffer += "<header>\n    <h1>Admin</h1>\n</header>\n<nav>\n<header>\n    <h1>Dagen</h1>\n</header>\n<ul>\n    ";
+  buffer += "<header>\n    <h1>Admin</h1>\n</header>\n\n    <a href=\"\" class=\"contentType\" data-content-type=\"buildings\">Gebouwen</a> - <a href=\"\" class=\"contentType\" data-content-type=\"biggiesmalls\">Foto's</a>\n<nav>\n<header>\n    <h1>Dagen</h1>\n</header>\n<ul>\n    ";
   stack1 = helpers.each.call(depth0, (depth0 && depth0.days), {hash:{},inverse:self.noop,fn:self.program(1, program1, data),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
   buffer += "\n</ul>\n</nav>";
@@ -187,7 +187,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   
 
 
-  return "<section id=\"admin_content\">\n    <header>\n        <h1>Beheer content</h1>\n    </header>\n    <ul></ul>\n</section>";
+  return "    <header>\n        <h1>Beheer content</h1>\n    </header>\n    <ul></ul>";
   });
 
 this["tpl"]["content"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
@@ -325,6 +325,22 @@ var Validate = (function() {
 
 /* globals Settings:true */
 
+var BiggieSmalls = Backbone.Model.extend({
+    defaults:{
+        id: null,
+        day_id: null,
+        url: undefined,
+        latitude: undefined,
+        longitude: undefined,
+        approved: 0,
+        uploaded_date: undefined
+    },
+
+    urlRoot: Settings.API + '/biggiesmalls'
+});
+
+/* globals Settings:true */
+
 var Building = Backbone.Model.extend({
     defaults:{
         id: null,
@@ -427,6 +443,14 @@ var AppRouter = Backbone.Router.extend({
 
 
 /* globals Settings:true */
+/* globals BiggieSmalls:true */
+
+var BiggieSmalls = Backbone.Collection.extend({
+    model: BiggieSmalls,
+    url: Settings.API + "/biggiesmalls"
+});
+
+/* globals Settings:true */
 /* globals Building:true */
 
 var Buildings = Backbone.Collection.extend({
@@ -442,9 +466,11 @@ var Days = Backbone.Collection.extend({
     url: Settings.API + "/days"
 });
 
-/* globals Contents:true */
+/* globals Buildings:true */
+/* globals BiggieSmalls:true */
 /* globals Days:true */
-/* globals AdminContentView:true */
+/* globals AdminBuildingsView:true */
+/* globals AdminBiggieSmallsView:true */
 
 var AdminApp = Backbone.View.extend({
     id: 'container',
@@ -452,22 +478,41 @@ var AdminApp = Backbone.View.extend({
     template: tpl.admin,
     prevDay: 0,
     currentDay: 0,
+    currentContentType: 0,
 
-    initialize: function () {
+    initialize: function() {
         _.bindAll.apply(_, [this].concat(_.functions(this)));
 
         this.days = new Days();
         this.days.fetch();
         this.days.on('sync reset', this.render);
 
-        this.content = new Contents();
-        this.content.fetch();
+        this.buildings = new Buildings();
+        this.buildings.fetch();
 
-        this.adminContentView = new AdminContentView({collection: this.content});
+        this.biggieSmalls = new BiggieSmalls();
+        this.biggieSmalls.fetch();
+
+        this.adminBuildingsView = new AdminBuildingsView({
+            collection: this.buildings
+        });
+        this.adminBiggieSmallsView = new AdminBiggieSmallsView({
+            collection: this.biggieSmalls
+        });
     },
 
     events: {
-        'click .title': 'showDay'
+        'click .title': 'showDay',
+        'click .contentType': 'setContentType'
+    },
+
+    setContentType: function(e) {
+        e.preventDefault();
+        var newContentType = $(e.currentTarget).attr('data-content-type');
+        if (this.currentContentType !== newContentType) {
+            this.currentContentType = newContentType;
+            this.render();
+        }
     },
 
     showDay: function(e) {
@@ -478,19 +523,118 @@ var AdminApp = Backbone.View.extend({
     },
 
     renderDay: function() {
-        if(this.prevDay !== this.currentDay) {
+        if (this.prevDay !== this.currentDay) {
             this.prevDay = this.currentDay;
-            this.adminContentView.updateToDay(this.currentDay);
+            if (this.currentContentType === 'buildings') {
+                this.adminBuildingsView.updateToDay(this.currentDay);
+            } else {
+                this.adminBiggieSmallsView.updateToDay(this.currentDay);
+            }
+
             this.render();
-            Backbone.history.navigate('admin/'+ this.currentDay);
+            Backbone.history.navigate('admin/' + this.currentDay);
         }
     },
 
+    render: function() {
+        this.$el.html(this.template({
+            days: this.days.toJSON()
+        }));
+
+        if (this.currentContentType === 'buildings') {
+            this.$el.append(this.adminBuildingsView.render().$el);
+        } else {
+            this.$el.append(this.adminBiggieSmallsView.render().$el);
+        }
+        if (this.currentDay > 0) {
+            this.buildings.on('sync reset', this.renderDay);
+            this.biggieSmalls.on('sync reset', this.renderDay);
+        }
+        return this;
+    }
+});
+
+/* globals Buildings:true */
+/* globals Building:true */
+/* globals BiggieSmalls:true */
+/* globals AdminContentItemView:true */
+
+var AdminBiggieSmallsView = Backbone.View.extend({
+    template: tpl.admincontent,
+    currentDay: 0,
+    biggiesmalls: undefined,
+
+    initialize: function () {
+        _.bindAll.apply(_, [this].concat(_.functions(this)));
+        this.collection.on("sync reset destroy", this.render);
+        this.biggiesmalls = this.collection;
+    },
+
+    renderBiggieSmalls: function (content) {
+        var adminContentItemView = new AdminContentItemView({model: content});
+        this.$el.find('ul').append(adminContentItemView.render().$el);
+    },
+
+    updateToDay: function (day) {
+        console.log('[AdminBiggieSmallsView] updateToDay()', day);
+        this.currentDay = day;
+        this.collection = this.biggiesmalls;
+        this.collection = new BiggieSmalls(this.collection.where({day_id: this.currentDay}));
+        this.render();
+    },
+
     render: function () {
-        this.$el.html(this.template({days: this.days.toJSON()}));
-        this.$el.append(this.adminContentView.render().$el);
-        if(this.currentDay > 0) {
-            this.content.on('sync reset', this.renderDay);
+        this.$el.html(this.template());
+        if (this.collection.length > 0) {
+            this.collection.each(function (building, index) {
+                this.renderBiggieSmalls(building);
+            }, this);
+        } else {
+            this.$el.find('ul').remove();
+            this.$el.append('<p>Er zijn nog geen foto\'s beschikbaar voor deze dag.</p>');
+        }
+        return this;
+    }
+});
+
+/* globals Buildings:true */
+/* globals Building:true */
+/* globals BiggieSmalls:true */
+/* globals AdminContentItemView:true */
+
+var AdminBuildingsView = Backbone.View.extend({
+    template: tpl.admincontent,
+    currentDay: 0,
+    buildings: undefined,
+
+    initialize: function () {
+        _.bindAll.apply(_, [this].concat(_.functions(this)));
+        this.collection.on("sync reset destroy", this.render);
+        this.buildings = this.collection;
+    },
+
+    renderBuildings: function (content) {
+        var adminContentItemView = new AdminContentItemView({model: content});
+        this.$el.find('ul').append(adminContentItemView.render().$el);
+    },
+
+    updateToDay: function (day) {
+        console.log('[AdminBuildingsView] updateToDay()', day);
+        this.currentDay = day;
+        this.collection = this.buildings;
+        this.collection = new Buildings(this.collection.where({day_id: this.currentDay}));
+        this.render();
+    },
+
+    render: function () {
+        this.$el.html(this.template());
+        if (this.collection.length > 0) {
+            this.collection.each(function (building, index) {
+                this.renderBuildings(building);
+            }, this);
+        } else {
+            this.$el.find('ul').remove();
+            this.$el.append('<p>Er zijn nog geen gebouwen beschikbaar voor deze dag.</p>');
         }
         return this;
     }
@@ -538,19 +682,48 @@ var AdminContentItemView = Backbone.View.extend({
     }
 });
 
-/* globals Contents:true */
-/* globals Content:true */
+/* globals Buildings:true */
+/* globals Building:true */
+/* globals BiggieSmalls:true */
 /* globals AdminContentItemView:true */
 
+/*
+
 var AdminContentView = Backbone.View.extend({
+    id: 'admin_content',
+    tagName: 'section',
     template: tpl.admincontent,
     currentDay: 0,
-    contents: undefined,
+    contents: [],
+    buildings: undefined,
+    biggieSmalls: undefined,
+    currentContentType: 'buildings',
 
     initialize: function () {
         _.bindAll.apply(_, [this].concat(_.functions(this)));
-        this.collection.on("sync reset destroy", this.render);
-        this.contents = this.collection;
+        console.log(this.collection);
+        this.buildings = this.options.buildings;
+        this.biggieSmalls = this.options.biggieSmalls;
+        this.buildings.on('sync reset remove', this.render);
+        this.biggieSmalls.on('sync reset remove', this.render);
+    },
+
+    events: {
+        'click .contentType': 'setContentType'
+    },
+
+    setContentType: function(e) {
+        e.preventDefault();
+        var newContentType = $(e.currentTarget).attr('data-content-type');
+        if(this.currentContentType !== newContentType) {
+            this.currentContentType = newContentType;
+            if(this.currentContentType === 'buildings') {
+                this.contents = this.buildings;
+            } else {
+                this.contents = this.biggieSmalls;
+            }
+            this.render();
+        }
     },
 
     renderContent: function (content) {
@@ -561,15 +734,18 @@ var AdminContentView = Backbone.View.extend({
     updateToDay: function (day) {
         console.log('[AdminContentView] updateToDay()', day);
         this.currentDay = day;
-        this.collection = this.contents;
-        this.collection = new Contents(this.collection.where({day_id: this.currentDay}));
+        if(this.currentContentType === 'buildings') {
+            this.contents = new Buildings(this.buildings.where({day_id: this.currentDay}));
+        } else {
+            this.contents = new BiggieSmalls(this.biggieSmalls.where({day_id: this.currentDay}));
+        }
         this.render();
     },
 
     render: function () {
         this.$el.html(this.template());
-        if (this.collection.length > 0) {
-            this.collection.each(function (content, index) {
+        if (this.contents.length > 0) {
+            this.contents.each(function (content, index) {
                 this.renderContent(content);
             }, this);
         } else {
@@ -579,6 +755,7 @@ var AdminContentView = Backbone.View.extend({
         return this;
     }
 });
+ */
 
 var BuildingView = Backbone.View.extend({
     className: 'building',
