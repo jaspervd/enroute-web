@@ -119,8 +119,8 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
 
   /* line 56, ../_scss/responsive.scss */
   #city {
-    width: 180% !important;
-    margin: -90% 0 0 -90% !important;
+    width: 160% !important;
+    margin: -80% 0 0 -80% !important;
   }
 
   /* line 61, ../_scss/responsive.scss */
@@ -128,13 +128,13 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
     width: 100% !important;
   }
 }
-@media only screen and (max-width: 1099px) {
+@media only screen and (min-width: 1099px) and (max-width: 1200px) {
   /* line 67, ../_scss/responsive.scss */
   #forest {
     width: 80% !important;
   }
 }
-@media only screen and (max-width: 999px) {
+@media only screen and (min-width: 999px) and (max-width: 1098px) {
   /* line 73, ../_scss/responsive.scss */
   #scalable {
     -webkit-transform: scale(0.9) !important;
@@ -146,11 +146,20 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
 
   /* line 77, ../_scss/responsive.scss */
   #forest {
-    width: 79%;
+    width: 79% !important;
+  }
+}
+@media only screen and (max-width: 640px) {
+  /* line 83, ../_scss/responsive.scss */
+  #day {
+    bottom: -120px !important;
+    top: auto !important;
+    left: auto !important;
+    margin: 0 !important;
   }
 }
 @media only screen and (max-width: 580px) {
-  /* line 83, ../_scss/responsive.scss */
+  /* line 92, ../_scss/responsive.scss */
   #scalable {
     -webkit-transform: scale(0.7) !important;
     -moz-transform: scale(0.7) !important;
@@ -159,13 +168,19 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
     transform: scale(0.7) !important;
   }
 
-  /* line 87, ../_scss/responsive.scss */
+  /* line 96, ../_scss/responsive.scss */
   #forest {
-    width: 110% !important;
+    width: 120% !important;
+  }
+
+  /* line 100, ../_scss/responsive.scss */
+  #city {
+    width: 180% !important;
+    margin: -90% 0 0 -90% !important;
   }
 }
 @media only screen and (max-width: 480px) {
-  /* line 93, ../_scss/responsive.scss */
+  /* line 107, ../_scss/responsive.scss */
   #scalable {
     -webkit-transform: scale(0.6) !important;
     -moz-transform: scale(0.6) !important;
@@ -174,13 +189,19 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
     transform: scale(0.6) !important;
   }
 
-  /* line 97, ../_scss/responsive.scss */
+  /* line 111, ../_scss/responsive.scss */
   #content nav ul {
     -webkit-transform: scale(0.8);
     -moz-transform: scale(0.8);
     -ms-transform: scale(0.8);
     -o-transform: scale(0.8);
     transform: scale(0.8);
+  }
+
+  /* line 115, ../_scss/responsive.scss */
+  #city {
+    width: 190% !important;
+    margin: -95% 0 0 -95% !important;
   }
 }
 @font-face {
@@ -813,9 +834,12 @@ form .range input {
   position: absolute;
   z-index: 4444;
   margin-left: 14px;
-  margin-top: -14px;
 }
-/* line 595, ../_scss/screen.scss */
+/* line 594, ../_scss/screen.scss */
+#day header {
+  display: none;
+}
+/* line 598, ../_scss/screen.scss */
 #day .building {
   width: 80px;
   position: absolute;
@@ -831,14 +855,14 @@ form .range input {
   -o-transform-origin: 50% 100px;
   transform-origin: 50% 100px;
 }
-/* line 604, ../_scss/screen.scss */
+/* line 607, ../_scss/screen.scss */
 #day .wrapper {
   background-color: #fccd47;
   width: 80px;
   position: absolute;
   padding: 5px 5px 30px;
 }
-/* line 610, ../_scss/screen.scss */
+/* line 613, ../_scss/screen.scss */
 #day .wrapper .border_bottom {
   width: 14px;
   height: 100%;
@@ -848,20 +872,20 @@ form .range input {
   bottom: -14px;
   right: -28px;
 }
-/* line 620, ../_scss/screen.scss */
+/* line 623, ../_scss/screen.scss */
 #day .wrapper .layer {
   padding-top: 5px;
 }
-/* line 623, ../_scss/screen.scss */
+/* line 626, ../_scss/screen.scss */
 #day .wrapper .layer:first-child {
   padding-top: 0;
 }
-/* line 628, ../_scss/screen.scss */
+/* line 631, ../_scss/screen.scss */
 #day .wrapper video {
   width: 100%;
 }
 
-/* line 636, ../_scss/screen.scss */
+/* line 639, ../_scss/screen.scss */
 #river {
   background-image: url("../images/river.png");
   width: 370px;
@@ -877,14 +901,14 @@ form .range input {
   animation: rotateCircle 340s infinite;
 }
 
-/* line 653, ../_scss/screen.scss */
+/* line 656, ../_scss/screen.scss */
 #forest {
   width: 70%;
   position: absolute;
   left: 50%;
   top: 50%;
 }
-/* line 659, ../_scss/screen.scss */
+/* line 662, ../_scss/screen.scss */
 #forest .rocks {
   background: url("../images/rocks.svg") no-repeat;
   background-size: 195px 154px;
@@ -892,7 +916,7 @@ form .range input {
   height: 154px;
   position: absolute;
 }
-/* line 667, ../_scss/screen.scss */
+/* line 670, ../_scss/screen.scss */
 #forest .tree {
   background: no-repeat;
   background-size: 100%;
@@ -903,28 +927,28 @@ form .range input {
   -o-transition: margin 1s ease;
   transition: margin 1s ease;
 }
-/* line 674, ../_scss/screen.scss */
+/* line 677, ../_scss/screen.scss */
 #forest .tree.type1 {
   background-image: url("../images/tree_1.svg");
   height: 75px;
 }
-/* line 679, ../_scss/screen.scss */
+/* line 682, ../_scss/screen.scss */
 #forest .tree.type2 {
   background-image: url("../images/tree_2.svg");
   height: 93px;
 }
-/* line 684, ../_scss/screen.scss */
+/* line 687, ../_scss/screen.scss */
 #forest .tree.type3 {
   background-image: url("../images/tree_3.svg");
   height: 87px;
 }
-/* line 689, ../_scss/screen.scss */
+/* line 692, ../_scss/screen.scss */
 #forest .tree.type4 {
   background-image: url("../images/tree_4.svg");
   height: 87px;
 }
 
-/* line 698, ../_scss/screen.scss */
+/* line 701, ../_scss/screen.scss */
 #city {
   background: url("../images/city.svg") no-repeat;
   background-size: 100% 100%;
@@ -934,13 +958,13 @@ form .range input {
   left: 50%;
   top: 50%;
 }
-/* line 707, ../_scss/screen.scss */
+/* line 710, ../_scss/screen.scss */
 #city:before {
   content: "";
   display: block;
   padding-top: 100%;
 }
-/* line 713, ../_scss/screen.scss */
+/* line 716, ../_scss/screen.scss */
 #city .rotate {
   -webkit-animation: rotateCircle 35s infinite linear;
   -moz-animation: rotateCircle 35s infinite linear;
@@ -950,7 +974,7 @@ form .range input {
   top: 50%;
   left: 50%;
 }
-/* line 722, ../_scss/screen.scss */
+/* line 725, ../_scss/screen.scss */
 #city .rotate.forwards {
   -webkit-animation: rotateCircle reverse 49s infinite linear;
   -moz-animation: rotateCircle reverse 49s infinite linear;
@@ -959,12 +983,12 @@ form .range input {
   width: 75%;
   margin-left: -38%;
 }
-/* line 731, ../_scss/screen.scss */
+/* line 734, ../_scss/screen.scss */
 #city .rotate.reverse {
   width: 68%;
   margin-left: -34%;
 }
-/* line 737, ../_scss/screen.scss */
+/* line 740, ../_scss/screen.scss */
 #city .car {
   background-repeat: no-repeat;
   width: 100px;
@@ -972,7 +996,7 @@ form .range input {
   background-size: 100px 61px;
   position: absolute;
 }
-/* line 744, ../_scss/screen.scss */
+/* line 747, ../_scss/screen.scss */
 #city .car.red {
   background-image: url("../images/car_red.svg");
   left: 0;
@@ -982,7 +1006,7 @@ form .range input {
   -o-transform: rotate(90deg);
   transform: rotate(90deg);
 }
-/* line 750, ../_scss/screen.scss */
+/* line 753, ../_scss/screen.scss */
 #city .car.yellow {
   background-image: url("../images/car_yellow.svg");
   right: 0;
@@ -992,7 +1016,7 @@ form .range input {
   -o-transform: rotate(-90deg);
   transform: rotate(-90deg);
 }
-/* line 756, ../_scss/screen.scss */
+/* line 759, ../_scss/screen.scss */
 #city .car.white {
   background-image: url("../images/car_white.svg");
   top: 0;
@@ -1002,7 +1026,7 @@ form .range input {
   -o-transform: rotate(270deg);
   transform: rotate(270deg);
 }
-/* line 763, ../_scss/screen.scss */
+/* line 766, ../_scss/screen.scss */
 #city #city_top {
   background: url("../images/city_top.svg") no-repeat;
   position: absolute;
@@ -1011,29 +1035,29 @@ form .range input {
   bottom: 0;
 }
 
-/* line 774, ../_scss/screen.scss */
+/* line 777, ../_scss/screen.scss */
 #container.admin {
   background: #91ddc6 url("../images/bg_info.svg") left bottom no-repeat;
   background-size: 100%;
 }
-/* line 778, ../_scss/screen.scss */
+/* line 781, ../_scss/screen.scss */
 #container.admin #admin_biggiesmalls, #container.admin #admin_buildings {
   height: 70%;
   overflow-y: scroll;
 }
-/* line 782, ../_scss/screen.scss */
+/* line 785, ../_scss/screen.scss */
 #container.admin #admin_biggiesmalls .border_shadow, #container.admin #admin_buildings .border_shadow {
   font-size: 1.6em;
   position: relative;
   margin: 40px;
 }
-/* line 788, ../_scss/screen.scss */
+/* line 791, ../_scss/screen.scss */
 #container.admin #admin_biggiesmalls p.content_item, #container.admin #admin_buildings p.content_item {
   background-color: #f1f5cf;
   padding: 20px;
   color: #b2463f;
 }
-/* line 796, ../_scss/screen.scss */
+/* line 799, ../_scss/screen.scss */
 #container.admin #contentTypes li {
   background-image: url("../images/nav_button.svg");
   background-size: 110px 90px;
@@ -1041,15 +1065,15 @@ form .range input {
   height: 45px;
   margin-bottom: 8px;
 }
-/* line 803, ../_scss/screen.scss */
+/* line 806, ../_scss/screen.scss */
 #container.admin #contentTypes li:hover, #container.admin #contentTypes li.active {
   background-position: 0 -45px;
 }
-/* line 806, ../_scss/screen.scss */
+/* line 809, ../_scss/screen.scss */
 #container.admin #contentTypes li:hover a, #container.admin #contentTypes li.active a {
   color: #b2463f;
 }
-/* line 812, ../_scss/screen.scss */
+/* line 815, ../_scss/screen.scss */
 #container.admin #contentTypes a.contentType {
   width: 98px;
   height: 45px;
@@ -1062,14 +1086,14 @@ form .range input {
   padding-top: 7px;
   padding-left: 5px;
 }
-/* line 826, ../_scss/screen.scss */
+/* line 829, ../_scss/screen.scss */
 #container.admin #selectDay {
   background-color: #b2463f;
   height: 90px;
   padding: 10px;
   width: 1000%;
 }
-/* line 832, ../_scss/screen.scss */
+/* line 835, ../_scss/screen.scss */
 #container.admin #selectDay li {
   background-image: url("../images/calendar_item.svg");
   width: 65px;
@@ -1077,7 +1101,7 @@ form .range input {
   display: inline-block;
   margin-right: 10px;
 }
-/* line 839, ../_scss/screen.scss */
+/* line 842, ../_scss/screen.scss */
 #container.admin #selectDay li a {
   font-family: Sahara, sans-serif;
   color: #b2463f;
@@ -1087,7 +1111,7 @@ form .range input {
   text-align: center;
   display: block;
 }
-/* line 848, ../_scss/screen.scss */
+/* line 851, ../_scss/screen.scss */
 #container.admin #selectDay li a.available {
   color: #39b54a !important;
 }

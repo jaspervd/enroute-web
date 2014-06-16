@@ -9,8 +9,10 @@ var BuildingView = Backbone.View.extend({
 
     events: {
         'mouseenter .wrapper': 'playVideos',
+        'click .wrapper': 'playVideos',
         'mouseleave .wrapper': 'stopVideos',
         'mouseenter .layer': 'playSound',
+        'click .layer': 'playSound',
         'mouseleave .layer': 'stopSound'
     },
 

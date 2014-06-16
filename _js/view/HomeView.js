@@ -148,18 +148,19 @@ var HomeView = Backbone.View.extend({
                             }
                             degree = (radians * (180 / Math.PI) * -1) + 90;
                             self.trigger('day_selected', $(value).attr('data-day'));
-                            /*$target.find('.month').css('transform', 'rotate(' + (degree * -1) + 'deg)');
-                            $target.css('transform', 'rotate(' + degree + 'deg)');*/
+                            $target.find('.month').css('transform', 'rotate(' + (degree * -1) + 'deg)');
+                            $target.css('transform', 'rotate(' + degree + 'deg)');
                             var date = moment($(value).attr('data-day'));
                             selectedDay = value;
                             $target.find('.month span').html(date.format('MMMM'));
                             $(value).removeClass('almostFocus').addClass('focus');
-                            $target.animate({settingToAnimateRotation: Math.abs(currentAngle - degree - 90)}, {
+                            // I used to be animated, but then I took an arrow to the knee
+                            /*$target.animate({settingToAnimateRotation: Math.abs(currentAngle - degree - 90)}, {
                                 step: function(angle, fx) {
                                     $target.find('.month').css('transform', 'rotate(' + ((degree - angle) * -1) + 'deg)');
                                     $target.css('transform', 'rotate('+ (degree - angle) +'deg)');
                                 }, duration: 300
-                            }, 'linear');
+                            }, 'linear');*/
                             return false;
                         }
                     });

@@ -590,7 +590,10 @@ form .range {
   position: absolute;
   z-index: 4444;
   margin-left: 14px;
-  margin-top: -14px;
+
+  header {
+    display: none;
+  }
 
   .building {
     width: 80px;

@@ -54,8 +54,8 @@
 
   /* line 56, ../_scss/responsive.scss */
   #city {
-    width: 180% !important;
-    margin: -90% 0 0 -90% !important;
+    width: 160% !important;
+    margin: -80% 0 0 -80% !important;
   }
 
   /* line 61, ../_scss/responsive.scss */
@@ -63,13 +63,13 @@
     width: 100% !important;
   }
 }
-@media only screen and (max-width: 1099px) {
+@media only screen and (min-width: 1099px) and (max-width: 1200px) {
   /* line 67, ../_scss/responsive.scss */
   #forest {
     width: 80% !important;
   }
 }
-@media only screen and (max-width: 999px) {
+@media only screen and (min-width: 999px) and (max-width: 1098px) {
   /* line 73, ../_scss/responsive.scss */
   #scalable {
     -webkit-transform: scale(0.9) !important;
@@ -81,11 +81,20 @@
 
   /* line 77, ../_scss/responsive.scss */
   #forest {
-    width: 79%;
+    width: 79% !important;
+  }
+}
+@media only screen and (max-width: 640px) {
+  /* line 83, ../_scss/responsive.scss */
+  #day {
+    bottom: -120px !important;
+    top: auto !important;
+    left: auto !important;
+    margin: 0 !important;
   }
 }
 @media only screen and (max-width: 580px) {
-  /* line 83, ../_scss/responsive.scss */
+  /* line 92, ../_scss/responsive.scss */
   #scalable {
     -webkit-transform: scale(0.7) !important;
     -moz-transform: scale(0.7) !important;
@@ -94,13 +103,19 @@
     transform: scale(0.7) !important;
   }
 
-  /* line 87, ../_scss/responsive.scss */
+  /* line 96, ../_scss/responsive.scss */
   #forest {
-    width: 110% !important;
+    width: 120% !important;
+  }
+
+  /* line 100, ../_scss/responsive.scss */
+  #city {
+    width: 180% !important;
+    margin: -90% 0 0 -90% !important;
   }
 }
 @media only screen and (max-width: 480px) {
-  /* line 93, ../_scss/responsive.scss */
+  /* line 107, ../_scss/responsive.scss */
   #scalable {
     -webkit-transform: scale(0.6) !important;
     -moz-transform: scale(0.6) !important;
@@ -109,12 +124,18 @@
     transform: scale(0.6) !important;
   }
 
-  /* line 97, ../_scss/responsive.scss */
+  /* line 111, ../_scss/responsive.scss */
   #content nav ul {
     -webkit-transform: scale(0.8);
     -moz-transform: scale(0.8);
     -ms-transform: scale(0.8);
     -o-transform: scale(0.8);
     transform: scale(0.8);
+  }
+
+  /* line 115, ../_scss/responsive.scss */
+  #city {
+    width: 190% !important;
+    margin: -95% 0 0 -95% !important;
   }
 }

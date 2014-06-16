@@ -54,8 +54,8 @@
 	}
 
 	#city {
-		width: 180% !important;
-		margin: -90% 0 0 -90% !important;
+		width: 160% !important;
+		margin: -80% 0 0 -80% !important;
 	}
 
 	#forest {
@@ -63,19 +63,28 @@
 	}
 }
 
-@media only screen and (max-width: 1099px) {
+@media only screen and (min-width: 1099px) and (max-width: 1200px) {
 	#forest {
 		width: 80% !important;
 	}
 }
 
-@media only screen and (max-width: 999px) {
+@media only screen and (min-width: 999px) and (max-width: 1098px) {
 	#scalable {
 		@include transform(scale(.9) !important);
 	}
 
 	#forest {
-		width: 79%;
+		width: 79% !important;
+	}
+}
+
+@media only screen and (max-width: 640px) {
+	#day {
+		bottom: -120px !important;
+		top: auto !important;
+		left: auto !important;
+		margin: 0 !important;
 	}
 }
 
@@ -85,7 +94,12 @@
 	}
 
 	#forest {
-		width: 110% !important;
+		width: 120% !important;
+	}
+
+	#city {
+		width: 180% !important;
+		margin: -90% 0 0 -90% !important;
 	}
 }
 
@@ -96,5 +110,10 @@
 
 	#content nav ul {
 		@include transform(scale(.8));
+	}
+
+	#city {
+		width: 190% !important;
+		margin: -95% 0 0 -95% !important;
 	}
 }
