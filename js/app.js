@@ -854,6 +854,8 @@ var DayView = Backbone.View.extend({
         this.$el.html(this.template(this.model.toJSON()));
         var step = 360 / this.buildings.length;
         var degree;
+        var self = this;
+
         for (var i = 0; i < this.buildings.length; i++) {
             var buildingView = new BuildingView({
                 model: this.buildings.at(i)
@@ -867,7 +869,7 @@ var DayView = Backbone.View.extend({
         var fixPosition = $('#durbuy').height() / 2 + 30;
         setTimeout(function() {
             $.each($('.building'), function(index, building) {
-                if(this.bigScreen) {
+                if(self.bigScreen) {
                     $(this).css({
                         'margin-top': -($(this).find('.wrapper').height()) - fixPosition  + 'px',
                         'transform-origin-y': $(this).find('.wrapper').height() + fixPosition + 'px'

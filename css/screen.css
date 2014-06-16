@@ -152,7 +152,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
 @media only screen and (max-width: 640px) {
   /* line 83, ../_scss/responsive.scss */
   #day {
-    bottom: -120px !important;
+    bottom: -130px !important;
     top: auto !important;
     left: auto !important;
     margin: 0 !important;
