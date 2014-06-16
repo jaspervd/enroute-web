@@ -4,6 +4,8 @@
 /* globals AdminContentItemView:true */
 
 var AdminBiggieSmallsView = Backbone.View.extend({
+    id: 'admin_biggiesmalls',
+    tagName: 'section',
     template: tpl.admincontent,
     currentDay: 0,
     biggiesmalls: undefined,

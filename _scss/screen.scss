@@ -768,3 +768,87 @@ form .range {
     bottom: 0;
   }
 }
+
+// ADMIN
+
+#container.admin {
+  background: #91ddc6 url('../images/bg_info.svg') left bottom no-repeat;
+  background-size: 100%;
+
+  #admin_biggiesmalls, #admin_buildings {
+    height: 70%;
+    overflow-y: scroll;
+
+    .border_shadow {
+      font-size: 1.6em;
+      position: relative;
+      margin: 40px;
+    }
+
+    p.content_item {
+      background-color: #f1f5cf;
+      padding: 20px;
+      color: #b2463f;
+    }
+  }
+
+  #contentTypes {
+    li {
+      background-image: url('../images/nav_button.svg');
+      background-size: 110px 90px;
+      width: 110px;
+      height: 45px;
+      margin-bottom: 8px;
+
+      &:hover, &.active {
+        background-position: 0 -45px;
+
+        a {
+          color: #b2463f;
+        }
+      }
+    }
+
+    a.contentType {
+      width: 98px;
+      height: 45px;
+      font-family: Sahara, sans-serif;
+      font-size: 30px;
+      text-align: center;
+      display: block;
+      color: #f1f5cf;
+      text-decoration: none;
+      padding-top: 7px;
+      padding-left: 5px;
+    }
+  }
+
+  #selectDay {
+    background-color: #b2463f;
+    height: 90px;
+    padding: 10px;
+    width: 1000%;
+
+    li {
+      background-image: url('../images/calendar_item.svg');
+      width: 65px;
+      height: 90px;
+      display: inline-block;
+      margin-right: 10px;
+
+      a {
+        font-family: Sahara, sans-serif;
+        color: #b2463f;
+        font-size: 55px;
+        text-decoration: none;
+        padding: 20px 2px;
+        text-align: center;
+        display: block;
+
+        &.available {
+          color: #39b54a!important;
+        }
+      }
+    }
+  }
+}

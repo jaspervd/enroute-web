@@ -1010,3 +1010,84 @@ form .range input {
   height: 100%;
   bottom: 0;
 }
+
+/* line 774, ../_scss/screen.scss */
+#container.admin {
+  background: #91ddc6 url("../images/bg_info.svg") left bottom no-repeat;
+  background-size: 100%;
+}
+/* line 778, ../_scss/screen.scss */
+#container.admin #admin_biggiesmalls, #container.admin #admin_buildings {
+  height: 70%;
+  overflow-y: scroll;
+}
+/* line 782, ../_scss/screen.scss */
+#container.admin #admin_biggiesmalls .border_shadow, #container.admin #admin_buildings .border_shadow {
+  font-size: 1.6em;
+  position: relative;
+  margin: 40px;
+}
+/* line 788, ../_scss/screen.scss */
+#container.admin #admin_biggiesmalls p.content_item, #container.admin #admin_buildings p.content_item {
+  background-color: #f1f5cf;
+  padding: 20px;
+  color: #b2463f;
+}
+/* line 796, ../_scss/screen.scss */
+#container.admin #contentTypes li {
+  background-image: url("../images/nav_button.svg");
+  background-size: 110px 90px;
+  width: 110px;
+  height: 45px;
+  margin-bottom: 8px;
+}
+/* line 803, ../_scss/screen.scss */
+#container.admin #contentTypes li:hover, #container.admin #contentTypes li.active {
+  background-position: 0 -45px;
+}
+/* line 806, ../_scss/screen.scss */
+#container.admin #contentTypes li:hover a, #container.admin #contentTypes li.active a {
+  color: #b2463f;
+}
+/* line 812, ../_scss/screen.scss */
+#container.admin #contentTypes a.contentType {
+  width: 98px;
+  height: 45px;
+  font-family: Sahara, sans-serif;
+  font-size: 30px;
+  text-align: center;
+  display: block;
+  color: #f1f5cf;
+  text-decoration: none;
+  padding-top: 7px;
+  padding-left: 5px;
+}
+/* line 826, ../_scss/screen.scss */
+#container.admin #selectDay {
+  background-color: #b2463f;
+  height: 90px;
+  padding: 10px;
+  width: 1000%;
+}
+/* line 832, ../_scss/screen.scss */
+#container.admin #selectDay li {
+  background-image: url("../images/calendar_item.svg");
+  width: 65px;
+  height: 90px;
+  display: inline-block;
+  margin-right: 10px;
+}
+/* line 839, ../_scss/screen.scss */
+#container.admin #selectDay li a {
+  font-family: Sahara, sans-serif;
+  color: #b2463f;
+  font-size: 55px;
+  text-decoration: none;
+  padding: 20px 2px;
+  text-align: center;
+  display: block;
+}
+/* line 848, ../_scss/screen.scss */
+#container.admin #selectDay li a.available {
+  color: #39b54a !important;
+}

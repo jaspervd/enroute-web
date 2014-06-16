@@ -6,11 +6,12 @@
 
 var AdminApp = Backbone.View.extend({
     id: 'container',
+    className: 'admin',
     tagName: 'div',
     template: tpl.admin,
     prevDay: 0,
     currentDay: 0,
-    currentContentType: 0,
+    currentContentType: 'buildings',
 
     initialize: function() {
         _.bindAll.apply(_, [this].concat(_.functions(this)));
@@ -34,7 +35,7 @@ var AdminApp = Backbone.View.extend({
     },
 
     events: {
-        'click .title': 'showDay',
+        'click .day': 'showDay',
         'click .contentType': 'setContentType'
     },
 
@@ -50,7 +51,7 @@ var AdminApp = Backbone.View.extend({
     showDay: function(e) {
         console.log('[AdminApp] showDay()');
         e.preventDefault();
-        this.currentDay = $(e.currentTarget).attr('data');
+        this.currentDay = $(e.currentTarget).attr('data-day-id');
         this.renderDay();
     },
 
@@ -72,6 +73,18 @@ var AdminApp = Backbone.View.extend({
         this.$el.html(this.template({
             days: this.days.toJSON()
         }));
+
+        var selectDay = this.$el.find('#selectDay');
+        var self = this;
+        selectDay.on('mousemove', function(e) {
+            selectDay.css({
+                'width': self.days.length * (self.$el.find('.day').parent().width() + 10) + 100
+            });
+            var x = -(((e.pageX - $('#selectDay').position().left) / $("#selectDay").parent().width()) * ($("#selectDay").width() + parseInt($("#selectDay").css('paddingLeft')) + parseInt($("#selectDay").css('paddingRight')) - $("#selectDay").parent().width()));
+            selectDay.css({
+                'marginLeft': x + 'px'
+            });
+        });
 
         if (this.currentContentType === 'buildings') {
             this.$el.append(this.adminBuildingsView.render().$el);

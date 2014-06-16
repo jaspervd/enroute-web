@@ -8,7 +8,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   var buffer = "", stack1, helper, functionType="function", escapeExpression=this.escapeExpression;
 
 
-  buffer += "<li>\n    <span id=\"comment\"><strong>"
+  buffer += "<div class=\"border_shadow\">\n	<p class=\"content_item\">\n		<span class=\"item\"><strong>"
     + escapeExpression(((stack1 = ((stack1 = (depth0 && depth0.day)),stack1 == null || stack1 === false ? stack1 : stack1.title)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + ": </strong>&laquo; ";
   if (helper = helpers.url) { stack1 = helper.call(depth0, {hash:{},data:data}); }
@@ -18,11 +18,11 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   if (helper = helpers.approved) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.approved); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
-    + "</span><br/>\n    <a class=\"approve\" href=\"\">approve</a>\n    <a class=\"deny\" href=\"\">deny</a>\n    <a class=\"delete\" href=\"\">delete</a><br/>\n    <span class=\"meta\">added on ";
+    + "</span><br/>\n		<a class=\"approve\" href=\"\">approve</a>\n		<a class=\"deny\" href=\"\">deny</a>\n		<a class=\"delete\" href=\"\">delete</a><br/>\n		<span class=\"meta\">added on ";
   if (helper = helpers.uploaded_date) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.uploaded_date); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
-    + "</span>\n</li>";
+    + "</span>\n	</p>\n	<div class=\"border_right\"></div>\n	<div class=\"border_bottom\"></div>\n	<div class=\"border_connection\"></div>\n</div>";
   return buffer;
   }));
 
@@ -164,7 +164,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 function program1(depth0,data) {
   
   var buffer = "", stack1, helper, options;
-  buffer += "\n        <li><a href=\"\" class=\"title\" data=\"";
+  buffer += "\n        <li><a href=\"\" class=\"day\" data-day-id=\"";
   if (helper = helpers.id) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.id); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
@@ -174,7 +174,7 @@ function program1(depth0,data) {
   return buffer;
   }
 
-  buffer += "<header>\n    <h1>Admin</h1>\n</header>\n\n    <a href=\"\" class=\"contentType\" data-content-type=\"buildings\">Gebouwen</a> - <a href=\"\" class=\"contentType\" data-content-type=\"biggiesmalls\">Foto's</a>\n<nav>\n<header>\n    <h1>Dagen</h1>\n</header>\n<ul>\n    ";
+  buffer += "<header>\n    <h1>Admin</h1>\n</header>\n<ul id=\"contentTypes\">\n    <li><a href=\"\" class=\"contentType\" data-content-type=\"buildings\">Gebouwen</a></li>\n    <li><a href=\"\" class=\"contentType\" data-content-type=\"biggiesmalls\">Foto's</a></li>\n</ul>\n<nav>\n<header>\n    <h1>Dagen</h1>\n</header>\n<ul id=\"selectDay\">\n    ";
   stack1 = helpers.each.call(depth0, (depth0 && depth0.days), {hash:{},inverse:self.noop,fn:self.program(1, program1, data),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
   buffer += "\n</ul>\n</nav>";
@@ -474,11 +474,12 @@ var Days = Backbone.Collection.extend({
 
 var AdminApp = Backbone.View.extend({
     id: 'container',
+    className: 'admin',
     tagName: 'div',
     template: tpl.admin,
     prevDay: 0,
     currentDay: 0,
-    currentContentType: 0,
+    currentContentType: 'buildings',
 
     initialize: function() {
         _.bindAll.apply(_, [this].concat(_.functions(this)));
@@ -502,7 +503,7 @@ var AdminApp = Backbone.View.extend({
     },
 
     events: {
-        'click .title': 'showDay',
+        'click .day': 'showDay',
         'click .contentType': 'setContentType'
     },
 
@@ -518,7 +519,7 @@ var AdminApp = Backbone.View.extend({
     showDay: function(e) {
         console.log('[AdminApp] showDay()');
         e.preventDefault();
-        this.currentDay = $(e.currentTarget).attr('data');
+        this.currentDay = $(e.currentTarget).attr('data-day-id');
         this.renderDay();
     },
 
@@ -541,6 +542,18 @@ var AdminApp = Backbone.View.extend({
             days: this.days.toJSON()
         }));
 
+        var selectDay = this.$el.find('#selectDay');
+        var self = this;
+        selectDay.on('mousemove', function(e) {
+            selectDay.css({
+                'width': self.days.length * (self.$el.find('.day').parent().width() + 10) + 100
+            });
+            var x = -(((e.pageX - $('#selectDay').position().left) / $("#selectDay").parent().width()) * ($("#selectDay").width() + parseInt($("#selectDay").css('paddingLeft')) + parseInt($("#selectDay").css('paddingRight')) - $("#selectDay").parent().width()));
+            selectDay.css({
+                'marginLeft': x + 'px'
+            });
+        });
+
         if (this.currentContentType === 'buildings') {
             this.$el.append(this.adminBuildingsView.render().$el);
         } else {
@@ -560,6 +573,8 @@ var AdminApp = Backbone.View.extend({
 /* globals AdminContentItemView:true */
 
 var AdminBiggieSmallsView = Backbone.View.extend({
+    id: 'admin_biggiesmalls',
+    tagName: 'section',
     template: tpl.admincontent,
     currentDay: 0,
     biggiesmalls: undefined,
@@ -603,6 +618,8 @@ var AdminBiggieSmallsView = Backbone.View.extend({
 /* globals AdminContentItemView:true */
 
 var AdminBuildingsView = Backbone.View.extend({
+    id: 'admin_buildings',
+    tagName: 'section',
     template: tpl.admincontent,
     currentDay: 0,
     buildings: undefined,

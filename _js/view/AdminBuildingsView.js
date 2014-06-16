@@ -4,6 +4,8 @@
 /* globals AdminContentItemView:true */
 
 var AdminBuildingsView = Backbone.View.extend({
+    id: 'admin_buildings',
+    tagName: 'section',
     template: tpl.admincontent,
     currentDay: 0,
     buildings: undefined,

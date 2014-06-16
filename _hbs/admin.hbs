@@ -1,15 +1,17 @@
 <header>
     <h1>Admin</h1>
 </header>
-
-    <a href="" class="contentType" data-content-type="buildings">Gebouwen</a> - <a href="" class="contentType" data-content-type="biggiesmalls">Foto's</a>
+<ul id="contentTypes">
+    <li><a href="" class="contentType" data-content-type="buildings">Gebouwen</a></li>
+    <li><a href="" class="contentType" data-content-type="biggiesmalls">Foto's</a></li>
+</ul>
 <nav>
 <header>
     <h1>Dagen</h1>
 </header>
-<ul>
+<ul id="selectDay">
     {{#each days}}
-        <li><a href="" class="title" data="{{id}}">{{formatDate title}}</a></li>
+        <li><a href="" class="day" data-day-id="{{id}}">{{formatDate title}}</a></li>
     {{/each}}
 </ul>
 </nav>
