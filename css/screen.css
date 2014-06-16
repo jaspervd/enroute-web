@@ -1037,60 +1037,59 @@ form .range input {
 
 /* line 777, ../_scss/screen.scss */
 #container.admin {
-  background: #91ddc6 url("../images/bg_info.svg") left bottom no-repeat;
-  background-size: 100%;
+  background: #91ddc6;
 }
-/* line 781, ../_scss/screen.scss */
+/* line 780, ../_scss/screen.scss */
 #container.admin header h1 {
   font-size: 3em;
   color: #B2463F;
   margin: 0 40px;
 }
-/* line 787, ../_scss/screen.scss */
+/* line 786, ../_scss/screen.scss */
 #container.admin #admin_biggiesmalls, #container.admin #admin_buildings {
   height: 70%;
   overflow-y: scroll;
 }
-/* line 791, ../_scss/screen.scss */
+/* line 790, ../_scss/screen.scss */
 #container.admin #admin_biggiesmalls .border_shadow, #container.admin #admin_buildings .border_shadow {
   font-size: 1.6em;
   position: relative;
   margin: 40px;
 }
-/* line 797, ../_scss/screen.scss */
+/* line 796, ../_scss/screen.scss */
 #container.admin #admin_biggiesmalls div.content_item, #container.admin #admin_buildings div.content_item {
   background-color: #f1f5cf;
   padding: 20px;
   color: #b2463f;
 }
-/* line 802, ../_scss/screen.scss */
+/* line 801, ../_scss/screen.scss */
 #container.admin #admin_biggiesmalls div.content_item a, #container.admin #admin_buildings div.content_item a {
   font-weight: bold;
   text-decoration: none;
   color: inherit;
 }
-/* line 807, ../_scss/screen.scss */
+/* line 806, ../_scss/screen.scss */
 #container.admin #admin_biggiesmalls div.content_item a:hover, #container.admin #admin_buildings div.content_item a:hover {
   text-decoration: underline;
 }
-/* line 812, ../_scss/screen.scss */
+/* line 811, ../_scss/screen.scss */
 #container.admin #admin_biggiesmalls div.content_item ul, #container.admin #admin_buildings div.content_item ul {
   padding: 10px 0;
 }
-/* line 816, ../_scss/screen.scss */
+/* line 815, ../_scss/screen.scss */
 #container.admin #admin_biggiesmalls div.content_item li, #container.admin #admin_buildings div.content_item li {
   display: inline-block;
 }
-/* line 820, ../_scss/screen.scss */
+/* line 819, ../_scss/screen.scss */
 #container.admin #admin_biggiesmalls div.content_item.approved, #container.admin #admin_buildings div.content_item.approved {
   color: #39b54a !important;
 }
-/* line 826, ../_scss/screen.scss */
+/* line 825, ../_scss/screen.scss */
 #container.admin #contentTypes {
   margin: 20px auto;
   width: 250px;
 }
-/* line 830, ../_scss/screen.scss */
+/* line 829, ../_scss/screen.scss */
 #container.admin #contentTypes li {
   background-image: url("../images/nav_button.svg");
   background-size: 110px 90px;
@@ -1099,19 +1098,19 @@ form .range input {
   margin-bottom: 8px;
   display: inline-block;
 }
-/* line 838, ../_scss/screen.scss */
+/* line 837, ../_scss/screen.scss */
 #container.admin #contentTypes li:first-child {
   margin-right: 20px;
 }
-/* line 842, ../_scss/screen.scss */
+/* line 841, ../_scss/screen.scss */
 #container.admin #contentTypes li:hover, #container.admin #contentTypes li.active {
   background-position: 0 -45px;
 }
-/* line 845, ../_scss/screen.scss */
+/* line 844, ../_scss/screen.scss */
 #container.admin #contentTypes li:hover a, #container.admin #contentTypes li.active a {
   color: #b2463f;
 }
-/* line 851, ../_scss/screen.scss */
+/* line 850, ../_scss/screen.scss */
 #container.admin #contentTypes a.contentType {
   width: 98px;
   height: 45px;
@@ -1124,14 +1123,14 @@ form .range input {
   padding-top: 7px;
   padding-left: 5px;
 }
-/* line 865, ../_scss/screen.scss */
+/* line 864, ../_scss/screen.scss */
 #container.admin #selectDay {
   background-color: #b2463f;
   height: 90px;
   padding: 10px;
   width: 1000%;
 }
-/* line 871, ../_scss/screen.scss */
+/* line 870, ../_scss/screen.scss */
 #container.admin #selectDay li {
   background-image: url("../images/calendar_item.svg");
   width: 65px;
@@ -1139,7 +1138,7 @@ form .range input {
   display: inline-block;
   margin-right: 10px;
 }
-/* line 878, ../_scss/screen.scss */
+/* line 877, ../_scss/screen.scss */
 #container.admin #selectDay li a {
   font-family: Sahara, sans-serif;
   color: #b2463f;
@@ -1149,7 +1148,7 @@ form .range input {
   text-align: center;
   display: block;
 }
-/* line 887, ../_scss/screen.scss */
+/* line 886, ../_scss/screen.scss */
 #container.admin #selectDay li a.available {
   color: #39b54a !important;
 }

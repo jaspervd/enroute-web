@@ -2,6 +2,7 @@
 /* globals ErrorView:true */
 /* globals Validate:true */
 /* globals Ticket:true */
+/* globals Days:true */
 
 var TicketsView = Backbone.View.extend({
     id: 'tickets',
@@ -15,12 +16,13 @@ var TicketsView = Backbone.View.extend({
         this.filteredCollection = this.collection.filter(function(day) {
             return new Date(day.get('title')) >= new Date();
         });
-        this.collection.reset(this.filteredCollection);
+        //this.collection.reset(this.filteredCollection);
+        this.filteredCollection = new Days(this.filteredCollection);
         if (!this.currentTicket) {
-            this.currentTicket = this.collection.first();
+            this.currentTicket = this.filteredCollection.first();
         }
 
-        this.collection.on('sync reset', this.render);
+        this.filteredCollection.on('sync reset', this.render);
     },
 
     events: {
@@ -122,7 +124,7 @@ var TicketsView = Backbone.View.extend({
 
     render: function() {
         this.$el.html(this.template({
-            days: this.collection.toJSON(),
+            days: this.filteredCollection.toJSON(),
             ticket: this.currentTicket.toJSON()
         }));
 
@@ -130,7 +132,7 @@ var TicketsView = Backbone.View.extend({
         var self = this;
         selectTicket.on('mousemove', function(e) {
             selectTicket.css({
-                'width': self.collection.length * (self.$el.find('.day').parent().width() + 10) + 100
+                'width': self.filteredCollection.length * (self.$el.find('.day').parent().width() + 10) + 100
             });
             var x = -(((e.pageX - $('#selectTicket').position().left) / $("#tickets").width()) * ($("#selectTicket").width() + parseInt($("#selectTicket").css('paddingLeft')) + parseInt($("#selectTicket").css('paddingRight')) - $("#tickets").width()));
             $("#selectTicket").css({

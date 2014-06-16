@@ -38,7 +38,7 @@ var EnRouteApp = Backbone.View.extend({
 
     render: function() {
         this.$el.html(this.template());
-        //this.$el.append('<div id="noise"></div>');
+        this.$el.append('<div id="noise"></div>');
         this.$el.append(this.contentView.render().$el);
         this.$el.append(this.homeView.render().$el);
         return this;
