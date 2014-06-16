@@ -2,6 +2,7 @@
 /* globals HomeView:true */
 /* globals Days:true */
 /* globals DayView:true */
+/* globals $f:true */
 var EnRouteApp = Backbone.View.extend({
     id: 'container',
     tagName: 'div',
@@ -25,21 +26,44 @@ var EnRouteApp = Backbone.View.extend({
         this.homeView.on('day_selected', this.showDay);
     },
 
+    events: {
+        'click #showMov a': 'toggleMov',
+        'click #closeMov a': 'toggleMov'
+    },
+
+    toggleMov: function(e) {
+        e.preventDefault();
+        $('#home, #day').toggle();
+        $('#showMov').toggleClass('hide');
+        $('#closeMov').toggleClass('show');
+        $('#movtoshowoff').toggle();
+        var iframe = document.getElementById('movtoshowoff');
+        var player = $f(iframe);
+        if($('#closeMov').hasClass('show')) {
+            player.api('play');
+        } else {
+            player.api('pause');
+        }
+    },
+
     showDay: function(day) {
         console.log('[EnRouteApp]', day);
-        if(day !== this.currentDay) {
+        if (day !== this.currentDay) {
             $('#day').remove();
-            var dayView = new DayView({model: this.days.findWhere({title: day})});
+            var dayView = new DayView({
+                model: this.days.findWhere({
+                    title: day
+                })
+            });
             this.currentDay = day;
             this.$el.append(dayView.render().$el);
-            Backbone.history.navigate('dag/'+ day);
+            Backbone.history.navigate('dag/' + day);
         }
     },
 
     render: function() {
         this.$el.html(this.template());
         this.$el.append('<div id="noise"></div>');
-        this.$el.append('<div id="night"></div>');
         this.$el.append(this.contentView.render().$el);
         this.$el.append(this.homeView.render().$el);
         return this;

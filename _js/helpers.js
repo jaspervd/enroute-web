@@ -2,6 +2,10 @@ Handlebars.registerHelper('formatDate', function (date) {
     return moment(date).format('D');
 });
 
+Handlebars.registerHelper('formatFullDate', function (date) {
+    return moment(date).format('dddd D MMMM');
+});
+
 Handlebars.registerHelper('getMonth', function (date) {
     return moment(date).format('MMMM');
 });

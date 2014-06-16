@@ -44,6 +44,8 @@ var HomeView = Backbone.View.extend({
         return this;
     },
 
+    // Code below should be optimized.. should be.
+
     createForest: function() {
         var step = 360 / 60;
         var x, y, z, angle, zoom;
@@ -84,7 +86,7 @@ var HomeView = Backbone.View.extend({
         var radius = $('#durbuy').width() / 2 + 90;
         var x, y, angle, date, textAlignment;
         var disabled = '';
-        var todaysDate = new Date();
+        var todaysDate = new Date(moment().format('YYYY-MM-DD'));
         for (var i = 0; i < this.collection.length; i++) {
             date = new Date(this.collection.at(i).get('title'));
             angle = -((step * (i + 1)) * (Math.PI / 180) + 160);
@@ -209,9 +211,14 @@ var HomeView = Backbone.View.extend({
 
     getMatrix: function(matrix) {
         var returnMatrix = matrix.split('(')[1];
-            returnMatrix = returnMatrix.split(')')[0];
-            returnMatrix = returnMatrix.split(',');
-            return {a: returnMatrix[0], b: returnMatrix[1], c: returnMatrix[2], d: returnMatrix[3]};
+        returnMatrix = returnMatrix.split(')')[0];
+        returnMatrix = returnMatrix.split(',');
+        return {
+            a: returnMatrix[0],
+            b: returnMatrix[1],
+            c: returnMatrix[2],
+            d: returnMatrix[3]
+        };
     },
 
     calculateRadians: function(offset, $target, object_x, object_y) {

@@ -53,24 +53,44 @@
   }
 
   /* line 56, ../_scss/responsive.scss */
+  #showMov {
+    left: auto !important;
+    right: 10px;
+  }
+
+  /* line 61, ../_scss/responsive.scss */
   #city {
     width: 160% !important;
     margin: -80% 0 0 -80% !important;
   }
+  /* line 65, ../_scss/responsive.scss */
+  #city.car {
+    -webkit-transform: scale(0.8);
+    -moz-transform: scale(0.8);
+    -ms-transform: scale(0.8);
+    -o-transform: scale(0.8);
+    transform: scale(0.8);
+  }
 
-  /* line 61, ../_scss/responsive.scss */
+  /* line 70, ../_scss/responsive.scss */
   #forest {
     width: 100% !important;
   }
 }
 @media only screen and (min-width: 1099px) and (max-width: 1200px) {
-  /* line 67, ../_scss/responsive.scss */
+  /* line 76, ../_scss/responsive.scss */
   #forest {
     width: 80% !important;
   }
 }
+@media only screen and (max-width: 1200px) {
+  /* line 82, ../_scss/responsive.scss */
+  .rotate {
+    display: none;
+  }
+}
 @media only screen and (min-width: 800px) and (max-width: 1098px) {
-  /* line 73, ../_scss/responsive.scss */
+  /* line 88, ../_scss/responsive.scss */
   #scalable {
     -webkit-transform: scale(0.9) !important;
     -moz-transform: scale(0.9) !important;
@@ -79,22 +99,22 @@
     transform: scale(0.9) !important;
   }
 
-  /* line 77, ../_scss/responsive.scss */
+  /* line 92, ../_scss/responsive.scss */
   #forest {
     width: 79% !important;
   }
 
-  /* line 81, ../_scss/responsive.scss */
+  /* line 96, ../_scss/responsive.scss */
   #content {
     width: 35% !important;
     left: -28% !important;
   }
-  /* line 85, ../_scss/responsive.scss */
+  /* line 100, ../_scss/responsive.scss */
   #content.slideOut {
     left: 0 !important;
   }
 
-  /* line 90, ../_scss/responsive.scss */
+  /* line 105, ../_scss/responsive.scss */
   form {
     padding: 10px 0 !important;
     -webkit-transform: scale(0.9) !important;
@@ -105,7 +125,7 @@
   }
 }
 @media only screen and (max-width: 640px) {
-  /* line 97, ../_scss/responsive.scss */
+  /* line 112, ../_scss/responsive.scss */
   #day {
     bottom: -130px !important;
     top: auto !important;
@@ -113,7 +133,7 @@
     margin: 0 !important;
   }
 
-  /* line 104, ../_scss/responsive.scss */
+  /* line 119, ../_scss/responsive.scss */
   form {
     padding: 80px 140px !important;
     -webkit-transform: scale(1.5) !important;
@@ -124,7 +144,7 @@
   }
 }
 @media only screen and (max-width: 580px) {
-  /* line 111, ../_scss/responsive.scss */
+  /* line 126, ../_scss/responsive.scss */
   #scalable {
     -webkit-transform: scale(0.7) !important;
     -moz-transform: scale(0.7) !important;
@@ -133,19 +153,19 @@
     transform: scale(0.7) !important;
   }
 
-  /* line 115, ../_scss/responsive.scss */
+  /* line 130, ../_scss/responsive.scss */
   #forest {
     width: 120% !important;
   }
 
-  /* line 119, ../_scss/responsive.scss */
+  /* line 134, ../_scss/responsive.scss */
   #city {
     width: 180% !important;
     margin: -90% 0 0 -90% !important;
   }
 }
 @media only screen and (max-width: 480px) {
-  /* line 126, ../_scss/responsive.scss */
+  /* line 141, ../_scss/responsive.scss */
   #scalable {
     -webkit-transform: scale(0.6) !important;
     -moz-transform: scale(0.6) !important;
@@ -154,7 +174,7 @@
     transform: scale(0.6) !important;
   }
 
-  /* line 130, ../_scss/responsive.scss */
+  /* line 145, ../_scss/responsive.scss */
   #content nav ul {
     -webkit-transform: scale(0.8);
     -moz-transform: scale(0.8);
@@ -163,13 +183,13 @@
     transform: scale(0.8);
   }
 
-  /* line 134, ../_scss/responsive.scss */
+  /* line 149, ../_scss/responsive.scss */
   #city {
     width: 190% !important;
     margin: -95% 0 0 -95% !important;
   }
 
-  /* line 139, ../_scss/responsive.scss */
+  /* line 154, ../_scss/responsive.scss */
   form {
     padding: 50px 70px !important;
     -webkit-transform: scale(1.2) !important;

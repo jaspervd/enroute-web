@@ -118,15 +118,6 @@ function program3(depth0,data) {
   return buffer;
   }));
 
-Handlebars.registerPartial("contact", this["tpl"]["contact"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
-  this.compilerInfo = [4,'>= 1.0.0'];
-helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
-  
-
-
-  return "<header>\n	<h1>Contact</h1>\n</header>\n<form method=\"post\" action=\"\">\n	<div>\n		<label for=\"txtName\">Naam:</label>\n		<input type=\"text\" required name=\"txtName\" id=\"txtName\" placeholder=\"Joske Vermeulen\"/>\n	</div>\n\n	<div>\n		<label for=\"txtEmail\">E-mailadres:</label>\n		<input type=\"email\" required name=\"txtEmail\" id=\"txtEmail\" placeholder=\"joske.vermeulen@trammezand.lei\" />\n	</div>\n\n	<div>\n		<label for=\"txtMessage\">Bericht:</label>\n		<textarea name=\"txtMessage\" required id=\"txtMessage\" cols=\"30\" rows=\"10\" placeholder=\"Ik heb een vraag omtrent En Route...\"></textarea>\n	</div>\n\n	<div>\n		<input type=\"submit\" name=\"btnSubmit\" id=\"btnSubmitContact\" value=\"Stuur\"/>\n	</div>\n</form>\n<div id=\"length\">\n		<div class=\"row top\">\n		<div class=\"building type3\"></div>\n		<div class=\"building type2\"></div>\n		<div class=\"building type2\"></div>\n		<div class=\"building type2\"></div>\n		<div class=\"building type3\"></div>\n		<div class=\"clear\"></div>\n	</div>\n	<div class=\"row middle\">\n		<div class=\"building type2\"></div>\n		<div class=\"building type3\"></div>\n		<div class=\"building type3\"></div>\n		<div class=\"clear\"></div>\n	</div>\n	<div class=\"row bottom\">\n		<div class=\"building type1\"></div>\n		<div class=\"building type3\"></div>\n		<div class=\"building type2\"></div>\n		<div class=\"building type3\"></div>\n		<div class=\"building type2\"></div>\n		<div class=\"clear\"></div>\n	</div>\n	<div class=\"clear\"></div>\n</div>";
-  }));
-
 Handlebars.registerPartial("error", this["tpl"]["error"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
@@ -134,15 +125,6 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
 
   return escapeExpression((typeof depth0 === functionType ? depth0.apply(depth0) : depth0));
-  }));
-
-Handlebars.registerPartial("info", this["tpl"]["info"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
-  this.compilerInfo = [4,'>= 1.0.0'];
-helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
-  
-
-
-  return "<header>\n	<h1>En Route</h1>\n</header>\n<div class=\"border_shadow\">\n	<p>\n		En Route daagt je uit om gedurende één dag de stad anders te bekijken en te beleven. Samen met een kunstdocent ga je op ontdekkingsreis door de pittoreske straatjes van Durbuy.\n	</p>\n	<div class=\"border_right\"></div>\n	<div class=\"border_bottom\"></div>\n	<div class=\"border_connection\"></div>\n	<div class=\"speech\"></div>\n</div>";
   }));
 
 Handlebars.registerPartial("success", this["tpl"]["success"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
@@ -154,7 +136,102 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   return escapeExpression((typeof depth0 === functionType ? depth0.apply(depth0) : depth0));
   }));
 
-Handlebars.registerPartial("tickets", this["tpl"]["tickets"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+this["tpl"]["admin"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+  this.compilerInfo = [4,'>= 1.0.0'];
+helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
+  var buffer = "", stack1, functionType="function", escapeExpression=this.escapeExpression, helperMissing=helpers.helperMissing, self=this;
+
+function program1(depth0,data) {
+  
+  var buffer = "", stack1, helper, options;
+  buffer += "\n		<li><a href=\"\" class=\"day\" data-day-id=\"";
+  if (helper = helpers.id) { stack1 = helper.call(depth0, {hash:{},data:data}); }
+  else { helper = (depth0 && depth0.id); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
+  buffer += escapeExpression(stack1)
+    + "\" data-month=\""
+    + escapeExpression((helper = helpers.getMonth || (depth0 && depth0.getMonth),options={hash:{},data:data},helper ? helper.call(depth0, (depth0 && depth0.title), options) : helperMissing.call(depth0, "getMonth", (depth0 && depth0.title), options)))
+    + "\">"
+    + escapeExpression((helper = helpers.formatDate || (depth0 && depth0.formatDate),options={hash:{},data:data},helper ? helper.call(depth0, (depth0 && depth0.title), options) : helperMissing.call(depth0, "formatDate", (depth0 && depth0.title), options)))
+    + "</a></li>\n		";
+  return buffer;
+  }
+
+  buffer += "<header>\n	<h1>Admin</h1>\n</header>\n<nav>\n	<header>\n		<h1>Dagen</h1>\n	</header>\n	<ul id=\"selectDay\">\n		";
+  stack1 = helpers.each.call(depth0, (depth0 && depth0.days), {hash:{},inverse:self.noop,fn:self.program(1, program1, data),data:data});
+  if(stack1 || stack1 === 0) { buffer += stack1; }
+  buffer += "\n	</ul>\n</nav>\n<ul id=\"contentTypes\">\n	<li><a href=\"\" class=\"contentType\" data-content-type=\"buildings\">Gebouwen</a></li>\n	<li><a href=\"\" class=\"contentType\" data-content-type=\"biggiesmalls\">Foto's</a></li>\n</ul>";
+  return buffer;
+  });
+
+this["tpl"]["admincontent"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+  this.compilerInfo = [4,'>= 1.0.0'];
+helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
+  
+
+
+  return "    <header>\n        <h1>Beheer content</h1>\n    </header>\n    <ul id=\"list_content\"></ul>";
+  });
+
+this["tpl"]["contact"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+  this.compilerInfo = [4,'>= 1.0.0'];
+helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
+  
+
+
+  return "<header>\n	<h1>Contact</h1>\n</header>\n<form method=\"post\" action=\"\">\n	<div>\n		<label for=\"txtName\">Naam:</label>\n		<input type=\"text\" required name=\"txtName\" id=\"txtName\" placeholder=\"Joske Vermeulen\"/>\n	</div>\n\n	<div>\n		<label for=\"txtEmail\">E-mailadres:</label>\n		<input type=\"email\" required name=\"txtEmail\" id=\"txtEmail\" placeholder=\"joske.vermeulen@trammezand.lei\" />\n	</div>\n\n	<div>\n		<label for=\"txtMessage\">Bericht:</label>\n		<textarea name=\"txtMessage\" required id=\"txtMessage\" cols=\"30\" rows=\"10\" placeholder=\"Ik heb een vraag omtrent En Route...\"></textarea>\n	</div>\n\n	<div>\n		<input type=\"submit\" name=\"btnSubmit\" id=\"btnSubmitContact\" value=\"Stuur\"/>\n	</div>\n</form>\n<div id=\"length\">\n		<div class=\"row top\">\n		<div class=\"building type3\"></div>\n		<div class=\"building type2\"></div>\n		<div class=\"building type2\"></div>\n		<div class=\"building type2\"></div>\n		<div class=\"building type3\"></div>\n		<div class=\"clear\"></div>\n	</div>\n	<div class=\"row middle\">\n		<div class=\"building type2\"></div>\n		<div class=\"building type3\"></div>\n		<div class=\"building type3\"></div>\n		<div class=\"clear\"></div>\n	</div>\n	<div class=\"row bottom\">\n		<div class=\"building type1\"></div>\n		<div class=\"building type3\"></div>\n		<div class=\"building type2\"></div>\n		<div class=\"building type3\"></div>\n		<div class=\"building type2\"></div>\n		<div class=\"clear\"></div>\n	</div>\n	<div class=\"clear\"></div>\n</div>";
+  });
+
+this["tpl"]["content"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+  this.compilerInfo = [4,'>= 1.0.0'];
+helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
+  
+
+
+  return "<header>\n	<h1>Content</h1>\n</header>\n<a href=\"\" class=\"close\"></a>\n<nav>\n	<header>\n		<h1>Navigatie</h1>\n	</header>\n	<ul>\n		<li><a href=\"\" data-content=\"info\">En Route</a></li>\n		<li><a href=\"\" data-content=\"tickets\">Tickets</a></li>\n		<li><a href=\"\" data-content=\"contact\">Contact</a></li>\n	</ul>\n</nav>\n<div class=\"clear\"></div>";
+  });
+
+this["tpl"]["day"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+  this.compilerInfo = [4,'>= 1.0.0'];
+helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
+  var buffer = "", stack1, helper, functionType="function", escapeExpression=this.escapeExpression;
+
+
+  buffer += "<header>\n	<h1>";
+  if (helper = helpers.title) { stack1 = helper.call(depth0, {hash:{},data:data}); }
+  else { helper = (depth0 && depth0.title); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
+  buffer += escapeExpression(stack1)
+    + "</h1>\n</header>";
+  return buffer;
+  });
+
+this["tpl"]["enroute"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+  this.compilerInfo = [4,'>= 1.0.0'];
+helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
+  
+
+
+  return "<header>\n	<h1>Durbuy</h1>\n</header>\n<iframe id=\"movtoshowoff\" src=\"//player.vimeo.com/video/98354259?api=1&amp;title=0&amp;byline=0&amp;portrait=0\" width=\"100%\" height=\"100%\" frameborder=\"0\" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>\n<div id=\"closeMov\"><a href=\"\"></a></div>\n<div id=\"showMov\"><a href=\"\"></a></div>";
+  });
+
+this["tpl"]["home"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+  this.compilerInfo = [4,'>= 1.0.0'];
+helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
+  
+
+
+  return "<div id=\"city\">\n	<div class=\"rotate forwards\">\n	<div class=\"red car\"></div>\n	<div class=\"yellow car\"></div>\n</div>\n<div class=\"rotate reverse\">\n	<div class=\"white car\"></div>\n</div>\n	<div id=\"city_top\"></div>\n</div>\n<div id=\"forest\"></div>\n<div id=\"scalable\">\n	<div id=\"text_city\"></div>\n	<div id=\"river\"></div>\n	<div id=\"daySelector\">\n		<span class=\"handle\"></span>\n		<span class=\"select\"></span>\n		<span class=\"month\">\n			<span>juni</span>\n		</span>\n	</div>\n	<div id=\"durbuy\">\n		<nav id=\"days\">\n			<header>\n				<h1>Dagen</h1>\n			</header>\n			<ul></ul>\n		</nav>\n		<audio id=\"toctoc\">\n			<source src=\"assets/toctoc.mp3\" type=\"audio/mpeg; codecs='mp3'\">\n			<source src=\"assets/toctoc.ogg\" type=\"audio/ogg; codecs='vorbis'\">\n		</audio>\n	</div>\n</div>\n<a href=\"\" id=\"toggleAudio\" class=\"play\"></a>\n<audio id=\"ambient_birds\" autoplay loop>\n	<source src=\"assets/ambient_birds.mp3\" type=\"audio/mpeg; codecs='mp3'\">\n	<source src=\"assets/ambient_birds.ogg\" type=\"audio/ogg; codecs='vorbis'\">\n</audio>";
+  });
+
+this["tpl"]["info"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+  this.compilerInfo = [4,'>= 1.0.0'];
+helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
+  
+
+
+  return "<header>\n	<h1>En Route</h1>\n</header>\n<div class=\"border_shadow\">\n	<p>\n		En Route daagt je uit om gedurende één dag de stad anders te bekijken en te beleven. Samen met een kunstdocent ga je op ontdekkingsreis door de pittoreske straatjes van Durbuy.\n	</p>\n	<div class=\"border_right\"></div>\n	<div class=\"border_bottom\"></div>\n	<div class=\"border_connection\"></div>\n	<div class=\"speech\"></div>\n</div>";
+  });
+
+this["tpl"]["tickets"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   var buffer = "", stack1, helper, options, helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression, functionType="function", self=this;
@@ -203,7 +280,9 @@ function program6(depth0,data) {
   buffer += "    <header>\n    	<h1>Ticket bestellen</h1>\n    </header>\n    <div class=\"info_wrapper\">\n        <div class=\"border_shadow\">\n            <p>\n                En Route daagt je uit om gedurende één dag de stad anders te bekijken en te beleven. Samen met een kunstdocent ga je op ontdekkingsreis door de pittoreske straatjes van Durbuy.\n            </p>\n            <div class=\"border_right\"></div>\n            <div class=\"border_bottom\"></div>\n            <div class=\"border_connection\"></div>\n            <div class=\"speech\"></div>\n        </div>\n    </div>\n    ";
   stack1 = helpers['if'].call(depth0, (depth0 && depth0.days), {hash:{},inverse:self.noop,fn:self.program(1, program1, data),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "\n    <form method=\"post\" action=\"\">\n    	";
+  buffer += "\n    <h2>Tickets voor "
+    + escapeExpression((helper = helpers.formatFullDate || (depth0 && depth0.formatFullDate),options={hash:{},data:data},helper ? helper.call(depth0, ((stack1 = (depth0 && depth0.ticket)),stack1 == null || stack1 === false ? stack1 : stack1.title), options) : helperMissing.call(depth0, "formatFullDate", ((stack1 = (depth0 && depth0.ticket)),stack1 == null || stack1 === false ? stack1 : stack1.title), options)))
+    + "</h2>\n    <form method=\"post\" action=\"\">\n    	";
   stack1 = (helper = helpers.ifTypeIsPublic || (depth0 && depth0.ifTypeIsPublic),options={hash:{},inverse:self.noop,fn:self.program(4, program4, data),data:data},helper ? helper.call(depth0, ((stack1 = (depth0 && depth0.ticket)),stack1 == null || stack1 === false ? stack1 : stack1.type), options) : helperMissing.call(depth0, "ifTypeIsPublic", ((stack1 = (depth0 && depth0.ticket)),stack1 == null || stack1 === false ? stack1 : stack1.type), options));
   if(stack1 || stack1 === 0) { buffer += stack1; }
   buffer += "\n        ";
@@ -211,87 +290,14 @@ function program6(depth0,data) {
   if(stack1 || stack1 === 0) { buffer += stack1; }
   buffer += "\n\n      <div>\n          <input type=\"submit\" name=\"btnSubmit\" value=\"Bestel\"/>\n      </div>\n  </form>";
   return buffer;
-  }));
-
-this["tpl"]["admin"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
-  this.compilerInfo = [4,'>= 1.0.0'];
-helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
-  var buffer = "", stack1, functionType="function", escapeExpression=this.escapeExpression, helperMissing=helpers.helperMissing, self=this;
-
-function program1(depth0,data) {
-  
-  var buffer = "", stack1, helper, options;
-  buffer += "\n		<li><a href=\"\" class=\"day\" data-day-id=\"";
-  if (helper = helpers.id) { stack1 = helper.call(depth0, {hash:{},data:data}); }
-  else { helper = (depth0 && depth0.id); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
-  buffer += escapeExpression(stack1)
-    + "\" data-month=\""
-    + escapeExpression((helper = helpers.getMonth || (depth0 && depth0.getMonth),options={hash:{},data:data},helper ? helper.call(depth0, (depth0 && depth0.title), options) : helperMissing.call(depth0, "getMonth", (depth0 && depth0.title), options)))
-    + "\">"
-    + escapeExpression((helper = helpers.formatDate || (depth0 && depth0.formatDate),options={hash:{},data:data},helper ? helper.call(depth0, (depth0 && depth0.title), options) : helperMissing.call(depth0, "formatDate", (depth0 && depth0.title), options)))
-    + "</a></li>\n		";
-  return buffer;
-  }
-
-  buffer += "<header>\n	<h1>Admin</h1>\n</header>\n<nav>\n	<header>\n		<h1>Dagen</h1>\n	</header>\n	<ul id=\"selectDay\">\n		";
-  stack1 = helpers.each.call(depth0, (depth0 && depth0.days), {hash:{},inverse:self.noop,fn:self.program(1, program1, data),data:data});
-  if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "\n	</ul>\n</nav>\n<ul id=\"contentTypes\">\n	<li><a href=\"\" class=\"contentType\" data-content-type=\"buildings\">Gebouwen</a></li>\n	<li><a href=\"\" class=\"contentType\" data-content-type=\"biggiesmalls\">Foto's</a></li>\n</ul>";
-  return buffer;
-  });
-
-this["tpl"]["admincontent"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
-  this.compilerInfo = [4,'>= 1.0.0'];
-helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
-  
-
-
-  return "    <header>\n        <h1>Beheer content</h1>\n    </header>\n    <ul id=\"list_content\"></ul>";
-  });
-
-this["tpl"]["content"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
-  this.compilerInfo = [4,'>= 1.0.0'];
-helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
-  
-
-
-  return "<header>\n	<h1>Content</h1>\n</header>\n<a href=\"\" class=\"close\"></a>\n<nav>\n	<header>\n		<h1>Navigatie</h1>\n	</header>\n	<ul>\n		<li><a href=\"\" data-content=\"info\">En Route</a></li>\n		<li><a href=\"\" data-content=\"tickets\">Tickets</a></li>\n		<li><a href=\"\" data-content=\"contact\">Contact</a></li>\n	</ul>\n</nav>\n<div class=\"clear\"></div>";
-  });
-
-this["tpl"]["day"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
-  this.compilerInfo = [4,'>= 1.0.0'];
-helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
-  var buffer = "", stack1, helper, functionType="function", escapeExpression=this.escapeExpression;
-
-
-  buffer += "<header>\n	<h1>";
-  if (helper = helpers.title) { stack1 = helper.call(depth0, {hash:{},data:data}); }
-  else { helper = (depth0 && depth0.title); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
-  buffer += escapeExpression(stack1)
-    + "</h1>\n</header>";
-  return buffer;
-  });
-
-this["tpl"]["enroute"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
-  this.compilerInfo = [4,'>= 1.0.0'];
-helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
-  
-
-
-  return "<header>\n	<h1>Durbuy</h1>\n</header>";
-  });
-
-this["tpl"]["home"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
-  this.compilerInfo = [4,'>= 1.0.0'];
-helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
-  
-
-
-  return "<div id=\"city\">\n	<div class=\"rotate forwards\">\n	<div class=\"red car\"></div>\n	<div class=\"yellow car\"></div>\n</div>\n<div class=\"rotate reverse\">\n	<div class=\"white car\"></div>\n</div>\n	<div id=\"city_top\"></div>\n</div>\n<div id=\"forest\"></div>\n<div id=\"scalable\">\n	<div id=\"text_city\"></div>\n	<div id=\"river\"></div>\n	<div id=\"daySelector\">\n		<span class=\"handle\"></span>\n		<span class=\"select\"></span>\n		<span class=\"month\">\n			<span>juni</span>\n		</span>\n	</div>\n	<div id=\"durbuy\">\n		<nav id=\"days\">\n			<header>\n				<h1>Dagen</h1>\n			</header>\n			<ul></ul>\n		</nav>\n		<audio id=\"toctoc\">\n			<source src=\"assets/toctoc.mp3\" type=\"audio/mpeg; codecs='mp3'\">\n			<source src=\"assets/toctoc.ogg\" type=\"audio/ogg; codecs='vorbis'\">\n		</audio>\n	</div>\n</div>\n<a href=\"\" id=\"toggleAudio\" class=\"play\"></a>\n<audio id=\"ambient_birds\"> <!-- autoplay loop -->\n	<source src=\"assets/ambient_birds.mp3\" type=\"audio/mpeg; codecs='mp3'\">\n	<source src=\"assets/ambient_birds.ogg\" type=\"audio/ogg; codecs='vorbis'\">\n</audio>";
   });
 
 Handlebars.registerHelper('formatDate', function (date) {
     return moment(date).format('D');
+});
+
+Handlebars.registerHelper('formatFullDate', function (date) {
+    return moment(date).format('dddd D MMMM');
 });
 
 Handlebars.registerHelper('getMonth', function (date) {
@@ -976,6 +982,7 @@ var DayView = Backbone.View.extend({
 /* globals HomeView:true */
 /* globals Days:true */
 /* globals DayView:true */
+/* globals $f:true */
 var EnRouteApp = Backbone.View.extend({
     id: 'container',
     tagName: 'div',
@@ -999,21 +1006,44 @@ var EnRouteApp = Backbone.View.extend({
         this.homeView.on('day_selected', this.showDay);
     },
 
+    events: {
+        'click #showMov a': 'toggleMov',
+        'click #closeMov a': 'toggleMov'
+    },
+
+    toggleMov: function(e) {
+        e.preventDefault();
+        $('#home, #day').toggle();
+        $('#showMov').toggleClass('hide');
+        $('#closeMov').toggleClass('show');
+        $('#movtoshowoff').toggle();
+        var iframe = document.getElementById('movtoshowoff');
+        var player = $f(iframe);
+        if($('#closeMov').hasClass('show')) {
+            player.api('play');
+        } else {
+            player.api('pause');
+        }
+    },
+
     showDay: function(day) {
         console.log('[EnRouteApp]', day);
-        if(day !== this.currentDay) {
+        if (day !== this.currentDay) {
             $('#day').remove();
-            var dayView = new DayView({model: this.days.findWhere({title: day})});
+            var dayView = new DayView({
+                model: this.days.findWhere({
+                    title: day
+                })
+            });
             this.currentDay = day;
             this.$el.append(dayView.render().$el);
-            Backbone.history.navigate('dag/'+ day);
+            Backbone.history.navigate('dag/' + day);
         }
     },
 
     render: function() {
         this.$el.html(this.template());
         this.$el.append('<div id="noise"></div>');
-        this.$el.append('<div id="night"></div>');
         this.$el.append(this.contentView.render().$el);
         this.$el.append(this.homeView.render().$el);
         return this;
@@ -1081,6 +1111,8 @@ var HomeView = Backbone.View.extend({
         return this;
     },
 
+    // Code below should be optimized.. should be.
+
     createForest: function() {
         var step = 360 / 60;
         var x, y, z, angle, zoom;
@@ -1121,7 +1153,7 @@ var HomeView = Backbone.View.extend({
         var radius = $('#durbuy').width() / 2 + 90;
         var x, y, angle, date, textAlignment;
         var disabled = '';
-        var todaysDate = new Date();
+        var todaysDate = new Date(moment().format('YYYY-MM-DD'));
         for (var i = 0; i < this.collection.length; i++) {
             date = new Date(this.collection.at(i).get('title'));
             angle = -((step * (i + 1)) * (Math.PI / 180) + 160);
@@ -1246,9 +1278,14 @@ var HomeView = Backbone.View.extend({
 
     getMatrix: function(matrix) {
         var returnMatrix = matrix.split('(')[1];
-            returnMatrix = returnMatrix.split(')')[0];
-            returnMatrix = returnMatrix.split(',');
-            return {a: returnMatrix[0], b: returnMatrix[1], c: returnMatrix[2], d: returnMatrix[3]};
+        returnMatrix = returnMatrix.split(')')[0];
+        returnMatrix = returnMatrix.split(',');
+        return {
+            a: returnMatrix[0],
+            b: returnMatrix[1],
+            c: returnMatrix[2],
+            d: returnMatrix[3]
+        };
     },
 
     calculateRadians: function(offset, $target, object_x, object_y) {
@@ -1439,7 +1476,7 @@ var TicketsView = Backbone.View.extend({
         this.filteredCollection = this.collection.filter(function(day) {
             return new Date(day.get('title')) >= new Date();
         });
-        //this.collection.reset(this.filteredCollection);
+
         this.filteredCollection = new Days(this.filteredCollection);
         if (!this.currentTicket) {
             this.currentTicket = this.filteredCollection.first();
@@ -1500,7 +1537,7 @@ var TicketsView = Backbone.View.extend({
                         model: 'Dag ' + response.name + ', je hebt succesvol ' + response.tickets + ' tickets besteld voor de workshop op ' + response.tickets.title + '!'
                     });
                     self.$el.find('#txtName, #txtEmail').val('');
-                    self.$el.append(successView.render().$el);
+                    self.$el.find('form').append(successView.render().$el);
                 },
                 error: function(model, response) {
                     console.log('[TicketView] generated 500 error code');

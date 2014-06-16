@@ -16,7 +16,7 @@ var TicketsView = Backbone.View.extend({
         this.filteredCollection = this.collection.filter(function(day) {
             return new Date(day.get('title')) >= new Date();
         });
-        //this.collection.reset(this.filteredCollection);
+
         this.filteredCollection = new Days(this.filteredCollection);
         if (!this.currentTicket) {
             this.currentTicket = this.filteredCollection.first();
@@ -77,7 +77,7 @@ var TicketsView = Backbone.View.extend({
                         model: 'Dag ' + response.name + ', je hebt succesvol ' + response.tickets + ' tickets besteld voor de workshop op ' + response.tickets.title + '!'
                     });
                     self.$el.find('#txtName, #txtEmail').val('');
-                    self.$el.append(successView.render().$el);
+                    self.$el.find('form').append(successView.render().$el);
                 },
                 error: function(model, response) {
                     console.log('[TicketView] generated 500 error code');

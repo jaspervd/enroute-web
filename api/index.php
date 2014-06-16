@@ -71,7 +71,7 @@ $app->get('/buildings/day/:day_id/?', function ($day_id) use ($buildingsDAO) {
 
 $app->post('/buildings/?', function () use ($app, $buildingsDAO, $daysDAO) {
     header('Content-Type: application/json');
-    $currentDay = $daysDAO->getDayByDate('2014-06-16');
+    $currentDay = $daysDAO->getDayByDate(date('Y-m-d'));
     if (empty($currentDay)) {
         header('HTTP/1.1 500 Internal Server Error');
         echo json_encode('Can\'t upload on an invalid date.');
@@ -142,10 +142,7 @@ $app->put('/buildings/:id/?', function ($id) use ($app, $buildingsDAO) {
 $app->get('/biggiesmalls/day/?', function () use ($biggieSmallsDAO, $daysDAO) {
     header('Content-Type: application/json');
     $currentDay = $daysDAO->getDayByDate(date('Y-m-d'));
-    if (empty($currentDay)) {
-        $currentDay['id'] = 11;
-    }
-    echo json_encode($biggieSmallsDAO->getBiggieSmallsByDay(11));
+    echo json_encode($biggieSmallsDAO->getBiggieSmallsByDay($currentDay['id']));
     exit();
 });
 
@@ -163,7 +160,7 @@ $app->get('/biggiesmalls/:id/?', function ($id) use ($biggieSmallsDAO) {
 
 $app->post('/biggiesmalls/?', function () use ($app, $biggieSmallsDAO, $daysDAO) {
     header('Content-Type: application/json');
-    $currentDay = $daysDAO->getDayByDate('2014-06-16');
+    $currentDay = $daysDAO->getDayByDate(date('Y-m-d'));
     if (empty($currentDay)) {
         header('HTTP/1.1 500 Internal Server Error');
         echo json_encode('Can\'t upload on an invalid date.');
@@ -240,7 +237,7 @@ $app->post('/contact/?', function () use ($app) {
             echo 'true';
         } else {
             header('HTTP/1.1 500 Internal Server Error');
-            echo json_encode(array('errors', array('mail', 'Er is iets misgegaan tijdens ')));
+            echo json_encode(array('errors', array('mail', 'Er is iets misgegaan tijdens het versturen van de mail.')));
         }
     } else {
         header('HTTP/1.1 500 Internal Server Error');
