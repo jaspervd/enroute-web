@@ -812,36 +812,56 @@ form .range input {
   left: 50%;
   position: absolute;
   z-index: 4444;
+  margin-left: 14px;
+  margin-top: -14px;
 }
-/* line 593, ../_scss/screen.scss */
+/* line 595, ../_scss/screen.scss */
 #day .building {
-  background-color: #b2463f;
   width: 80px;
-  height: 200px;
   position: absolute;
-  margin-left: -40px;
   -webkit-transition: all 1s ease;
   -moz-transition: all 1s ease;
   -o-transition: all 1s ease;
   transition: all 1s ease;
   margin-top: -100px;
+  margin-left: -50px;
   -webkit-transform-origin: 50% 100px;
   -moz-transform-origin: 50% 100px;
   -ms-transform-origin: 50% 100px;
   -o-transform-origin: 50% 100px;
   transform-origin: 50% 100px;
 }
-/* line 603, ../_scss/screen.scss */
-#day .building.show {
-  margin-top: -320px !important;
-  -webkit-transform-origin: 50% 320px;
-  -moz-transform-origin: 50% 320px;
-  -ms-transform-origin: 50% 320px;
-  -o-transform-origin: 50% 320px;
-  transform-origin: 50% 320px;
+/* line 604, ../_scss/screen.scss */
+#day .wrapper {
+  background-color: #fccd47;
+  width: 80px;
+  position: absolute;
+  padding: 5px 5px 30px;
+}
+/* line 610, ../_scss/screen.scss */
+#day .wrapper .border_bottom {
+  width: 14px;
+  height: 100%;
+  border-left: solid 14px #bf9426;
+  border-top: solid 14px transparent;
+  position: absolute;
+  bottom: -14px;
+  right: -28px;
+}
+/* line 620, ../_scss/screen.scss */
+#day .wrapper .layer {
+  padding-top: 5px;
+}
+/* line 623, ../_scss/screen.scss */
+#day .wrapper .layer:first-child {
+  padding-top: 0;
+}
+/* line 628, ../_scss/screen.scss */
+#day .wrapper video {
+  width: 100%;
 }
 
-/* line 612, ../_scss/screen.scss */
+/* line 636, ../_scss/screen.scss */
 #river {
   background-image: url("../images/river.png");
   width: 370px;
@@ -857,14 +877,14 @@ form .range input {
   animation: rotateCircle 340s infinite;
 }
 
-/* line 629, ../_scss/screen.scss */
+/* line 653, ../_scss/screen.scss */
 #forest {
   width: 70%;
   position: absolute;
   left: 50%;
   top: 50%;
 }
-/* line 635, ../_scss/screen.scss */
+/* line 659, ../_scss/screen.scss */
 #forest .rocks {
   background: url("../images/rocks.svg") no-repeat;
   background-size: 195px 154px;
@@ -872,7 +892,7 @@ form .range input {
   height: 154px;
   position: absolute;
 }
-/* line 643, ../_scss/screen.scss */
+/* line 667, ../_scss/screen.scss */
 #forest .tree {
   background: no-repeat;
   background-size: 100%;
@@ -883,28 +903,28 @@ form .range input {
   -o-transition: margin 1s ease;
   transition: margin 1s ease;
 }
-/* line 650, ../_scss/screen.scss */
+/* line 674, ../_scss/screen.scss */
 #forest .tree.type1 {
   background-image: url("../images/tree_1.svg");
   height: 75px;
 }
-/* line 655, ../_scss/screen.scss */
+/* line 679, ../_scss/screen.scss */
 #forest .tree.type2 {
   background-image: url("../images/tree_2.svg");
   height: 93px;
 }
-/* line 660, ../_scss/screen.scss */
+/* line 684, ../_scss/screen.scss */
 #forest .tree.type3 {
   background-image: url("../images/tree_3.svg");
   height: 87px;
 }
-/* line 665, ../_scss/screen.scss */
+/* line 689, ../_scss/screen.scss */
 #forest .tree.type4 {
   background-image: url("../images/tree_4.svg");
   height: 87px;
 }
 
-/* line 674, ../_scss/screen.scss */
+/* line 698, ../_scss/screen.scss */
 #city {
   background: url("../images/city.svg") no-repeat;
   background-size: 100% 100%;
@@ -914,13 +934,13 @@ form .range input {
   left: 50%;
   top: 50%;
 }
-/* line 683, ../_scss/screen.scss */
+/* line 707, ../_scss/screen.scss */
 #city:before {
   content: "";
   display: block;
   padding-top: 100%;
 }
-/* line 689, ../_scss/screen.scss */
+/* line 713, ../_scss/screen.scss */
 #city .rotate {
   -webkit-animation: rotateCircle 35s infinite linear;
   -moz-animation: rotateCircle 35s infinite linear;
@@ -930,7 +950,7 @@ form .range input {
   top: 50%;
   left: 50%;
 }
-/* line 698, ../_scss/screen.scss */
+/* line 722, ../_scss/screen.scss */
 #city .rotate.forwards {
   -webkit-animation: rotateCircle reverse 49s infinite linear;
   -moz-animation: rotateCircle reverse 49s infinite linear;
@@ -939,12 +959,12 @@ form .range input {
   width: 75%;
   margin-left: -38%;
 }
-/* line 707, ../_scss/screen.scss */
+/* line 731, ../_scss/screen.scss */
 #city .rotate.reverse {
   width: 68%;
   margin-left: -34%;
 }
-/* line 713, ../_scss/screen.scss */
+/* line 737, ../_scss/screen.scss */
 #city .car {
   background-repeat: no-repeat;
   width: 100px;
@@ -952,7 +972,7 @@ form .range input {
   background-size: 100px 61px;
   position: absolute;
 }
-/* line 720, ../_scss/screen.scss */
+/* line 744, ../_scss/screen.scss */
 #city .car.red {
   background-image: url("../images/car_red.svg");
   left: 0;
@@ -962,7 +982,7 @@ form .range input {
   -o-transform: rotate(90deg);
   transform: rotate(90deg);
 }
-/* line 726, ../_scss/screen.scss */
+/* line 750, ../_scss/screen.scss */
 #city .car.yellow {
   background-image: url("../images/car_yellow.svg");
   right: 0;
@@ -972,7 +992,7 @@ form .range input {
   -o-transform: rotate(-90deg);
   transform: rotate(-90deg);
 }
-/* line 732, ../_scss/screen.scss */
+/* line 756, ../_scss/screen.scss */
 #city .car.white {
   background-image: url("../images/car_white.svg");
   top: 0;
@@ -982,7 +1002,7 @@ form .range input {
   -o-transform: rotate(270deg);
   transform: rotate(270deg);
 }
-/* line 739, ../_scss/screen.scss */
+/* line 763, ../_scss/screen.scss */
 #city #city_top {
   background: url("../images/city_top.svg") no-repeat;
   position: absolute;

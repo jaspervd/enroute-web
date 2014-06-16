@@ -1,12 +1,19 @@
+<div class="wrapper">
+<div class="border_shadow">
 {{#each video_urls}}
-<video controls loop>
-  <source src="uploads/{{this}}.mp4" type="video/mp4; codecs='avc1.42E01E, mp4a.40.2'">
-  <source src="uploads/{{this}}.ogg" type="video/webm;codecs='vp8, vorbis'">
-</video>
+	<div class="layer">
+		<video loop>
+		  <source src="uploads/{{this}}.mp4" type="video/mp4; codecs='avc1.42E01E, mp4a.40.2'">
+		  <source src="uploads/{{this}}.ogg" type="video/webm;codecs='vp8, vorbis'">
+		</video>
+	</div>
 {{/each}}
+	<div class="border_bottom"></div>
+</div>
 {{#each audio_urls}}
-<audio controls loop>
+<audio loop>
 	<source src="uploads/{{this}}.mp3" type="audio/mpeg; codecs='mp3'">
 	<source src="uploads/{{this}}.ogg" type="audio/ogg; codecs='vorbis'">
 </audio>
 {{/each}}
+</div>

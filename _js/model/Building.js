@@ -6,7 +6,6 @@ var Building = Backbone.Model.extend({
         day_id: null,
         video_urls: undefined,
         audio_urls: undefined,
-        height: null,
         approved: 0,
         uploaded_date: undefined
     },

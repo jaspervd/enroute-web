@@ -60,13 +60,12 @@ class BuildingsDAO {
         return array();
     }
 
-    public function insertBuilding($day_id, $videoUrls, $audioUrls, $height) {
-        $sql = "INSERT INTO `enroute_buildings` (`day_id`, `video_urls`, `audio_urls`, `height`) VALUES (:day_id, :video_urls, :audio_urls, :height)";
+    public function insertBuilding($day_id, $videoUrls, $audioUrls) {
+        $sql = "INSERT INTO `enroute_buildings` (`day_id`, `video_urls`, `audio_urls`) VALUES (:day_id, :video_urls, :audio_urls)";
         $stmt = $this->pdo->prepare($sql);
         $stmt->bindValue('day_id', $day_id);
         $stmt->bindValue('video_urls', $videoUrls);
         $stmt->bindValue('audio_urls', $audioUrls);
-        $stmt->bindValue('height', $height);
         if ($stmt->execute()) {
             return $this->getBuildingById($this->pdo->lastInsertId());
         }

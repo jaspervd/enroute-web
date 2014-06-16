@@ -6,7 +6,7 @@ Handlebars.registerHelper('formatDate', function (date) {
 Handlebars.registerHelper('returnAvailability', function (date, tickets) {
     if (new Date(date) <= new Date()) {
         return ' past';
-    } else if(tickets === 0) {
+    } else if(parseInt(tickets) === 0) {
         return ' soldout';
     } else {
         return ' available';

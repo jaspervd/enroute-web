@@ -34,18 +34,18 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 function program1(depth0,data) {
   
   var buffer = "";
-  buffer += "\n<video controls loop>\n  <source src=\"uploads/"
+  buffer += "\n	<div class=\"layer\">\n		<video loop>\n		  <source src=\"uploads/"
     + escapeExpression((typeof depth0 === functionType ? depth0.apply(depth0) : depth0))
-    + ".mp4\" type=\"video/mp4; codecs='avc1.42E01E, mp4a.40.2'\">\n  <source src=\"uploads/"
+    + ".mp4\" type=\"video/mp4; codecs='avc1.42E01E, mp4a.40.2'\">\n		  <source src=\"uploads/"
     + escapeExpression((typeof depth0 === functionType ? depth0.apply(depth0) : depth0))
-    + ".ogg\" type=\"video/webm;codecs='vp8, vorbis'\">\n</video>\n";
+    + ".ogg\" type=\"video/webm;codecs='vp8, vorbis'\">\n		</video>\n	</div>\n";
   return buffer;
   }
 
 function program3(depth0,data) {
   
   var buffer = "";
-  buffer += "\n<audio controls loop>\n	<source src=\"uploads/"
+  buffer += "\n<audio loop>\n	<source src=\"uploads/"
     + escapeExpression((typeof depth0 === functionType ? depth0.apply(depth0) : depth0))
     + ".mp3\" type=\"audio/mpeg; codecs='mp3'\">\n	<source src=\"uploads/"
     + escapeExpression((typeof depth0 === functionType ? depth0.apply(depth0) : depth0))
@@ -53,11 +53,13 @@ function program3(depth0,data) {
   return buffer;
   }
 
+  buffer += "<div class=\"wrapper\">\n<div class=\"border_shadow\">\n";
   stack1 = helpers.each.call(depth0, (depth0 && depth0.video_urls), {hash:{},inverse:self.noop,fn:self.program(1, program1, data),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "\n";
+  buffer += "\n	<div class=\"border_bottom\"></div>\n</div>\n";
   stack1 = helpers.each.call(depth0, (depth0 && depth0.audio_urls), {hash:{},inverse:self.noop,fn:self.program(3, program3, data),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
+  buffer += "\n</div>";
   return buffer;
   }));
 
@@ -237,7 +239,7 @@ Handlebars.registerHelper('formatDate', function (date) {
 Handlebars.registerHelper('returnAvailability', function (date, tickets) {
     if (new Date(date) <= new Date()) {
         return ' past';
-    } else if(tickets === 0) {
+    } else if(parseInt(tickets) === 0) {
         return ' soldout';
     } else {
         return ' available';
@@ -329,7 +331,6 @@ var Building = Backbone.Model.extend({
         day_id: null,
         video_urls: undefined,
         audio_urls: undefined,
-        height: null,
         approved: 0,
         uploaded_date: undefined
     },
@@ -387,6 +388,7 @@ var AppRouter = Backbone.Router.extend({
     routes: {
         '': 'home',
         'home/': 'home',
+        'home/:day': 'homeDayView',
         'admin/': 'admin',
         'admin/:day': 'adminDayView',
         '*path': 'home'
@@ -395,6 +397,14 @@ var AppRouter = Backbone.Router.extend({
     home: function () {
         console.log('[AppRouter] home()');
         this.enRouteApp = new EnRouteApp();
+        $('#container').remove();
+        $('body').prepend(this.enRouteApp.render().$el);
+    },
+
+    homeDayView: function (day) {
+        console.log('[AppRouter] homeDayView()');
+        this.enRouteApp = new EnRouteApp();
+        this.enRouteApp.showDay(day);
         $('#container').remove();
         $('body').prepend(this.enRouteApp.render().$el);
     },
@@ -579,6 +589,41 @@ var BuildingView = Backbone.View.extend({
         _.bindAll.apply(_, [this].concat(_.functions(this)));
     },
 
+    events: {
+        'mouseenter .wrapper': 'playVideos',
+        'mouseleave .wrapper': 'stopVideos',
+        'mouseenter .layer': 'playSound',
+        'mouseleave .layer': 'stopSound'
+    },
+
+    playVideos: function(e) {
+        console.log('[BuildingView] playVideos()');
+        this.$el.find('video').each(function() {
+            this.play();
+        });
+    },
+
+    stopVideos: function(e) {
+        console.log('[BuildingView] stopVideos()');
+        this.$el.find('video').each(function() {
+            this.pause();
+        });
+    },
+
+    playSound: function(e) {
+        console.log('[BuildingView] playSound()', e.currentTarget);
+        var index = this.$el.find('.layer').index($(e.currentTarget));
+
+        this.$el.find('audio').eq(index).get(0).play();
+    },
+
+    stopSound: function(e) {
+        console.log('[BuildingView] playSound()', e.currentTarget);
+        var index = this.$el.find('.layer').index($(e.currentTarget));
+
+        this.$el.find('audio').eq(index).get(0).pause();
+    },
+
     render: function () {
         this.$el.html(this.template(this.model.toJSON()));
         return this;
@@ -678,14 +723,21 @@ var DayView = Backbone.View.extend({
         var step = 360 / this.buildings.length;
         var degree;
         for (var i = 0; i < this.buildings.length; i++) {
-            var buildingView = new BuildingView({model: this.buildings.at(i)});
-            console.log(this.buildings.at(i));
+            var buildingView = new BuildingView({
+                model: this.buildings.at(i)
+            });
             this.$el.append(buildingView.render().$el);
             this.$el.find('.building:last').css('transform', 'rotate(' + (step * i) + 'deg)');
         }
 
-        setTimeout(function(){
-            $('body').find('.building').addClass("show");
+        var fixPosition = $('#durbuy').height() / 2 + 30;
+        setTimeout(function() {
+            $.each($('.building'), function(building) {
+                $(this).css({
+                    'margin-top': -($(this).find('.wrapper').height()) - fixPosition  + 'px',
+                    'transform-origin-y': $(this).find('.wrapper').height() + fixPosition + 'px'
+                });
+            });
         }, 200); // current way to solve animation after added to the dom
 
         return this;
@@ -1157,9 +1209,11 @@ var TicketsView = Backbone.View.extend({
             return new Date(day.get('title')) >= new Date();
         });
         this.collection.reset(this.filteredCollection);
-        if(!this.currentTicket) {
+        if (!this.currentTicket) {
             this.currentTicket = this.collection.first();
         }
+
+        this.collection.on('sync reset', this.render);
     },
 
     events: {
@@ -1241,25 +1295,25 @@ var TicketsView = Backbone.View.extend({
                             self.$el.find($elToInsertAfter).after(errorView.render().$el);
                         }
                     });
-}
-});
-}
-},
+                }
+            });
+        }
+    },
 
-validateName: function(e) {
-    Validate.fullName(e.currentTarget);
-},
+    validateName: function(e) {
+        Validate.fullName(e.currentTarget);
+    },
 
-validateEmail: function(e) {
-    Validate.email(e.currentTarget);
-},
+    validateEmail: function(e) {
+        Validate.email(e.currentTarget);
+    },
 
-clean: function() {
-    $('.success').remove();
-    $('.error').remove();
-},
+    clean: function() {
+        $('.success').remove();
+        $('.error').remove();
+    },
 
-render: function() {
+    render: function() {
         this.$el.html(this.template({
             days: this.collection.toJSON(),
             ticket: this.currentTicket.toJSON()
@@ -1268,7 +1322,9 @@ render: function() {
         var selectTicket = this.$el.find('#selectTicket');
         var self = this;
         selectTicket.on('mousemove', function(e) {
-            selectTicket.css({'width': self.collection.length * (self.$el.find('.day').parent().width() + 10) + 100});
+            selectTicket.css({
+                'width': self.collection.length * (self.$el.find('.day').parent().width() + 10) + 100
+            });
             var x = -(((e.pageX - $('#selectTicket').position().left) / $("#tickets").width()) * ($("#selectTicket").width() + parseInt($("#selectTicket").css('paddingLeft')) + parseInt($("#selectTicket").css('paddingRight')) - $("#tickets").width()));
             $("#selectTicket").css({
                 'marginLeft': x + 'px'

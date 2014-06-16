@@ -16,9 +16,11 @@ var TicketsView = Backbone.View.extend({
             return new Date(day.get('title')) >= new Date();
         });
         this.collection.reset(this.filteredCollection);
-        if(!this.currentTicket) {
+        if (!this.currentTicket) {
             this.currentTicket = this.collection.first();
         }
+
+        this.collection.on('sync reset', this.render);
     },
 
     events: {
@@ -100,25 +102,25 @@ var TicketsView = Backbone.View.extend({
                             self.$el.find($elToInsertAfter).after(errorView.render().$el);
                         }
                     });
-}
-});
-}
-},
+                }
+            });
+        }
+    },
 
-validateName: function(e) {
-    Validate.fullName(e.currentTarget);
-},
+    validateName: function(e) {
+        Validate.fullName(e.currentTarget);
+    },
 
-validateEmail: function(e) {
-    Validate.email(e.currentTarget);
-},
+    validateEmail: function(e) {
+        Validate.email(e.currentTarget);
+    },
 
-clean: function() {
-    $('.success').remove();
-    $('.error').remove();
-},
+    clean: function() {
+        $('.success').remove();
+        $('.error').remove();
+    },
 
-render: function() {
+    render: function() {
         this.$el.html(this.template({
             days: this.collection.toJSON(),
             ticket: this.currentTicket.toJSON()
@@ -127,7 +129,9 @@ render: function() {
         var selectTicket = this.$el.find('#selectTicket');
         var self = this;
         selectTicket.on('mousemove', function(e) {
-            selectTicket.css({'width': self.collection.length * (self.$el.find('.day').parent().width() + 10) + 100});
+            selectTicket.css({
+                'width': self.collection.length * (self.$el.find('.day').parent().width() + 10) + 100
+            });
             var x = -(((e.pageX - $('#selectTicket').position().left) / $("#tickets").width()) * ($("#selectTicket").width() + parseInt($("#selectTicket").css('paddingLeft')) + parseInt($("#selectTicket").css('paddingRight')) - $("#tickets").width()));
             $("#selectTicket").css({
                 'marginLeft': x + 'px'
